@@ -120,6 +120,27 @@ function build() {
   const readings = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'readings.json'), 'utf8')).readings ?? {};
   // FF11用語辞典の記事の番号 (装備の名前 -> 番号)。装備の説明からページを開けるようにする
   const pages = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'pages.json'), 'utf8')).pages ?? {};
+  // 頭に「真」「極」が付く名前は、和名の装備の HQ (+2・+3)。その名前の記事や読みが無いときは、元の名前のものを使う
+  // (読みは、真 = しん、極 = ごく を頭に付ける。用語辞典の「真左近士〜 = しんさこんじ〜」「極春日〜 = ごくかすが〜」と同じ形)
+  const HQ_PREFIX = { 真: 'しん', 極: 'ごく' };
+  const pageKeys = Object.keys(pages);
+  const pageOf = (name) => {
+    if (pages[name]) return pages[name];
+    const plain = HQ_PREFIX[name[0]] ? name.slice(1) : '';
+    if (plain && pages[plain]) return pages[plain];
+    // 「ハイドロチョッパ+1」のように、+1 で名前が縮んだもの: 縮む前の名前 (2 文字まで長いもの) が 1 つに決まれば、それを使う
+    const cut = name.replace(/\+\d+$/, '');
+    if (cut !== name) {
+      const longer = pageKeys.filter((key) => key.startsWith(cut) && key.length <= cut.length + 2 && !/\+\d+$/.test(key));
+      if (longer.length === 1) return pages[longer[0]];
+    }
+    return 0;
+  };
+  const readingOf = (name) => {
+    if (readings[name]) return readings[name];
+    const plain = HQ_PREFIX[name[0]] ? name.slice(1) : '';
+    return plain && readings[plain] ? HQ_PREFIX[name[0]] + readings[plain] : '';
+  };
   const unusedAugments = new Set(augments.keys());
 
   const statIndex = new Map(); // key -> { k, n, neg, pct, plain, flag }
@@ -229,8 +250,8 @@ function build() {
       fam: augmentOf(augments, item)?.family ?? '',
       // ランダムで付くオーグメントの幅 (手入力の目安)
       roll: rolls[item.id] ?? '',
-      yomi: readings[item.ja] ?? '',
-      page: pages[item.ja] ?? 0,
+      yomi: readingOf(item.ja),
+      page: pageOf(item.ja),
       rp: augment ? augment.rank : 0,
       stats,
     });
