@@ -11,6 +11,7 @@
 //     ├ 共通のメリポ … merits: { 項目の名前: 段階 }
 //     ├ 保存したセット … sets: [{ id, name, who: { job, sub, subLevel, food, innate }, equip: { 部位: 装備の id } }]
 //     ├ 登録したジョブマント … capes: [{ id, job, name, picks }] (picks は、アイテム 5 種ごとに選んだ項目の番号。-1 は付けない)
+//     ├ 保存した条件 … searches: [{ id, name, cond }] (cond は「セットを組む」の条件。固定する装備は含めない)
 //     ├ 同じ良さのときの重み … weights: { types: [{ id, name, stats: [{ k, w }] }], jobs: { ジョブの番号: 型の id } }
 //     ├ 手入力のオーグメント … augments: { 装備の id: 「STR+8 DEX+8 命中+12」のような文字 }
 //     └ 装備の範囲の設定 (「メイン」「復帰直後」のように複数持てる) … list と、選んでいる設定 active
@@ -147,7 +148,7 @@
   // 最初の装備の範囲の設定を 1 つ持ったキャラクター
   function createCharacter(name) {
     const first = create('メイン');
-    return { id: newId(), name, race: 'hume', jobs: {}, merits: {}, augments: {}, sets: [], capes: [], weights: defaultWeights(), active: first.id, list: [first] };
+    return { id: newId(), name, race: 'hume', jobs: {}, merits: {}, augments: {}, sets: [], capes: [], searches: [], weights: defaultWeights(), active: first.id, list: [first] };
   }
 
   function normalizeCharacter(character) {
@@ -160,6 +161,7 @@
       sets: JSON.parse(JSON.stringify(character.sets || [])),
       capes: JSON.parse(JSON.stringify(character.capes || [])),
       weights: normalizeWeights(character.weights),
+      searches: JSON.parse(JSON.stringify(character.searches || [])),
       jobs: JSON.parse(JSON.stringify(character.jobs || {})),
       // 以前はクリティカルヒット +5% の入・切だけを持っていた (crit)。段階に直して引き継ぐ
       merits: Object.assign(character.crit ? { 'クリティカルヒット': 5 } : {}, character.merits),

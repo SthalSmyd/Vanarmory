@@ -132,6 +132,7 @@
   let compareMode = 'diff'; // 'diff' = 違うところだけ、'all' = すべて
   let saving = null; // 名前を入れて保存しようとしている候補の番号
   const COMPARE_MAX = 3;
+  let activePreset = ''; // 最後に読み込んだ (か保存した) 条件の id
   const manualOpen = new Set(); // 「手で足す」の欄を開いている目標
   let restOpen = false; // 候補の「そのほかのステータス」を開いているか
 
@@ -394,7 +395,75 @@
 
   // ---- 上段の描画 ----
 
+  // ---- 条件の保存 ----
+  // 保存するのは、固定する装備を除いた条件 (ジョブ・サポ・装備以外・目標・WS後TP・選び方・同点のときの型)
+  const PRESET_KEYS = ['job', 'sub', 'subLevel', 'targets', 'objective', 'maximize', 'avoidMinus', 'food', 'innate', 'tp', 'tieType'];
+  const snapshot = () => JSON.parse(JSON.stringify(Object.fromEntries(PRESET_KEYS.map((key) => [key, state[key]]))));
+  const presetSummary = (cond) => {
+    const job = (id) => (data.jobs.find((j) => j.id === id) || {}).ja || '';
+    const goals = (cond.targets || []).filter((t) => t.goal).map((t) => `${t.k} ${t.goal}`);
+    for (const kind of TP_KINDS) if (cond.tp && cond.tp[kind.id] && cond.tp[kind.id].goal != null) goals.push(`${kind.label} ${cond.tp[kind.id].goal} 振り`);
+    const grow = cond.objective === 'max' ? (cond.maximize || []).map((m) => m.k) : [];
+    return `${job(cond.job)}${cond.sub ? ' / ' + job(cond.sub) : ''}\n目標: ${goals.join('、') || 'なし'}` + (grow.length ? `\n伸ばす: ${grow.join('、')}` : '\n少ない部位で満たす');
+  };
+  function renderPresets() {
+    const list = P.character(store).searches;
+    const now = JSON.stringify(snapshot());
+    const active = list.find((p) => p.id === activePreset);
+    const edited = !!active && JSON.stringify(active.cond) !== now;
+    const chips = list.map((preset) => {
+      const b = el('button', { type: 'button', className: 'preset' + (preset === active ? ' on' : ''), title: presetSummary(preset.cond) + '\n(押すと、この条件を読み込む)' },
+        preset.name, preset === active && edited ? el('span', { className: 'edited', textContent: ' 変更あり', title: '読み込んだあとで条件を変えています' }) : null);
+      b.addEventListener('click', () => {
+        Object.assign(state, JSON.parse(JSON.stringify(preset.cond)));
+        // ジョブが変わって装備できなくなった固定は外す
+        for (const [slot, id] of Object.entries(state.fixed)) if (!getItem(id) || !usable(getItem(id))) delete state.fixed[slot];
+        activePreset = preset.id;
+        changed();
+      });
+      return b;
+    });
+    const act = (label, title, onClick) => {
+      const b = el('button', { type: 'button', className: 'ghost', textContent: label, title });
+      b.addEventListener('click', onClick);
+      return b;
+    };
+    const save = act('＋ いまの条件を保存', 'いまの条件に名前を付けて保存する (固定する装備は含まない)', () => {
+      if (!state.job) return void ($('status').textContent = 'ジョブを選んでから保存してください。');
+      const jobName = data.jobs.find((j) => j.id === state.job).ja;
+      const name = (prompt('条件の名前', `${jobName} ${list.filter((p) => p.cond.job === state.job).length + 1}`) || '').trim();
+      if (!name) return;
+      const preset = { id: P.newId(), name, cond: snapshot() };
+      list.push(preset);
+      activePreset = preset.id;
+      changed();
+      $('status').textContent = `条件「${name}」を保存しました。`;
+    });
+    const tools = active ? [
+      edited ? act('上書き', `「${active.name}」を、いまの条件で上書きする`, () => {
+        active.cond = snapshot();
+        changed();
+        $('status').textContent = `条件「${active.name}」を上書きしました。`;
+      }) : null,
+      act('名前', `「${active.name}」の名前を変える`, () => {
+        const name = (prompt('条件の名前', active.name) || '').trim();
+        if (!name) return;
+        active.name = name;
+        changed();
+      }),
+      act('削除', `「${active.name}」を削除する`, () => {
+        if (!confirm(`保存した条件「${active.name}」を削除します。元に戻せません。`)) return;
+        P.character(store).searches = list.filter((p) => p !== active);
+        activePreset = '';
+        changed();
+      }),
+    ] : [];
+    const empty = list.length ? [] : [el('span', { className: 'hint', textContent: 'まだありません。よく使う条件を保存しておくと、ここから 1 回で呼び出せます。' })];
+    $('presets').replaceChildren(...chips, ...empty, el('span', { className: 'preset-tools' }, ...tools.filter(Boolean), save));
+  }
+
   function renderConditions() {
+    renderPresets();
     $('job').value = state.job;
     $('sub').value = state.sub;
     $('sub-level').value = state.subLevel ?? '';
@@ -1769,6 +1838,7 @@
     $('sub-level').title = 'サポートジョブのレベル。空にすると、設定の「ジョブの育成」に入れたマスターレベルから決まる値 (49 + マスターレベル ÷ 5、最大 59) を使います';
     $('chara').addEventListener('change', () => {
       store.activeChar = $('chara').value;
+      activePreset = ''; // 保存した条件は、キャラクターごと
       // キャラクターごとに、手入力のオーグメントが違う
       window.VanaAugment.apply(db, P.character(store).augments);
       compare = compare.filter((k) => k.startsWith('c'));
