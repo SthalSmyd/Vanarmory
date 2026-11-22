@@ -11,6 +11,7 @@
 //     ├ 共通のメリポ … merits: { 項目の名前: 段階 }
 //     ├ 保存したセット … sets: [{ id, name, who: { job, sub, subLevel, food, innate }, equip: { 部位: 装備の id } }]
 //     ├ 登録したジョブマント … capes: [{ id, job, name, picks }] (picks は、アイテム 5 種ごとに選んだ項目の番号。-1 は付けない)
+//     ├ 同じ良さのときの重み … weights: { types: [{ id, name, stats: [{ k, w }] }], jobs: { ジョブの番号: 型の id } }
 //     ├ 手入力のオーグメント … augments: { 装備の id: 「STR+8 DEX+8 命中+12」のような文字 }
 //     └ 装備の範囲の設定 (「メイン」「復帰直後」のように複数持てる) … list と、選んでいる設定 active
 //
@@ -49,6 +50,40 @@
   ];
   // 切り替えを持たず、いつも強化した状態を使うもの (高名値の首装備。差は HP+15 か MP+15 だけ)
   const ALWAYS_BOOSTED = new Set(['pledge']);
+  // 同じ良さのときの重み。役割の型ごとに、ステータスと重みを持つ。ジョブごとに、初めに使う型を決めておく。
+  // 目標と「伸ばす」が同じ良さの組み合わせの中から、この重みの合計 (値 × 重み) が大きいものを選ぶ
+  const defaultWeights = () => ({
+    types: [
+      { id: 'melee', name: '近接', stats: [['攻', 1], ['命中', 1], ['STR', 0.5], ['DEX', 0.5]] },
+      { id: 'ranged', name: '遠隔', stats: [['飛攻', 1], ['飛命', 1], ['AGI', 0.5], ['STR', 0.5]] },
+      { id: 'magic', name: '魔法', stats: [['魔攻', 1], ['魔命', 1], ['魔法ダメージ', 1], ['INT', 0.5]] },
+      { id: 'heal', name: '回復', stats: [['ケアル回復量', 2], ['MND', 0.5], ['魔命', 0.5]] },
+      { id: 'support', name: '弱体・支援', stats: [['魔命', 1], ['MND', 0.5], ['INT', 0.5]] },
+      { id: 'tank', name: '盾', stats: [['被ダメージ', 3], ['HP', 0.05], ['防', 0.05], ['魔回避', 0.3]] },
+      { id: 'pet', name: 'ペット', stats: [['ペット:攻', 1], ['ペット:命中', 1], ['ペット:魔攻', 1], ['ペット:魔命', 1]] },
+    ].map((type) => ({ id: type.id, name: type.name, stats: type.stats.map(([k, w]) => ({ k, w })) })),
+    // ジョブの番号 -> 型。'none' は使わない
+    jobs: { 1: 'melee', 2: 'melee', 3: 'heal', 4: 'magic', 5: 'melee', 6: 'melee', 7: 'tank', 8: 'melee', 9: 'melee', 10: 'support', 11: 'ranged',
+      12: 'melee', 13: 'melee', 14: 'melee', 15: 'pet', 16: 'melee', 17: 'ranged', 18: 'pet', 19: 'melee', 20: 'magic', 21: 'magic', 22: 'tank' },
+  });
+  // 保存してある重みを、足りない項目を埋めて返す
+  function normalizeWeights(saved) {
+    const base = defaultWeights();
+    if (!saved || !Array.isArray(saved.types)) return base;
+    const types = saved.types.filter((t) => t && t.id).map((t) => ({
+      id: String(t.id), name: String(t.name || '型'),
+      stats: (Array.isArray(t.stats) ? t.stats : []).filter((s) => s && s.k).map((s) => ({ k: String(s.k), w: Number(s.w) || 0 })),
+    }));
+    const jobs = Object.assign(base.jobs, saved.jobs);
+    for (const job of Object.keys(jobs)) if (jobs[job] !== 'none' && !types.some((t) => t.id === jobs[job])) jobs[job] = 'none';
+    return { types, jobs };
+  }
+  // そのジョブで使う型。override は「セットを組む」で選び直した型 (空なら設定のまま)。使わないときは null
+  function weightType(character, job, override) {
+    const id = override || character.weights.jobs[job] || 'none';
+    return character.weights.types.find((t) => t.id === id) || null;
+  }
+
   const JOB_SETS = [['af', 'AF', 4], ['relic', 'レリック', 4], ['empy', 'エンピリアン', 3]];
 
   const newId = () => 'p' + Date.now().toString(36) + Math.floor(Math.random() * 1e6).toString(36);
@@ -112,7 +147,7 @@
   // 最初の装備の範囲の設定を 1 つ持ったキャラクター
   function createCharacter(name) {
     const first = create('メイン');
-    return { id: newId(), name, race: 'hume', jobs: {}, merits: {}, augments: {}, sets: [], capes: [], active: first.id, list: [first] };
+    return { id: newId(), name, race: 'hume', jobs: {}, merits: {}, augments: {}, sets: [], capes: [], weights: defaultWeights(), active: first.id, list: [first] };
   }
 
   function normalizeCharacter(character) {
@@ -124,6 +159,7 @@
       augments: Object.assign({}, character.augments),
       sets: JSON.parse(JSON.stringify(character.sets || [])),
       capes: JSON.parse(JSON.stringify(character.capes || [])),
+      weights: normalizeWeights(character.weights),
       jobs: JSON.parse(JSON.stringify(character.jobs || {})),
       // 以前はクリティカルヒット +5% の入・切だけを持っていた (crit)。段階に直して引き継ぐ
       merits: Object.assign(character.crit ? { 'クリティカルヒット': 5 } : {}, character.merits),
@@ -228,7 +264,7 @@
     });
   }
 
-  const api = { STORAGE, ODYSSEY, GAEA, BOOSTS, JOB_SETS, MAX_JP, create, normalize, createCharacter, load, save, character, active, copyProfile, contentSetting, jobSetting, sharedLevel, supportLevel, allow, newId };
+  const api = { STORAGE, ODYSSEY, GAEA, BOOSTS, defaultWeights, weightType, JOB_SETS, MAX_JP, create, normalize, createCharacter, load, save, character, active, copyProfile, contentSetting, jobSetting, sharedLevel, supportLevel, allow, newId };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.VanaProfiles = api;
 })(typeof window !== 'undefined' ? window : globalThis);

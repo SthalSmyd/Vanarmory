@@ -123,17 +123,35 @@
         rows.push(`${terms([[1, name], ...p.list.map(([c, n]) => [-c, n])])} <= ${signed(p.constant)}`);
         gain.push([w.weight, name]);
       });
-      for (const v of vars) gain.push([-1e-3, v.name]); // 同じ良さなら部位が少ないほう
     } else {
       for (const v of vars) gain.push([-1, v.name]); // 少ない部位で
     }
-    // 同じ良さなら、その場で作った構成の装備 (item.made。登録していないジョブマント) より、実際にある装備を選ぶ。
-    // 引く量は、伸ばすステータスの 1 ぶんの半分 (少ない部位で満たすときは、部位 1 つぶんの半分) より小さくする
-    const step = maxMode ? Math.min(...open.concat(capped).map((w) => Math.abs(w.weight)).filter((w) => w > 0), 1) : 1;
-    for (const v of vars) if (v.item.made) gain.push([-0.4 * step, v.name]);
+
+    // 2 段目: 上の良さ (目標と、伸ばすステータス・部位の数) を落とさない組み合わせの中から選ぶための式。
+    //   1. req.tie の重みの合計 (値 × 重み。上限のあるステータスは上限まで) が大きいもの
+    //   2. それも同じなら、その場で作った構成の装備 (item.made。登録していないジョブマント) より、実際にある装備
+    //   3. それも同じなら、部位が少ないもの
+    const tie = (req.tie || []).filter((w) => w.weight > 0);
+    const second = [];
+    const worn = V.totalsOf(P.fixed, P.base, P.allSets).totals; // 装備以外と、固定した装備の分
+    tie.forEach((w, k) => {
+      const list = vars.map((v) => [w.sign * (v.item.m.get(w.i) || 0), v.name]).filter(([c]) => c);
+      if (w.cap == null) {
+        for (const [c, name] of list) second.push([w.weight * c, name]);
+        return;
+      }
+      // 上限つき: u は「上限までに、これから選ぶ装備で増える分」
+      const name = `u${k}`;
+      extras.push({ name, lower: -1e6, upper: Math.max(w.sign * w.cap - w.sign * (worn.get(w.i) || 0), 0) });
+      rows.push(`${terms([[1, name], ...list.map(([c, n]) => [-c, n])])} <= 0`);
+      second.push([w.weight, name]);
+    });
+    const unit = Math.min(...tie.map((w) => w.weight), 1);
+    for (const v of vars) second.push([-(v.item.made ? 5e-3 : 0) * unit - 1e-4 * unit, v.name]);
 
     // 目標の行。strict = false のときは「届いた割合」を変数にして、それを伸ばす (届かない目標のとき)
-    const build = (strict, cuts) => {
+    // floor を渡すと 2 段目の式になる (1 段目の良さが floor 以上、という条件を足して、2 段目の式を最大にする)
+    const build = (strict, cuts, floor) => {
       const lines = [];
       const objective = gain.slice();
       const more = extras.slice();
@@ -153,11 +171,16 @@
         }
       }
       // 同じ係数の変数が何度も出ないようにまとめる
-      const merged = new Map();
-      for (const [c, name] of objective) merged.set(name, (merged.get(name) || 0) + c);
+      const merge = (list) => {
+        const merged = new Map();
+        for (const [c, name] of list) merged.set(name, (merged.get(name) || 0) + c);
+        return [...merged].map(([name, c]) => [c, name]);
+      };
+      const primary = merge(objective);
+      if (floor != null) lines.push(`${terms(primary) || '0 x_none'} >= ${signed(floor)}`);
       const lp = [
         'Maximize',
-        ` obj: ${terms([...merged].map(([name, c]) => [c, name])) || '0 x_none'}`,
+        ` obj: ${terms(floor != null ? merge(second) : primary) || '0 x_none'}`,
         'Subject To',
         ...rows.concat(lines, cuts).map((row, index) => ` c${index}: ${row}`),
         'Bounds',
@@ -189,7 +212,14 @@
         break;
       }
       if (result.Status !== 'Optimal') exact = false;
-      const chosen = vars.filter((v) => result.Columns[v.name] && result.Columns[v.name].Primal > 0.5);
+      // 2 段目: 同じ良さの組み合わせの中から、重みの合計が大きいものを選び直す
+      let best = result;
+      if (result.Status === 'Optimal') {
+        calls++;
+        const again = await highs.solve(build(strict, cuts, result.ObjectiveValue - 1e-4), { output_flag: false, time_limit: Math.max(1, Math.min(opt.timeLimit, left)) });
+        if (again.Columns && again.Status === 'Optimal') best = again;
+      }
+      const chosen = vars.filter((v) => best.Columns[v.name] && best.Columns[v.name].Primal > 0.5);
       if (!chosen.length) break;
       const equip = Object.assign({}, P.fixed);
       for (const entry of entries) {

@@ -85,3 +85,22 @@ test('でたらめな装備で、いまの計算 (確実なとき) と最良の�
     if (a.reached) assert.equal(b.sets[0].totals.get(2) || 0, a.sets[0].totals.get(2) || 0, 'round ' + round);
   }
 });
+
+test('同じ良さの中からは、重みの合計が大きいものを選ぶ (目標と「伸ばす」は落とさない)', async () => {
+  const db = make([
+    item('頭STP10', SLOT.head, { 0: 10 }), item('頭STP10攻20', SLOT.head, { 0: 10, 2: 20 }), item('頭STP9攻99', SLOT.head, { 0: 9, 2: 99 }),
+    item('胴STP5', SLOT.body, { 0: 5 }), item('胴攻30', SLOT.body, { 2: 30 }),
+    item('作ったマント', SLOT.ammo, { 0: 3 }, { made: true }), item('実在の矢弾', SLOT.ammo, { 0: 3 }),
+  ]);
+  const tie = [{ i: 2, weight: 1, sign: 1, cap: null }];
+  // 少ない部位で: ストアTP 10 は頭 1 つで届く。同じ 1 部位なら、攻の付いたほう。攻のために部位は増やさない
+  const min = await I.solve(highs, db, req({ targets: [{ i: 0, goal: 10 }], tie }));
+  assert.deepEqual(names(min.sets[0]), ['頭STP10攻20']);
+  // 伸ばす: ストアTP がいちばん大きい組み合わせ (頭 10 + 胴 5 + 矢弾 3) は変えない。頭は攻の付いたほう、矢弾は実在のほう
+  const max = await I.solve(highs, db, req({ targets: [{ i: 0, goal: 1 }], objective: 'max', maximize: [{ i: 0, weight: 1 }], tie }));
+  assert.deepEqual(names(max.sets[0]), ['実在の矢弾', '胴STP5', '頭STP10攻20']);
+  assert.equal(max.sets[0].totals.get(0), 18);
+  // 重みが無いときも、同じ良さなら実在の装備
+  const plain = await I.solve(highs, db, req({ targets: [{ i: 0, goal: 1 }], objective: 'max', maximize: [{ i: 0, weight: 1 }] }));
+  assert.equal(names(plain.sets[0]).includes('実在の矢弾'), true);
+});

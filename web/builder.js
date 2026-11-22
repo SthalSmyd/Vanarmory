@@ -118,6 +118,7 @@
     job: 0, sub: 0, subLevel: null, targets: [], objective: 'min', maximize: [], avoidMinus: false, fixed: {}, food: '',
     innate: { trait: true, gift: true, merit: true },
     tp: tpInitial(),
+    tieType: '', // 同じ良さのときに使う重みの型。空なら、設定でそのジョブに決めた型
   });
 
   // 使う装備の範囲は「設定」として別に保存してあり、ここではどれを使うかを選ぶだけ
@@ -551,6 +552,23 @@
         : '近接は、メインの武器を固定するか「近接の振り数」を目標にすると出ます' }));
     }
 
+    // 同じ良さのときの重み: いま使う型を見せる。型はここで選び直せる (重みの中身は設定で変える)
+    const weights = P.character(store).weights;
+    const usual = state.job ? weights.jobs[state.job] || 'none' : 'none';
+    const typeSelect = el('select', { title: '同じ良さのときに使う重みの型。初めは、設定でこのジョブに決めた型' },
+      ...weights.types.map((t) => el('option', { value: t.id, textContent: t.name + (t.id === usual ? ' (設定)' : '') })),
+      el('option', { value: 'none', textContent: '使わない' + (usual === 'none' ? ' (設定)' : '') }));
+    typeSelect.value = state.tieType || usual;
+    typeSelect.disabled = !state.job;
+    typeSelect.addEventListener('change', () => {
+      state.tieType = typeSelect.value === usual ? '' : typeSelect.value;
+      changed();
+    });
+    const type = tieType();
+    $('tie-row').replaceChildren(typeSelect,
+      el('span', { className: 'hint', textContent: !state.job ? 'ジョブを選ぶと決まります' : type ? type.stats.filter((s) => s.w > 0).map((s) => `${s.k} ×${s.w}`).join('・') || '重みが入っていません' : '重みを使いません' }),
+      el('a', { className: 'link', href: 'settings.html', textContent: '設定で変える' }));
+
     for (const b of $('objective').children) b.classList.toggle('on', b.dataset.value === state.objective);
     $('avoid-minus').checked = !!state.avoidMinus;
     $('maximize-adder').hidden = state.objective !== 'max';
@@ -780,6 +798,17 @@
 
   // ---- 計算 ----
 
+  // 同じ良さのときに使う重み。設定でそのジョブに決めた型 (この画面で選び直していれば、その型) のステータスと重み
+  const tieType = () => (state.job ? P.weightType(P.character(store), state.job, state.tieType) : null);
+  function tieWeights() {
+    const type = tieType();
+    return (type ? type.stats : []).filter((s) => s.w > 0 && db.statByKey.has(s.k)).map((s) => {
+      const stat = db.statByKey.get(s.k);
+      const sign = stat.neg ? -1 : 1;
+      return { i: stat.i, weight: s.w, sign, cap: capOf(stat, sign)?.value ?? null };
+    });
+  }
+
   // generate = true のときは、登録したマントに加えて、目標に合う構成のマントも作って候補にする
   function request(generate) {
     const targets = state.targets.filter((t) => t.goal != null && t.goal !== 0).map((t) => ({ k: t.k, goal: t.goal }));
@@ -841,6 +870,8 @@
       // 合うマントでは目標に届かないとき (run が generate を付けて呼び直す) は、目標に合う構成を作る
       extra: profile().cape ? { back: fitting.length && !generate ? fitting : fitting.concat(capeVariants(state.job, wanted)) } : {},
       ownCapes: fitting.length > 0 && !generate,
+      // 同じ良さの組み合わせの中から選ぶための重み
+      tie: tieWeights(),
       noFit: registered.length > 0 && !fitting.length, // 登録はあるが、合うものが無かった
       allow,
       sets: data.sets,
@@ -1716,6 +1747,7 @@
 
     $('job').addEventListener('change', () => {
       state.job = Number($('job').value);
+      state.tieType = ''; // 重みの型は、そのジョブの設定に戻す
       // ジョブを変えたら、装備できなくなった固定は外す
       for (const [slot, id] of Object.entries(state.fixed)) if (!usable(getItem(id))) delete state.fixed[slot];
       changed();

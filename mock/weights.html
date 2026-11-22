@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vanarmory — ジョブの重みのモック</title>
+<link rel="stylesheet" href="../web/theme.css">
+<link rel="stylesheet" href="../web/settings.css">
+<style>
+.mock-note { margin: 0; padding: 6px 12px; font-size: 12px; color: var(--muted); background: var(--sunken); border-bottom: 1px dashed var(--line); }
+h3.sec { font-size: 13px; margin: 18px 20px 0; color: var(--muted); }
+.job-types { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 6px 14px; }
+.job-type { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 6px; align-items: center; font-size: 13px; color: var(--muted); }
+.job-type select { padding: 3px 6px; color: var(--text); min-width: 0; }
+.job-type.changed select { border-color: var(--accent); }
+.types { display: grid; gap: 10px; }
+.type { border: 1px solid var(--line); border-radius: 8px; padding: 10px; display: grid; gap: 8px; }
+.type-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.type-head .input { width: 160px; font-weight: 600; }
+.type-head .used { font-size: 12px; color: var(--muted); }
+.type-head .right { margin-left: auto; display: flex; gap: 6px; }
+.weights { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.weight { display: inline-flex; align-items: center; gap: 5px; border: 1px solid var(--line); border-radius: 8px; padding: 2px 4px 2px 10px; font-size: 13px; font-weight: 600; }
+.weight .op { color: var(--muted); font-weight: 400; }
+.weight input { width: 50px; text-align: right; background: var(--sunken); border: 1px solid var(--line); border-radius: 5px; padding: 1px 6px; font: inherit; color: inherit; font-weight: 400; }
+.weight .x { border: 0; background: none; color: var(--muted); cursor: pointer; padding: 0 5px; }
+.add-weight { border: 1px dashed var(--accent); color: var(--accent); background: none; border-radius: 8px; padding: 2px 10px; font-size: 13px; cursor: pointer; }
+.builder-line { background: var(--panel); border: 1px solid var(--panel-border); border-radius: 10px; padding: 10px 12px; margin: 8px 20px; display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 8px; font-size: 13px; align-items: center; max-width: 1240px; }
+.builder-line .label { color: var(--muted); font-size: 12px; font-weight: 600; }
+.builder-line .hint b { color: var(--text); }
+</style>
+</head>
+<body>
+<p class="mock-note">モック (見た目だけ。押しても動きません)。数値は叩き台です</p>
+<header><h1>Vanarmory</h1><nav><a>セットを組む</a><a>装備を探す</a><a class="here">設定</a></nav><p class="meta">装備 16961 件 / データ 2026-11-22</p></header>
+<section class="profiles"><span class="label">キャラクター</span><button class="profile on">キャラクター1</button><button class="profile new">＋ 新しいキャラクター</button></section>
+<div class="tabs">
+  <button class="tab">装備の範囲</button><button class="tab">ジョブの育成 (ギフト・マスターレベル)</button><button class="tab">ジョブマント</button>
+  <button class="tab on">同じ良さのときの重み</button><button class="tab">オーグメントの手入力</button>
+</div>
+
+<div class="page">
+  <p class="hint" style="margin:0">「セットを組む」では、まず目標を満たし、「伸ばす」に選んだステータスを最大にします。それでも同じ良さの組み合わせがいくつもあるときに、ここで決めた重みの合計 (値 × 重み) が大きいものを選びます。目標や「伸ばす」の結果を下げることはありません。「少ない部位で満たす」のときは、部位の数が同じ組み合わせの中で比べます。</p>
+
+  <div class="panel">
+    <h2>ジョブごとの型 <span class="hint">そのジョブで探すときに使う型</span>
+      <span class="right"><button class="ghost">初めの状態に戻す</button></span></h2>
+    <div class="job-types">
+      <label class="job-type">戦士 <select><option>近接</option></select></label>
+      <label class="job-type">モンク <select><option>近接</option></select></label>
+      <label class="job-type">白魔道士 <select><option>回復</option></select></label>
+      <label class="job-type">黒魔道士 <select><option>魔法</option></select></label>
+      <label class="job-type changed">赤魔道士 <select><option>近接</option></select></label>
+      <label class="job-type">シーフ <select><option>近接</option></select></label>
+      <label class="job-type">ナイト <select><option>盾</option></select></label>
+      <label class="job-type">暗黒騎士 <select><option>近接</option></select></label>
+      <label class="job-type">獣使い <select><option>近接</option></select></label>
+      <label class="job-type">吟遊詩人 <select><option>弱体・支援</option></select></label>
+      <label class="job-type">狩人 <select><option>遠隔</option></select></label>
+      <label class="job-type">侍 <select><option>近接</option></select></label>
+      <label class="job-type">忍者 <select><option>近接</option></select></label>
+      <label class="job-type">竜騎士 <select><option>近接</option></select></label>
+      <label class="job-type">召喚士 <select><option>ペット</option></select></label>
+      <label class="job-type">青魔道士 <select><option>近接</option></select></label>
+      <label class="job-type">コルセア <select><option>遠隔</option></select></label>
+      <label class="job-type">からくり士 <select><option>ペット</option></select></label>
+      <label class="job-type">踊り子 <select><option>近接</option></select></label>
+      <label class="job-type">学者 <select><option>魔法</option></select></label>
+      <label class="job-type">風水士 <select><option>魔法</option></select></label>
+      <label class="job-type">魔導剣士 <select><option>盾</option></select></label>
+    </div>
+    <p class="hint" style="margin:8px 0 0">初めの状態から変えたジョブは、枠の色が変わります (例: 赤魔道士)。「使わない」を選ぶと、そのジョブでは重みを使いません。</p>
+  </div>
+
+  <div class="panel">
+    <h2>型ごとの重み <span class="hint">ステータスと重み。大きいほど優先する</span>
+      <span class="right"><button class="ghost">すべて初めの状態に戻す</button></span></h2>
+    <div class="types">
+      <div class="type">
+        <div class="type-head"><input class="input" value="近接"><span class="used">戦・モ・シ・暗・獣・侍・忍・竜・青・踊 で使用</span><span class="right"><button class="ghost">初めの状態に戻す</button></span></div>
+        <div class="weights">
+          <span class="weight">攻 <span class="op">×</span><input type="number" value="1"><button class="x">×</button></span>
+          <span class="weight">命中 <span class="op">×</span><input type="number" value="1"><button class="x">×</button></span>
+          <span class="weight">STR <span class="op">×</span><input type="number" value="0.5"><button class="x">×</button></span>
+          <span class="weight">DEX <span class="op">×</span><input type="number" value="0.5"><button class="x">×</button></span>
+          <button class="add-weight">＋ ステータスを追加</button>
+        </div>
+      </div>
+      <div class="type">
+        <div class="type-head"><input class="input" value="遠隔"><span class="used">狩・コ で使用</span><span class="right"><button class="ghost">初めの状態に戻す</button></span></div>
+        <div class="weights">
+          <span class="weight">飛攻 <span class="op">×</span><input type="number" value="1"><button class="x">×</button></span>
+          <span class="weight">飛命 <span class="op">×</span><input type="number" value="1"><button class="x">×</button></span>
+          <span class="weight">AGI <span class="op">×</span><input type="number" value="0.5"><button class="x">×</button></span>
+          <span class="weight">STR <span class="op">×</span><input type="number" value="0.5"><button class="x">×</button></span>
+          <button class="add-weight">＋ ステータスを追加</button>
+        </div>
+      </div>
+      <div class="type">
+        <div class="type-head"><input class="input" value="魔法"><span class="used">黒・学・風 で使用</span><span class="right"><button class="ghost">初めの状態に戻す</button></span></div>
+        <div class="weights">
+          <span class="weight">魔攻 <span class="op">×</span><input type="number" value="1"><button class="x">×</button></span>
+          <span class="weight">魔命 <span class="op">×</span><input type="number" value="1"><button class="x">×</button></span>
+          <span class="weight">魔法ダメージ <span class="op">×</span><input type="number" value="1"><button class="x">×</button></span>
+          <span class="weight">INT <span class="op">×</span><input type="number" value="0.5"><button class="x">×</button></span>
+          <button class="add-weight">＋ ステータスを追加</button>
+        </div>
+      </div>
+      <div class="type">
+        <div class="type-head"><input class="input" value="回復"><span class="used">白 で使用</span><span class="right"><button class="ghost">初めの状態に戻す</button></span></div>
+        <div class="weights">
+          <span class="weight">ケアル回復量 <span class="op">×</span><input type="number" value="2"><button class="x">×</button></span>
+          <span class="weight">MND <span class="op">×</span><input type="number" value="0.5"><button class="x">×</button></span>
+          <span class="weight">魔命 <span class="op">×</span><input type="number" value="0.5"><button class="x">×</button></span>
+          <button class="add-weight">＋ ステータスを追加</button>
+        </div>
+      </div>
+      <div class="type">
+        <div class="type-head"><input class="input" value="弱体・支援"><span class="used">吟 で使用</span><span class="right"><button class="ghost">初めの状態に戻す</button></span></div>
+        <div class="weights">
+          <span class="weight">魔命 <span class="op">×</span><input type="number" value="1"><button class="x">×</button></span>
+          <span class="weight">MND <span class="op">×</span><input type="number" value="0.5"><button class="x">×</button></span>
+          <span class="weight">INT <span class="op">×</span><input type="number" value="0.5"><button class="x">×</button></span>
+          <button class="add-weight">＋ ステータスを追加</button>
+        </div>
+      </div>
+      <div class="type">
+        <div class="type-head"><input class="input" value="盾"><span class="used">ナ・剣 で使用</span><span class="right"><button class="ghost">初めの状態に戻す</button></span></div>
+        <div class="weights">
+          <span class="weight">被ダメージ <span class="op">×</span><input type="number" value="3"><button class="x">×</button></span>
+          <span class="weight">HP <span class="op">×</span><input type="number" value="0.05"><button class="x">×</button></span>
+          <span class="weight">防 <span class="op">×</span><input type="number" value="0.05"><button class="x">×</button></span>
+          <span class="weight">魔回避 <span class="op">×</span><input type="number" value="0.3"><button class="x">×</button></span>
+          <button class="add-weight">＋ ステータスを追加</button>
+        </div>
+      </div>
+      <div class="type">
+        <div class="type-head"><input class="input" value="ペット"><span class="used">召・か で使用</span><span class="right"><button class="ghost">初めの状態に戻す</button></span></div>
+        <div class="weights">
+          <span class="weight">ペット:攻 <span class="op">×</span><input type="number" value="1"><button class="x">×</button></span>
+          <span class="weight">ペット:命中 <span class="op">×</span><input type="number" value="1"><button class="x">×</button></span>
+          <span class="weight">ペット:魔攻 <span class="op">×</span><input type="number" value="1"><button class="x">×</button></span>
+          <span class="weight">ペット:魔命 <span class="op">×</span><input type="number" value="1"><button class="x">×</button></span>
+          <button class="add-weight">＋ ステータスを追加</button>
+        </div>
+      </div>
+      <button class="profile new" style="justify-self:start">＋ 新しい型</button>
+    </div>
+    <p class="hint" style="margin:10px 0 0">被ダメージのように小さいほど良いステータスは、減る向きを良いものとして数えます。上限のあるステータス (ヘイストなど) は、上限までで数えます。</p>
+  </div>
+</div>
+
+<h3 class="sec">「セットを組む」の画面では — 「選び方」の行の下に、いま使われる型を 1 行で見せる (変えるのは設定で)</h3>
+<div class="builder-line">
+  <span class="label">同じ良さなら</span>
+  <span class="hint"><b>近接</b> の重みで選ぶ (攻 ×1・命中 ×1・STR ×0.5・DEX ×0.5)　<a href="#">設定で変える</a></span>
+</div>
+</body>
+</html>

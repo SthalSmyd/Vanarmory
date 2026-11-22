@@ -63,6 +63,10 @@
       <label class="avoid" title="命中-10 のように、普通は増える性能がマイナスになっている装備を、自動の候補から外します (被ダメージや敵対心のように小さいほど良いものは対象外)"><input type="checkbox" id="avoid-minus"> マイナスのある装備を使わない</label>
     </div>
   </div>
+  <div class="row" title="目標と「伸ばす」が同じ良さの組み合わせがいくつもあるときに、この重みの合計 (値 × 重み) が大きいものを選びます。目標や「伸ばす」の結果は下げません">
+    <span class="label">同点のとき</span>
+    <div class="body" id="tie-row"></div>
+  </div>
   <div class="actions">
     <span class="status" id="status"></span>
     <button type="button" class="ghost" id="share" title="今の条件を開ける URL をコピーする">条件の URL をコピー</button>

@@ -3,8 +3,9 @@
   'use strict';
 
   const P = window.VanaProfiles;
-  const { prepare, fold } = window.VanaSearch;
-  const data = prepare(window.VANARMORY_DATA).data;
+  const { prepare, fold, suggest } = window.VanaSearch;
+  const db = prepare(window.VANARMORY_DATA);
+  const data = db.data;
   const itemById = new Map(data.items.map((i) => [i.id, i]));
   const contents = data.contents || [];
 
@@ -357,10 +358,10 @@
     $('tab-jobs').hidden = tab !== 'jobs';
     $('tab-manual').hidden = tab !== 'manual';
     $('tab-capes').hidden = tab !== 'capes';
+    $('tab-weights').hidden = tab !== 'weights';
   }
 
   // ---- オーグメントの手入力 ----
-  const db = { data, statByKey: new Map(data.stats.map((s) => [s.k, s])) };
   let manualAdding = []; // 追加したばかりで、まだ何も入力していない装備
   // ---- ジョブマント: 持っている構成を登録する ----
   // 登録は { id, job, name, picks }。picks は、アイテム 5 種ごとに選んだ項目の番号 (-1 は付けない)
@@ -433,6 +434,104 @@
     if (!list.length) $('cape-list').append(el('p', { className: 'hint', textContent: 'まだありません。上の欄から登録します。「セットを組む」で、候補や固定した背のマスを押したところからも登録できます。' }));
   }
 
+  // ---- 同じ良さのときの重み: 役割の型と、ジョブごとの型 ----
+  let addingTo = ''; // ステータスを足そうとしている型
+  function renderWeights() {
+    const weights = chara().weights;
+    const initial = P.defaultWeights();
+
+    // ジョブごとの型
+    $('job-types').replaceChildren(...data.jobs.map((job) => {
+      const node = el('select', null, ...weights.types.map((t) => el('option', { value: t.id, textContent: t.name })), el('option', { value: 'none', textContent: '使わない' }));
+      node.value = weights.jobs[job.id] || 'none';
+      node.addEventListener('change', () => {
+        weights.jobs[job.id] = node.value;
+        changed();
+      });
+      // 初めの状態から変えたジョブは、枠の色を変える
+      return el('label', { className: 'job-type' + (node.value !== initial.jobs[job.id] ? ' changed' : '') }, job.ja, node);
+    }));
+
+    // 型ごとの重み
+    const cards = weights.types.map((type) => {
+      const first = initial.types.find((t) => t.id === type.id); // 初めからある型か
+      const users = data.jobs.filter((job) => weights.jobs[job.id] === type.id).map((job) => (job.ja === '魔導剣士' ? '剣' : job.ja === 'からくり士' ? 'か' : job.ja.slice(0, 1)));
+      const name = el('input', { type: 'text', className: 'input', value: type.name, spellcheck: false, title: '型の名前' });
+      name.addEventListener('change', () => {
+        type.name = name.value.trim() || type.name;
+        changed();
+      });
+      const reset = el('button', { type: 'button', className: 'ghost', textContent: first ? '初めの状態に戻す' : 'この型を消す' });
+      reset.addEventListener('click', () => {
+        if (first) Object.assign(type, JSON.parse(JSON.stringify(first)));
+        else {
+          if (!confirm(`型「${type.name}」を消します。この型を使っているジョブは「使わない」になります。`)) return;
+          weights.types = weights.types.filter((t) => t !== type);
+          for (const job of Object.keys(weights.jobs)) if (weights.jobs[job] === type.id) weights.jobs[job] = 'none';
+        }
+        changed();
+      });
+      const chips = type.stats.map((stat) => {
+        const input = el('input', { type: 'number', step: 'any', min: 0, value: stat.w, title: '重み' });
+        input.addEventListener('change', () => {
+          stat.w = Math.max(0, Number(input.value) || 0);
+          changed();
+        });
+        const remove = el('button', { type: 'button', className: 'x', textContent: '×', title: '外す' });
+        remove.addEventListener('click', () => {
+          type.stats = type.stats.filter((s) => s !== stat);
+          changed();
+        });
+        return el('span', { className: 'weight' + (db.statByKey.has(stat.k) ? '' : ' unknown'), title: db.statByKey.has(stat.k) ? '' : 'この名前のステータスは、いまのデータにありません' },
+          stat.k + ' ', el('span', { className: 'op', textContent: '×' }), input, remove);
+      });
+      // ステータスを足す: 名前を打って、出てきた候補を押す
+      let adder;
+      if (addingTo === type.id) {
+        const find = el('input', { type: 'search', className: 'input', placeholder: '名前や略称 (STP、DA など)', autocomplete: 'off' });
+        const found = el('span', { className: 'weight-found' });
+        find.addEventListener('input', () => {
+          found.replaceChildren(...suggest(db, find.value, 40).filter((s) => s.num && !type.stats.some((x) => x.k === s.k)).slice(0, 8).map((s) => {
+            const b = el('button', { type: 'button', className: 'chip', textContent: s.k });
+            b.addEventListener('click', () => {
+              type.stats.push({ k: s.k, w: 1 });
+              addingTo = '';
+              changed();
+            });
+            return b;
+          }));
+        });
+        find.addEventListener('keydown', (e) => {
+          if (e.isComposing) return;
+          if (e.key === 'Escape') {
+            addingTo = '';
+            renderWeights();
+          }
+          if (e.key === 'Enter') found.querySelector('button')?.click();
+        });
+        adder = el('span', { className: 'weight-adder' }, find, found);
+        setTimeout(() => find.focus(), 0);
+      } else {
+        adder = el('button', { type: 'button', className: 'add-weight', textContent: '＋ ステータスを追加' });
+        adder.addEventListener('click', () => {
+          addingTo = type.id;
+          renderWeights();
+        });
+      }
+      return el('div', { className: 'type' },
+        el('div', { className: 'type-head' }, name, el('span', { className: 'used', textContent: users.length ? `${users.join('・')} で使用` : '使っているジョブなし' }), el('span', { className: 'right' }, reset)),
+        el('div', { className: 'weights' }, ...chips, adder));
+    });
+    const add = el('button', { type: 'button', className: 'profile new', textContent: '＋ 新しい型' });
+    add.addEventListener('click', () => {
+      const label = (prompt('型の名前', '') || '').trim();
+      if (!label) return;
+      weights.types.push({ id: P.newId(), name: label, stats: [] });
+      changed();
+    });
+    $('weight-types').replaceChildren(...cards, add);
+  }
+
   function renderManual() {
     const saved = chara().augments;
     const ids = [...new Set([...Object.keys(saved), ...manualAdding.map(String)])].filter((id) => itemById.has(id) || itemById.has(Number(id)));
@@ -487,6 +586,7 @@
     renderTabs();
     renderManual();
     renderCapes();
+    renderWeights();
     renderCharacters();
     renderJobs();
     renderProfiles();
@@ -591,6 +691,18 @@
         renderTabs();
       });
     }
+    $('weights-reset-jobs').addEventListener('click', () => {
+      const weights = chara().weights;
+      const initial = P.defaultWeights();
+      // 初めの型が消されているジョブは「使わない」にする
+      for (const job of Object.keys(initial.jobs)) weights.jobs[job] = weights.types.some((t) => t.id === initial.jobs[job]) ? initial.jobs[job] : 'none';
+      changed();
+    });
+    $('weights-reset-all').addEventListener('click', () => {
+      if (!confirm('型と重み、ジョブごとの型を、すべて初めの状態に戻します。足した型は消えます。')) return;
+      chara().weights = P.defaultWeights();
+      changed();
+    });
     P.save(localStorage, store); // 引き継いだ内容を保存しておく
     // 数値を打った直後 (欄から出る前) にページを離れても、打った値を保存する
     window.addEventListener('pagehide', () => {

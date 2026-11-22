@@ -52,6 +52,9 @@
         let better = b.m > a.m;
         // セット効果に数えられる装備は、同じセットに数えられる装備とだけ比べる
         let worse = a.sc.some((n, k) => b.sc[k] < n);
+        // 同じ良さのときに比べる重み (t) も、上位互換かどうかの判断に入れる
+        if (b.t < a.t) worse = true;
+        else if (b.t > a.t) better = true;
         for (let t = 0; t < a.g.length; t++) {
           if (b.g[t] < a.g[t]) { worse = true; break; }
           if (b.g[t] > a.g[t]) better = true;
@@ -113,6 +116,10 @@
 
     const gainOf = (item) => targets.map((t) => t.sign * (item.m.get(t.i) || 0));
     const maxOf = (item) => open.reduce((total, w) => total + w.weight * w.sign * (item.m.get(w.i) || 0), 0);
+    // 同じ良さのときに比べる重み (req.tie: [{ i, weight, sign, cap }])。HiGHS で解くときだけ使う (opt.problem)。
+    // 目標や伸ばすステータスには効かなくても、この重みに効く装備は候補に残す
+    const tie = opt.problem ? (req.tie || []).filter((w) => w.weight > 0 && stats[w.i]) : [];
+    const tieOf = (item) => tie.reduce((total, w) => total + w.weight * w.sign * (item.m.get(w.i) || 0), 0);
 
     // 固定した装備と装備以外の分を先に引いて、残りの必要量を出す
     const fixedItems = Object.values(fixed).filter(Boolean);
@@ -152,8 +159,10 @@
         const g = gainOf(item);
         const m = maxOf(item);
         const sc = countsOf(item);
-        if (m <= 0 && !g.some((v, ti) => v > 0 && need[ti] > 0) && !sc.some(Boolean)) continue;
-        list.push({ item, g, m, sc });
+        const t = tieOf(item);
+        // 「伸ばす」のときは、空いた部位を重みに効く装備で埋められるように、重みにだけ効く装備も残す
+        if (m <= 0 && !g.some((v, ti) => v > 0 && need[ti] > 0) && !sc.some(Boolean) && !(maxMode && t > 0)) continue;
+        list.push({ item, g, m, sc, t });
       }
       return list;
     };

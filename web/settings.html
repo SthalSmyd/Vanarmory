@@ -34,6 +34,7 @@
   <button type="button" class="tab" data-tab="gear">装備の範囲</button>
   <button type="button" class="tab" data-tab="jobs">ジョブの育成 (ギフト・マスターレベル)</button>
   <button type="button" class="tab" data-tab="capes">ジョブマント</button>
+  <button type="button" class="tab" data-tab="weights">同じ良さのときの重み</button>
   <button type="button" class="tab" data-tab="manual">オーグメントの手入力</button>
 </div>
 
@@ -67,6 +68,21 @@
   <div class="panel">
     <h2>登録したマント <span class="hint" id="cape-count"></span></h2>
     <div id="cape-list" class="cape-list"></div>
+  </div>
+</div>
+
+<div class="page" id="tab-weights" hidden>
+  <p class="hint" style="margin:0">「セットを組む」では、まず目標を満たし、「伸ばす」に選んだステータスを最大にします。それでも同じ良さの組み合わせがいくつもあるときに、ここで決めた重みの合計 (値 × 重み) が大きいものを選びます。目標や「伸ばす」の結果を下げることはありません。「少ない部位で満たす」のときは、部位の数が同じ組み合わせの中で比べます。型は「セットを組む」の画面でも選び直せます。</p>
+  <div class="panel">
+    <h2>ジョブごとの型 <span class="hint">そのジョブで探すときに、初めに使う型</span>
+      <span class="right"><button type="button" class="ghost" id="weights-reset-jobs">初めの状態に戻す</button></span></h2>
+    <div class="job-types" id="job-types"></div>
+  </div>
+  <div class="panel">
+    <h2>型ごとの重み <span class="hint">ステータスと重み。大きいほど優先する</span>
+      <span class="right"><button type="button" class="ghost" id="weights-reset-all">すべて初めの状態に戻す</button></span></h2>
+    <div class="types" id="weight-types"></div>
+    <p class="hint" style="margin:10px 0 0">被ダメージのように小さいほど良いステータスは、減る向きを良いものとして数えます。上限のあるステータス (ヘイストなど) は、上限までで数えます。</p>
   </div>
 </div>
 
