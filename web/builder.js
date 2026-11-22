@@ -244,7 +244,8 @@
   const currentWho = () => ({
     job: state.job, sub: state.sub === state.job ? 0 : state.sub, subLevel: subLevel(), food: state.food,
     innate: Object.assign({}, state.innate),
-    manual: state.targets.filter((t) => t.base).map((t) => [db.statByKey.get(t.k).i, t.base]),
+    // 合計値の目標に足した支援の分は、元のステータス (命中 (合計) なら命中) に足す
+    manual: state.targets.filter((t) => t.base).map((t) => [(db.statByKey.get(t.k).total ? db.statByKey.get(db.statByKey.get(t.k).total.flat) : db.statByKey.get(t.k)).i, t.base]),
   });
 
   // 装備以外で得ている値。base は合計 (ステータスの番号 -> 値)、parts は内訳 (表示用)
@@ -595,8 +596,7 @@
       }
       const sub = subLine(notes);
       sub.classList.add('split');
-      // 合計値の目標には「支援など」を付けない (命中や攻の目標に足した分が、合計にも入る)
-      sub.replaceChildren(...[el('span', null, ...sub.childNodes), stat.total ? null : buff].filter(Boolean));
+      sub.replaceChildren(el('span', null, ...sub.childNodes), buff);
       const goal = el('span', { className: 'goal' },
         el('span', { className: 'main' }, target.k + ' ', el('span', { className: 'op', textContent: below ? '≤' : '≥' }), input,
           stat.u ? el('span', { className: 'unit', textContent: stat.u }) : null,
