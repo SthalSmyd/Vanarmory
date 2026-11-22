@@ -743,6 +743,7 @@
         }
         // 登録したマント (このジョブの分)。押すと、その構成で固定する
         const mine = myCapes(state.job);
+        if (!mine.length) editor.append(el('p', { className: 'hint' }, 'ジョブマントは、', el('a', { href: 'settings.html', textContent: '設定の「ジョブマント」' }), 'で登録できます。'));
         if (mine.length) {
           editor.append(el('div', { className: 'cape-list' }, el('span', { className: 'hint', textContent: '登録したマント' }), ...mine.map((c) => {
             const id = capeId(c.job, c.picks);

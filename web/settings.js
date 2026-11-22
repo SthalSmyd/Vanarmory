@@ -356,11 +356,83 @@
     $('tab-gear').hidden = tab !== 'gear';
     $('tab-jobs').hidden = tab !== 'jobs';
     $('tab-manual').hidden = tab !== 'manual';
+    $('tab-capes').hidden = tab !== 'capes';
   }
 
   // ---- オーグメントの手入力 ----
   const db = { data, statByKey: new Map(data.stats.map((s) => [s.k, s])) };
   let manualAdding = []; // 追加したばかりで、まだ何も入力していない装備
+  // ---- ジョブマント: 持っている構成を登録する ----
+  // 登録は { id, job, name, picks }。picks は、アイテム 5 種ごとに選んだ項目の番号 (-1 は付けない)
+  const capeDraft = { job: 0, name: '', picks: null };
+  const capeText = (picks) => picks.map((pick, g) => (data.capes.augments[g].options[pick] || {}).text).filter(Boolean).join(' ') || '(何も付けていない)';
+  // アイテム 5 種の欄。onPick(何番目のアイテムか, 選んだ項目) を呼ぶ
+  function capeSelects(picks, onPick) {
+    return el('div', { className: 'cape-picks' }, ...data.capes.augments.map((group, g) => {
+      const node = el('select', { className: picks[g] < 0 ? 'none' : '' }, el('option', { value: -1, textContent: 'なし' }),
+        ...group.options.map((option, index) => el('option', { value: index, textContent: option.text })));
+      node.value = picks[g];
+      node.addEventListener('change', () => onPick(g, Number(node.value)));
+      return el('label', { className: 'cape-pick' }, group.item, node);
+    }));
+  }
+  function renderCapes() {
+    const list = chara().capes;
+    if (!capeDraft.picks) capeDraft.picks = data.capes.augments.map(() => -1);
+    // 登録する欄
+    const job = el('select', null, el('option', { value: 0, textContent: 'ジョブを選ぶ' }),
+      ...data.jobs.filter((j) => data.capes.names[j.id]).map((j) => el('option', { value: j.id, textContent: `${j.ja} (${data.capes.names[j.id]})` })));
+    job.value = capeDraft.job;
+    job.addEventListener('change', () => {
+      capeDraft.job = Number(job.value);
+      renderCapes();
+    });
+    const name = el('input', { type: 'text', className: 'input', placeholder: '名前 (例: TP用、WS用)', value: capeDraft.name, spellcheck: false });
+    name.addEventListener('input', () => (capeDraft.name = name.value));
+    const add = el('button', { type: 'button', className: 'profile on', textContent: '登録する' });
+    const note = el('span', { className: 'hint' });
+    add.addEventListener('click', () => {
+      const label = capeDraft.name.trim();
+      const problem = !capeDraft.job ? 'ジョブを選んでください。' : !capeDraft.picks.some((pick) => pick >= 0) ? '項目を 1 つ以上選んでください。' : !label ? '名前を入れてください。' : '';
+      if (problem) return void (note.textContent = problem);
+      list.push({ id: P.newId(), job: capeDraft.job, name: label, picks: capeDraft.picks.slice() });
+      Object.assign(capeDraft, { name: '', picks: null });
+      changed();
+    });
+    $('cape-form').replaceChildren(
+      el('div', { className: 'cape-head' }, job, name),
+      capeSelects(capeDraft.picks, (g, pick) => {
+        capeDraft.picks[g] = pick;
+        renderCapes();
+      }),
+      el('div', { className: 'cape-foot' }, el('span', { className: 'hint' }, '合計: ', el('b', { textContent: capeText(capeDraft.picks) })), add, note));
+
+    // 登録した一覧 (ジョブの順)。名前と構成は、その場で直せる
+    $('cape-count').textContent = `${list.length} 枚`;
+    const sorted = list.slice().sort((a, b) => a.job - b.job);
+    $('cape-list').replaceChildren(...sorted.map((cape) => {
+      const jobName = (data.jobs.find((j) => j.id === cape.job) || {}).ja || '';
+      const rename = el('input', { type: 'text', className: 'input', value: cape.name, spellcheck: false, title: '名前' });
+      rename.addEventListener('change', () => {
+        cape.name = rename.value.trim() || cape.name;
+        changed();
+      });
+      const remove = el('button', { type: 'button', className: 'ghost danger', textContent: '消す' });
+      remove.addEventListener('click', () => {
+        chara().capes = list.filter((c) => c !== cape);
+        changed();
+      });
+      return el('div', { className: 'cape-item' },
+        el('div', { className: 'cape-head' }, el('b', { textContent: `${jobName}・${data.capes.names[cape.job] || ''}` }), rename, remove),
+        capeSelects(cape.picks, (g, pick) => {
+          cape.picks[g] = pick;
+          changed();
+        }),
+        el('div', { className: 'hint' }, '合計: ', el('b', { textContent: capeText(cape.picks) })));
+    }));
+    if (!list.length) $('cape-list').append(el('p', { className: 'hint', textContent: 'まだありません。上の欄から登録します。「セットを組む」で、候補や固定した背のマスを押したところからも登録できます。' }));
+  }
+
   function renderManual() {
     const saved = chara().augments;
     const ids = [...new Set([...Object.keys(saved), ...manualAdding.map(String)])].filter((id) => itemById.has(id) || itemById.has(Number(id)));
@@ -414,6 +486,7 @@
   function render() {
     renderTabs();
     renderManual();
+    renderCapes();
     renderCharacters();
     renderJobs();
     renderProfiles();

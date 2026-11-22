@@ -138,3 +138,18 @@ a { color: var(--accent); }
 .picks-line summary { cursor: pointer; color: var(--accent); }
 .picks-line .sub { padding: 8px 0 0; border: 0; font-size: 14px; }
 @media (max-width: 700px) { .row, .col-head { grid-template-columns: 52px minmax(0, 1fr); } .col-head span:nth-child(n+3) { display: none; } }
+
+/* ジョブマントの登録 */
+.cape-head { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 8px; }
+.cape-head .input { width: 220px; }
+.cape-picks { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px 10px; }
+.cape-pick { display: grid; gap: 2px; font-size: 12px; color: var(--muted); }
+.cape-pick select { color: var(--text); min-width: 0; width: 100%; }
+.cape-pick select.none { color: var(--muted); }
+.cape-foot { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-top: 10px; }
+.cape-foot .hint b, .cape-item .hint b { color: var(--text); }
+.cape-list { display: grid; gap: 10px; }
+.cape-item { border: 1px solid var(--line); border-radius: 8px; padding: 10px; display: grid; gap: 6px; }
+.cape-item .cape-head { margin-bottom: 0; }
+.cape-item .cape-head .ghost { margin-left: auto; }
+@media (max-width: 900px) { .cape-picks { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

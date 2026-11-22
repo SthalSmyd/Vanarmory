@@ -33,6 +33,7 @@
 <div class="tabs">
   <button type="button" class="tab" data-tab="gear">装備の範囲</button>
   <button type="button" class="tab" data-tab="jobs">ジョブの育成 (ギフト・マスターレベル)</button>
+  <button type="button" class="tab" data-tab="capes">ジョブマント</button>
   <button type="button" class="tab" data-tab="manual">オーグメントの手入力</button>
 </div>
 
@@ -54,6 +55,18 @@
       <thead><tr><th>ジョブ</th><th title="使ったジョブポイントの合計 (0〜2100)。そこまでに覚えるギフトを数えます。ジョブマスター済みなら「マスター」にチェック">ジョブポイント</th><th>マスターレベル</th><th title="このジョブをメインにしたときの、サポートジョブのレベル">サポ Lv</th><th title="ジョブ別のメリットポイントを最大まで振っているか">メリポ</th><th>ギフトとメリポで得る値</th></tr></thead>
       <tbody id="jobs"></tbody>
     </table>
+  </div>
+</div>
+
+<div class="page" id="tab-capes" hidden>
+  <p class="hint" style="margin:0">持っているジョブマント (アンバスケードのマント) を登録します。アイテム 5 種 (糸・金粉・染料・水油・樹脂) につき 1 項目ずつ選び、名前を付けます。値は最大まで強化したものです。「セットを組む」で自動で選ぶときは、そのジョブに登録したマントの中から選び、それでは目標に届かないときだけ、目標に合う構成を作ります。登録はキャラクターごとです。</p>
+  <div class="panel">
+    <h2>マントを登録する</h2>
+    <div class="cape-form" id="cape-form"></div>
+  </div>
+  <div class="panel">
+    <h2>登録したマント <span class="hint" id="cape-count"></span></h2>
+    <div id="cape-list" class="cape-list"></div>
   </div>
 </div>
 
