@@ -58,7 +58,9 @@
     '隔': ['間隔', 'ディレイ'],
   };
 
-  const fold = (s) => s.normalize('NFKC').toLowerCase();
+  // 検索で比べる形にそろえる: 全角・半角と大文字・小文字の違いをなくし、ひらがなはカタカナにする
+  // (「ぼい」で「ボイイピアス」、「すとあ」で「ストアTP」が見つかる)
+  const fold = (s) => s.normalize('NFKC').toLowerCase().replace(/[\u3041-\u3096]/g, (c) => String.fromCharCode(c.charCodeAt(0) + 0x60));
 
   function prepare(data) {
     const statByKey = new Map();
@@ -72,7 +74,9 @@
     for (const item of data.items) {
       item.m = new Map();
       for (let i = 0; i < item.s.length; i += 2) item.m.set(item.s[i], item.s[i + 1]);
-      item.text = fold([item.ja, item.en, item.desc, item.aug].join('\n'));
+      item.text = fold([item.ja, item.en, item.yomi, item.desc, item.aug].join('\n'));
+      // 名前で探すときに比べる文字: 日本語名・英語名・読み
+      item.names = fold([item.ja, item.en, item.yomi].join('\n'));
     }
     return { data, statByKey };
   }

@@ -105,12 +105,12 @@ test('ジョブの育成はキャラクターごと。何も入れていなけ�
   const storage = memory();
   const store = P.load(storage);
   const a = P.character(store);
-  assert.deepEqual(P.jobSetting(a, 12), { jp: 2100, raw: 0, master: true, ml: 0, merit: true });
+  assert.deepEqual(P.jobSetting(a, 12), { jp: 0, raw: 0, master: false, ml: 0, merit: true });
   a.jobs[12] = { jp: 1200, ml: 30, merit: false };
   const b = P.createCharacter('サブ');
   store.chars.push(b);
   assert.deepEqual(P.jobSetting(a, 12), { jp: 1200, raw: 1200, master: false, ml: 30, merit: false });
-  assert.deepEqual(P.jobSetting(b, 12), { jp: 2100, raw: 0, master: true, ml: 0, merit: true });
+  assert.deepEqual(P.jobSetting(b, 12), { jp: 0, raw: 0, master: false, ml: 0, merit: true });
   // マスターにチェックを入れると 2100 として数えるが、入力してある数値は残る
   a.jobs[12].master = true;
   assert.equal(P.jobSetting(a, 12).jp, 2100);

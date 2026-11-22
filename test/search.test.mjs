@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
 
-const { prepare, suggest, search, slotNames, categoryOf } = createRequire(import.meta.url)('../web/search.js');
+const { prepare, suggest, search, slotNames, categoryOf, fold } = createRequire(import.meta.url)('../web/search.js');
 
 const item = (ja, slots, stats, extra = {}) => ({
   id: 0, ja, en: ja, lv: 99, il: 119, su: 0, slots, jobs: 0b10 | 2 ** 12, skill: 0, desc: '', aug: '', s: stats.flat(), ...extra,
@@ -77,4 +77,17 @@ test('ステータスの名前から分類を引く', () => {
   assert.equal(categoryOf('ペット:命中'), 'ペット');
   assert.equal(categoryOf('潜在能力:命中'), '条件つき');
   assert.equal(categoryOf('トレジャーハンター'), 'その他');
+});
+
+test('ひらがなで打っても、カタカナの名前と、漢字の名前の読みに当たる', () => {
+  const kana = prepare({
+    stats: [{ k: 'ストアTP', n: 1, num: 1, neg: 0, u: '' }],
+    items: [item('ボイイピアス', 1 << 11, [[0, 1]]), item('徒手甲', 1 << 6, [[0, 1]], { yomi: 'あだてっこう' })],
+  });
+  assert.equal(suggest(kana, 'すとあ')[0].k, 'ストアTP');
+  const byName = (q) => kana.data.items.filter((i) => i.names.includes(fold(q))).map((i) => i.ja);
+  assert.deepEqual(byName('ぼい'), ['ボイイピアス']);
+  assert.deepEqual(byName('あだ'), ['徒手甲']);
+  assert.deepEqual(byName('徒'), ['徒手甲']);
+  assert.deepEqual(search(kana, { text: 'あだて', stats: [] }).map((found) => found.ja), ['徒手甲']);
 });

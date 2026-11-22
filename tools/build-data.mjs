@@ -116,6 +116,8 @@ function build() {
   const skills = loadLua('skills');
   const augments = loadAugments();
   const rolls = JSON.parse(fs.readFileSync(AUGMENTS, 'utf8')).rolls?.items ?? {};
+  // 漢字の名前の読み (ひらがな)。名前で探すときに、読みでも当たるようにする
+  const readings = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'readings.json'), 'utf8')).readings ?? {};
   const unusedAugments = new Set(augments.keys());
 
   const statIndex = new Map(); // key -> { k, n, neg, pct, plain, flag }
@@ -225,6 +227,7 @@ function build() {
       fam: augmentOf(augments, item)?.family ?? '',
       // ランダムで付くオーグメントの幅 (手入力の目安)
       roll: rolls[item.id] ?? '',
+      yomi: readings[item.ja] ?? '',
       rp: augment ? augment.rank : 0,
       stats,
     });

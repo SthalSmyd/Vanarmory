@@ -186,9 +186,9 @@
         const picked = setting.picks || content.froms;
         // 一覧は畳んでおく (開け閉めは、選び直している間も保つ)
         const sub = el('div', { className: 'sub' });
-        const fold = el('details', { className: 'picks-line', open: openPicks.has(content.id) },
+        const folded = el('details', { className: 'picks-line', open: openPicks.has(content.id) },
           el('summary', { textContent: `${content.froms.length} 個のうち ${picked.length} 個を使う — 選び直す` }), sub);
-        fold.addEventListener('toggle', () => (fold.open ? openPicks.add(content.id) : openPicks.delete(content.id)));
+        folded.addEventListener('toggle', () => (folded.open ? openPicks.add(content.id) : openPicks.delete(content.id)));
         for (const from of content.froms) {
           const pick = el('button', { type: 'button', className: 'pick' + (picked.includes(from) ? ' on' : ''), textContent: from });
           pick.addEventListener('click', () => {
@@ -204,7 +204,7 @@
         const none = el('button', { type: 'button', className: 'ghost', textContent: 'すべて外す' });
         none.addEventListener('click', () => update({ picks: [] }));
         sub.append(all, none);
-        box.append(fold);
+        box.append(folded);
       }
     }
     if (!contents.length) box.append(el('p', { className: 'hint', textContent: 'コンテンツごとの一覧はまだありません。' }));
@@ -229,7 +229,7 @@
     const list = $('exclude-list');
     list.replaceChildren();
     if (!q) return;
-    const found = data.items.filter((i) => !profile().excluded.includes(i.id) && fold(i.ja + '\n' + i.en).includes(q))
+    const found = data.items.filter((i) => !profile().excluded.includes(i.id) && i.names.includes(q))
       .sort((a, b) => b.il - a.il || b.lv - a.lv || a.ja.localeCompare(b.ja, 'ja')).slice(0, 30);
     if (!found.length) list.append(el('li', { textContent: '見つかりません' }));
     for (const item of found) {
@@ -396,7 +396,7 @@
     const list = $('manual-found');
     list.replaceChildren();
     if (!q) return;
-    const found = data.items.filter((i) => !ids.includes(String(i.id)) && fold(i.ja + '\n' + i.en).includes(q))
+    const found = data.items.filter((i) => !ids.includes(String(i.id)) && i.names.includes(q))
       .sort((a, b) => b.il - a.il || b.lv - a.lv || a.ja.localeCompare(b.ja, 'ja')).slice(0, 30);
     if (!found.length) list.append(el('li', { textContent: '見つかりません' }));
     for (const item of found) {

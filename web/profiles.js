@@ -67,12 +67,12 @@
   }
 
   const MAX_JP = 2100;
-  // ジョブ 1 つの育成。何も入れていなければ「ジョブマスター済み、メリポは最大、マスターレベルは 0」。
+  // ジョブ 1 つの育成。何も入れていなければ「ジョブポイント 0 (マスターのチェックなし)、メリポは最大、マスターレベルは 0」。
   // jp は計算に使う値 (マスター済みなら 2100)、raw は入力してある数値 (マスターのチェックを外すと、これに戻る)
   function jobSetting(character, job) {
     const saved = (character.jobs || {})[job] || {};
     const raw = saved.jp != null ? saved.jp : 0;
-    const master = saved.master != null ? !!saved.master : saved.jp == null || saved.jp >= MAX_JP;
+    const master = saved.master != null ? !!saved.master : saved.jp != null && saved.jp >= MAX_JP;
     return {
       jp: master ? MAX_JP : raw,
       raw,

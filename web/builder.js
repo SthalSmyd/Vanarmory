@@ -567,7 +567,7 @@
 
   function findItems(slot, query) {
     const q = fold(query.trim());
-    const found = data.items.filter((i) => i.slots & slot.mask && usable(i) && (!IL119_ONLY.has(slot.id) || i.il === 119) && fold(i.ja + '\n' + i.en).includes(q));
+    const found = data.items.filter((i) => i.slots & slot.mask && usable(i) && (!IL119_ONLY.has(slot.id) || i.il === 119) && i.names.includes(q));
     found.sort((a, b) => b.il - a.il || b.lv - a.lv || a.ja.localeCompare(b.ja, 'ja'));
     return found.slice(0, 40);
   }
