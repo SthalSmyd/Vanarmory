@@ -311,3 +311,4 @@ table.cmp { border-collapse: collapse; font-size: 13px; font-variant-numeric: ta
 .bare-row { display: flex; gap: 6px; align-items: center; margin-top: 6px; font-size: 12px; color: var(--muted); }
 .bare-row button { white-space: nowrap; }
 .editor li .sub.plus { color: var(--ok); }
+.set-view .stat { white-space: normal; }

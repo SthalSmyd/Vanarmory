@@ -1423,7 +1423,8 @@
 
   // そのほかのステータス。分類ごとに、0 でない値をすべて並べる
   const THIN = new Set(['スキル', 'ペット', 'その他', '条件つき', '特殊効果']); // 目標が無ければ畳んでおく分類
-  function statsPanel(set, req, wanted) {
+  // compact: 左の欄で開くとき。幅が狭いので、長い名前を縮め、上限を超えた値は上限の値で出す
+  function statsPanel(set, req, wanted, compact) {
     const groups = new Map(CATEGORY_ORDER.map((name) => [name, []]));
     const shown = new Set([...SHEET_KEYS, ...ATTACK_KEYS]); // 上の枠に出したものは、ここには出さない
     for (const [i, value] of set.totals) {
@@ -1452,9 +1453,12 @@
         if (quiet.includes(entry)) continue;
         const gear = entry.value - entry.other;
         const detail = entry.other ? `装備 ${signed(gear, entry.stat.u)} / 装備以外 ${signed(entry.other, entry.stat.u)}` : '装備のみ';
-        box.append(el('span', { className: 'stat' + (entry.over ? ' over' : '') + (wanted.has(entry.stat.i) ? ' wanted' : ''), title: detail + (entry.over ? `\n上限 ${signed(entry.over.value, entry.stat.u)} (${entry.over.note})。超えた分は効果がありません` : '') },
-          entry.stat.k + ' ', el('b', { textContent: signed(entry.value, entry.stat.u) }),
-          entry.over ? el('span', { className: 'cap-mark', textContent: ` 上限 ${signed(entry.over.value, entry.stat.u)}` }) : null));
+        const name = compact ? entry.stat.k.replace('(被ダメージ込み)', '(込)') : entry.stat.k;
+        const capped = compact && entry.over; // 上限の値を出し、もとの合計は説明に回す
+        box.append(el('span', { className: 'stat' + (entry.over ? ' over' : '') + (wanted.has(entry.stat.i) ? ' wanted' : ''),
+          title: (compact ? `${entry.stat.k} ${signed(entry.value, entry.stat.u)}\n` : '') + detail + (entry.over ? `\n上限 ${signed(entry.over.value, entry.stat.u)} (${entry.over.note})。超えた分は効果がありません` : '') },
+          name + ' ', el('b', { textContent: signed(capped ? entry.over.value : entry.value, entry.stat.u) }),
+          entry.over ? el('span', { className: 'cap-mark', textContent: capped ? ' 上限' : ` 上限 ${signed(entry.over.value, entry.stat.u)}` }) : null));
       }
       if (quiet.length) {
         box.append(el('span', { className: 'stat effect', textContent: `ほか ${quiet.length} 種 (装備以外の分のみ)`, title: quiet.map((entry) => `${entry.stat.k} ${signed(entry.value, entry.stat.u)}`).join('\n') }));
@@ -1712,7 +1716,7 @@
       statSheet(set, context),
       el('div', { className: 'combat' }, attackTiles(set, req, context)),
       tp,
-      statsPanel(set, req, new Set(columns.map((c) => c.stat.i))),
+      statsPanel(set, req, new Set(columns.map((c) => c.stat.i)), true),
       el('div', { className: 'view-head' }, el('span', { textContent: `装備 (${rows.length} 部位)` }), all),
       gear);
   }
