@@ -54,6 +54,12 @@
   // 固定や除外を保存したあとでも同じマントを作り直せるようにする (-1 は「付けない」)
   const capeId = (job, picks) => `cape:${job}:${picks.join(',')}`;
 
+  // 登録したジョブマント (キャラクターごと)。自動で選ぶときは、登録があればその中から選び、無ければ構成を作る
+  const NO_PICKS = () => data.capes.augments.map(() => -1);
+  const myCapes = (job) => (store ? P.character(store).capes || [] : []).filter((c) => c.job === job);
+  const capeName = (job, picks) => (myCapes(job).find((c) => c.picks.join() === picks.join()) || {}).name || '';
+  const isCapeName = (item) => !!item && !item.rank && Object.values(data.capes.names).includes(item.ja);
+
   function makeCape(job, picks) {
     const plain = data.items.find((i) => i.ja === data.capes.names[job] && !i.rank);
     if (!plain) return null;
@@ -72,7 +78,9 @@
       const parts = d.parts.map((p) => m.get(db.statByKey.get(p).i)).filter((v) => typeof v === 'number');
       if (parts.length) m.set(db.statByKey.get(d.k).i, parts.reduce((a, b) => a + b, 0));
     }
-    return Object.assign({}, plain, { id: capeId(job, picks), m, rank: 'オグメ最大', aug: texts.join(' '), group: 'cape', plain: '' });
+    // 登録してある構成なら、その名前を出す
+    const rank = capeName(job, picks) || (texts.length ? 'オグメ最大' : '');
+    return Object.assign({}, plain, { id: capeId(job, picks), m, rank, aug: texts.join(' '), group: 'cape', plain: '', picks: picks.slice(), capeJob: job });
   }
 
   // 目標や伸ばすステータスに効く項目だけを組み合わせる。効く項目が無いアイテムは付けない
@@ -576,7 +584,12 @@
     return found.slice(0, 40);
   }
 
-  function fix(slotId, id) {
+  function fix(slotId, picked) {
+    // ジョブマントを名前で選んだときは、何も付けていない構成として固定する (あとで項目を選べる)
+    const chosen = getItem(picked);
+    const capeJob = isCapeName(chosen) ? Number(Object.keys(data.capes.names).find((job) => data.capes.names[job] === chosen.ja)) : 0;
+    const id = capeJob ? capeId(capeJob, NO_PICKS()) : picked;
+    const keepOpen = !!capeJob;
     // 耳・指で、同じ装備をもう片方に固定しているときは付け替える
     for (const [other, otherId] of Object.entries(state.fixed)) if (otherId === id) delete state.fixed[other];
     // 同時に持てない装備 (報酬リングなど) を固定していたら、そちらを外す
@@ -585,8 +598,73 @@
       for (const [other, otherId] of Object.entries(state.fixed)) if (other !== slotId && getItem(otherId)?.only === only) delete state.fixed[other];
     }
     state.fixed[slotId] = id;
-    editing = null;
+    editing = keepOpen ? slotId : null;
     changed();
+  }
+
+  // いまの目標と伸ばすステータス (ステータスの番号 -> 向き)。マントの項目に「目標」の印を付けるのに使う
+  function wantedNow() {
+    const wanted = new Map();
+    for (const t of state.targets) if (t.goal) wanted.set(db.statByKey.get(t.k).i, t.goal < 0 ? -1 : 1);
+    if (swingTargets().some((g) => !g.error)) wanted.set(db.statByKey.get('ストアTP').i, 1);
+    for (const m of state.objective === 'max' ? state.maximize : []) {
+      const stat = db.statByKey.get(m.k);
+      if (m.weight > 0 && !wanted.has(stat.i)) wanted.set(stat.i, stat.neg ? -1 : 1);
+    }
+    return wanted;
+  }
+
+  // ジョブマントの構成を選ぶ欄。アイテム 5 種 (糸・金粉・染料・水油・樹脂) につき 1 項目ずつ。
+  // onPick(新しい構成) は、選び直すたびに呼ばれる
+  function capeEditor(cape, onPick, wide) {
+    const wanted = wantedNow();
+    const useful = (option) => {
+      for (let k = 0; k < option.s.length; k += 2) {
+        const sign = wanted.get(option.s[k]);
+        if (sign && sign * option.s[k + 1] > 0) return true;
+      }
+      return false;
+    };
+    const box = el('div', { className: 'cape' + (wide ? ' wide' : '') });
+    data.capes.augments.forEach((group, g) => {
+      // 目標に効く項目を上に寄せる
+      const order = group.options.map((option, index) => ({ option, index, hit: useful(option) })).sort((a, b) => b.hit - a.hit || a.index - b.index);
+      const select = el('select', { className: cape.picks[g] < 0 ? 'none' : '' },
+        el('option', { value: -1, textContent: 'なし' }),
+        ...order.map(({ option, index, hit }) => el('option', { value: index, textContent: option.text + (hit ? '　← 目標' : '') })));
+      select.value = cape.picks[g];
+      select.addEventListener('change', () => {
+        const picks = cape.picks.slice();
+        picks[g] = Number(select.value);
+        onPick(picks);
+      });
+      const picked = group.options[cape.picks[g]];
+      box.append(el('label', { className: 'cape-row' + (picked && useful(picked) ? ' hit' : '') }, group.item, select));
+    });
+    return el('div', null, box, el('div', { className: 'cape-sum' }, '合計: ', el('b', { textContent: cape.aug || '(何も付けていない)' })));
+  }
+
+  // その構成を、名前を付けて登録する / 登録を消す
+  function capeRegister(cape, after) {
+    const list = P.character(store).capes;
+    const found = list.find((c) => c.job === cape.capeJob && c.picks.join() === cape.picks.join());
+    if (found) {
+      const remove = el('button', { type: 'button', className: 'ghost', textContent: '登録を消す' });
+      remove.addEventListener('click', () => {
+        P.character(store).capes = list.filter((c) => c !== found);
+        after();
+      });
+      return el('div', { className: 'cape-acts' }, el('span', { className: 'hint', textContent: `「${found.name}」として登録済み` }), remove);
+    }
+    const add = el('button', { type: 'button', className: 'ghost', textContent: 'この構成を登録', title: '名前を付けて登録する。登録したマントがあるジョブでは、自動で選ぶときに、登録した中から選びます' });
+    add.addEventListener('click', () => {
+      if (!cape.picks.some((pick) => pick >= 0)) return void ($('status').textContent = '項目を 1 つ以上選んでから登録してください。');
+      const name = (prompt('マントの名前 (例: TP用、WS用)', '') || '').trim();
+      if (!name) return;
+      list.push({ id: P.newId(), job: cape.capeJob, name, picks: cape.picks.slice() });
+      after();
+    });
+    return el('div', { className: 'cape-acts' }, add);
   }
 
   function cell(slot, item, options) {
@@ -655,6 +733,28 @@
         }
       });
       editor.append(title, input, list);
+      if (slot.id === 'back' && state.job) {
+        // 固定してあるマントの構成を選び直す
+        if (item && item.group === 'cape') {
+          editor.append(capeEditor(item, (picks) => {
+            state.fixed.back = capeId(item.capeJob, picks);
+            changed();
+          }), capeRegister(item, changed));
+        }
+        // 登録したマント (このジョブの分)。押すと、その構成で固定する
+        const mine = myCapes(state.job);
+        if (mine.length) {
+          editor.append(el('div', { className: 'cape-list' }, el('span', { className: 'hint', textContent: '登録したマント' }), ...mine.map((c) => {
+            const id = capeId(c.job, c.picks);
+            const b = el('button', { type: 'button', className: 'chip' + (state.fixed.back === id ? ' on' : ''), textContent: c.name, title: makeCape(c.job, c.picks)?.aug || '' });
+            b.addEventListener('click', () => {
+              state.fixed.back = id;
+              changed();
+            });
+            return b;
+          })));
+        }
+      }
     }
 
     const excluded = profile().excluded.filter((id) => getItem(id));
@@ -689,6 +789,7 @@
     }
     const fixed = {};
     for (const [slot, id] of Object.entries(state.fixed)) fixed[slot] = getItem(id);
+    const registered = myCapes(state.job).map((c) => makeCape(state.job, c.picks)).filter(Boolean);
 
     // マントは、目標と伸ばすステータスに合わせて構成を作る
     const wanted = new Map(targets.map((t) => [db.statByKey.get(t.k).i, t.goal < 0 ? -1 : 1]));
@@ -718,7 +819,8 @@
       fixed,
       excluded: new Set(profile().excluded),
       base: outside().base,
-      extra: profile().cape ? { back: capeVariants(state.job, wanted) } : {},
+      // 登録したマントがあれば、その中から選ぶ。無ければ、目標に合う構成を作る
+      extra: profile().cape ? { back: registered.length ? registered : capeVariants(state.job, wanted) } : {},
       allow,
       sets: data.sets,
     };
@@ -1510,7 +1612,19 @@
         const info = el('div', null,
           el('div', { className: 'title' }, `${slot.ja}: ${nameOf(item)}`, el('span', { className: 'en', textContent: item.en })),
           el('pre', { textContent: item.desc }),
-          item.aug ? el('div', { className: 'aug', textContent: 'オーグメント: ' + item.aug.replace(/\s+/g, ' ') }) : null,
+          item.group === 'cape' ? null : item.aug ? el('div', { className: 'aug', textContent: 'オーグメント: ' + item.aug.replace(/\s+/g, ' ') }) : null,
+          // ジョブマントは、構成を選び直せる。選び直すと、この候補の合計も変わる
+          item.group === 'cape' ? capeEditor(item, (picks) => {
+            set.equip[slot.id] = makeCape(item.capeJob, picks);
+            Object.assign(set, window.VanaSolver.totalsOf(set.equip, req.base, data.sets));
+            renderResults();
+          }, true) : null,
+          item.group === 'cape' ? capeRegister(item, () => {
+            P.save(localStorage, store);
+            set.equip[slot.id] = makeCape(item.capeJob, item.picks); // 名前の表示を直す
+            render();
+            renderResults();
+          }) : null,
           manualField(item));
         const acts = el('div', { className: 'acts' });
         if (req.fixed[slot.id]) {

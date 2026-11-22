@@ -269,3 +269,17 @@ table.cmp { border-collapse: collapse; font-size: 13px; font-variant-numeric: ta
 .cmp td.item { text-align: left; white-space: normal; }
 .cmp tr.diff td.item { font-weight: 600; }
 .cmp tr.eq td.item { color: var(--muted); }
+
+/* ジョブマントの構成: アイテム 5 種につき 1 項目ずつ */
+.cape { display: grid; gap: 5px; margin-top: 8px; }
+.cape.wide { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5px 12px; }
+.cape-row { display: grid; grid-template-columns: 38px minmax(0, 1fr); gap: 6px; align-items: center; font-size: 12px; color: var(--muted); }
+.cape-row select { padding: 3px 6px; font-size: 13px; color: var(--text); min-width: 0; width: 100%; }
+.cape-row select.none { color: var(--muted); }
+.cape-row.hit select { border-color: var(--ok); }
+.cape-sum { font-size: 12px; color: var(--muted); margin-top: 4px; }
+.cape-sum b { color: var(--text); }
+.cape-acts { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin-top: 6px; }
+.cape-list { display: flex; gap: 5px; flex-wrap: wrap; align-items: center; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--line); }
+.cape-list .chip.on { background: var(--fixed-bg); color: var(--fixed); font-weight: 600; }
+@media (max-width: 620px) { .cape.wide { grid-template-columns: minmax(0, 1fr); } }

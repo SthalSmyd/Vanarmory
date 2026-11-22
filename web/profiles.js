@@ -10,6 +10,7 @@
 //     ├ 種族 … race ('hume' / 'elvaan' / 'tarutaru' / 'mithra' / 'galka')。素のステータスの計算に使う
 //     ├ 共通のメリポ … merits: { 項目の名前: 段階 }
 //     ├ 保存したセット … sets: [{ id, name, who: { job, sub, subLevel, food, innate }, equip: { 部位: 装備の id } }]
+//     ├ 登録したジョブマント … capes: [{ id, job, name, picks }] (picks は、アイテム 5 種ごとに選んだ項目の番号。-1 は付けない)
 //     ├ 手入力のオーグメント … augments: { 装備の id: 「STR+8 DEX+8 命中+12」のような文字 }
 //     └ 装備の範囲の設定 (「メイン」「復帰直後」のように複数持てる) … list と、選んでいる設定 active
 //
@@ -111,7 +112,7 @@
   // 最初の装備の範囲の設定を 1 つ持ったキャラクター
   function createCharacter(name) {
     const first = create('メイン');
-    return { id: newId(), name, race: 'hume', jobs: {}, merits: {}, augments: {}, sets: [], active: first.id, list: [first] };
+    return { id: newId(), name, race: 'hume', jobs: {}, merits: {}, augments: {}, sets: [], capes: [], active: first.id, list: [first] };
   }
 
   function normalizeCharacter(character) {
@@ -122,6 +123,7 @@
       race: character.race || 'hume',
       augments: Object.assign({}, character.augments),
       sets: JSON.parse(JSON.stringify(character.sets || [])),
+      capes: JSON.parse(JSON.stringify(character.capes || [])),
       jobs: JSON.parse(JSON.stringify(character.jobs || {})),
       // 以前はクリティカルヒット +5% の入・切だけを持っていた (crit)。段階に直して引き継ぐ
       merits: Object.assign(character.crit ? { 'クリティカルヒット': 5 } : {}, character.merits),

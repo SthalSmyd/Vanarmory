@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vanarmory — マントの構成のモック</title>
+<link rel="stylesheet" href="../web/theme.css">
+<link rel="stylesheet" href="../web/builder.css">
+<style>
+body { padding: 16px; }
+h2.sec { font-size: 14px; margin: 22px 0 4px; }
+h2.sec small { font-weight: 400; color: var(--muted); font-size: 12px; margin-left: 8px; }
+.note { font-size: 12px; color: var(--muted); margin: 0 0 8px; max-width: 900px; }
+.mock-note { font-size: 12px; color: var(--muted); border: 1px dashed var(--line); border-radius: 6px; padding: 4px 10px; display: inline-block; }
+.two { display: grid; grid-template-columns: 276px minmax(0, 620px); gap: 16px; align-items: start; }
+
+/* マントの構成: アイテム 5 種につき 1 項目ずつ */
+.cape { display: grid; gap: 5px; margin-top: 6px; }
+.cape-row { display: grid; grid-template-columns: 38px minmax(0, 1fr); gap: 6px; align-items: center; font-size: 12px; color: var(--muted); }
+.cape-row select { padding: 3px 6px; font-size: 13px; color: var(--text); min-width: 0; width: 100%; }
+.cape-row select.none { color: var(--muted); }
+.cape-row.hit select { border-color: var(--ok); }
+.cape-sum { font-size: 12px; color: var(--muted); margin-top: 4px; }
+.cape-sum b { color: var(--text); }
+.cape-acts { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+.cape.wide { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5px 12px; }
+.mark { color: var(--ok); font-size: 11px; font-weight: 600; }
+</style>
+</head>
+<body>
+<span class="mock-note">モック (見た目だけ。押しても動きません)。例は戦士のシコルマント</span>
+
+<h2 class="sec">1. 候補のマスを押したとき <small>背のマスを押すと、説明の下に「マントの構成」が出る</small></h2>
+<p class="note">自動で選ばれた構成が入った状態で出る。アイテム 5 種 (糸・金粉・染料・水油・樹脂) ごとに 1 項目を選び直せる。選び直すと、その場でこの候補の合計が変わる。「この構成で固定」を押すと、その構成のマントを背に固定して、残りを探し直せる。目標や伸ばすステータスに効く項目には「目標」の印が付く。</p>
+<div class="card" style="max-width:640px">
+  <div class="detail" style="border-top:0;padding-top:0">
+    <div>
+      <div class="title">背: シコルマント [オグメ最大]<span class="en">Cichol's Mantle</span></div>
+      <pre>防30</pre>
+      <div class="cape wide">
+        <label class="cape-row hit">糸 <select><option>DEX+20</option></select></label>
+        <label class="cape-row hit">金粉 <select><option>命中+20 攻+20</option></select></label>
+        <label class="cape-row">染料 <select class="none"><option>なし</option></select></label>
+        <label class="cape-row hit">水油 <select><option>ダブルアタック+10%</option></select></label>
+        <label class="cape-row hit">樹脂 <select><option>被物理ダメージ-10%</option></select></label>
+      </div>
+      <div class="cape-sum">合計: <b>DEX+20 命中+20 攻+20 ダブルアタック+10% 被物理ダメージ-10%</b></div>
+    </div>
+    <div class="acts">
+      <button>この構成で固定</button>
+      <button class="plain">自動の構成に戻す</button>
+      <button class="plain">候補から除外</button>
+    </div>
+  </div>
+</div>
+
+<h2 class="sec">2. 選ぶところを開いた状態 <small>項目の一覧。目標に効くものが上に来て、印が付く</small></h2>
+<div class="card" style="max-width:300px">
+  <label class="cape-row" style="grid-template-columns:38px minmax(0,1fr)">水油
+    <select size="9" style="height:auto">
+      <option>なし</option>
+      <option selected>ダブルアタック+10%　← 目標</option>
+      <option>ストアTP+10　← 目標</option>
+      <option>ヘイスト+10%　← 目標</option>
+      <option>ウェポンスキルのダメージ+10%</option>
+      <option>クリティカルヒット+10%</option>
+      <option>二刀流+10</option>
+      <option>敵対心+10</option>
+      <option>… (15 項目)</option>
+    </select>
+  </label>
+</div>
+
+<h2 class="sec">3. 左の「固定する装備」で背を選んだとき <small>名前で探す欄の下に、同じ「マントの構成」が出る</small></h2>
+<p class="note">マントを名前で探して選ぶと、まず何も付いていない構成で固定され、その下で 5 項目を選べる。すでに固定してあるマントのマスを押したときも、ここで選び直せる。選び直すたびに保存される。</p>
+<div class="two">
+  <div class="panel">
+    <h2>固定する装備 <button>すべて解除</button></h2>
+    <div class="grid" style="margin-bottom:8px">
+      <div class="cell fixed"><div class="slot">メイン</div><div class="name">ウコンバサラ [R15]</div></div>
+      <div class="cell fixed"><div class="slot">サブ</div><div class="name">ウトゥグリップ</div></div>
+      <div class="cell weapon off"><div class="slot">レンジ</div><div class="name">未設定</div></div>
+      <div class="cell blank free"><div class="slot">矢弾</div></div>
+      <div class="cell blank free"><div class="slot">頭</div></div><div class="cell blank free"><div class="slot">首</div></div><div class="cell blank free"><div class="slot">耳1</div></div><div class="cell blank free"><div class="slot">耳2</div></div>
+      <div class="cell blank free"><div class="slot">胴</div></div><div class="cell blank free"><div class="slot">両手</div></div><div class="cell blank free"><div class="slot">指1</div></div><div class="cell blank free"><div class="slot">指2</div></div>
+      <div class="cell fixed sel"><div class="slot">背</div><div class="name">シコルマント ✎</div></div>
+      <div class="cell blank free"><div class="slot">腰</div></div><div class="cell blank free"><div class="slot">両脚</div></div><div class="cell blank free"><div class="slot">両足</div></div>
+    </div>
+    <div class="editor">
+      <div class="title">背: シコルマント <button class="ghost">固定を解除</button></div>
+      <input type="search" placeholder="装備の名前 (日本語・英語)">
+      <div class="cape">
+        <label class="cape-row">糸 <select><option>STR+20</option></select></label>
+        <label class="cape-row">金粉 <select><option>命中+20 攻+20</option></select></label>
+        <label class="cape-row">染料 <select><option>STR+10</option></select></label>
+        <label class="cape-row">水油 <select><option>ウェポンスキルのダメージ+10%</option></select></label>
+        <label class="cape-row">樹脂 <select class="none"><option>なし</option></select></label>
+      </div>
+      <div class="cape-sum">合計: <b>STR+30 命中+20 攻+20 ウェポンスキルのダメージ+10%</b></div>
+    </div>
+  </div>
+  <div class="note" style="margin-top:8px">
+    <b style="color:var(--text)">決めてほしいこと</b>
+    <ol style="margin:6px 0 0;padding-left:18px;display:grid;gap:4px">
+      <li>値は「最大」だけでよいか。それとも、糸の DEX+20 を +15 にするような、途中の値も入れたいか (いまのデータは最大の値だけ)</li>
+      <li>よく使う構成 (TP 用、WS 用など) に名前を付けて持っておき、選ぶだけにしたいか。それとも、その都度 5 項目を選ぶ形でよいか</li>
+      <li>自動で選ぶときに「持っている構成の中からだけ選ぶ」ようにしたいか。いまは、目標に合う構成を毎回自由に作っている (実際には作り直しにアイテムが要る)</li>
+    </ol>
+  </div>
+</div>
+</body>
+</html>
