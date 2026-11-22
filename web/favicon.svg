@@ -5,12 +5,16 @@
       <stop offset="1" stop-color="#0d1433"/>
     </linearGradient>
     <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#fbeab0"/>
-      <stop offset="1" stop-color="#d8a545"/>
+      <stop offset="0" stop-color="#fdeeb8"/>
+      <stop offset="1" stop-color="#dba845"/>
     </linearGradient>
   </defs>
-  <rect x="2" y="2" width="60" height="60" rx="14" fill="url(#bg)"/>
-  <rect x="4.5" y="4.5" width="55" height="55" rx="11.5" fill="none" stroke="#6f82cc" stroke-opacity=".55" stroke-width="1.5"/>
-  <path d="M13 15h11.5L32 36.5 39.5 15H51L37 51H27z" fill="url(#gold)"/>
-  <path d="M32 36.5 39.5 15H51L37 51h-5z" fill="#000" fill-opacity=".14"/>
+  <rect x="1" y="1" width="62" height="62" rx="14" fill="url(#bg)"/>
+  <!-- 盾 (装備) の中に XI -->
+  <path d="M32 4.5 57 11.500v19.500C57 45 46.5 54.5 32 60 17.5 54.5 7 45 7 31V11.500z" fill="url(#gold)"/>
+  <path d="M32 11 51 16.300V31c0 10.3-7.6 17.7-19 22.300C20.6 48.7 13 41.3 13 31V16.300z" fill="#111a45"/>
+  <g fill="url(#gold)">
+    <path d="M15.5 19.500h7.200l4.3 7.4 4.3-7.400h7.200L30.6 31.500l8.2 12.500h-7.200L27 36.3 22.4 44h-7.200l8.2-12.500z"/>
+    <rect x="41" y="19.5" width="7.5" height="24.5"/>
+  </g>
 </svg>

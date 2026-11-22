@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs><linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#24327a"/><stop offset="1" stop-color="#0d1433"/></linearGradient><linearGradient id="gold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fbeab0"/><stop offset="1" stop-color="#d8a545"/></linearGradient><linearGradient id="steel" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f2f7ff"/><stop offset="1" stop-color="#9db4dc"/></linearGradient></defs><rect x="2" y="2" width="60" height="60" rx="14" fill="url(#bg)"/><rect x="4.5" y="4.5" width="55" height="55" rx="11.5" fill="none" stroke="#6f82cc" stroke-opacity=".55" stroke-width="1.5"/>
+<path d="M32 10c-12 0-19 9-19 21v13l8 9h7V41h8v12h7l8-9V31c0-12-7-21-19-21z" fill="url(#gold)"/>
+<path d="M17 29h12v6H17zM35 29h12v6H35z" fill="#141c48"/>
+<path d="M30.5 10h3v19h-3z" fill="#141c48" fill-opacity=".35"/>
+<path d="M32 4c5 0 9 3 10 8-3-2-6.5-3-10-3s-7 1-10 3c1-5 5-8 10-8z" fill="#e2574c"/>
+</svg>
