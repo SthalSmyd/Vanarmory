@@ -127,6 +127,10 @@
     } else {
       for (const v of vars) gain.push([-1, v.name]); // 少ない部位で
     }
+    // 同じ良さなら、その場で作った構成の装備 (item.made。登録していないジョブマント) より、実際にある装備を選ぶ。
+    // 引く量は、伸ばすステータスの 1 ぶんの半分 (少ない部位で満たすときは、部位 1 つぶんの半分) より小さくする
+    const step = maxMode ? Math.min(...open.concat(capped).map((w) => Math.abs(w.weight)).filter((w) => w > 0), 1) : 1;
+    for (const v of vars) if (v.item.made) gain.push([-0.4 * step, v.name]);
 
     // 目標の行。strict = false のときは「届いた割合」を変数にして、それを伸ばす (届かない目標のとき)
     const build = (strict, cuts) => {

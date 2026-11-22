@@ -97,7 +97,8 @@
       if (!useful.length) useful.push(-1);
       combos = combos.flatMap((c) => useful.map((u) => [...c, u]));
     }
-    return combos.filter((c) => c.some((u) => u >= 0)).map((c) => makeCape(job, c)).filter(Boolean);
+    // 登録していない構成には made の印を付ける (同じ良さなら、実際にある装備のほうを選ばせる)
+    return combos.filter((c) => c.some((u) => u >= 0)).map((c) => makeCape(job, c)).filter(Boolean).map((cape) => Object.assign(cape, { made: !capeName(job, cape.picks) }));
   }
 
   function getItem(id) {
@@ -791,7 +792,6 @@
     }
     const fixed = {};
     for (const [slot, id] of Object.entries(state.fixed)) fixed[slot] = getItem(id);
-    const registered = myCapes(state.job).map((c) => makeCape(state.job, c.picks)).filter(Boolean);
 
     // マントは、目標と伸ばすステータスに合わせて構成を作る
     const wanted = new Map(targets.map((t) => [db.statByKey.get(t.k).i, t.goal < 0 ? -1 : 1]));
@@ -800,6 +800,22 @@
       const stat = db.statByKey.get(m.k);
       if (!wanted.has(stat.i)) wanted.set(stat.i, stat.neg ? -1 : 1);
     }
+    // 登録したマントが、この目標に「合う」か。アイテム 5 種のうち、目標や伸ばすステータスに効く項目を付けられる
+    // ものの数を数え、その半分以上で実際に効く項目を付けていれば、合うとみなす
+    // (TP 用のマントを、WS 向けの目標に使わないようにする。効く項目が 1 つも無い目標では、どれも合うとみなす)
+    const helps = (option) => {
+      if (!option) return false;
+      for (let k = 0; k < option.s.length; k += 2) {
+        const sign = wanted.get(option.s[k]);
+        if (sign && sign * option.s[k + 1] > 0) return true;
+      }
+      return false;
+    };
+    const possible = data.capes.augments.filter((group) => group.options.some(helps)).length;
+    const registered = myCapes(state.job);
+    const fitting = registered
+      .filter((c) => c.picks.filter((pick, g) => helps(data.capes.augments[g].options[pick])).length >= Math.ceil(possible / 2))
+      .map((c) => makeCape(state.job, c.picks)).filter(Boolean);
     // 頭・胴・両手・両脚・両足は IL119 だけ。そのうえで、選んだ設定の範囲にある装備だけを使う
     // 「マイナスのある装備を使わない」: 命中-10 のように、普通は増える性能が減る装備を自動の候補から外す
     // (被ダメージや敵対心のように、もともと小さいほど良いものは対象外。条件つきの効果も見ない)
@@ -821,10 +837,11 @@
       fixed,
       excluded: new Set(profile().excluded),
       base: outside().base,
-      // 登録したマントがあれば、まずその中から選ぶ。登録が無いときと、登録したマントでは目標に届かないとき (run が
-      // generate を付けて呼び直す) は、目標に合う構成を作る
-      extra: profile().cape ? { back: registered.length && !generate ? registered : registered.concat(capeVariants(state.job, wanted)) } : {},
-      ownCapes: registered.length > 0 && !generate,
+      // 登録したマントのうち、この目標に合うものがあれば、まずその中から選ぶ。合うものが無いときと、
+      // 合うマントでは目標に届かないとき (run が generate を付けて呼び直す) は、目標に合う構成を作る
+      extra: profile().cape ? { back: fitting.length && !generate ? fitting : fitting.concat(capeVariants(state.job, wanted)) } : {},
+      ownCapes: fitting.length > 0 && !generate,
+      noFit: registered.length > 0 && !fitting.length, // 登録はあるが、合うものが無かった
       allow,
       sets: data.sets,
     };
@@ -893,11 +910,11 @@
       let req = request(false);
       let result = await solveWith(req);
       // 登録したマントでは目標に届かないときは、目標に合う構成のマントを作って探し直す
-      let madeCape = false;
+      let madeCape = req.noFit ? '登録したマントに、この目標に合うものが無かったので' : '';
       if (req.ownCapes && !result.reached) {
         req = request(true);
         result = await solveWith(req);
-        madeCape = true;
+        madeCape = '登録したマントでは目標に届かなかったので';
       }
       lastResult = { req, who, context: contextFor(who), result, madeCape };
       // 前の候補を比較に入れていたら外す (候補の番号が変わるため)
@@ -1476,7 +1493,7 @@
       $('notice').append(el('p', { className: 'warn', textContent: '計算に時間がかかるため、途中で打ち切りました。ここに出ている候補は目標を満たしますが、いちばん良い組み合わせとは限りません。部位を固定するか、目標を減らすと確実になります。' }));
     }
     if (lastResult.madeCape) {
-      $('notice').append(el('p', { className: 'warn', textContent: '登録したマントでは目標に届かなかったので、目標に合う構成のマントを作って探しました (候補の背に [オグメ最大] と出ているものが、作った構成です)。' }));
+      $('notice').append(el('p', { className: 'warn', textContent: `${lastResult.madeCape}、目標に合う構成のマントを作って探しました (候補の背に [オグメ最大] と出ているものが、作った構成です)。` }));
     }
     if (!result.reached) {
       $('notice').append(el('p', { className: 'warn', textContent: '目標のすべてには届きませんでした。いちばん近い組み合わせを表示しています。目標を下げるか、固定・除外・装備の範囲を緩めてください。' }));
