@@ -272,6 +272,45 @@ function build() {
     }
     if (members < 2) process.stderr.write(`警告: 同時に持てない組「${group.label}」に当たる装備が ${members} 件しかない\n`);
   });
+  // 名前が省略形の装備 (「ＢＩマスク+3」など。全角の英字 2 文字以上で始まる) に、省略していない名前を読みとして持たせる
+  // (「ぼいい」で探せるようにする)。同じ部位・同じジョブで、名前の後ろ (「マスク」) が同じで、英語名の 1 語目が
+  // 省略の関係にある (Boii と Boii、Clr. と Cleric's) 装備を探し、1 つに決まったときだけ使う
+  const SHORT = /^[Ａ-Ｚ]{2,}/;
+  const nameStem = (name) => name.replace(/(\+\d+|-\d+|改)$/, '');
+  const leadWord = (en) => en.replace(/\s*[+-]\d+$/, '').split(/\s+/)[0].replace(/'s$|\.$/g, '').toLowerCase();
+  // a が b の省略か: 同じ文字で始まり、a の文字が b の中にこの順で出てくる
+  const abbreviates = (a, b) => {
+    if (!a || !b || a[0] !== b[0]) return false;
+    let at = 0;
+    for (const ch of b) if (ch === a[at]) at++;
+    return at === a.length;
+  };
+  const plainNames = out.filter((item) => !item.rank && !SHORT.test(item.ja));
+  const bySlotJobs = new Map();
+  for (const item of plainNames) {
+    const key = item.slots + '|' + item.jobs;
+    if (!bySlotJobs.has(key)) bySlotJobs.set(key, []);
+    bySlotJobs.get(key).push(item);
+  }
+  let expanded = 0;
+  let shortNames = 0;
+  const fullNames = new Map(); // 省略形の名前 -> 省略していない名前
+  for (const item of out) {
+    if (!SHORT.test(item.ja)) continue;
+    if (!fullNames.has(item.ja)) {
+      shortNames++;
+      const tail = nameStem(item.ja.replace(SHORT, ''));
+      const word = leadWord(item.en);
+      const found = new Set((bySlotJobs.get(item.slots + '|' + item.jobs) || [])
+        .filter((other) => nameStem(other.ja).endsWith(tail) && nameStem(other.ja).length > tail.length && (abbreviates(word, leadWord(other.en)) || abbreviates(leadWord(other.en), word)))
+        .map((other) => nameStem(other.ja)));
+      fullNames.set(item.ja, found.size === 1 ? [...found][0] : '');
+      if (found.size === 1) expanded++;
+    }
+    if (fullNames.get(item.ja)) item.yomi = [item.yomi, fullNames.get(item.ja)].filter(Boolean).join(' ');
+  }
+  process.stderr.write(`省略形の名前 ${shortNames} 個のうち ${expanded} 個に、省略していない名前を付けた\n`);
+
   // 同じ装備の強化違い (ランク違い・方針違い) も、同時には持てない。耳や指に、同じ装備のランク 25 と 30 を
   // 並べて着けるような候補を出さないように、元の装備ごとに組を作る
   const sameItem = new Map(); // 元の装備の id -> 組の番号
