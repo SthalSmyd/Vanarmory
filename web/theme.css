@@ -40,3 +40,7 @@ nav a { color: var(--head-text); text-decoration: none; padding: 3px 12px; borde
 nav a:hover { color: var(--head-accent); }
 nav a.here { background: rgb(255 255 255 / .12); color: var(--head-accent); font-weight: 600; }
 .meta { margin: 0 0 0 auto; color: var(--head-text); font-size: 12px; }
+
+/* FF11用語辞典のページを開くリンクマーク */
+.wiki { display: inline-flex; vertical-align: middle; margin-left: 5px; padding: 2px; border-radius: 4px; color: var(--muted); }
+.wiki:hover { color: var(--accent); background: var(--accent-bg); }

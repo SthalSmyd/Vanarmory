@@ -208,7 +208,7 @@
       const level = item.il ? 'IL' + item.il : 'Lv' + item.lv;
       const slot = slotNames(item.slots).join('・') + (item.skill && data.skills[item.skill] ? ' (' + data.skills[item.skill] + ')' : '');
       const row = el('tr', null,
-        el('td', { className: 'name' }, item.ja + (item.rank ? ` [${item.rank}]` : ''), el('span', { className: 'en', textContent: item.en })),
+        el('td', { className: 'name' }, item.ja + (item.rank ? ` [${item.rank}]` : ''), window.VanaSearch.wikiLink(item), el('span', { className: 'en', textContent: item.en })),
         el('td', { className: 'slot', textContent: slot }),
         el('td', { className: 'lv', textContent: level + (item.su ? ' Su' + item.su : '') }));
       for (const stat of stats) row.append(el('td', { className: 'num', textContent: format(item.m.get(stat.i), stat) }));

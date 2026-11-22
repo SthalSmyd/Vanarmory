@@ -206,7 +206,18 @@
     return SLOTS.filter((s) => s.mask & mask).map((s) => s.ja);
   }
 
-  const api = { SLOTS, ALIASES, prepare, suggest, search, slotNames, fold, categorize, categoryOf, CATEGORY_ORDER, listedOrder };
+  // 装備の、FF11用語辞典のページを開くリンクマーク (ページが分かっている装備だけ)。画面で使う
+  const WIKI_ICON = '<svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M6.5 3.5H4a1.5 1.5 0 0 0-1.5 1.5v7A1.5 1.5 0 0 0 4 13.5h7a1.5 1.5 0 0 0 1.5-1.5V9.5M9.5 2.5h4v4M13.5 2.5 7.5 8.5"/></svg>';
+  function wikiLink(item) {
+    if (!item || !item.page || typeof document === 'undefined') return null;
+    const a = document.createElement('a');
+    Object.assign(a, { className: 'wiki', href: `https://wiki.ffo.jp/html/${item.page}.html`, target: '_blank', rel: 'noopener', title: `${item.ja} のページを開く (FF11用語辞典)` });
+    a.innerHTML = WIKI_ICON;
+    a.addEventListener('click', (e) => e.stopPropagation()); // リンクを押しても、行やマスの選択は変えない
+    return a;
+  }
+
+  const api = { SLOTS, ALIASES, prepare, wikiLink, suggest, search, slotNames, fold, categorize, categoryOf, CATEGORY_ORDER, listedOrder };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.VanaSearch = api;
 })(typeof window !== 'undefined' ? window : globalThis);

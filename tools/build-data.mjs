@@ -118,6 +118,8 @@ function build() {
   const rolls = JSON.parse(fs.readFileSync(AUGMENTS, 'utf8')).rolls?.items ?? {};
   // 漢字の名前の読み (ひらがな)。名前で探すときに、読みでも当たるようにする
   const readings = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'readings.json'), 'utf8')).readings ?? {};
+  // FF11用語辞典の記事の番号 (装備の名前 -> 番号)。装備の説明からページを開けるようにする
+  const pages = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'pages.json'), 'utf8')).pages ?? {};
   const unusedAugments = new Set(augments.keys());
 
   const statIndex = new Map(); // key -> { k, n, neg, pct, plain, flag }
@@ -228,6 +230,7 @@ function build() {
       // ランダムで付くオーグメントの幅 (手入力の目安)
       roll: rolls[item.id] ?? '',
       yomi: readings[item.ja] ?? '',
+      page: pages[item.ja] ?? 0,
       rp: augment ? augment.rank : 0,
       stats,
     });

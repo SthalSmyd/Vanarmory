@@ -787,7 +787,7 @@
     if (editing) {
       const slot = SLOTS.find((s) => s.id === editing);
       const item = getItem(state.fixed[slot.id]);
-      const title = el('div', { className: 'title' }, item ? `${slot.ja}: ${nameOf(item)}` : `${slot.ja} を固定する`);
+      const title = el('div', { className: 'title' }, item ? el('span', null, `${slot.ja}: ${nameOf(item)}`, window.VanaSearch.wikiLink(item)) : `${slot.ja} を固定する`);
       if (item) {
         const clear = el('button', { type: 'button', className: 'ghost', textContent: '固定を解除' });
         clear.addEventListener('click', () => {
@@ -807,7 +807,7 @@
         for (const i of found) {
           const li = el('li', null,
             el('span', null, nameOf(i), el('span', { className: 'sub', textContent: (i.aug || i.desc).replace(/\s+/g, ' ').slice(0, 44) })),
-            el('span', { className: 'lv', textContent: i.il ? 'IL' + i.il : 'Lv' + i.lv }));
+            el('span', { className: 'lv' }, i.il ? 'IL' + i.il : 'Lv' + i.lv, window.VanaSearch.wikiLink(i)));
           li.addEventListener('click', () => fix(slot.id, i.id));
           list.append(li);
         }
@@ -1748,7 +1748,7 @@
         const slot = SLOTS.find((s) => s.id === selected.slot);
         const item = set.equip[slot.id];
         const info = el('div', null,
-          el('div', { className: 'title' }, `${slot.ja}: ${nameOf(item)}`, el('span', { className: 'en', textContent: item.en })),
+          el('div', { className: 'title' }, `${slot.ja}: ${nameOf(item)}`, window.VanaSearch.wikiLink(item), el('span', { className: 'en', textContent: item.en })),
           el('pre', { textContent: item.desc }),
           item.group === 'cape' ? null : item.aug ? el('div', { className: 'aug', textContent: 'オーグメント: ' + item.aug.replace(/\s+/g, ' ') }) : null,
           // ジョブマントは、構成を選び直せる。選び直すと、この候補の合計も変わる
