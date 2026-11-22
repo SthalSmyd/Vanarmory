@@ -718,7 +718,7 @@
     const found = data.items.filter((i) => i.slots & slot.mask && usable(i) && (!IL119_ONLY.has(slot.id) || i.il === 119) && i.names.includes(q));
     // 同じ名前の段階違いは、強いほう (Ｄ の大きいほう) を先に出す
     const damage = (item) => Number(/Ｄ(\d+)/.exec(item.desc)?.[1] ?? 0);
-    found.sort((a, b) => b.il - a.il || b.lv - a.lv || a.ja.localeCompare(b.ja, 'ja') || damage(b) - damage(a));
+    found.sort((a, b) => b.il - a.il || b.lv - a.lv || a.ja.localeCompare(b.ja, 'ja') || damage(b) - damage(a) || (b.rp || 0) - (a.rp || 0));
     return found.slice(0, 40);
   }
 
@@ -863,7 +863,9 @@
         if (!found.length) list.append(el('li', { textContent: '見つかりません' }));
         for (const i of found) {
           const li = el('li', null,
-            el('span', null, nameOf(i), el('span', { className: 'sub', textContent: (i.aug || i.desc).replace(/\s+/g, ' ').slice(0, 44) })),
+            // 説明文の頭と、強化した装備ならオーグメントで増える分を、行を分けて出す
+            el('span', null, nameOf(i), el('span', { className: 'sub', textContent: i.desc.replace(/\s+/g, ' ').slice(0, 44) }),
+              i.aug ? el('span', { className: 'sub plus', textContent: '＋ ' + i.aug.replace(/\s+/g, ' ').slice(0, 44) }) : null),
             el('span', { className: 'lv' }, i.il ? 'IL' + i.il : 'Lv' + i.lv, window.VanaSearch.wikiLink(i)));
           li.addEventListener('click', () => fix(slot.id, i.id));
           list.append(li);
