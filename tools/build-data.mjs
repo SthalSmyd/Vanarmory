@@ -279,6 +279,29 @@ function build() {
     pair[1].tag = '強化後';
   }
 
+  // 段階ごとに同じ名前で入っている装備 (アポカリプス など) を、レベル・Ｄ・アフターグロウの有無で見分ける。
+  // 違いのあるところだけを印にする (例: [Lv75] [IL119・Ｄ266] [IL119・Ｄ266・AG] [IL119・Ｄ362])
+  const sameName = new Map();
+  for (const item of out) {
+    if (item.rank || item.tag) continue;
+    sameName.set(item.ja, (sameName.get(item.ja) || []).concat(item));
+  }
+  for (const group of sameName.values()) {
+    if (group.length < 2) continue;
+    const level = (item) => (item.il ? `IL${item.il}` : `Lv${item.lv}`);
+    const glow = (item) => /アフターグロウ/.test(item.desc);
+    const count = (list, key) => new Set(list.map(key)).size;
+    for (const item of group) {
+      const parts = [];
+      if (count(group, level) > 1) parts.push(level(item));
+      const same = group.filter((other) => level(other) === level(item));
+      if (same.length > 1 && count(same, damageOf) > 1 && damageOf(item)) parts.push(`Ｄ${damageOf(item)}`);
+      const twins = same.filter((other) => damageOf(other) === damageOf(item));
+      if (twins.length > 1 && count(twins, glow) > 1 && glow(item)) parts.push('AG');
+      item.tag = parts.join('・');
+    }
+  }
+
   process.stderr.write(`合成・錬成・釣り・採集用として載せなかった装備: ${crafting} 件\n`);
   process.stderr.write(`ジョブ専用装束: ${Object.entries(familyCount).map(([k, v]) => `${k} ${v} 件`).join('、')}\n`);
   for (const name of unusedAugments) process.stderr.write(`警告: augments.json の「${name}」に一致する装備がない\n`);

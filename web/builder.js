@@ -716,7 +716,9 @@
   function findItems(slot, query) {
     const q = fold(query.trim());
     const found = data.items.filter((i) => i.slots & slot.mask && usable(i) && (!IL119_ONLY.has(slot.id) || i.il === 119) && i.names.includes(q));
-    found.sort((a, b) => b.il - a.il || b.lv - a.lv || a.ja.localeCompare(b.ja, 'ja'));
+    // 同じ名前の段階違いは、強いほう (Ｄ の大きいほう) を先に出す
+    const damage = (item) => Number(/Ｄ(\d+)/.exec(item.desc)?.[1] ?? 0);
+    found.sort((a, b) => b.il - a.il || b.lv - a.lv || a.ja.localeCompare(b.ja, 'ja') || damage(b) - damage(a));
     return found.slice(0, 40);
   }
 
@@ -2063,7 +2065,8 @@
       [...$('goals').querySelectorAll('.goal')].find((g) => g.dataset.key === 'swings-' + kindId)?.querySelector('input')?.focus();
     }));
     $('maximize').addEventListener('click', () => openMenu($('maximize-adder'), (key) => {
-      state.maximize.push({ k: key, weight: 1 });
+      // レベル (飛竜:Lv など) は 1 の価値が大きいので、初めの重みを大きくしておく
+      state.maximize.push({ k: key, weight: /:Lv$/.test(key) ? 100 : 1 });
       changed();
     }, (key) => state.maximize.some((m) => m.k === key)));
     for (const b of $('objective').children) {
