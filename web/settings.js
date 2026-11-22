@@ -15,7 +15,7 @@
     node.append(...children.filter((c) => c != null));
     return node;
   };
-  const nameOf = (item) => item.ja + (item.rank ? ` [${item.rank}]` : '');
+  const nameOf = (item) => item.ja + (item.rank || item.tag ? ` [${item.rank || item.tag}]` : '');
 
   // 「セットを組む」で設定を分ける前に保存していた内容があれば、最初の設定に引き継ぐ
   let legacy = null;

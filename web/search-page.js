@@ -208,7 +208,7 @@
       const level = item.il ? 'IL' + item.il : 'Lv' + item.lv;
       const slot = slotNames(item.slots).join('・') + (item.skill && data.skills[item.skill] ? ' (' + data.skills[item.skill] + ')' : '');
       const row = el('tr', null,
-        el('td', { className: 'name' }, item.ja + (item.rank ? ` [${item.rank}]` : ''), window.VanaSearch.wikiLink(item), el('span', { className: 'en', textContent: item.en })),
+        el('td', { className: 'name' }, item.ja + (item.rank || item.tag ? ` [${item.rank || item.tag}]` : ''), window.VanaSearch.wikiLink(item), el('span', { className: 'en', textContent: item.en })),
         el('td', { className: 'slot', textContent: slot }),
         el('td', { className: 'lv', textContent: level + (item.su ? ' Su' + item.su : '') }));
       for (const stat of stats) row.append(el('td', { className: 'num', textContent: format(item.m.get(stat.i), stat) }));
@@ -290,6 +290,11 @@
     for (const [id, name] of Object.entries(data.skills)) {
       if (Number(id) > 0 && used.has(Number(id))) $('skill').append(el('option', { value: id, textContent: name }));
     }
+    // 射撃の武器と矢弾は、撃てる組み合わせごとに分けて選べるようにする
+    const shots = [['矢弾: 矢 (弓用)', 1011], ['矢弾: ボルト (クロスボウ用)', 1021], ['矢弾: 弾 (銃用)', 1031], ['レンジ: 弓', 1010], ['レンジ: クロスボウ', 1020], ['レンジ: 銃', 1030]];
+    const group = el('optgroup', { label: '撃つ武器と矢弾' });
+    for (const [name, value] of shots) group.append(el('option', { value, textContent: name }));
+    $('skill').append(group);
 
     const input = $('stat-input');
     input.addEventListener('input', () => {

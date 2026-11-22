@@ -78,6 +78,15 @@
       // 名前で探すときに比べる文字: 日本語名・英語名・読み
       item.names = fold([item.ja, item.en, item.yomi].join('\n'));
     }
+    // 「素手:飛命+100」のように、武器を持たないときだけ効く分。元のステータスの番号と値を bare に持つ
+    for (const s of data.stats) {
+      const plain = s.k.startsWith('素手:') ? statByKey.get(s.k.slice(3)) : null;
+      if (!plain) continue;
+      for (const item of data.items) {
+        const v = item.m.get(s.i);
+        if (typeof v === 'number') (item.bare = item.bare || []).push([plain.i, v]);
+      }
+    }
     return { data, statByKey };
   }
 
@@ -115,7 +124,10 @@
     for (const item of db.data.items) {
       if (c.slotMask && !(item.slots & c.slotMask)) continue;
       if (jobBit && Math.floor(item.jobs / jobBit) % 2 === 0) continue;
-      if (c.skill >= 0 && item.skill !== c.skill) continue;
+      // 1000 以上は撃つ武器と矢弾の種類: 1000 + 種類 × 10 + (矢弾なら 1)。種類は 1 弓・矢、2 クロスボウ・ボルト、3 銃・弾
+      if (c.skill >= 1000) {
+        if ((item.shot || 0) !== Math.floor((c.skill - 1000) / 10) || Boolean(item.slots & 8) !== Boolean(c.skill % 10)) continue;
+      } else if (c.skill >= 0 && item.skill !== c.skill) continue;
       if (c.level === 'il119' && item.il !== 119) continue;
       if (c.level === '99' && item.lv < 99) continue;
       if (words.length && !words.every((w) => item.text.includes(w))) continue;

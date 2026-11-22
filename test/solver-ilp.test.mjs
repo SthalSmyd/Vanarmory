@@ -104,3 +104,20 @@ test('同じ良さの中からは、重みの合計が大きいものを選ぶ (
   const plain = await I.solve(highs, db, req({ targets: [{ i: 0, goal: 1 }], objective: 'max', maximize: [{ i: 0, weight: 1 }] }));
   assert.equal(names(plain.sets[0]).includes('実在の矢弾'), true);
 });
+
+test('いくつかのステータスを重み付きで足した値を目標にする', async () => {
+  // 目標: ストアTP × 4 + 攻 × 3 が 100 以上 (装備以外の分 攻 10 を含む)
+  const db = make([
+    item('頭A', SLOT.head, { 0: 5 }), // 20
+    item('頭B', SLOT.head, { 2: 20 }), // 60
+    item('胴A', SLOT.body, { 0: 5, 2: 5 }), // 35
+    item('胴B', SLOT.body, { 2: 3 }), // 9
+  ]);
+  const mix = { mix: [[0, 4], [2, 3]], goal: 100 };
+  for (const solve of [(r) => I.solve(highs, db, r), async (r) => V.solve(db, r)]) {
+    const r = await solve(req({ targets: [mix], base: { 2: 10 } }));
+    assert.equal(r.reached, true);
+    // 装備以外 30 + 頭B 60 = 90。胴B (9) では 99 で届かないので、胴A (35) になる
+    assert.deepEqual(names(r.sets[0]), ['胴A', '頭B']);
+  }
+});

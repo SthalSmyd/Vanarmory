@@ -39,6 +39,11 @@
   // 同時に持てない装備どうしか。装備の only に、同じ組なら同じ番号が入っている (data/exclusive.json)
   const clash = (a, b) => a.only != null && a.only === b.only && a !== b;
 
+  // 目標の値。ふつうはステータス 1 つ (t.i)。t.mix: [[番号, 重み], …] があれば、いくつかのステータスを
+  // 重み付きで足した値を目標にする (命中の合計 = スキルの分 + DEX の分 + 装備の命中 など)
+  const valueOf = (t, get) => (t.mix ? t.mix.reduce((sum, [i, w]) => sum + w * (get(i) || 0), 0) : get(t.i) || 0);
+  const keysOf = (t) => (t.mix ? t.mix.map(([i]) => i) : [t.i]);
+
   // 上位互換が keep 個以上あるものを落とす。同じ性能どうしは先にあるものを残す。
   // 同時に持てない組の装備は、何個あっても上位互換 1 個分と数える (同時には 1 つしか着けられないため)
   function prune(cands, keep) {
@@ -86,7 +91,7 @@
     const opt = Object.assign({}, DEFAULTS, options);
     const depth = opt.results * 2; // 似た候補を間引くので、多めに持っておく
     const stats = db.data.stats;
-    const targets = req.targets.map((t) => ({ i: t.i, goal: t.goal, sign: t.goal < 0 ? -1 : 1 }));
+    const targets = req.targets.map((t) => ({ i: t.i, mix: t.mix, goal: t.goal, sign: t.goal < 0 ? -1 : 1 }));
     // 伸ばすステータス。上限のあるものは「上限まで届かなくてもよい目標」として進みを追いかけ、
     // 上限を超えた分は得にならないようにする (最後に、届いた分だけ良い候補として並べる)。
     // 上限の無いものは、そのまま「値 × 重み」を足していく
@@ -107,14 +112,14 @@
     const allSets = req.sets || [];
     const tracked = allSets
       .map((set, index) => ({ index, by: set.by, max: Math.max(...Object.values(set.by).map((v) => v.length)) - 1 }))
-      .filter((set) => targets.some((t) => set.by[t.i]) || open.some((w) => set.by[w.i]));
+      .filter((set) => targets.some((t) => keysOf(t).some((i) => set.by[i])) || open.some((w) => set.by[w.i]));
     const countsOf = (item) => tracked.map((set) => ((item.set || []).includes(set.index) ? 1 : 0));
     const at = (values, count) => (values ? values[Math.min(count, values.length - 1)] : 0);
     // 部位数 counts のときにセット効果で得られる分 (目標ごと) と、伸ばすステータスの分
-    const bonusOf = (counts) => targets.map((t, ti) => tracked.reduce((sum, set, k) => sum + t.sign * at(set.by[t.i], counts[k]), 0));
+    const bonusOf = (counts) => targets.map((t, ti) => tracked.reduce((sum, set, k) => sum + t.sign * valueOf(t, (i) => at(set.by[i], counts[k])), 0));
     const bonusMax = (counts) => open.reduce((total, w) => total + w.weight * tracked.reduce((sum, set, k) => sum + w.sign * at(set.by[w.i], counts[k]), 0), 0);
 
-    const gainOf = (item) => targets.map((t) => t.sign * (item.m.get(t.i) || 0));
+    const gainOf = (item) => targets.map((t) => t.sign * valueOf(t, (i) => item.m.get(i)));
     const maxOf = (item) => open.reduce((total, w) => total + w.weight * w.sign * (item.m.get(w.i) || 0), 0);
     // 同じ良さのときに比べる重み (req.tie: [{ i, weight, sign, cap }])。HiGHS で解くときだけ使う (opt.problem)。
     // 目標や伸ばすステータスには効かなくても、この重みに効く装備は候補に残す
@@ -126,7 +131,7 @@
     // 固定した装備が塞ぐ部位 (スーツ類の「両手両脚両足装備不可」など) は空けておく
     const blocked = fixedItems.reduce((mask, item) => mask | (item.block || 0), 0);
     const need = targets.map((t, ti) => {
-      let have = t.sign * (base[t.i] || 0);
+      let have = t.sign * valueOf(t, (i) => base[i]);
       for (const item of fixedItems) have += gainOf(item)[ti];
       return t.sign * t.goal - have;
     });
@@ -146,6 +151,8 @@
         if (fixedItems.some((f) => clash(f, item))) continue;
         // 他の部位を塞ぐ装備は、固定したときだけ使う
         if (item.block) continue;
+        // 矢・ボルト・弾は、それを撃てる武器をレンジに固定しているときだけ使う
+        if (slot.id === 'ammo' && (item.shot || 0) !== ((fixed.range && fixed.range.shot) || 0)) continue;
         if (req.level === 'il119' && item.il !== 119) continue;
         if (req.level === '99' && item.lv < 99) continue;
         if (req.allow && !req.allow(item)) continue;
@@ -172,13 +179,14 @@
     const NONE = { slots: [], items: [], g: targets.map(() => 0), sc: tracked.map(() => 0), c: 0 };
 
     // 自動で決める部位。武器 (メイン・サブ・レンジ) は固定したものだけを使う。
-    // レンジを固定したときは、矢弾が合うかどうか判断できないので矢弾も自動にしない
+    // 矢弾は、固定したレンジの武器で撃てるもの (弓なら矢、クロスボウならボルト、銃なら弾) だけを自動で選ぶ。
+    // 撃たないレンジ (楽器など) を固定したときは、矢弾を自動にしない
     const groups = [];
     const pool = new Map(); // 部位 -> 候補の装備
     const listed = []; // 部位ごとの候補 (opt.problem で返す)
     for (const slot of SLOTS) {
       if (slot.weapon || fixed[slot.id] || slot.mask & blocked) continue;
-      if (slot.id === 'ammo' && fixed.range) continue;
+      if (slot.id === 'ammo' && fixed.range && !fixed.range.shot) continue;
       if (slot.id === 'ear2' || slot.id === 'ring2') {
         // 対の 1 つ目が固定されているときだけ、2 つ目を単独で決める
         const first = slot.id === 'ear2' ? 'ear1' : 'ring1';
@@ -232,7 +240,7 @@
       }
     }
     // セット効果で最大どれだけ得られるか (届く見込みの判定に足す)
-    const setReach = targets.map((t) => tracked.reduce((sum, set) => sum + Math.max(0, ...(set.by[t.i] || [0]).map((v) => t.sign * v)), 0));
+    const setReach = targets.map((t) => tracked.reduce((sum, set) => sum + Math.max(0, ...Array.from({ length: set.max + 1 }, (_, c) => t.sign * valueOf(t, (i) => at(set.by[i], c)))), 0));
     const feasible = need.every((n, t) => t >= required || n <= reach[0][t] + setReach[t]);
 
     const clip = (p) => p.map((v, t) => Math.min(v, Math.max(need[t], 0)));
@@ -373,7 +381,7 @@
     });
     // 仕上げ。途中経過を数で切ったときは、良い組み合わせを取りこぼすことがある (空いたままの部位など)。
     // 部位を 1 つずつ入れ替えたり外したりして、目標を満たしたまま良くなるなら採る。良くならなくなるまで繰り返す
-    const satisfied = (totals) => req.targets.every((t) => (t.goal < 0 ? (totals.get(t.i) || 0) <= t.goal : (totals.get(t.i) || 0) >= t.goal));
+    const satisfied = (totals) => req.targets.every((t) => (t.goal < 0 ? valueOf(t, (i) => totals.get(i)) <= t.goal : valueOf(t, (i) => totals.get(i)) >= t.goal));
     const worth = (totals) => wanted.reduce((sum, w) => {
       const value = w.sign * (totals.get(w.i) || 0);
       return sum + w.weight * (w.cap === null ? value : Math.min(value, w.sign * w.cap));
@@ -384,7 +392,7 @@
     // 目標への近さ。目標ごとに、届いた割合 (0〜1) を足したもの。すべて届けば目標の数と同じになる
     const closeness = (totals) => req.targets.reduce((sum, t) => {
       const goal = Math.abs(t.goal);
-      const value = (t.goal < 0 ? -1 : 1) * (totals.get(t.i) || 0);
+      const value = (t.goal < 0 ? -1 : 1) * valueOf(t, (i) => totals.get(i));
       return sum + (goal > 0 ? Math.max(0, Math.min(1, value / goal)) : 1);
     }, 0);
     // 目標をすべて満たすものを優先する。満たせないもの同士は、目標に近いほうが良い (同じなら上の「良さ」で比べる)
@@ -483,7 +491,7 @@
     return { totals, bonuses };
   }
 
-  const api = { SLOTS, solve, totalsOf };
+  const api = { SLOTS, solve, totalsOf, valueOf };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.VanaSolver = api;
 })(typeof window !== 'undefined' ? window : globalThis);

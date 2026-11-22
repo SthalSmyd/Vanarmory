@@ -91,3 +91,13 @@ test('ひらがなで打っても、カタカナの名前と、漢字の名前�
   assert.deepEqual(byName('徒'), ['徒手甲']);
   assert.deepEqual(search(kana, { text: 'あだて', stats: [] }).map((found) => found.ja), ['徒手甲']);
 });
+
+test('矢弾を、弓用・クロスボウ用・銃用で絞り込む', () => {
+  const prep = prepare, find = search;
+  const mk = (ja, slots, shot) => ({ id: ja, ja, en: ja, lv: 99, il: 119, slots, jobs: 2, skill: 26, desc: '', aug: '', yomi: '', shot, s: [] });
+  const db = prep({ stats: [], items: [mk('弾', 8, 3), mk('ボルト', 8, 2), mk('銃', 4, 3), mk('弩', 4, 2)] });
+  const pick = (skill) => find(db, { stats: [], mode: 'and', slotMask: 0, job: 0, skill, level: 'all', text: '', sort: -1 }).map((r) => (r.item || r).ja);
+  assert.deepEqual(pick(1031), ['弾']);
+  assert.deepEqual(pick(1021), ['ボルト']);
+  assert.deepEqual(pick(1030), ['銃']);
+});

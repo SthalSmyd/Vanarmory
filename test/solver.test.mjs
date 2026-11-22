@@ -342,3 +342,20 @@ test('同時に持てない装備 (報酬リングなど) は、同じ組から 
   const r = solve(db, req({ targets: [{ i: 0, goal: 15 }], fixed: { ring1: fixedItem } }));
   assert.deepEqual(names(r.sets[0]), ['別の組', '報酬C']);
 });
+
+test('矢弾は、固定したレンジの武器で撃てるものだけを選ぶ', () => {
+  const RANGE = 1 << 2;
+  const bow = item('弓', RANGE, {}, { shot: 1 });
+  const horn = item('角笛', RANGE, {}, { shot: 0 });
+  const db = make([
+    bow, horn,
+    item('矢', SLOT.ammo, { 2: 10 }, { shot: 1 }),
+    item('弾', SLOT.ammo, { 2: 30 }, { shot: 3 }),
+    item('石', SLOT.ammo, { 2: 20 }),
+  ]);
+  const pick = (fixed) => names(solve(db, req({ objective: 'max', maximize: [{ i: 2, weight: 1 }], fixed })).sets[0]);
+  // 弓を固定: 矢だけ。レンジなし: 撃つ矢弾は使わない。撃たないレンジ: 矢弾は自動にしない
+  assert.deepEqual(pick({ range: bow }), ['弓', '矢']);
+  assert.deepEqual(pick({}), ['石']);
+  assert.deepEqual(pick({ range: horn }), ['角笛']);
+});

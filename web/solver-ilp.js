@@ -88,14 +88,16 @@
     });
     const at = (values, count) => (values ? values[Math.min(count, values.length - 1)] : 0);
     // セット効果が、あるステータス (番号 i、向き sign) に足す分。固定した装備だけで得ている分は定数として返す
-    const bonusTerms = (i, sign) => {
+    // t は { i } か { mix } (いくつかのステータスを重み付きで足した目標)
+    const bonusTerms = (t, sign) => {
       const list = [];
       let constant = 0;
       tracked.forEach((set, k) => {
-        if (!set.by[i]) return;
-        constant += sign * at(set.by[i], 0);
+        const value = (c) => V.valueOf(t, (i) => at(set.by[i], c));
+        if (!(t.mix ? t.mix.some(([i]) => set.by[i]) : set.by[t.i])) return;
+        constant += sign * value(0);
         for (const step of steps) {
-          if (step.k === k) list.push([sign * (at(set.by[i], step.c) - at(set.by[i], step.c - 1)), step.name]);
+          if (step.k === k) list.push([sign * (value(step.c) - value(step.c - 1)), step.name]);
         }
       });
       return { list, constant };
@@ -103,7 +105,7 @@
 
     // 目標 t の「進み」= 装備の分 + セット効果の分
     const progress = targets.map((t, ti) => {
-      const bonus = bonusTerms(t.i, t.sign);
+      const bonus = bonusTerms(t, t.sign);
       return { list: vars.map((v) => [v.c.g[ti], v.name]).concat(bonus.list), constant: bonus.constant };
     });
 
@@ -112,7 +114,7 @@
     const gain = []; // 目的 (大きいほど良い)
     if (maxMode) {
       for (const w of open) {
-        const bonus = bonusTerms(w.i, w.sign);
+        const bonus = bonusTerms(w, w.sign);
         for (const v of vars) gain.push([w.weight * w.sign * (v.item.m.get(w.i) || 0), v.name]);
         for (const [c, name] of bonus.list) gain.push([w.weight * c, name]);
       }
@@ -193,7 +195,7 @@
       return lp.join('\n');
     };
 
-    const satisfied = (totals) => req.targets.every((t) => (t.goal < 0 ? (totals.get(t.i) || 0) <= t.goal : (totals.get(t.i) || 0) >= t.goal));
+    const satisfied = (totals) => req.targets.every((t) => (t.goal < 0 ? V.valueOf(t, (i) => totals.get(i)) <= t.goal : V.valueOf(t, (i) => totals.get(i)) >= t.goal));
     const sets = [];
     const cuts = [];
     let strict = true;

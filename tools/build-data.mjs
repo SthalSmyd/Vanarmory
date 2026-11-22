@@ -101,6 +101,10 @@ function loadAugments() {
   return byName;
 }
 // その装備が、強化できる対象か
+// 撃つ武器と矢弾の組。元のデータの種類 (range_type・ammo_type) から決める
+const SHOTS = { Bow: 1, Arrow: 1, Crossbow: 2, Bolt: 2, Gun: 3, Bullet: 3, Cannon: 4, Shell: 4 };
+const shotOf = (item) => SHOTS[item.range_type] ?? SHOTS[item.ammo_type] ?? 0;
+
 const augmentOf = (augments, item) => {
   const entry = augments.get(item.ja);
   return entry && (!entry.ids || entry.ids.includes(item.id)) ? entry : null;
@@ -253,8 +257,26 @@ function build() {
       yomi: readingOf(item.ja),
       page: pageOf(item.ja),
       rp: augment ? augment.rank : 0,
+      // 撃つ武器と矢弾の組: 1 弓と矢、2 クロスボウとボルト、3 銃と弾、4 大砲と砲弾 (0 はそれ以外)
+      shot: shotOf(item),
+      // 同じ名前の装備を見分ける印 (強化前・強化後)
+      tag: '',
       stats,
     });
+  }
+
+  // モグボナンザの武器 (真アルテミスの弓 など) は、強化の前と後が同じ名前で入っている。Ｄ の小さいほうが強化前
+  const damageOf = (item) => Number(/Ｄ(\d+)/.exec(item.desc)?.[1] ?? 0);
+  const twins = new Map();
+  for (const item of out) {
+    if (!item.ja.startsWith('真') || item.rank || item.il !== 119 || !(item.slots & 7)) continue;
+    twins.set(item.ja, (twins.get(item.ja) || []).concat(item));
+  }
+  for (const pair of twins.values()) {
+    if (pair.length !== 2 || damageOf(pair[0]) === damageOf(pair[1])) continue;
+    pair.sort((x, y) => damageOf(x) - damageOf(y));
+    pair[0].tag = '強化前';
+    pair[1].tag = '強化後';
   }
 
   process.stderr.write(`合成・錬成・釣り・採集用として載せなかった装備: ${crafting} 件\n`);

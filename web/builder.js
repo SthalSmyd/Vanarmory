@@ -9,6 +9,20 @@
   const data = db.data;
   const itemById = new Map(data.items.map((i) => [i.id, i]));
 
+  // 合計値の目標 (命中 1400 以上 など)。ゲーム内のステータス画面に出る値で、スキルや DEX の分を含む。
+  // 装備のステータスではないので、この画面でだけ、目標に選べるステータスとして足す (武器を固定すると使える)
+  const TOTALS = [
+    { k: '命中 (合計)', flat: '命中', ranged: false, field: 'accuracy', category: '物理攻撃' },
+    { k: '攻撃 (合計)', flat: '攻', ranged: false, field: 'attack', category: '物理攻撃' },
+    { k: '飛命 (合計)', flat: '飛命', ranged: true, field: 'accuracy', category: '遠隔攻撃' },
+    { k: '飛攻 (合計)', flat: '飛攻', ranged: true, field: 'attack', category: '遠隔攻撃' },
+  ];
+  for (const total of TOTALS) {
+    const stat = { k: total.k, n: 0, num: 1, neg: 0, u: '', i: data.stats.length, total, search: '' };
+    data.stats.push(stat);
+    db.statByKey.set(total.k, stat);
+  }
+
   // メイン・頭・胴・両手・両脚・両足は IL119 の装備だけを扱う
   const SLOT_LIST = window.VanaSolver.SLOTS;
   const IL119_ONLY = new Set(['main', 'head', 'body', 'hands', 'legs', 'feet']);
@@ -101,12 +115,27 @@
     return combos.filter((c) => c.some((u) => u >= 0)).map((c) => makeCape(job, c)).filter(Boolean).map((cape) => Object.assign(cape, { made: !capeName(job, cape.picks) }));
   }
 
+  // メインに武器を持たない「素手」。固定する装備のメインに入れられる (格闘の武器として扱う)
+  const BARE = { id: 'bare', ja: '素手', en: 'Barehanded', lv: 1, il: 0, slots: 1, jobs: 2 ** 23 - 2, skill: 1, desc: '武器を持たない。「素手:」の効果は、サブも空のときに効く', aug: '', s: [], m: new Map(), hands: true };
+  // 素手 (メインが素手で、サブも空) のとき、「素手:」の分を元のステータスに足した装備に差し替える
+  function withBare(equip) {
+    if (!equip.main || !equip.main.hands || equip.sub) return equip;
+    const out = {};
+    for (const [slot, item] of Object.entries(equip)) {
+      if (!item || !item.bare || item.bareOn) { out[slot] = item; continue; }
+      const m = new Map(item.m);
+      for (const [i, v] of item.bare) m.set(i, (m.get(i) || 0) + v);
+      out[slot] = Object.assign({}, item, { m, bareOn: true });
+    }
+    return out;
+  }
   function getItem(id) {
+    if (id === 'bare') return BARE;
     if (itemById.has(id)) return itemById.get(id);
     const m = /^cape:(\d+):([-\d,]+)$/.exec(id);
     return m ? makeCape(Number(m[1]), m[2].split(',').map(Number)) : undefined;
   }
-  const nameOf = (item) => item.ja + (item.rank ? ` [${item.rank}]` : '') + (item.manual ? ' ✎' : '');
+  const nameOf = (item) => item.ja + (item.rank || item.tag ? ` [${item.rank || item.tag}]` : '') + (item.manual ? ' ✎' : '');
 
   // ---- 状態 ----
   // tp: 得TP・振り数の条件。近接と遠隔で別々に持つ
@@ -130,6 +159,7 @@
   let selected = null; // 候補の中で選んでいるマス { set, slot }
   let compare = []; // 比較に並べるもの。'c0' は候補の 1 番目、's…' は保存したセット (3 つまで)
   let compareMode = 'diff'; // 'diff' = 違うところだけ、'all' = すべて
+  let viewing = null; // 左の欄でステータスを開いているもの。'fixed' は固定中の装備、's…' は保存したセット
   let saving = null; // 名前を入れて保存しようとしている候補の番号
   const COMPARE_MAX = 3;
   let activePreset = ''; // 最後に読み込んだ (か保存した) 条件の id
@@ -328,6 +358,14 @@
         return b;
       }));
     }
+    // 合計値 (命中 (合計) など) も、目標に選べる
+    if (menuSwings) {
+      $('stats').prepend(...TOTALS.filter((total) => total.category === category.name).map((total) => {
+        const b = statButton(db.statByKey.get(total.k));
+        b.title = 'ステータス画面に出る合計の値 (スキルや DEX などの分を含む)。武器を固定すると使えます';
+        return b;
+      }));
+    }
     if (category.more) $('stats').append(el('span', { className: 'more', textContent: `ほか ${category.more} 種は上の欄で検索` }));
   }
   function showFound(query) {
@@ -335,6 +373,8 @@
     [...$('cats').children].forEach((b) => b.classList.remove('on'));
     $('menu-step').textContent = '検索結果';
     $('stats').replaceChildren(...found.map(statButton));
+    // 合計値 (命中 (合計) など) は、目標を選ぶときだけ出す
+    if (menuSwings) $('stats').prepend(...TOTALS.filter((total) => fold(total.k).includes(fold(query))).map((total) => statButton(db.statByKey.get(total.k))));
     if (!found.length) $('stats').append(el('span', { className: 'none', textContent: '見つかりません' }));
   }
 
@@ -498,7 +538,7 @@
       // 負の値を入れたら「その値以下」。入れる前は、ステータスの性質から向きを示す
       const below = directionOf(stat, target.goal) < 0;
       const cap = capOf(stat, below ? -1 : 1);
-      const input = el('input', { type: 'number', step: 'any', placeholder: stat.neg ? '-40' : '50', title: below ? 'この値以下にする' : 'この値以上にする', value: target.goal ?? '' });
+      const input = el('input', { type: 'number', step: 'any', placeholder: stat.total ? '1400' : stat.neg ? '-40' : '50', title: below ? 'この値以下にする' : 'この値以上にする', value: target.goal ?? '' });
       input.addEventListener('change', () => {
         target.goal = input.value === '' ? null : Number(input.value);
         changed();
@@ -515,6 +555,13 @@
         // 上限を超えた目標は、上限に合わせて計算する
         const over = target.goal != null && effectiveGoal(stat, target.goal) !== target.goal;
         notes.push(el('span', { className: over ? 'caution' : '', title: cap.note, textContent: `上限 ${signed(cap.value, stat.u)}` + (over ? ' として計算' : '') }));
+      }
+      if (stat.total) {
+        // 合計値の目標: 固定した装備だけでの値を出す。武器が無いときは、その旨を出す
+        const made = totalTarget(stat, 0);
+        notes.push(made.error
+          ? el('span', { className: 'caution', textContent: `${stat.total.ranged ? 'レンジ' : 'メイン'}の武器を固定すると使えます` })
+          : el('span', { title: 'スキル・DEX などの分と、装備以外・固定した装備の分を含む、ステータス画面の値' }, '固定した装備で ', el('b', { textContent: number(made.now) }), ` (${made.kind.ja})`));
       }
       // ロールや歌など、上の「装備以外」に無い支援の分は手で足せる。2 行目の右端に置く
       const buffTitle = 'ロールや歌などの支援効果で得る分を足す (上の「装備以外」に無い分)';
@@ -548,7 +595,8 @@
       }
       const sub = subLine(notes);
       sub.classList.add('split');
-      sub.replaceChildren(el('span', null, ...sub.childNodes), buff);
+      // 合計値の目標には「支援など」を付けない (命中や攻の目標に足した分が、合計にも入る)
+      sub.replaceChildren(...[el('span', null, ...sub.childNodes), stat.total ? null : buff].filter(Boolean));
       const goal = el('span', { className: 'goal' },
         el('span', { className: 'main' }, target.k + ' ', el('span', { className: 'op', textContent: below ? '≤' : '≥' }), input,
           stat.u ? el('span', { className: 'unit', textContent: stat.u }) : null,
@@ -691,9 +739,16 @@
   }
 
   // いまの目標と伸ばすステータス (ステータスの番号 -> 向き)。マントの項目に「目標」の印を付けるのに使う
+  // 目標のステータスに効くステータスの番号。合計値の目標は、元になるステータス (命中・DEX など) に読み替える
+  function wantedKeys(key) {
+    const stat = db.statByKey.get(key);
+    if (!stat.total) return [stat.i];
+    const { flat, ranged, field } = stat.total;
+    return [flat, field === 'attack' ? 'STR' : ranged ? 'AGI' : 'DEX'].map((k) => db.statByKey.get(k).i);
+  }
   function wantedNow() {
     const wanted = new Map();
-    for (const t of state.targets) if (t.goal) wanted.set(db.statByKey.get(t.k).i, t.goal < 0 ? -1 : 1);
+    for (const t of state.targets) if (t.goal) for (const i of wantedKeys(t.k)) wanted.set(i, t.goal < 0 ? -1 : 1);
     if (swingTargets().some((g) => !g.error)) wanted.set(db.statByKey.get('ストアTP').i, 1);
     for (const m of state.objective === 'max' ? state.maximize : []) {
       const stat = db.statByKey.get(m.k);
@@ -821,6 +876,18 @@
         }
       });
       editor.append(title, input, list);
+      if (slot.id === 'main' && !(item && item.hands)) {
+        // 武器を持たない。サブも空にする (「素手:」の効果は、メインもサブも空のときに効く扱い)
+        const bare = el('button', { type: 'button', className: 'copy', textContent: '素手にする' });
+        bare.addEventListener('click', () => {
+          delete state.fixed.sub;
+          fix('main', 'bare');
+        });
+        editor.append(el('div', { className: 'bare-row' }, bare, el('span', { textContent: '武器を持たない。サブも空にします (「素手:」の効果が付く)' })));
+      }
+      if (slot.id === 'sub' && getItem(state.fixed.main) === BARE) {
+        editor.append(el('p', { className: 'hint', textContent: 'メインが素手のときにサブを固定すると、「素手:」の効果は付きません。' }));
+      }
       if (slot.id === 'back' && state.job) {
         // 固定してあるマントの構成を選び直す
         if (item && item.group === 'cape') {
@@ -862,6 +929,7 @@
   function render() {
     renderConditions();
     renderSide();
+    renderFixedView();
     renderSaved();
   }
 
@@ -888,11 +956,12 @@
       if (mine) mine.goal = Math.max(mine.goal, goal.need);
       else targets.push({ k: 'ストアTP', goal: goal.need });
     }
-    const fixed = {};
+    let fixed = {};
     for (const [slot, id] of Object.entries(state.fixed)) fixed[slot] = getItem(id);
+    fixed = withBare(fixed);
 
     // マントは、目標と伸ばすステータスに合わせて構成を作る
-    const wanted = new Map(targets.map((t) => [db.statByKey.get(t.k).i, t.goal < 0 ? -1 : 1]));
+    const wanted = new Map(targets.flatMap((t) => wantedKeys(t.k).map((i) => [i, t.goal < 0 ? -1 : 1])));
     const growing = state.objective === 'max' ? state.maximize.filter((m) => m.weight > 0) : [];
     for (const m of growing) {
       const stat = db.statByKey.get(m.k);
@@ -925,7 +994,13 @@
     return {
       job: state.job,
       level: 'all', // 部位ごとの条件は allow で見ている
-      targets: targets.map((t) => ({ i: db.statByKey.get(t.k).i, goal: effectiveGoal(db.statByKey.get(t.k), t.goal) })),
+      // 合計値の目標は、固定した武器から、元になるステータスを重み付きで足した目標に直す (武器が無ければ外す)
+      targets: targets.map((t) => {
+        const stat = db.statByKey.get(t.k);
+        if (!stat.total) return { i: stat.i, goal: effectiveGoal(stat, t.goal) };
+        const made = totalTarget(stat, t.goal);
+        return made.error ? null : { mix: made.mix, goal: made.goal, k: t.k, shown: t.goal };
+      }).filter(Boolean),
       objective: state.objective,
       // 伸ばすステータス: 番号、重み、上限 (あれば)
       maximize: growing.map((m) => {
@@ -976,7 +1051,8 @@
   function run() {
     const problem = !state.job ? 'ジョブを選んでください。'
       : !state.targets.some((t) => t.goal) && !swingTargets().some((g) => !g.error) ? '目標のステータスと値を入れてください。'
-      : state.objective === 'max' && !state.maximize.some((m) => m.weight > 0) ? '伸ばすステータスを選んでください。' : '';
+      : state.objective === 'max' && !state.maximize.some((m) => m.weight > 0) ? '伸ばすステータスを選んでください。'
+      : state.targets.filter((t) => t.goal && db.statByKey.get(t.k).total).map((t) => totalTarget(db.statByKey.get(t.k), t.goal).error).find(Boolean) || '';
     if (problem) {
       $('status').textContent = problem;
       return;
@@ -1139,6 +1215,7 @@
         kind, skill: skillTotal,
         accuracy: pair(B.rangedAccuracy({ skill: skillWhite, agi: values.AGI.white, flat: acc.white }), B.rangedAccuracy({ skill: skillTotal, agi: total('AGI'), flat: acc.total })),
         attack: pair(B.rangedAttack({ skill: skillWhite, str: values.STR.white, flat: atk.white }), B.rangedAttack({ skill: skillTotal, str: total('STR'), flat: atk.total })),
+        rawAttack: B.rangedAttack({ skill: skillTotal, str: total('STR'), flat: atk.total }),
       };
     }
     const acc = flatOf('命中');
@@ -1147,8 +1224,48 @@
       kind, skill: skillTotal,
       accuracy: pair(B.accuracy({ skill: skillWhite, dex: values.DEX.white, flat: acc.white }), B.accuracy({ skill: skillTotal, dex: total('DEX'), flat: acc.total })),
       attack: pair(boost(B.attack({ skill: skillWhite, str: values.STR.white, flat: atk.white, hands: kind.kind })), boost(B.attack({ skill: skillTotal, str: total('STR'), flat: atk.total, hands: kind.kind }))),
+      rawAttack: B.attack({ skill: skillTotal, str: total('STR'), flat: atk.total, hands: kind.kind }), // スマイトを掛ける前
       smite,
     };
+  }
+
+  // セットの中での、ステータスの値。合計値 (命中 (合計) など) は、武器から計算した値 (武器が無ければ 0)
+  function valueAt(set, stat, context) {
+    if (!stat.total) return set.totals.get(stat.i) || 0;
+    const computed = combatValues(set, context, stat.total.ranged);
+    return computed ? computed[stat.total.field].total : 0;
+  }
+  const showValue = (stat, value) => (stat.total ? number(value) : signed(value, stat.u));
+
+  // 合計値の目標を、探すときの目標に直す。固定した装備だけの合計値 (now) から、あといくつ要るかを出し、
+  // 自動で選ぶ装備の 命中・DEX・スキル などを重み付きで足した値が、それ以上になるようにする。
+  //   命中 = スキルからの換算 + DEX × 0.75 (切り捨て) + 命中。スキル 1 あたりは 0.9 (スキル 600 未満なら少なめに 0.8 と見る)
+  //   攻撃 = (8 + スキル + STR (格闘は × 0.75) + 攻) × スマイト
+  // 切り捨てで足りなくならないように、端数の分 (命中は 1.75、格闘の攻撃は 0.75) を多めに求める
+  function totalTarget(stat, goal) {
+    const { flat, ranged, field } = stat.total;
+    const equip = fixedEquip();
+    const who = currentWho();
+    const set = Object.assign({ equip }, window.VanaSolver.totalsOf(equip, outsideFor(who).base, data.sets));
+    const now = combatValues(set, contextFor(who), ranged);
+    if (!now) return { error: `「${stat.k}」の目標は、${ranged ? 'レンジ' : 'メイン'}の武器を固定すると使えます。` };
+    const index = (key) => db.statByKey.get(key).i;
+    const skill = db.statByKey.get(now.kind.ja + 'スキル');
+    let mix;
+    let need;
+    if (field === 'accuracy') {
+      mix = [[index(flat), 20], [index(ranged ? 'AGI' : 'DEX'), 15]];
+      if (skill) mix.push([skill.i, now.skill >= 600 ? 18 : 16]);
+      need = Math.ceil(20 * (goal - now.accuracy.total + 1.75) - 1e-9);
+    } else {
+      const h2h = now.kind.kind === 'h2h';
+      mix = [[index(flat), 4], [index('STR'), h2h ? 3 : 4]];
+      if (skill) mix.push([skill.i, 4]);
+      const raw = Math.ceil((goal * 256) / (256 + (now.smite || 0)) - 1e-9); // スマイトを掛ける前に要る値
+      need = Math.ceil(4 * (raw - now.rawAttack + (h2h ? 0.75 : 0)) - 1e-9);
+    }
+    // 探す側は、装備以外の分と固定した装備の分も同じ重みで数えるので、その分を目標に足しておく
+    return { mix, goal: need + window.VanaSolver.valueOf({ mix }, (i) => set.totals.get(i)), now: now[field].total, kind: now.kind };
   }
 
   // 下の枠: 攻撃・命中・飛攻・飛命。武器を固定していれば「装備なしの値 +増える分 合計」、
@@ -1232,9 +1349,14 @@
   }
 
   // 固定した武器での、1 発ぶんの隔と手数 (近接・遠隔)。武器を固定していない側は null
-  function fixedSetups() {
+  // 固定している装備 (素手の分を入れた形)
+  function fixedEquip() {
     const equip = {};
     for (const [slot, id] of Object.entries(state.fixed)) if (getItem(id)) equip[slot] = getItem(id);
+    return withBare(equip);
+  }
+  function fixedSetups() {
+    const equip = fixedEquip();
     const who = currentWho();
     const totals = window.VanaSolver.totalsOf(equip, outsideFor(who).base, data.sets).totals;
     const context = contextFor(who);
@@ -1390,11 +1512,12 @@
     }
     const saved = savedSets().find((x) => x.id === key);
     if (!saved) return null;
-    const equip = {};
+    let equip = {};
     for (const [slot, id] of Object.entries(saved.equip)) {
       const item = getItem(id);
       if (item) equip[slot] = item;
     }
+    equip = withBare(equip);
     // 保存したときのジョブ・サポ・食事で、いまの育成とオーグメントを使って計算し直す
     const base = outsideFor(saved.who).base;
     const set = Object.assign({ equip }, window.VanaSolver.totalsOf(equip, base, data.sets));
@@ -1535,6 +1658,78 @@
       el('div', { className: 'cmp-wrap' }, el('table', { className: 'cmp' }, el('thead', null, head), body))));
   }
 
+  // 左の欄で開く、セットのステータス。目標への届き具合 (いま画面で選んでいる目標と比べる)、基本ステータス、
+  // 攻撃・命中、TP、すべてのステータス、装備ごとの説明
+  function setView(entry) {
+    const { set, context, base } = entry;
+    const columns = state.targets.filter((t) => t.goal != null && t.goal !== 0).map((t) => ({ stat: db.statByKey.get(t.k), goal: effectiveGoal(db.statByKey.get(t.k), t.goal) }));
+    for (const m of state.objective === 'max' ? state.maximize.filter((x) => x.weight > 0) : []) {
+      const stat = db.statByKey.get(m.k);
+      if (!columns.some((c) => c.stat === stat)) columns.push({ stat });
+    }
+    const checks = el('div', { className: 'checks' });
+    for (const c of columns) {
+      const value = valueAt(set, c.stat, context);
+      const shown = el('b', { textContent: showValue(c.stat, value) });
+      if (c.goal == null) {
+        checks.append(el('span', { className: 'chk grow', title: '伸ばすステータス' }, c.stat.k + ' ', shown));
+        continue;
+      }
+      const ok = c.goal < 0 ? value <= c.goal : value >= c.goal;
+      checks.append(el('span', { className: 'chk' + (ok ? '' : ' short') }, c.stat.k + ' ', shown, el('span', { textContent: '/ ' + showValue(c.stat, c.goal) }),
+        ok ? null : el('span', { textContent: `あと ${Math.abs(Math.round((c.goal - value) * 100) / 100)}${c.stat.u || ''}` })));
+    }
+    const req = { base };
+    const gear = el('div', { className: 'view-gear' });
+    const rows = [];
+    for (const slot of SLOTS) {
+      const item = set.equip[slot.id];
+      if (!item) continue;
+      const row = el('details', null,
+        el('summary', null, el('span', { className: 'slot', textContent: slot.ja }), nameOf(item), window.VanaSearch.wikiLink(item)),
+        el('pre', { textContent: item.desc }),
+        item.aug ? el('div', { className: 'aug', textContent: 'オーグメント: ' + item.aug.replace(/\s+/g, ' ') }) : null,
+        item.manual ? el('div', { className: 'aug', textContent: '手入力のオーグメント: ' + item.manual }) : null,
+        item.bareOn ? el('div', { className: 'aug', textContent: '「素手:」の分を合計に入れています' }) : null);
+      rows.push(row);
+      gear.append(row);
+    }
+    const all = el('button', { type: 'button', className: 'small', textContent: '説明をすべて開く' });
+    all.addEventListener('click', () => {
+      const open = rows.some((r) => !r.open);
+      for (const r of rows) r.open = open;
+      all.textContent = open ? '説明をすべて閉じる' : '説明をすべて開く';
+    });
+    const bonus = set.bonuses.map((b) => `${data.sets[b.index].label} ${b.count} 部位`).join('、');
+    const tp = tpBoxes(set, context);
+    return el('div', { className: 'set-view' },
+      columns.length ? checks : null,
+      bonus ? el('div', { className: 'bonus', textContent: `セット効果: ${bonus} (合計に含む)` }) : null,
+      statSheet(set, context),
+      el('div', { className: 'combat' }, attackTiles(set, req, context)),
+      tp,
+      statsPanel(set, req, new Set(columns.map((c) => c.stat.i))),
+      el('div', { className: 'view-head' }, el('span', { textContent: `装備 (${rows.length} 部位)` }), all),
+      gear);
+  }
+
+  // 固定中の装備のステータス (固定する装備の枠の下に開く)
+  function renderFixedView() {
+    const equip = fixedEquip();
+    const any = Object.keys(equip).length > 0;
+    const open = viewing === 'fixed' && any && !!state.job;
+    $('fixed-view').hidden = !any || !state.job;
+    $('fixed-view').classList.toggle('on', open);
+    $('fixed-view').textContent = open ? '固定中の装備のステータスを閉じる' : '固定中の装備のステータスを見る';
+    $('fixed-stats').hidden = !open;
+    $('fixed-stats').replaceChildren();
+    if (!open) return;
+    const who = currentWho();
+    const base = outsideFor(who).base;
+    const set = Object.assign({ equip }, window.VanaSolver.totalsOf(equip, base, data.sets));
+    $('fixed-stats').append(setView({ set, context: contextFor(who), base }));
+  }
+
   // 左の欄: 保存したセットの一覧
   function renderSaved() {
     const box = $('saved');
@@ -1543,6 +1738,13 @@
       const check = el('input', { type: 'checkbox', checked: compare.includes(saved.id), title: '比較に並べる' });
       check.addEventListener('change', () => toggleCompare(saved.id));
       const names = SLOTS.map((slot) => getItem(saved.equip[slot.id])).filter(Boolean).map(nameOf).join(' / ');
+      const open = viewing === saved.id;
+      const view = el('button', { type: 'button', className: 'small view' + (open ? ' on' : ''), textContent: open ? '閉じる' : '見る', title: 'このセットの合計・攻撃や命中・TP と、装備の説明を見る (保存したときのジョブ・サポ・食事で計算)' });
+      view.addEventListener('click', () => {
+        viewing = open ? null : saved.id;
+        renderFixedView();
+        renderSaved();
+      });
       const load = el('button', { type: 'button', className: 'small', textContent: '読み込む', title: 'このセットを「固定する装備」に入れる (ジョブ・サポ・食事も合わせる)' });
       load.addEventListener('click', () => {
         Object.assign(state, { job: saved.who.job, sub: saved.who.sub, subLevel: saved.who.subLevel, food: saved.who.food, innate: Object.assign({}, saved.who.innate), fixed: Object.assign({}, saved.equip) });
@@ -1566,11 +1768,12 @@
         changed();
         renderCompare();
       });
-      box.append(el('div', { className: 'saved-set' + (compare.includes(saved.id) ? ' picked' : '') },
+      box.append(el('div', { className: 'saved-set' + (compare.includes(saved.id) ? ' picked' : '') + (open ? ' viewing' : '') },
         el('label', { className: 'saved-head' }, check, el('span', { className: 'saved-name', textContent: saved.name })),
         el('div', { className: 'saved-meta', textContent: whoText(saved.who) }),
         el('div', { className: 'saved-gear', textContent: names, title: names.replace(/ \/ /g, '\n') }),
-        el('div', { className: 'saved-acts' }, load, rename, remove)));
+        el('div', { className: 'saved-acts' }, view, load, rename, remove),
+        open && entryOf(saved.id) ? setView(entryOf(saved.id)) : null));
     }
     if (!savedSets().length) box.append(el('p', { className: 'hint', textContent: 'まだありません。' }));
   }
@@ -1600,7 +1803,7 @@
     }
 
     // 達成度と寄与を出す列: 目標のステータスと、伸ばすステータス
-    const columns = req.targets.map((t) => ({ stat: data.stats[t.i], goal: t.goal }));
+    const columns = req.targets.map((t) => (t.mix ? { stat: db.statByKey.get(t.k), goal: t.shown } : { stat: data.stats[t.i], goal: t.goal }));
     for (const m of req.objective === 'max' ? req.maximize : []) if (!columns.some((c) => c.stat.i === m.i)) columns.push({ stat: data.stats[m.i], weight: m.weight });
     const wanted = new Set(columns.map((c) => c.stat.i));
     // 目標や伸ばすステータスの向きに当たる上限。超えた分は効果が無いので、比べるときは上限までで見る
@@ -1618,7 +1821,7 @@
     // 見比べの表: 候補を 1 行ずつ。列ごとにいちばん良い値に色を付け、候補 1 と違う部位を言葉で出す
     if (result.sets.length > 1) {
       const head = el('tr', null, el('th', { textContent: '見比べ' }));
-      for (const c of columns) head.append(el('th', null, c.stat.k, el('small', { textContent: c.goal != null ? `${c.goal < 0 ? '≤' : '≥'} ${signed(c.goal, c.stat.u)}` : `伸ばす ×${c.weight}` })));
+      for (const c of columns) head.append(el('th', null, c.stat.k, el('small', { textContent: c.goal != null ? `${c.goal < 0 ? '≤' : '≥'} ${showValue(c.stat, c.goal)}` : `伸ばす ×${c.weight}` })));
       for (const c of swingColumns) head.append(el('th', null, c.kind.label, el('small', { textContent: c.goal != null ? `≤ ${c.goal} 振り` : '振り数' })));
       head.append(el('th', { className: 'changed', textContent: '候補 1 と違う部位' }), el('th'));
       const bestOf = (values, low) => {
@@ -1626,15 +1829,15 @@
         if (!usable.length || usable.every((v) => v === usable[0])) return null; // みな同じなら色を付けない
         return low ? Math.min(...usable) : Math.max(...usable);
       };
-      const best = columns.map((c) => bestOf(result.sets.map((set) => effective(c, set.totals.get(c.stat.i) || 0)), lower(c)));
+      const best = columns.map((c) => bestOf(result.sets.map((set) => effective(c, valueAt(set, c.stat, context))), lower(c)));
       const bestSwings = swingColumns.map((c) => bestOf(result.sets.map((set) => swingsOf(c.kind, set)), true));
       const body = el('tbody');
       result.sets.forEach((set, index) => {
         const tr = el('tr', { title: 'この候補へ移動' }, el('td', { textContent: '候補 ' + (index + 1) }));
         columns.forEach((c, k) => {
-          const value = set.totals.get(c.stat.i) || 0;
+          const value = valueAt(set, c.stat, context);
           const short = c.goal != null && (c.goal < 0 ? value > c.goal : value < c.goal);
-          tr.append(el('td', { className: short ? 'short' : effective(c, value) === best[k] ? 'best' : '', textContent: signed(value, c.stat.u) }));
+          tr.append(el('td', { className: short ? 'short' : effective(c, value) === best[k] ? 'best' : '', textContent: showValue(c.stat, value) }));
         });
         swingColumns.forEach((c, k) => {
           const swings = swingsOf(c.kind, set);
@@ -1689,11 +1892,11 @@
       const checks = el('div', { className: 'checks' });
       const growing = []; // 伸ばすステータスは、目標のあとに並べる
       for (const c of columns) {
-        const value = set.totals.get(c.stat.i) || 0;
+        const value = valueAt(set, c.stat, context);
         const cap = capFor(c);
         const over = beyond(cap, value); // 上限を超えて積んでいる分は効果が無い
         const overNote = over ? el('span', { title: `${cap.note}。超えた分は効果がありません`, textContent: `上限 (合計は ${signed(value, c.stat.u)})` }) : null;
-        const shown = el('b', { textContent: signed(over ? cap.value : value, c.stat.u) });
+        const shown = el('b', { textContent: showValue(c.stat, over ? cap.value : value) });
         if (c.goal == null) {
           growing.push(el('span', { className: 'chk grow', title: '伸ばすステータス' }, c.stat.k + ' ', shown, overNote));
           continue;
@@ -1701,7 +1904,7 @@
         const ok = c.goal < 0 ? value <= c.goal : value >= c.goal;
         const fill = el('i');
         fill.style.width = Math.max(0, Math.min(100, (value / c.goal) * 100)) + '%';
-        checks.append(el('span', { className: 'chk' + (ok ? '' : ' short') }, c.stat.k + ' ', shown, el('span', { textContent: '/ ' + signed(c.goal, c.stat.u) }), overNote,
+        checks.append(el('span', { className: 'chk' + (ok ? '' : ' short') }, c.stat.k + ' ', shown, el('span', { textContent: '/ ' + showValue(c.stat, c.goal) }), overNote,
           ok ? null : el('span', { className: 'bar' }, fill),
           ok ? null : el('span', { textContent: `あと ${Math.abs(Math.round((c.goal - value) * 100) / 100)}${c.stat.u || ''}` })));
       }
@@ -1879,6 +2082,11 @@
       changed();
     });
     $('solve').addEventListener('click', run);
+    $('fixed-view').addEventListener('click', () => {
+      viewing = viewing === 'fixed' ? null : 'fixed';
+      renderFixedView();
+      renderSaved();
+    });
     $('avoid-minus').addEventListener('change', () => {
       state.avoidMinus = $('avoid-minus').checked;
       changed();
