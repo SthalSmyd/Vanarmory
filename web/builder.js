@@ -778,7 +778,8 @@
 
   // ---- 計算 ----
 
-  function request() {
+  // generate = true のときは、登録したマントに加えて、目標に合う構成のマントも作って候補にする
+  function request(generate) {
     const targets = state.targets.filter((t) => t.goal != null && t.goal !== 0).map((t) => ({ k: t.k, goal: t.goal }));
     // 振り数の目標は、必要なストアTP として足す (ストアTP の目標があれば、高いほうを使う)
     for (const goal of swingTargets()) {
@@ -819,8 +820,10 @@
       fixed,
       excluded: new Set(profile().excluded),
       base: outside().base,
-      // 登録したマントがあれば、その中から選ぶ。無ければ、目標に合う構成を作る
-      extra: profile().cape ? { back: registered.length ? registered : capeVariants(state.job, wanted) } : {},
+      // 登録したマントがあれば、まずその中から選ぶ。登録が無いときと、登録したマントでは目標に届かないとき (run が
+      // generate を付けて呼び直す) は、目標に合う構成を作る
+      extra: profile().cape ? { back: registered.length && !generate ? registered : registered.concat(capeVariants(state.job, wanted)) } : {},
+      ownCapes: registered.length > 0 && !generate,
       allow,
       sets: data.sets,
     };
@@ -867,21 +870,35 @@
       const highs = await highsReady();
       const started = performance.now();
       const startedVersion = version;
-      const req = request();
       // 結果を出したときの条件 (ステータスの表示に使う)
       const who = currentWho();
-      let result = null;
-      if (highs) {
-        try {
-          result = await window.VanaSolverILP.solve(highs, db, req, { onProgress: (found) => ($('status').textContent = `計算中… 候補 ${found} 件`) });
-        } catch (error) {
-          console.error(error); // 解けなかったときは、以前の計算に任せる
-          if (highs.alive && !highs.alive()) highsPromise = null;
+      let old = false;
+      const solveWith = async (request) => {
+        let found = null;
+        if (highs) {
+          try {
+            found = await window.VanaSolverILP.solve(highs, db, request, { onProgress: (count) => ($('status').textContent = `計算中… 候補 ${count} 件`) });
+          } catch (error) {
+            console.error(error); // 解けなかったときは、以前の計算に任せる
+            if (highs.alive && !highs.alive()) highsPromise = null;
+          }
         }
+        if (!found) {
+          old = true;
+          found = solve(db, request);
+        }
+        return found;
+      };
+      let req = request(false);
+      let result = await solveWith(req);
+      // 登録したマントでは目標に届かないときは、目標に合う構成のマントを作って探し直す
+      let madeCape = false;
+      if (req.ownCapes && !result.reached) {
+        req = request(true);
+        result = await solveWith(req);
+        madeCape = true;
       }
-      const old = !result;
-      if (old) result = solve(db, req);
-      lastResult = { req, who, context: contextFor(who), result };
+      lastResult = { req, who, context: contextFor(who), result, madeCape };
       // 前の候補を比較に入れていたら外す (候補の番号が変わるため)
       compare = compare.filter((key) => !key.startsWith('c'));
       saving = null;
@@ -1456,6 +1473,9 @@
     }
     if (!result.exact && result.reached) {
       $('notice').append(el('p', { className: 'warn', textContent: '計算に時間がかかるため、途中で打ち切りました。ここに出ている候補は目標を満たしますが、いちばん良い組み合わせとは限りません。部位を固定するか、目標を減らすと確実になります。' }));
+    }
+    if (lastResult.madeCape) {
+      $('notice').append(el('p', { className: 'warn', textContent: '登録したマントでは目標に届かなかったので、目標に合う構成のマントを作って探しました (候補の背に [オグメ最大] と出ているものが、作った構成です)。' }));
     }
     if (!result.reached) {
       $('notice').append(el('p', { className: 'warn', textContent: '目標のすべてには届きませんでした。いちばん近い組み合わせを表示しています。目標を下げるか、固定・除外・装備の範囲を緩めてください。' }));
