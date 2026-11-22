@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vanarmory — セットの保存と比較モック</title>
+<style>
+:root {
+  --bg: #f4f3ef; --panel: #ffffff; --sunken: #efeee9; --text: #20242b; --muted: #6d7480; --line: #dedbd2;
+  --accent: #9a5b13; --accent-bg: #fbecd3; --ok: #2e7d4f; --ok-bg: #e2f3e8; --fixed: #3b6ea8; --fixed-bg: #e3edf8;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14161b; --panel: #1d2027; --sunken: #262a33; --text: #e5e7eb; --muted: #969dab; --line: #333844;
+    --accent: #f0b35e; --accent-bg: #40311a; --ok: #7fd3a0; --ok-bg: #1d3a2a; --fixed: #8fbcf0; --fixed-bg: #1e2f45;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; padding: 20px; background: var(--bg); color: var(--text); font: 14px/1.5 "Segoe UI", "Hiragino Sans", "Yu Gothic UI", "Meiryo", sans-serif; }
+button, input, select { font: inherit; color: inherit; }
+.mock-note { font-size: 12px; color: var(--muted); border: 1px dashed var(--line); border-radius: 6px; padding: 4px 10px; display: inline-block; margin-bottom: 12px; }
+h2 { font-size: 14px; margin: 0 0 8px; }
+.step { font-size: 12px; font-weight: 700; color: var(--accent); margin: 18px 0 6px; }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px; max-width: 1120px; }
+.ghost { border: 1px solid var(--line); background: none; border-radius: 6px; font-size: 12px; padding: 2px 10px; cursor: pointer; }
+.ghost.on { background: var(--accent-bg); border-color: var(--accent); color: var(--accent); font-weight: 600; }
+.primary { background: var(--accent); color: var(--panel); border: 0; border-radius: 6px; padding: 4px 16px; font-weight: 700; cursor: pointer; }
+.hint { color: var(--muted); font-size: 12px; }
+
+/* ① 候補のカードの見出しに「保存」 */
+.card-head { display: flex; align-items: baseline; gap: 10px; }
+.card-head h3 { margin: 0; font-size: 15px; }
+.card-head .used { color: var(--muted); font-size: 12px; margin-right: auto; }
+.save-box { display: flex; align-items: center; gap: 8px; margin-top: 10px; padding: 8px 10px; background: var(--accent-bg); border-radius: 8px; }
+.save-box input { flex: 1; max-width: 320px; background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 3px 8px; }
+
+/* ② 保存したセットの一覧 */
+.sets { display: grid; gap: 6px; }
+.set { display: grid; grid-template-columns: 26px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 6px 8px; border: 1px solid var(--line); border-radius: 8px; }
+.set.picked { border-color: var(--accent); background: var(--accent-bg); }
+.set .name { font-weight: 700; }
+.set .meta { color: var(--muted); font-size: 12px; }
+.set .gear { color: var(--muted); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.set .acts { display: flex; gap: 6px; }
+.danger { color: #c0392b; }
+
+/* ③ 比較 */
+table.cmp { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+.cmp th, .cmp td { padding: 4px 10px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
+.cmp th:first-child, .cmp td:first-child { text-align: left; }
+.cmp thead th { font-size: 12px; color: var(--muted); font-weight: 600; vertical-align: bottom; }
+.cmp thead th b { display: block; color: var(--text); font-size: 14px; }
+.cmp tr.group td { background: var(--sunken); font-size: 12px; font-weight: 700; color: var(--accent); padding: 3px 10px; }
+.cmp td.base { color: var(--muted); }
+.cmp td.up { color: var(--ok); font-weight: 700; }
+.cmp td.down { color: #c0392b; font-weight: 700; }
+.cmp td.same { color: var(--muted); }
+.cmp td.slot { color: var(--muted); font-size: 12px; }
+.cmp tr.diff td.item { font-weight: 600; }
+.cmp tr.eq td.item { color: var(--muted); }
+.cmp td.item { text-align: left; white-space: normal; }
+.tabs { display: flex; gap: 6px; margin-bottom: 8px; }
+</style>
+</head>
+<body>
+<div class="mock-note">画面モック — セットの保存と比較。数値は仮で、ボタンは動きません</div>
+
+<div class="step">① 候補のカードから保存する</div>
+<div class="panel">
+  <div class="card-head">
+    <h3>候補 1</h3><span class="used">5 部位を自動で選択・自由枠 8</span>
+    <button class="ghost on">保存</button><button class="ghost">ステータス</button><button class="ghost">テキストでコピー</button>
+  </div>
+  <div class="save-box">
+    <span>名前</span><input value="戦士 TP 用 (いまの装備)"><button class="primary">このセットを保存</button>
+    <span class="hint">ジョブ・サポ・食事・装備の一式を、このキャラクターに保存します</span>
+  </div>
+</div>
+
+<div class="step">② 保存したセット (「セットを組む」の左の欄に置く想定)</div>
+<div class="panel">
+  <h2>保存したセット <span class="hint">比べたいものにチェック (3 つまで)</span></h2>
+  <div class="sets">
+    <div class="set picked"><input type="checkbox" checked><div><span class="name">戦士 TP 用 (いまの装備)</span> <span class="meta">戦士 99 / 侍 51・食事なし</span><div class="gear">ウコンバサラ [R15] / ウトゥグリップ / 銀銭 / ＢＩマスク+3 / 戦士の数珠+1 / テロスピアス / ボイイピアス+1 ✎ …</div></div><div class="acts"><button class="ghost">読み込む</button><button class="ghost">名前を変える</button><button class="ghost danger">削除</button></div></div>
+    <div class="set picked"><input type="checkbox" checked><div><span class="name">戦士 TP 用 (候補: 首を +2 に)</span> <span class="meta">戦士 99 / 侍 51・食事なし</span><div class="gear">ウコンバサラ [R15] / ウトゥグリップ / 銀銭 / ＢＩマスク+3 / 戦士の数珠+2 [R25] / テロスピアス / ボイイピアス+1 ✎ …</div></div><div class="acts"><button class="ghost">読み込む</button><button class="ghost">名前を変える</button><button class="ghost danger">削除</button></div></div>
+    <div class="set"><input type="checkbox"><div><span class="name">戦士 WS 用</span> <span class="meta">戦士 99 / 侍 51・特上スシ+1</span><div class="gear">ウコンバサラ [R15] / ウトゥグリップ / ノブキエリ / ＡＧマスク+4 / 戦士の数珠+1 / スラッドピアス / モアイピアス …</div></div><div class="acts"><button class="ghost">読み込む</button><button class="ghost">名前を変える</button><button class="ghost danger">削除</button></div></div>
+  </div>
+  <div style="margin-top:10px"><button class="primary">チェックした 2 つを比較</button> <span class="hint">「読み込む」を押すと、そのセットを「固定する装備」に入れて、そこから組み直せます</span></div>
+</div>
+
+<div class="step">③ 比較</div>
+<div class="panel">
+  <div class="tabs"><button class="ghost on">違うところだけ</button><button class="ghost">すべて</button><span class="hint" style="margin-left:auto">左のセットを基準に、増えた値は緑、減った値は赤</span></div>
+  <table class="cmp">
+    <thead><tr><th></th><th><b>戦士 TP 用 (いまの装備)</b>基準</th><th><b>戦士 TP 用 (候補: 首を +2 に)</b></th><th>差</th></tr></thead>
+    <tbody>
+      <tr class="group"><td colspan="4">基本ステータス</td></tr>
+      <tr><td>HP</td><td class="base">2,751</td><td>2,810</td><td class="up">+59</td></tr>
+      <tr><td>STR</td><td class="base">382</td><td>389</td><td class="up">+7</td></tr>
+      <tr><td>DEX</td><td class="base">280</td><td>287</td><td class="up">+7</td></tr>
+      <tr class="group"><td colspan="4">攻撃・命中</td></tr>
+      <tr><td>攻撃 (両手斧)</td><td class="base">1,905</td><td>1,937</td><td class="up">+32</td></tr>
+      <tr><td>命中 (両手斧)</td><td class="base">1,316</td><td>1,331</td><td class="up">+15</td></tr>
+      <tr class="group"><td colspan="4">物理攻撃</td></tr>
+      <tr><td>ダブルアタック</td><td class="base">+87%</td><td>+91%</td><td class="up">+4%</td></tr>
+      <tr><td>フェンサー</td><td class="base">+1</td><td>+1</td><td class="same">±0</td></tr>
+      <tr class="group"><td colspan="4">TP・攻撃間隔</td></tr>
+      <tr><td>ストアTP</td><td class="base">+64</td><td>+59</td><td class="down">-5</td></tr>
+      <tr class="group"><td colspan="4">装備の違い</td></tr>
+      <tr class="diff"><td class="slot">首</td><td class="item">戦士の数珠+1</td><td class="item">戦士の数珠+2 [R25]</td><td></td></tr>
+      <tr class="diff"><td class="slot">指1</td><td class="item">月光の指輪</td><td class="item">ニックマドゥリング</td><td></td></tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

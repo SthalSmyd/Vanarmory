@@ -1,0 +1,8 @@
+# 取得したままのデータ (node tools/build-data.mjs --refresh で取り直せる)
+/data/cache/
+# 画面の確認の途中で作られるもの
+/web/_*
+node_modules/
+# 作業用の指示 (手元だけに置く)
+/CLAUDE.md
+/.claude/

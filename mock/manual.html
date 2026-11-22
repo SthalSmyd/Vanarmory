@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vanarmory — 「手で足す」のモック</title>
+<link rel="stylesheet" href="../web/theme.css">
+<link rel="stylesheet" href="../web/builder.css">
+<style>
+body { padding: 16px; }
+h2 { font-size: 14px; margin: 22px 0 4px; }
+h2 small { font-weight: 400; color: var(--muted); font-size: 12px; margin-left: 8px; }
+.note { font-size: 12px; color: var(--muted); margin: 0 0 8px; }
+.mock-note { font-size: 12px; color: var(--muted); border: 1px dashed var(--line); border-radius: 6px; padding: 4px 10px; display: inline-block; }
+.conditions { border: 1px solid var(--panel-border); border-radius: 10px; max-width: 1100px; }
+.state { font-size: 11px; color: var(--muted); align-self: center; margin: 0 4px 0 10px; }
+
+/* 案 1: 2 行目の右端に、枠のある小さなボタン。入れたあとは値の札になる */
+.buff-add { border: 1px dashed var(--line); background: none; border-radius: 999px; color: var(--muted); font-size: 11px; padding: 0 8px; margin-left: 6px; }
+.buff-add:hover { border-color: var(--accent); color: var(--accent); }
+.buff { display: inline-flex; align-items: center; gap: 4px; background: var(--ok-bg); color: var(--ok); border-radius: 999px; font-size: 11px; font-weight: 600; padding: 0 4px 0 8px; margin-left: 6px; }
+.buff input { width: 40px !important; font-size: 11px; padding: 0 4px !important; background: var(--panel) !important; color: var(--text); }
+.buff .x { padding: 0 2px !important; margin: 0 !important; font-size: 11px; }
+.goal .sub.split { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+
+/* 案 2: いつも欄を出す */
+.always { display: inline-flex; align-items: center; gap: 4px; margin-left: 6px; }
+.always input { width: 40px !important; font-size: 11px; padding: 0 4px !important; }
+
+/* 案 3: 「装備以外」の行にまとめる */
+.buff-chip { display: inline-flex; align-items: center; gap: 4px; border: 1px solid var(--line); border-radius: 999px; padding: 1px 4px 1px 10px; font-size: 13px; }
+.buff-chip input { width: 46px; text-align: right; background: var(--sunken); border: 1px solid var(--line); border-radius: 5px; padding: 0 6px; font-size: 13px; }
+.buff-chip .x { border: 0; background: none; color: var(--muted); padding: 0 4px; }
+.add.small { font-size: 12px; padding: 2px 10px; border-radius: 999px; }
+</style>
+</head>
+<body>
+<span class="mock-note">モック (見た目だけ。押しても動きません)。左が「まだ足していない目標」、右が「+10 を足した目標」</span>
+
+<h2>いま <small>小さい橙の文字が、目標ごとに並ぶ。何を足すのかが分からない</small></h2>
+<section class="conditions"><div class="row"><span class="label">目標</span><div class="body start">
+  <span class="goal"><span class="main">ストアTP <span class="op">≥</span><input type="number" value="40"><button class="x">×</button></span>
+    <span class="sub">うち装備以外 <b>+20</b> (サポ特性)<span class="dot">・</span><button class="edit">＋手で足す</button></span></span>
+  <span class="goal"><span class="main">ヘイスト <span class="op">≥</span><input type="number" value="26"><span class="unit">%</span><button class="x">×</button></span>
+    <span class="sub">上限 +26%<span class="dot">・</span><label>手で足す <input class="extra" type="number" value="10"></label></span></span>
+</div></div></section>
+
+<h2>案 1: 枠のある小さなボタンにして、右端に寄せる <small>勧め</small></h2>
+<p class="note">「＋ 支援など」と、何を足すのかを名前にする。説明の文字 (左) と押す場所 (右) を分ける。入れたあとは緑の札「支援など +10」になり、× で消せる。「うち装備以外」の合計にも入る</p>
+<section class="conditions"><div class="row"><span class="label">目標</span><div class="body start">
+  <span class="goal"><span class="main">ストアTP <span class="op">≥</span><input type="number" value="40"><button class="x">×</button></span>
+    <span class="sub split"><span>うち装備以外 <b>+20</b> (サポ特性)</span><button class="buff-add" title="ロールや歌など、支援効果で得る分を足す">＋ 支援など</button></span></span>
+  <span class="goal"><span class="main">ヘイスト <span class="op">≥</span><input type="number" value="26"><span class="unit">%</span><button class="x">×</button></span>
+    <span class="sub split"><span>上限 +26%<span class="dot">・</span>うち装備以外 <b>+10%</b></span><span class="buff">支援など <input type="number" value="10"><button class="x">×</button></span></span></span>
+  <span class="goal"><span class="main">被ダメージ <span class="op">≤</span><input type="number" value="-40"><span class="unit">%</span><button class="x">×</button></span>
+    <span class="sub split"><span>上限 -50%</span><button class="buff-add">＋ 支援など</button></span></span>
+</div></div></section>
+
+<h2>案 2: いつも欄を出す <small>押す手間は無いが、目標ごとに空の欄が並ぶ</small></h2>
+<section class="conditions"><div class="row"><span class="label">目標</span><div class="body start">
+  <span class="goal"><span class="main">ストアTP <span class="op">≥</span><input type="number" value="40"><button class="x">×</button></span>
+    <span class="sub split"><span>うち装備以外 <b>+20</b> (サポ特性)</span><label class="always">支援など <input class="extra" type="number" placeholder="0"></label></span></span>
+  <span class="goal"><span class="main">ヘイスト <span class="op">≥</span><input type="number" value="26"><span class="unit">%</span><button class="x">×</button></span>
+    <span class="sub split"><span>上限 +26%<span class="dot">・</span>うち装備以外 <b>+10%</b></span><label class="always">支援など <input class="extra" type="number" value="10"></label></span></span>
+  <span class="goal"><span class="main">被ダメージ <span class="op">≤</span><input type="number" value="-40"><span class="unit">%</span><button class="x">×</button></span>
+    <span class="sub split"><span>上限 -50%</span><label class="always">支援など <input class="extra" type="number" placeholder="0"></label></span></span>
+</div></div></section>
+
+<h2>案 3: 「装備以外」の行にまとめる <small>目標の枠はすっきりするが、足す場所が目標から離れる</small></h2>
+<p class="note">支援の分も「装備以外」の仲間として、特性・ギフト・メリポ・食事の右に置く。「＋ 支援など」を押すと、いまの目標から選んで値を入れる</p>
+<section class="conditions">
+  <div class="row"><span class="label">装備以外</span><div class="body">
+    <span class="toggles"><span class="toggle on">✓ ジョブ特性</span><span class="toggle on">✓ ギフト (マスター)</span><span class="toggle on">✓ メリポ</span></span>
+    <label class="field">食事 <select><option>なし</option></select></label>
+    <span class="sep"></span>
+    <span class="field">支援など</span>
+    <span class="buff-chip">ヘイスト <input type="number" value="10">% <button class="x">×</button></span>
+    <button class="add small">＋ 支援など</button>
+  </div></div>
+  <div class="row"><span class="label">目標</span><div class="body start">
+    <span class="goal"><span class="main">ストアTP <span class="op">≥</span><input type="number" value="40"><button class="x">×</button></span>
+      <span class="sub">うち装備以外 <b>+20</b> (サポ特性)</span></span>
+    <span class="goal"><span class="main">ヘイスト <span class="op">≥</span><input type="number" value="26"><span class="unit">%</span><button class="x">×</button></span>
+      <span class="sub">上限 +26%<span class="dot">・</span>うち装備以外 <b>+10%</b> (支援など)</span></span>
+    <span class="goal"><span class="main">被ダメージ <span class="op">≤</span><input type="number" value="-40"><span class="unit">%</span><button class="x">×</button></span>
+      <span class="sub">上限 -50%</span></span>
+  </div></div>
+</section>
+</body>
+</html>

@@ -1,0 +1,28 @@
+{
+  "note": "ジョブ専用装束 (IL109〜119) の系統。英語名の先頭の語で見分ける (「Pumm. Lorica +3」のような省略形も同じ系統)。値は順に アーティファクト / レリック / エンピリアン。",
+  "families": ["af", "relic", "empy"],
+  "jobs": {
+    "1": ["Pummeler", "Agoge", "Boii"],
+    "2": ["Anchorite", "Hesychast", "Bhikku"],
+    "3": ["Theophany", "Piety", "Ebers"],
+    "4": ["Spaekona", "Archmage", "Wicce"],
+    "5": ["Atrophy", "Vitiation", "Lethargy"],
+    "6": ["Pillager", "Plunderer", "Skulker"],
+    "7": ["Reverence", "Caballarius", "Chevalier"],
+    "8": ["Ignominy", "Fallen", "Heathen"],
+    "9": ["Totemic", "Ankusa", "Nukumi"],
+    "10": ["Brioso", "Bihu", "Fili"],
+    "11": ["Orion", "Arcadian", "Amini"],
+    "12": ["Wakido", "Sakonji", "Kasuga"],
+    "13": ["Hachiya", "Mochizuki", "Hattori"],
+    "14": ["Vishap", "Pteroslaver", "Peltast"],
+    "15": ["Convoker", "Glyphic", "Beckoner"],
+    "16": ["Assimilator", "Luhlaza", "Hashishin"],
+    "17": ["Laksamana", "Lanun", "Chasseur"],
+    "18": ["Foire", "Pitre", "Karagoz"],
+    "19": ["Maxixi", "Horos", "Maculele"],
+    "20": ["Academic", "Pedagogy", "Arbatel"],
+    "21": ["Geomancy", "Bagua", "Azimuth"],
+    "22": ["Runeist", "Futhark", "Erilaz"]
+  }
+}

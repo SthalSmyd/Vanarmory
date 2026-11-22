@@ -1,0 +1,232 @@
+// キャラクターと、使う装備の設定。検索条件とは別に保存する。
+// 設定画面 (settings.js)、セットを組む画面 (builder.js)、テスト (Node) から使う。
+//
+// 2 段階になっている:
+//   キャラクター (名前は自由。characterA / characterB のように複数持てる)
+//     ├ ジョブの育成 … jobs: { ジョブの番号: { jp, master, ml, merit } }
+//     │    jp は使ったジョブポイントの合計 (0〜2100)、master はジョブマスター済みか
+//     │    (済みなら jp に関わらず 2100 として数える。jp の数値は消さずに残す)、ml はマスターレベル、
+//     │    merit はジョブ別のメリポを最大まで振っているか
+//     ├ 種族 … race ('hume' / 'elvaan' / 'tarutaru' / 'mithra' / 'galka')。素のステータスの計算に使う
+//     ├ 共通のメリポ … merits: { 項目の名前: 段階 }
+//     ├ 保存したセット … sets: [{ id, name, who: { job, sub, subLevel, food, innate }, equip: { 部位: 装備の id } }]
+//     ├ 手入力のオーグメント … augments: { 装備の id: 「STR+8 DEX+8 命中+12」のような文字 }
+//     └ 装備の範囲の設定 (「メイン」「復帰直後」のように複数持てる) … list と、選んでいる設定 active
+//
+// 装備の範囲の設定 1 つの形:
+//   { id, name,
+//     tiers:    { af, relic, empy }          +いくつまで使うか。-1 は使わない
+//     odyssey:  { nyame, sakpata, …, gaea1, … }  RP のランク。0 は無強化、-1 は使わない
+//     boosts:   { neck, abjuration, … }      ランクを選べない強化を使うか
+//     cape:     true / false                 アンバスマント (オグメ最大) を使うか
+//     contents: { コンテンツの id: { on, tier, picks } }
+//               tier は段階の上限、picks は選んだもの (バトルフィールド名など)。null はすべて
+//     excluded: [装備の id] }
+//
+// 保存内容: { activeChar, chars: [{ id, name, jobs, merits, active, list }] }
+(function (root) {
+  'use strict';
+
+  const STORAGE = 'vanarmory.profiles';
+  const ODYSSEY = [['nyame', 'ニャメ'], ['sakpata', 'サクパタ'], ['ikenga', 'イケンガ'], ['mpaca', 'ムパカ'], ['agwu', 'アグゥ'], ['bunzi', 'ブンジ'], ['gleti', 'グレティ']];
+  // 系統は、シェオル・ジャイアのアトーンメント 3・4 のボスごと (国光はイケンガ、月桂の太刀はグレティに入る)。
+  // アトーンメント 1・2 の装備 (ボスごとに 1 点ずつ) は、段階ごとにまとめてランクを選ぶ (出典に値があるのは 15・20・25・30)。
+  // どの装備がどれに入るかは data/augments.json の family
+  const GAEA = [
+    ['gaea1', '段階1', 'アトーンメント1: ヘスペリデ、エピタフサシェ、Ｎ．ストリンガー、コイストボダー'],
+    ['gaea2', '段階2', 'アトーンメント2: アクロンティカ、ベーシルリング、鶴、シェレピアス、テレンベルト、オブシテナサッシュ'],
+  ];
+  // ランクごとの値が出典に無い強化。使う (上限まで強化した状態) か、使わない (強化していない状態) かだけを選ぶ
+  // id、名前、説明、切り替えを置くコンテンツ (data/contents.json の id)
+  const BOOSTS = [
+    ['limbus', 'リンバス装備', '装束 5 系統とアクセサリ 4 点を、ランク 30 まで強化した状態', ['limbus']],
+    ['neck', 'デュナミス〔D〕の首装備', '品質ごとの上限のランクまで強化した状態', ['dynamis_neck']],
+    ['geas', 'ギアスフェットの装束', 'エスカイト・デスペア・那伽・ローハイド・パスーア・サイクロス・ヴァニヤを、ランク 15 まで強化した状態 (方針 A〜D)。エスカ-ジ・タとエスカ-ル・オンで共通', ['escha_zitah', 'escha_ruaun']],
+    ['abjuration', '免罪装備', 'アーケイン・グリプトをランク 15 まで強化した状態 (方針 A〜D)', ['abjuration']],
+    ['wanted', 'ウォンテッド装備 (HQ)', 'ランク 15 まで強化した状態', ['unity']],
+    ['inventor', 'メナスインスペクターの装備', 'インベンター・ワークスをランク 15 まで強化した状態 (方針 A〜C)', ['delve']],
+  ];
+  // 切り替えを持たず、いつも強化した状態を使うもの (高名値の首装備。差は HP+15 か MP+15 だけ)
+  const ALWAYS_BOOSTED = new Set(['pledge']);
+  const JOB_SETS = [['af', 'AF', 4], ['relic', 'レリック', 4], ['empy', 'エンピリアン', 3]];
+
+  const newId = () => 'p' + Date.now().toString(36) + Math.floor(Math.random() * 1e6).toString(36);
+
+  // すべて使う設定
+  function create(name) {
+    return {
+      id: newId(),
+      name,
+      tiers: Object.fromEntries(JOB_SETS.map(([id, , max]) => [id, max])),
+      odyssey: Object.fromEntries(ODYSSEY.concat(GAEA).map(([id]) => [id, 30])),
+      boosts: Object.fromEntries(BOOSTS.map(([id]) => [id, true])),
+      cape: true,
+      contents: {},
+      excluded: [],
+    };
+  }
+
+  const MAX_JP = 2100;
+  // ジョブ 1 つの育成。何も入れていなければ「ジョブマスター済み、メリポは最大、マスターレベルは 0」。
+  // jp は計算に使う値 (マスター済みなら 2100)、raw は入力してある数値 (マスターのチェックを外すと、これに戻る)
+  function jobSetting(character, job) {
+    const saved = (character.jobs || {})[job] || {};
+    const raw = saved.jp != null ? saved.jp : 0;
+    const master = saved.master != null ? !!saved.master : saved.jp == null || saved.jp >= MAX_JP;
+    return {
+      jp: master ? MAX_JP : raw,
+      raw,
+      master,
+      ml: saved.ml != null ? saved.ml : 0,
+      merit: saved.merit !== false,
+    };
+  }
+
+  // 共通のメリポの、1 項目の段階。何も入れていなければ最大。ただし合計に上限のある分類 (その他) は 0
+  // (全部は振れないので、どれに振ったかを本人が入れる)
+  function sharedLevel(character, group, item) {
+    const saved = (character.merits || {})[item.id];
+    if (saved != null) return Math.max(0, Math.min(item.max, saved));
+    return group.limit == null ? item.max : 0;
+  }
+
+  // マスターレベルから決まるサポートジョブのレベル。rule は { base, per_master_levels, master_level_cap }
+  function supportLevel(ml, rule) {
+    const r = rule || { base: 49, per_master_levels: 5, master_level_cap: 50 };
+    return r.base + Math.floor(Math.min(ml, r.master_level_cap) / r.per_master_levels);
+  }
+
+  // 足りない項目を埋める (古い保存内容や、項目が増えたときのため)
+  function normalize(profile) {
+    const base = create(profile.name || '設定');
+    return Object.assign(base, profile, {
+      tiers: Object.assign(base.tiers, profile.tiers),
+      odyssey: Object.assign(base.odyssey, profile.odyssey),
+      boosts: Object.assign(base.boosts, profile.boosts),
+      contents: Object.assign({}, profile.contents),
+      excluded: (profile.excluded || []).slice(),
+    });
+  }
+
+  // 最初の装備の範囲の設定を 1 つ持ったキャラクター
+  function createCharacter(name) {
+    const first = create('メイン');
+    return { id: newId(), name, race: 'hume', jobs: {}, merits: {}, augments: {}, sets: [], active: first.id, list: [first] };
+  }
+
+  function normalizeCharacter(character) {
+    const list = (Array.isArray(character.list) && character.list.length ? character.list : [create('メイン')]).map(normalize);
+    return {
+      id: character.id || newId(),
+      name: character.name || 'キャラクター',
+      race: character.race || 'hume',
+      augments: Object.assign({}, character.augments),
+      sets: JSON.parse(JSON.stringify(character.sets || [])),
+      jobs: JSON.parse(JSON.stringify(character.jobs || {})),
+      // 以前はクリティカルヒット +5% の入・切だけを持っていた (crit)。段階に直して引き継ぐ
+      merits: Object.assign(character.crit ? { 'クリティカルヒット': 5 } : {}, character.merits),
+      active: list.some((p) => p.id === character.active) ? character.active : list[0].id,
+      list,
+    };
+  }
+
+  // 保存内容を読む。無ければキャラクターを 1 人作る。
+  // legacy は、設定を分ける前に「セットを組む」の画面が保存していた範囲の内容
+  function load(storage, legacy) {
+    let saved = null;
+    try {
+      saved = JSON.parse(storage.getItem(STORAGE) || 'null');
+    } catch {
+      // 読めない保存内容は捨てて作り直す
+    }
+    let chars;
+    if (saved && Array.isArray(saved.chars) && saved.chars.length) {
+      chars = saved.chars;
+    } else if (saved && Array.isArray(saved.list) && saved.list.length) {
+      // キャラクターを分ける前の保存内容は、1 人目のキャラクターにまとめる
+      chars = [{ name: 'キャラクター1', jobs: saved.jobs, crit: saved.crit, active: saved.active, list: saved.list }];
+    } else {
+      const character = createCharacter('キャラクター1');
+      if (legacy) {
+        const first = character.list[0];
+        Object.assign(first.tiers, legacy.tiers);
+        Object.assign(first.odyssey, legacy.odyssey);
+        if (typeof legacy.cape === 'boolean') first.cape = legacy.cape;
+        if (Array.isArray(legacy.excluded)) first.excluded = legacy.excluded.slice();
+      }
+      chars = [character];
+    }
+    const store = { activeChar: saved ? saved.activeChar : null, chars: chars.map(normalizeCharacter) };
+    if (!store.chars.some((c) => c.id === store.activeChar)) store.activeChar = store.chars[0].id;
+    return store;
+  }
+
+  function save(storage, store) {
+    try {
+      storage.setItem(STORAGE, JSON.stringify(store));
+      return true;
+    } catch {
+      return false; // 保存できない環境でも、開いている間は使える
+    }
+  }
+
+  // 選んでいるキャラクターと、そのキャラクターで選んでいる装備の範囲の設定
+  const character = (store) => store.chars.find((c) => c.id === store.activeChar);
+  const active = (store) => {
+    const c = character(store);
+    return c.list.find((p) => p.id === c.active);
+  };
+
+  // 装備の範囲の設定を、別のキャラクターへ写す。同じ名前の設定があれば置き換える
+  function copyProfile(profile, target) {
+    const copy = normalize(JSON.parse(JSON.stringify(profile)));
+    copy.id = newId();
+    const same = target.list.findIndex((p) => p.name === copy.name);
+    if (same >= 0) {
+      if (target.active === target.list[same].id) target.active = copy.id;
+      target.list[same] = copy;
+    } else {
+      target.list.push(copy);
+    }
+    return copy;
+  }
+
+  // コンテンツ 1 つの設定。何も決めていなければ「使う・最後の段階まで・すべて」
+  function contentSetting(profile, content) {
+    const saved = profile.contents[content.id] || {};
+    return {
+      on: saved.on !== false,
+      tier: saved.tier != null ? saved.tier : content.tiers ? content.tiers.length - 1 : 0,
+      picks: saved.picks || null,
+    };
+  }
+
+  // この設定で、その装備を候補に使ってよいか。contents は data.contents。
+  // 装備の src は [コンテンツの番号, 段階, 入手元の番号] の並びで、どれか 1 つでも通れば使える。
+  // どのコンテンツにも属さない装備 (店売り・競売・クエスト報酬など) は常に使う
+  function allow(profile, item, contents) {
+    if (profile.excluded.includes(item.id)) return false;
+    if (item.group === 'cape') return profile.cape;
+    if (item.fam) return item.rp === profile.odyssey[item.fam] && (item.rp > 0 || !item.rank);
+    // ランクを選べない強化 (デュナミス〔D〕の首装備・免罪装備 など) は、設定で「使う」なら上限まで強化した状態だけ、
+    // 「使わない」なら強化していない状態だけを使う (もう片方は、固定するときにだけ選べる)
+    if (ALWAYS_BOOSTED.has(item.plain)) return false;
+    if (item.plain && profile.boosts[item.plain] !== undefined) {
+      if (profile.boosts[item.plain]) return false;
+    } else if (item.rank && profile.boosts[item.group] !== undefined && !profile.boosts[item.group]) return false;
+    if (profile.tiers[item.group] !== undefined) return item.plus <= profile.tiers[item.group];
+    if (!item.src || !item.src.length) return true;
+    return item.src.some(([index, tier, from]) => {
+      const content = contents[index];
+      const setting = contentSetting(profile, content);
+      if (!setting.on) return false;
+      if (content.tiers && tier > setting.tier) return false;
+      if (content.picks && setting.picks && !setting.picks.includes(content.froms[from])) return false;
+      return true;
+    });
+  }
+
+  const api = { STORAGE, ODYSSEY, GAEA, BOOSTS, JOB_SETS, MAX_JP, create, normalize, createCharacter, load, save, character, active, copyProfile, contentSetting, jobSetting, sharedLevel, supportLevel, allow, newId };
+  if (typeof module !== 'undefined' && module.exports) module.exports = api;
+  else root.VanaProfiles = api;
+})(typeof window !== 'undefined' ? window : globalThis);

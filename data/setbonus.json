@@ -1,0 +1,772 @@
+{
+ "source": [
+  "https://wiki.ffo.jp/html/23620.html",
+  "https://www.bg-wiki.com/ffxi/Category:Armor_Set"
+ ],
+ "note": "セット効果 (コンビネーション) のうち、数値で表せるもの。stats の配列は、着けた部位数 (0, 1, 2, …) ごとの値。en は英語名の先頭の語、plus は名前の末尾の +N。値の分からないルーワ・ンザメ、時々発動する種類のエンピリアン装束などは入れていない。 スカディ+1・薄金改・マルドゥク+1 は Lv99 の装備が揃っていないため入れていない。",
+ "sets": [
+  {
+   "id": "af",
+   "label": "AF+2〜+4",
+   "family": "af",
+   "minPlus": 2,
+   "extra": [
+    "Regal Ring",
+    "Regal Earring"
+   ],
+   "exceptJobs": [
+    15
+   ],
+   "stats": {
+    "命中": [
+     0,
+     0,
+     15,
+     30,
+     45,
+     60
+    ],
+    "飛命": [
+     0,
+     0,
+     15,
+     30,
+     45,
+     60
+    ],
+    "魔命": [
+     0,
+     0,
+     15,
+     30,
+     45,
+     60
+    ]
+   },
+   "note": "召喚士は召喚獣への効果のため対象外。王将の指輪・耳飾りも 1 部位として数える。上限は 5 部位"
+  },
+  {
+   "id": "amb-flamma",
+   "label": "フラマ+2",
+   "en": "Flamma",
+   "plus": 2,
+   "extra": [
+    "Flamma Ring"
+   ],
+   "stats": {
+    "STR": [
+     0,
+     0,
+     8,
+     16,
+     24,
+     32
+    ],
+    "DEX": [
+     0,
+     0,
+     8,
+     16,
+     24,
+     32
+    ],
+    "VIT": [
+     0,
+     0,
+     8,
+     16,
+     24,
+     32
+    ]
+   }
+  },
+  {
+   "id": "amb-taliah",
+   "label": "タリア+2",
+   "en": "Tali'ah",
+   "plus": 2,
+   "extra": [
+    "Tali'ah Ring"
+   ],
+   "stats": {
+    "DEX": [
+     0,
+     0,
+     8,
+     16,
+     24,
+     32
+    ],
+    "VIT": [
+     0,
+     0,
+     8,
+     16,
+     24,
+     32
+    ],
+    "CHR": [
+     0,
+     0,
+     8,
+     16,
+     24,
+     32
+    ]
+   }
+  },
+  {
+   "id": "amb-mummu",
+   "label": "ムンム+2",
+   "en": "Mummu",
+   "plus": 2,
+   "extra": [
+    "Mummu Ring"
+   ],
+   "stats": {
+    "DEX": [
+     0,
+     0,
+     8,
+     16,
+     24,
+     32
+    ],
+    "AGI": [
+     0,
+     0,
+     8,
+     16,
+     24,
+     32
+    ],
+    "CHR": [
+     0,
+     0,
+     8,
+     16,
+     24,
+     32
+    ]
+   }
+  },
+  {
+   "id": "amb-ayanmo",
+   "label": "アヤモ+2",
+   "en": "Ayanmo",
+   "plus": 2,
+   "extra": [
+    "Ayanmo Ring"
+   ],
+   "stats": {
+    "STR": [
+     0,
+     0,
+     8,
+     16,
+     24,
+     32
+    ],
+    "VIT": [
+     0,
+     0,
+     8,
+     16,
+     24,
+     32
+    ],
+    "MND": [
+     0,
+     0,
+     8,
+     16,
+     24,
+     32
+    ]
+   }
+  },
+  {
+   "id": "amb-mallquis",
+   "label": "マルクィ+2",
+   "en": "Mallquis",
+   "plus": 2,
+   "extra": [
+    "Mallquis Ring"
+   ],
+   "stats": {
+    "VIT": [
+     0,
+     0,
+     8,
+     16,
+     24,
+     32
+    ],
+    "INT": [
+     0,
+     0,
+     8,
+     16,
+     24,
+     32
+    ],
+    "MND": [
+     0,
+     0,
+     8,
+     16,
+     24,
+     32
+    ]
+   }
+  },
+  {
+   "id": "amb-sulevia",
+   "label": "スレビア+2",
+   "en": "Sulevia",
+   "plus": 2,
+   "extra": [
+    "Sulevia's Ring"
+   ],
+   "stats": {
+    "モクシャ": [
+     0,
+     0,
+     5,
+     10,
+     15,
+     20
+    ]
+   }
+  },
+  {
+   "id": "amb-hizamaru",
+   "label": "膝丸+2",
+   "en": "Hizamaru",
+   "plus": 2,
+   "extra": [
+    "Hizamaru Ring"
+   ],
+   "stats": {
+    "カウンター": [
+     0,
+     0,
+     4,
+     8,
+     12,
+     16
+    ]
+   }
+  },
+  {
+   "id": "amb-inyanga",
+   "label": "インヤガ+2",
+   "en": "Inyanga",
+   "plus": 2,
+   "extra": [
+    "Inyanga Ring"
+   ],
+   "stats": {
+    "リフレシュ": [
+     0,
+     0,
+     1,
+     2,
+     3,
+     4
+    ]
+   }
+  },
+  {
+   "id": "amb-meghanada",
+   "label": "メガナダ+2",
+   "en": "Meghanada",
+   "plus": 2,
+   "extra": [
+    "Meghanada Ring"
+   ],
+   "stats": {
+    "リジェネ": [
+     0,
+     0,
+     3,
+     6,
+     9,
+     12
+    ]
+   }
+  },
+  {
+   "id": "amb-jhakri",
+   "label": "ジャリ+2",
+   "en": "Jhakri",
+   "plus": 2,
+   "extra": [
+    "Jhakri Ring"
+   ],
+   "stats": {
+    "ファストキャスト": [
+     0,
+     0,
+     3,
+     6,
+     9,
+     12
+    ]
+   }
+  },
+  {
+   "id": "escha-ryuo",
+   "label": "龍王改",
+   "en": "Ryuo",
+   "plus": 1,
+   "stats": {
+    "攻": [
+     0,
+     0,
+     20,
+     30,
+     40,
+     50
+    ]
+   }
+  },
+  {
+   "id": "escha-carmine",
+   "label": "カマイン+1",
+   "en": "Carmine",
+   "plus": 1,
+   "stats": {
+    "命中": [
+     0,
+     0,
+     20,
+     30,
+     40,
+     50
+    ]
+   }
+  },
+  {
+   "id": "escha-amalric",
+   "label": "アマルリク+1",
+   "en": "Amalric",
+   "plus": 1,
+   "stats": {
+    "魔攻": [
+     0,
+     0,
+     20,
+     30,
+     40,
+     50
+    ]
+   }
+  },
+  {
+   "id": "escha-adhemar",
+   "label": "アデマ+1",
+   "en": "Adhemar",
+   "plus": 1,
+   "stats": {
+    "クリティカルヒット": [
+     0,
+     0,
+     4,
+     6,
+     8,
+     10
+    ]
+   }
+  },
+  {
+   "id": "escha-argosy",
+   "label": "アゴシ+1",
+   "en": "Argosy",
+   "plus": 1,
+   "stats": {
+    "ダブルアタック": [
+     0,
+     0,
+     4,
+     6,
+     8,
+     10
+    ]
+   }
+  },
+  {
+   "id": "escha-emicho",
+   "label": "エミチョ+1",
+   "en": "Emicho",
+   "plus": 1,
+   "stats": {
+    "ダブルアタック": [
+     0,
+     0,
+     4,
+     6,
+     8,
+     10
+    ]
+   }
+  },
+  {
+   "id": "escha-souveran",
+   "label": "スヴレン+1",
+   "en": "Souveran",
+   "plus": 1,
+   "stats": {
+    "被ダメージ": [
+     0,
+     0,
+     -4,
+     -6,
+     -8,
+     -10
+    ]
+   }
+  },
+  {
+   "id": "escha-lustratio",
+   "label": "ルストラ+1",
+   "en": "Lustratio",
+   "plus": 1,
+   "stats": {
+    "ウェポンスキルのダメージ": [
+     0,
+     0,
+     4,
+     6,
+     8,
+     10
+    ]
+   }
+  },
+  {
+   "id": "escha-kaykaus",
+   "label": "ケカス+1",
+   "en": "Kaykaus",
+   "plus": 1,
+   "stats": {
+    "ケアル回復量II": [
+     0,
+     0,
+     4,
+     6,
+     8,
+     10
+    ]
+   }
+  },
+  {
+   "id": "escha-rao",
+   "label": "羅王改",
+   "en": "Rao",
+   "plus": 1,
+   "stats": {
+    "マーシャルアーツ": [
+     0,
+     0,
+     8,
+     12,
+     16,
+     20
+    ]
+   }
+  },
+  {
+   "id": "escha-apogee",
+   "label": "アポジー+1",
+   "en": "Apogee",
+   "plus": 1,
+   "stats": {
+    "契約の履行ダメージ": [
+     0,
+     0,
+     4,
+     6,
+     8,
+     10
+    ]
+   }
+  },
+  {
+   "id": "olorun",
+   "label": "オロルン",
+   "en": "Olorun",
+   "plus": 0,
+   "stats": {
+    "リジェネ": [
+     0,
+     0,
+     4,
+     6,
+     8,
+     10
+    ]
+   }
+  },
+  {
+   "id": "egbesu",
+   "label": "エグベス",
+   "en": "Egbesu",
+   "plus": 0,
+   "stats": {
+    "リフレシュ": [
+     0,
+     0,
+     2,
+     3,
+     4,
+     5
+    ]
+   }
+  },
+  {
+   "id": "ares",
+   "label": "アレス+1",
+   "en": "Ares",
+   "plus": 1,
+   "stats": {
+    "ダブルアタック": [
+     0,
+     0,
+     3,
+     5,
+     7,
+     9
+    ]
+   }
+  },
+  {
+   "id": "morrigan",
+   "label": "モリガン+1",
+   "en": "Morrigan",
+   "plus": 1,
+   "stats": {
+    "魔攻": [
+     0,
+     0,
+     3,
+     5,
+     7,
+     9
+    ]
+   }
+  },
+  {
+   "id": "phorcys",
+   "label": "ポルキス",
+   "en": "Phorcys",
+   "plus": 0,
+   "stats": {
+    "STR": [
+     0,
+     0,
+     2,
+     5,
+     10,
+     15
+    ],
+    "VIT": [
+     0,
+     0,
+     2,
+     5,
+     10,
+     15
+    ],
+    "INT": [
+     0,
+     0,
+     2,
+     5,
+     10,
+     15
+    ],
+    "MND": [
+     0,
+     0,
+     2,
+     5,
+     10,
+     15
+    ]
+   }
+  },
+  {
+   "id": "thaumas",
+   "label": "タウマス",
+   "en": "Thaumas",
+   "plus": 0,
+   "stats": {
+    "STR": [
+     0,
+     0,
+     2,
+     5,
+     10,
+     15
+    ],
+    "DEX": [
+     0,
+     0,
+     2,
+     5,
+     10,
+     15
+    ],
+    "AGI": [
+     0,
+     0,
+     2,
+     5,
+     10,
+     15
+    ],
+    "MND": [
+     0,
+     0,
+     2,
+     5,
+     10,
+     15
+    ]
+   }
+  },
+  {
+   "id": "nares",
+   "label": "ナレス",
+   "en": "Nares",
+   "plus": 0,
+   "stats": {
+    "STR": [
+     0,
+     0,
+     2,
+     5,
+     10,
+     15
+    ],
+    "INT": [
+     0,
+     0,
+     2,
+     5,
+     10,
+     15
+    ],
+    "MND": [
+     0,
+     0,
+     2,
+     5,
+     10,
+     15
+    ],
+    "CHR": [
+     0,
+     0,
+     2,
+     5,
+     10,
+     15
+    ]
+   }
+  },
+  {
+   "id": "outrider",
+   "label": "アウトライ",
+   "en": "Outrider",
+   "plus": 0,
+   "stats": {
+    "被物理ダメージ": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     -10
+    ]
+   }
+  },
+  {
+   "id": "wayfarer",
+   "label": "ウェフェラ",
+   "en": "Wayfarer",
+   "plus": 0,
+   "stats": {
+    "リフレシュ": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     3
+    ]
+   }
+  },
+  {
+   "id": "espial",
+   "label": "エスピル",
+   "en": "Espial",
+   "plus": 0,
+   "stats": {
+    "クリティカルヒット": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     10
+    ]
+   }
+  },
+  {
+   "id": "steelflash",
+   "label": "ブランデシュ・ブレードボンピアス",
+   "names": [
+    "Steelflash Earring",
+    "Bladeborn Earring"
+   ],
+   "stats": {
+    "ダブルアタック": [
+     0,
+     0,
+     7
+    ]
+   }
+  },
+  {
+   "id": "lifestorm",
+   "label": "ライストーム・サイストームピアス",
+   "names": [
+    "Lifestorm Earring",
+    "Psystorm Earring"
+   ],
+   "stats": {
+    "魔命": [
+     0,
+     0,
+     12
+    ]
+   }
+  },
+  {
+   "id": "dudgeon",
+   "label": "ダッジョン・ハートシーカピアス",
+   "names": [
+    "Dudgeon Earring",
+    "Heartseeker Earring"
+   ],
+   "stats": {
+    "二刀流": [
+     0,
+     0,
+     7
+    ]
+   }
+  }
+ ]
+}

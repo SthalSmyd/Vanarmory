@@ -1,0 +1,453 @@
+{
+ "source": [
+  "https://www.bg-wiki.com/ffxi/Accuracy",
+  "https://www.bg-wiki.com/ffxi/Attack",
+  "https://www.bg-wiki.com/ffxi/Ranged_Attack",
+  "https://www.bg-wiki.com/ffxi/Ranged_Accuracy",
+  "https://www.bg-wiki.com/ffxi/Strength",
+  "https://www.bg-wiki.com/ffxi/Combat_Skills",
+  "https://www.bg-wiki.com/ffxi/Master_Levels",
+  "https://www.bg-wiki.com/ffxi/Merit_Points",
+  "https://www.bg-wiki.com/ffxi/Blue_Mage",
+  "https://wiki.ffo.jp/html/1766.html (攻撃力)",
+  "https://wiki.ffo.jp/html/223.html (命中)",
+  "https://wiki.ffo.jp/html/2396.html (飛攻)",
+  "https://wiki.ffo.jp/html/2395.html (飛命)",
+  "https://wiki.ffo.jp/html/6.html (STR)",
+  "https://wiki.ffo.jp/html/2570.html (スキルキャップ)",
+  "https://wiki.ffo.jp/html/433.html (戦闘スキル)",
+  "https://wiki.ffo.jp/html/432.html (武器スキル)",
+  "https://wiki.ffo.jp/html/29333.html (武器スキル+)",
+  "https://wiki.ffo.jp/html/28993.html (アイテムレベル)",
+  "https://wiki.ffo.jp/html/30650.html (/checkparam)",
+  "https://github.com/LandSandBoat/server/blob/base/src/map/entities/battle_entity.cpp (ATT/ACC/RATT/RACC/GetAccFromSkill)",
+  "https://github.com/LandSandBoat/server/blob/base/data/skills.yaml (ranks + caps; replaces the old sql/skill_caps.sql, sql/skill_ranks.sql)",
+  "https://github.com/LandSandBoat/server/blob/base/settings/default/main.lua (STR/DEX/AGI multipliers)",
+  "https://github.com/LandSandBoat/server/blob/base/src/map/utils/charutils.cpp (BuildingCharSkillsTable)",
+  "https://github.com/IzaKastra/wsdist_beta/blob/main/create_player.py (community damage simulator, used as an extra cross-check)"
+ ],
+ "note": "攻撃・命中・飛攻・飛命の計算に使う表。skills は武器の種類 (id は装備データの skill の番号、kind は one = 片手 / two = 両手 / h2h = 格闘 / ranged = 遠隔)、caps はスキルの段階ごとの Lv99 の上限、ratings はジョブごとの段階。計算は web/basestats.js。出典で食い違う点: (1) スキルから攻撃力への換算。用語辞典などの「スキル 1 = 攻撃力 1」を採用したが、BG Wiki には命中と同じように段階的に目減りするという記述もある (スキル合計 709 で 71 の差)。(2) 格闘の STR の係数。両 Wiki の 0.75 を採用 (1.0 とする資料もある)。",
+ "skills": [
+  {
+   "ja": "格闘",
+   "id": 1,
+   "kind": "h2h"
+  },
+  {
+   "ja": "短剣",
+   "id": 2,
+   "kind": "one"
+  },
+  {
+   "ja": "片手剣",
+   "id": 3,
+   "kind": "one"
+  },
+  {
+   "ja": "両手剣",
+   "id": 4,
+   "kind": "two"
+  },
+  {
+   "ja": "片手斧",
+   "id": 5,
+   "kind": "one"
+  },
+  {
+   "ja": "両手斧",
+   "id": 6,
+   "kind": "two"
+  },
+  {
+   "ja": "両手鎌",
+   "id": 7,
+   "kind": "two"
+  },
+  {
+   "ja": "両手槍",
+   "id": 8,
+   "kind": "two"
+  },
+  {
+   "ja": "片手刀",
+   "id": 9,
+   "kind": "one"
+  },
+  {
+   "ja": "両手刀",
+   "id": 10,
+   "kind": "two"
+  },
+  {
+   "ja": "片手棍",
+   "id": 11,
+   "kind": "one"
+  },
+  {
+   "ja": "両手棍",
+   "id": 12,
+   "kind": "two"
+  },
+  {
+   "ja": "弓術",
+   "id": 25,
+   "kind": "ranged"
+  },
+  {
+   "ja": "射撃",
+   "id": 26,
+   "kind": "ranged"
+  },
+  {
+   "ja": "投てき",
+   "id": 27,
+   "kind": "ranged"
+  }
+ ],
+ "caps": {
+  "A+": 424,
+  "A-": 417,
+  "B+": 404,
+  "B": 398,
+  "B-": 388,
+  "C+": 378,
+  "C": 373,
+  "C-": 368,
+  "D": 334,
+  "E": 300,
+  "F": 265
+ },
+ "ratings": {
+  "WAR": {
+   "格闘": "D",
+   "短剣": "B-",
+   "片手剣": "B",
+   "両手剣": "B+",
+   "片手斧": "A-",
+   "両手斧": "A+",
+   "両手鎌": "B+",
+   "両手槍": "B-",
+   "片手棍": "B-",
+   "両手棍": "B",
+   "弓術": "D",
+   "射撃": "D",
+   "投てき": "D"
+  },
+  "MNK": {
+   "格闘": "A+",
+   "片手棍": "C+",
+   "両手棍": "B",
+   "投てき": "E"
+  },
+  "WHM": {
+   "片手棍": "B+",
+   "両手棍": "C+",
+   "投てき": "E"
+  },
+  "BLM": {
+   "短剣": "D",
+   "両手鎌": "E",
+   "片手棍": "C+",
+   "両手棍": "B-",
+   "投てき": "D"
+  },
+  "RDM": {
+   "短剣": "B",
+   "片手剣": "B",
+   "片手棍": "D",
+   "弓術": "D",
+   "投てき": "F"
+  },
+  "THF": {
+   "格闘": "E",
+   "短剣": "A+",
+   "片手剣": "D",
+   "片手棍": "E",
+   "弓術": "C-",
+   "射撃": "C+",
+   "投てき": "D"
+  },
+  "PLD": {
+   "短剣": "C-",
+   "片手剣": "A+",
+   "両手剣": "B",
+   "両手槍": "E",
+   "片手棍": "A-",
+   "両手棍": "A-"
+  },
+  "DRK": {
+   "短剣": "C",
+   "片手剣": "B-",
+   "両手剣": "A-",
+   "片手斧": "B-",
+   "両手斧": "B-",
+   "両手鎌": "A+",
+   "片手棍": "C-",
+   "射撃": "E"
+  },
+  "BST": {
+   "短剣": "C+",
+   "片手剣": "E",
+   "片手斧": "A+",
+   "両手鎌": "B-",
+   "片手棍": "D"
+  },
+  "BRD": {
+   "短剣": "B-",
+   "片手剣": "C-",
+   "片手棍": "D",
+   "両手棍": "C+",
+   "投てき": "E"
+  },
+  "RNG": {
+   "短剣": "B-",
+   "片手剣": "D",
+   "片手斧": "B-",
+   "片手棍": "E",
+   "弓術": "A+",
+   "射撃": "A+",
+   "投てき": "C-"
+  },
+  "SAM": {
+   "短剣": "E",
+   "片手剣": "C+",
+   "両手槍": "B-",
+   "両手刀": "A+",
+   "片手棍": "E",
+   "弓術": "C+",
+   "投てき": "C+"
+  },
+  "NIN": {
+   "格闘": "E",
+   "短剣": "C+",
+   "片手剣": "C",
+   "片手刀": "A+",
+   "両手刀": "C-",
+   "片手棍": "E",
+   "弓術": "E",
+   "射撃": "C",
+   "投てき": "A+"
+  },
+  "DRG": {
+   "短剣": "E",
+   "片手剣": "C-",
+   "両手槍": "A+",
+   "片手棍": "E",
+   "両手棍": "B-"
+  },
+  "SMN": {
+   "短剣": "E",
+   "片手棍": "C+",
+   "両手棍": "B"
+  },
+  "BLU": {
+   "片手剣": "A+",
+   "片手棍": "B-"
+  },
+  "COR": {
+   "短剣": "B+",
+   "片手剣": "B-",
+   "射撃": "B",
+   "投てき": "C+"
+  },
+  "PUP": {
+   "格闘": "A+",
+   "短剣": "C-",
+   "片手棍": "D",
+   "投てき": "C+"
+  },
+  "DNC": {
+   "格闘": "D",
+   "短剣": "A+",
+   "片手剣": "D",
+   "投てき": "C+"
+  },
+  "SCH": {
+   "短剣": "D",
+   "片手棍": "C+",
+   "両手棍": "C+",
+   "投てき": "D"
+  },
+  "GEO": {
+   "短剣": "C-",
+   "片手棍": "B+",
+   "両手棍": "C+"
+  },
+  "RUN": {
+   "片手剣": "A-",
+   "両手剣": "A+",
+   "片手斧": "B-",
+   "両手斧": "B",
+   "片手棍": "C-"
+  }
+ },
+ "formulas": {
+  "accuracy": "Accuracy = skillAcc(S) + floor(DEX*0.75) + flat, where S = skill for the weapon in that hand (native skill incl. Master Level, merits and gear 'skill+N', plus that weapon's own item-level skill) and skillAcc is piecewise: S<=200: S; 201-400: 200+floor((S-200)*0.9); 401-600: 380+floor((S-400)*0.8); >=601: 540+floor((S-600)*0.9). flat = accuracy on gear + traits (Accuracy Bonus) + gifts + merits + abilities/songs + flat food. Percentage food is applied last on the whole sum: + min(floor(total*pct/100), cap). DEX multiplier is 0.75 for one-handed, two-handed and hand-to-hand alike, main and off hand alike; main and off hand differ only in which weapon's skill type / item-level skill is used (hand-to-hand: both fists use the H2H weapon's values).",
+  "attack": "Attack = 8 + S + strTerm + flat, S entering 1:1 (no piecewise conversion). strTerm: one-handed main hand = STR; two-handed = STR; hand-to-hand = floor(STR*0.75); one-handed off hand = floor(STR*0.5). flat = attack on gear + traits (Attack Bonus) + gifts + flat buffs. Then percentage bonuses (Berserk, Chaos Roll, Smite, Last Resort; Minuet is a flat bonus and belongs in flat) multiply that subtotal: subtotal + floor(subtotal*pct/100); food attack is added after/outside the percentage buffs (percentage food = min(floor(subtotal*pct/100), cap), computed on the pre-buff subtotal). Minimum 1.",
+  "ranged_accuracy": "Ranged Accuracy = skillAcc(S) + floor(AGI*0.75) + flat ranged accuracy (gear/traits/gifts/food), same piecewise skillAcc as melee. S = Archery / Marksmanship / Throwing skill according to the weapon in the ranged slot (bow -> 弓術, gun or crossbow -> 射撃, thrown ranged item -> 投てき); if the ranged slot is empty the ammo slot item decides (shuriken etc. -> 投てき); plus that ranged weapon's item-level skill. A bow/gun with no ammo gives 0. Percentage food as for accuracy (use the food's ranged-accuracy values).",
+  "ranged_attack": "Ranged Attack = 8 + S + STR + flat ranged attack, S entering 1:1, same skill selection as ranged accuracy; percentage bonuses and food as for Attack (attack-up abilities such as Berserk raise both; food must list ranged attack)."
+ },
+ "samples": [
+  {
+   "fn": "skillToAccuracy",
+   "input": 682,
+   "expect": 613
+  },
+  {
+   "fn": "skillToAccuracy",
+   "input": 200,
+   "expect": 200
+  },
+  {
+   "fn": "skillToAccuracy",
+   "input": 201,
+   "expect": 200
+  },
+  {
+   "fn": "skillToAccuracy",
+   "input": 400,
+   "expect": 380
+  },
+  {
+   "fn": "skillToAccuracy",
+   "input": 401,
+   "expect": 380
+  },
+  {
+   "fn": "skillToAccuracy",
+   "input": 424,
+   "expect": 399
+  },
+  {
+   "fn": "skillToAccuracy",
+   "input": 600,
+   "expect": 540
+  },
+  {
+   "fn": "skillToAccuracy",
+   "input": 601,
+   "expect": 540
+  },
+  {
+   "fn": "skillToAccuracy",
+   "input": 709,
+   "expect": 638
+  },
+  {
+   "fn": "accuracy",
+   "input": {
+    "skill": 709,
+    "dex": 250,
+    "flat": 300
+   },
+   "expect": 1125
+  },
+  {
+   "fn": "attack",
+   "input": {
+    "skill": 709,
+    "str": 300,
+    "flat": 250,
+    "hands": "two"
+   },
+   "expect": 1267
+  },
+  {
+   "fn": "accuracy",
+   "input": {
+    "skill": 682,
+    "dex": 281,
+    "flat": 320
+   },
+   "expect": 1143
+  },
+  {
+   "fn": "attack",
+   "input": {
+    "skill": 682,
+    "str": 241,
+    "flat": 200,
+    "hands": "one"
+   },
+   "expect": 1131
+  },
+  {
+   "fn": "attack",
+   "input": {
+    "skill": 682,
+    "str": 241,
+    "flat": 200,
+    "hands": "off"
+   },
+   "expect": 1010
+  },
+  {
+   "fn": "attack",
+   "input": {
+    "skill": 682,
+    "str": 241,
+    "flat": 200,
+    "hands": "h2h"
+   },
+   "expect": 1070
+  },
+  {
+   "fn": "accuracy",
+   "input": {
+    "skill": 682,
+    "dex": 241,
+    "flat": 200
+   },
+   "expect": 993
+  },
+  {
+   "fn": "rangedAccuracy",
+   "input": {
+    "skill": 682,
+    "agi": 260,
+    "flat": 350
+   },
+   "expect": 1158
+  },
+  {
+   "fn": "rangedAttack",
+   "input": {
+    "skill": 682,
+    "str": 230,
+    "flat": 180
+   },
+   "expect": 1100
+  },
+  {
+   "fn": "accuracy",
+   "input": {
+    "skill": 438,
+    "dex": 200,
+    "flat": 0
+   },
+   "expect": 560
+  },
+  {
+   "fn": "accuracy",
+   "input": {
+    "skill": 242,
+    "dex": 200,
+    "flat": 0
+   },
+   "expect": 387
+  }
+ ],
+ "notes": [
+  "STR->Attack multipliers disagree between sources. BG Strength (history table) and FF11用語辞典 STR/攻撃力 agree: since 2018-12-11 two-handed 1.0, one-handed main 1.0, one-handed off hand 0.5, hand-to-hand 0.75, ranged 1.0. The BG Attack page says only 'all main-hand and ranged weapons 1:1' with off hand floor(STR/2) and does not single out H2H; wsdist uses 1.0 for H2H; LandSandBoat defaults are two-handed 1.0, H2H 1.0, one-handed main 0.75, off hand 0.5, ranged 1.0 (LSB does not match either wiki for one-handed/H2H, so it was not used as tie-break here). reference_js uses the two-wiki consensus (H2H 0.75).",
+  "Skill->Attack: the BG Attack and Ranged_Attack pages contain a sentence (added Oct 2019) saying combat skill 'translates into Attack in differing skill tiers, similar to Accuracy', yet give the formula 8 + Combat Skill + STR. FF11用語辞典 (攻撃力, 武器スキル: 武器スキル+1 = 攻撃力+1), LandSandBoat and wsdist all use skill 1:1. A developer post quoted on wiki.ffo.jp/html/29333.html equates 武器スキル+242 to roughly 攻+195/命中+195 and +269 to 攻+216/命中+216 ('values differ slightly in practice'), which would hint that attack is also reduced; unresolved - reference_js uses 1:1. Check against /checkparam in game: with total skill 709 the two models differ by 71 attack.",
+  "Percentage attack and food ordering/rounding is not precisely documented. JP: (base + gear + flat) * percent + food. LSB: ATT + ATT*ATTP/100 + min(ATT*FOOD_ATTP/100, FOOD_ATT_CAP) with integer truncation, i.e. food % is taken from the pre-buff subtotal. reference_js follows LSB; truncation of the percentage term is unverified for retail (retail buffs are often n/1024 fractions).",
+  "Accuracy percentage food: JP 命中 says the % is applied after skill/gear/abilities/songs with floor, e.g. 450 with Salmon Sushi (+14%, cap 68) -> int(450*1.14) = 513. LSB does the same with the cap.",
+  "LSB adds Mod TWOHAND_ACC for two-handed weapons and merit Accuracy separately; treat those as part of 'flat'.",
+  "Job rating disagreement: BLU 片手棍 is B- on BG (Combat_Skills and Blue_Mage), LSB and wiki.ffo.jp/html/2570.html, but B on wiki.ffo.jp/html/433.html; B- used. All other 329 job/skill cells are identical across BG, JP 433 and LSB.",
+  "Subjob skills: a skill only the support job has is capped by the subjob's rating at the subjob level (LSB); not covered by job_ratings, which is main job at 99.",
+  "Ranged skill selection (ranged slot first, then ammo; no ammo -> 0) is from LSB and wsdist, the wikis only say 'the ranged combat skill for the currently equipped ranged weapon'.",
+  "JP 飛命 page only mentions the 0.9 step above 200 for ranged accuracy; BG Ranged_Accuracy, LSB and wsdist use the full four-tier table, used here.",
+  "The old LSB files sql/skill_caps.sql and sql/skill_ranks.sql no longer exist on the base branch; the data moved to data/skills.yaml (and scripts/data/skill_ranks.lua).",
+  "Samples marked 'computed' are computed from the cited formulas, not taken from in-game measurements."
+ ]
+}

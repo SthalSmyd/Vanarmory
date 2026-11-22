@@ -1,0 +1,1686 @@
+{
+ "source": [
+  "https://raw.githubusercontent.com/LandSandBoat/server/base/src/map/grades.cpp",
+  "https://raw.githubusercontent.com/LandSandBoat/server/base/src/map/utils/charutils.cpp",
+  "https://raw.githubusercontent.com/LandSandBoat/server/base/data/stats.yaml",
+  "https://raw.githubusercontent.com/LandSandBoat/server/base/data/grades.yaml",
+  "https://raw.githubusercontent.com/LandSandBoat/server/base/src/map/data/datasets/stats/dataset.cpp",
+  "https://raw.githubusercontent.com/LandSandBoat/server/base/src/map/packets/s2c/0x061_clistatus.cpp",
+  "https://docs.google.com/spreadsheets/d/1P1hKWKbeuUCNKoyzDGKzNE9p7K_bjX5VlqC4CSda8v0 (retail GP_SERV_COMMAND_CLISTATUS captures referenced by LandSandBoat data files; sheets per job, \"Subjobs\")",
+  "https://www.bg-wiki.com/ffxi/Master_Levels",
+  "https://www.bg-wiki.com/ffxi/Support_Job",
+  "https://wiki.ffo.jp/html/38412.html (マスターレベル)",
+  "https://wiki.ffo.jp/html/316.html (ステータス: grade tables)"
+ ],
+ "note": "種族・ジョブ・サポートジョブ・マスターレベルから、メインジョブ Lv99 の素の HP・MP・STR〜CHR を計算するための表。races と jobs は成長の段階 (A がいちばん高い)、scales はレベルごとの伸び ([そのレベルから, {段階: 1 レベルあたりの伸び}] の並び)。計算は web/basestats.js。samples は検算用の実例 (expect はジョブ特性の HPmax・MPmax アップを含まない値)。マスターレベル 0 の値は製品版の実測と一致している。マスターレベルによる加算 (全ステータス +1、HP +7、MP +2) とサポ Lv50〜59 は、実測が見つかっておらず計算上の値。",
+ "races": {
+  "hume": {
+   "ja": "ヒューム",
+   "HP": "D",
+   "MP": "D",
+   "STR": "D",
+   "DEX": "D",
+   "VIT": "D",
+   "AGI": "D",
+   "INT": "D",
+   "MND": "D",
+   "CHR": "D"
+  },
+  "elvaan": {
+   "ja": "エルヴァーン",
+   "HP": "C",
+   "MP": "E",
+   "STR": "B",
+   "DEX": "E",
+   "VIT": "C",
+   "AGI": "F",
+   "INT": "F",
+   "MND": "B",
+   "CHR": "D"
+  },
+  "tarutaru": {
+   "ja": "タルタル",
+   "HP": "G",
+   "MP": "A",
+   "STR": "F",
+   "DEX": "D",
+   "VIT": "E",
+   "AGI": "C",
+   "INT": "A",
+   "MND": "E",
+   "CHR": "D"
+  },
+  "mithra": {
+   "ja": "ミスラ",
+   "HP": "D",
+   "MP": "D",
+   "STR": "E",
+   "DEX": "A",
+   "VIT": "E",
+   "AGI": "B",
+   "INT": "D",
+   "MND": "E",
+   "CHR": "F"
+  },
+  "galka": {
+   "ja": "ガルカ",
+   "HP": "A",
+   "MP": "G",
+   "STR": "C",
+   "DEX": "D",
+   "VIT": "A",
+   "AGI": "E",
+   "INT": "E",
+   "MND": "D",
+   "CHR": "F"
+  }
+ },
+ "jobs": {
+  "WAR": {
+   "HP": "B",
+   "MP": null,
+   "STR": "A",
+   "DEX": "C",
+   "VIT": "D",
+   "AGI": "C",
+   "INT": "F",
+   "MND": "F",
+   "CHR": "E"
+  },
+  "MNK": {
+   "HP": "A",
+   "MP": null,
+   "STR": "C",
+   "DEX": "B",
+   "VIT": "A",
+   "AGI": "F",
+   "INT": "G",
+   "MND": "D",
+   "CHR": "E"
+  },
+  "WHM": {
+   "HP": "E",
+   "MP": "C",
+   "STR": "D",
+   "DEX": "F",
+   "VIT": "D",
+   "AGI": "E",
+   "INT": "E",
+   "MND": "A",
+   "CHR": "C"
+  },
+  "BLM": {
+   "HP": "F",
+   "MP": "B",
+   "STR": "F",
+   "DEX": "C",
+   "VIT": "F",
+   "AGI": "C",
+   "INT": "A",
+   "MND": "E",
+   "CHR": "D"
+  },
+  "RDM": {
+   "HP": "D",
+   "MP": "D",
+   "STR": "D",
+   "DEX": "D",
+   "VIT": "E",
+   "AGI": "E",
+   "INT": "C",
+   "MND": "C",
+   "CHR": "D"
+  },
+  "THF": {
+   "HP": "D",
+   "MP": null,
+   "STR": "D",
+   "DEX": "A",
+   "VIT": "D",
+   "AGI": "B",
+   "INT": "C",
+   "MND": "G",
+   "CHR": "G"
+  },
+  "PLD": {
+   "HP": "C",
+   "MP": "F",
+   "STR": "B",
+   "DEX": "E",
+   "VIT": "A",
+   "AGI": "G",
+   "INT": "G",
+   "MND": "C",
+   "CHR": "C"
+  },
+  "DRK": {
+   "HP": "C",
+   "MP": "F",
+   "STR": "A",
+   "DEX": "C",
+   "VIT": "C",
+   "AGI": "D",
+   "INT": "C",
+   "MND": "G",
+   "CHR": "G"
+  },
+  "BST": {
+   "HP": "C",
+   "MP": null,
+   "STR": "D",
+   "DEX": "C",
+   "VIT": "D",
+   "AGI": "F",
+   "INT": "E",
+   "MND": "E",
+   "CHR": "A"
+  },
+  "BRD": {
+   "HP": "D",
+   "MP": null,
+   "STR": "D",
+   "DEX": "D",
+   "VIT": "D",
+   "AGI": "F",
+   "INT": "D",
+   "MND": "D",
+   "CHR": "B"
+  },
+  "RNG": {
+   "HP": "E",
+   "MP": null,
+   "STR": "E",
+   "DEX": "D",
+   "VIT": "D",
+   "AGI": "A",
+   "INT": "E",
+   "MND": "D",
+   "CHR": "E"
+  },
+  "SAM": {
+   "HP": "B",
+   "MP": null,
+   "STR": "C",
+   "DEX": "C",
+   "VIT": "C",
+   "AGI": "D",
+   "INT": "E",
+   "MND": "E",
+   "CHR": "D"
+  },
+  "NIN": {
+   "HP": "D",
+   "MP": null,
+   "STR": "C",
+   "DEX": "B",
+   "VIT": "C",
+   "AGI": "B",
+   "INT": "D",
+   "MND": "G",
+   "CHR": "F"
+  },
+  "DRG": {
+   "HP": "B",
+   "MP": null,
+   "STR": "B",
+   "DEX": "D",
+   "VIT": "C",
+   "AGI": "D",
+   "INT": "F",
+   "MND": "E",
+   "CHR": "C"
+  },
+  "SMN": {
+   "HP": "G",
+   "MP": "A",
+   "STR": "F",
+   "DEX": "E",
+   "VIT": "F",
+   "AGI": "D",
+   "INT": "B",
+   "MND": "B",
+   "CHR": "B"
+  },
+  "BLU": {
+   "HP": "D",
+   "MP": "D",
+   "STR": "E",
+   "DEX": "E",
+   "VIT": "E",
+   "AGI": "E",
+   "INT": "E",
+   "MND": "E",
+   "CHR": "E"
+  },
+  "COR": {
+   "HP": "D",
+   "MP": null,
+   "STR": "E",
+   "DEX": "C",
+   "VIT": "E",
+   "AGI": "B",
+   "INT": "C",
+   "MND": "E",
+   "CHR": "E"
+  },
+  "PUP": {
+   "HP": "D",
+   "MP": null,
+   "STR": "E",
+   "DEX": "B",
+   "VIT": "D",
+   "AGI": "C",
+   "INT": "E",
+   "MND": "F",
+   "CHR": "C"
+  },
+  "DNC": {
+   "HP": "D",
+   "MP": null,
+   "STR": "D",
+   "DEX": "C",
+   "VIT": "E",
+   "AGI": "B",
+   "INT": "F",
+   "MND": "F",
+   "CHR": "B"
+  },
+  "SCH": {
+   "HP": "E",
+   "MP": "D",
+   "STR": "F",
+   "DEX": "D",
+   "VIT": "E",
+   "AGI": "D",
+   "INT": "B",
+   "MND": "D",
+   "CHR": "C"
+  },
+  "GEO": {
+   "HP": "D",
+   "MP": "C",
+   "STR": "F",
+   "DEX": "D",
+   "VIT": "D",
+   "AGI": "E",
+   "INT": "B",
+   "MND": "B",
+   "CHR": "E"
+  },
+  "RUN": {
+   "HP": "B",
+   "MP": "F",
+   "STR": "C",
+   "DEX": "D",
+   "VIT": "E",
+   "AGI": "B",
+   "INT": "D",
+   "MND": "D",
+   "CHR": "F"
+  }
+ },
+ "scales": {
+  "_doc": "Run-length growth curves. Each row is [fromLevel, {column: gain per level}] and applies to every level from fromLevel up to the level before the next row (last row runs to 99). Level 1 row is the starting value. Cumulative value at level N = sum of gains for levels 1..N. Level 0 (no support job) = 0.",
+  "hp": {
+   "graded": [
+    [
+     1,
+     {
+      "A": 19,
+      "B": 17,
+      "C": 16,
+      "D": 14,
+      "E": 13,
+      "F": 11,
+      "G": 10
+     }
+    ],
+    [
+     2,
+     {
+      "A": 9,
+      "B": 8,
+      "C": 7,
+      "D": 6,
+      "E": 5,
+      "F": 4,
+      "G": 3
+     }
+    ],
+    [
+     11,
+     {
+      "A": 10,
+      "B": 9,
+      "C": 8,
+      "D": 7,
+      "E": 6,
+      "F": 5,
+      "G": 4
+     }
+    ],
+    [
+     31,
+     {
+      "A": 11,
+      "B": 10,
+      "C": 9,
+      "D": 7,
+      "E": 6,
+      "F": 5,
+      "G": 4
+     }
+    ],
+    [
+     51,
+     {
+      "A": 12,
+      "B": 11,
+      "C": 10,
+      "D": 8,
+      "E": 7,
+      "F": 6,
+      "G": 5
+     }
+    ],
+    [
+     61,
+     {
+      "A": 4,
+      "B": 4,
+      "C": 4,
+      "D": 4,
+      "E": 3,
+      "F": 3,
+      "G": 3
+     }
+    ],
+    [
+     76,
+     {
+      "A": 10,
+      "B": 9,
+      "C": 9,
+      "D": 9,
+      "E": 9,
+      "F": 8,
+      "G": 8
+     }
+    ],
+    [
+     77,
+     {
+      "A": 8,
+      "B": 9,
+      "C": 8,
+      "D": 8,
+      "E": 7,
+      "F": 8,
+      "G": 7
+     }
+    ],
+    [
+     78,
+     {
+      "A": 10,
+      "B": 9,
+      "C": 10,
+      "D": 9,
+      "E": 9,
+      "F": 8,
+      "G": 8
+     }
+    ],
+    [
+     79,
+     {
+      "A": 8,
+      "B": 9,
+      "C": 8,
+      "D": 8,
+      "E": 8,
+      "F": 7,
+      "G": 7
+     }
+    ],
+    [
+     80,
+     {
+      "A": 10,
+      "B": 9,
+      "C": 9,
+      "D": 9,
+      "E": 8,
+      "F": 9,
+      "G": 8
+     }
+    ],
+    [
+     81,
+     {
+      "A": 8,
+      "B": 8,
+      "C": 8,
+      "D": 8,
+      "E": 8,
+      "F": 7,
+      "G": 7
+     }
+    ],
+    [
+     82,
+     {
+      "A": 10,
+      "B": 10,
+      "C": 9,
+      "D": 9,
+      "E": 9,
+      "F": 8,
+      "G": 8
+     }
+    ],
+    [
+     83,
+     {
+      "A": 8,
+      "B": 8,
+      "C": 9,
+      "D": 8,
+      "E": 7,
+      "F": 8,
+      "G": 7
+     }
+    ],
+    [
+     84,
+     {
+      "A": 10,
+      "B": 10,
+      "C": 9,
+      "D": 9,
+      "E": 9,
+      "F": 8,
+      "G": 8
+     }
+    ],
+    [
+     85,
+     {
+      "A": 10,
+      "B": 9,
+      "C": 9,
+      "D": 9,
+      "E": 9,
+      "F": 8,
+      "G": 8
+     }
+    ],
+    [
+     86,
+     {
+      "A": 8,
+      "B": 8,
+      "C": 8,
+      "D": 8,
+      "E": 7,
+      "F": 8,
+      "G": 7
+     }
+    ],
+    [
+     87,
+     {
+      "A": 10,
+      "B": 10,
+      "C": 9,
+      "D": 9,
+      "E": 9,
+      "F": 8,
+      "G": 8
+     }
+    ],
+    [
+     88,
+     {
+      "A": 8,
+      "B": 8,
+      "C": 9,
+      "D": 8,
+      "E": 8,
+      "F": 7,
+      "G": 7
+     }
+    ],
+    [
+     89,
+     {
+      "A": 10,
+      "B": 10,
+      "C": 9,
+      "D": 9,
+      "E": 9,
+      "F": 8,
+      "G": 8
+     }
+    ],
+    [
+     90,
+     {
+      "A": 8,
+      "B": 8,
+      "C": 8,
+      "D": 8,
+      "E": 7,
+      "F": 8,
+      "G": 7
+     }
+    ],
+    [
+     91,
+     {
+      "A": 10,
+      "B": 9,
+      "C": 9,
+      "D": 9,
+      "E": 9,
+      "F": 8,
+      "G": 8
+     }
+    ],
+    [
+     92,
+     {
+      "A": 10,
+      "B": 10,
+      "C": 9,
+      "D": 9,
+      "E": 9,
+      "F": 8,
+      "G": 8
+     }
+    ],
+    [
+     93,
+     {
+      "A": 8,
+      "B": 8,
+      "C": 9,
+      "D": 8,
+      "E": 7,
+      "F": 8,
+      "G": 7
+     }
+    ],
+    [
+     94,
+     {
+      "A": 10,
+      "B": 10,
+      "C": 9,
+      "D": 9,
+      "E": 9,
+      "F": 8,
+      "G": 8
+     }
+    ],
+    [
+     95,
+     {
+      "A": 8,
+      "B": 8,
+      "C": 8,
+      "D": 8,
+      "E": 8,
+      "F": 7,
+      "G": 7
+     }
+    ],
+    [
+     96,
+     {
+      "A": 10,
+      "B": 9,
+      "C": 9,
+      "D": 9,
+      "E": 8,
+      "F": 9,
+      "G": 8
+     }
+    ],
+    [
+     97,
+     {
+      "A": 8,
+      "B": 9,
+      "C": 8,
+      "D": 8,
+      "E": 8,
+      "F": 7,
+      "G": 7
+     }
+    ],
+    [
+     98,
+     {
+      "A": 10,
+      "B": 9,
+      "C": 10,
+      "D": 9,
+      "E": 9,
+      "F": 8,
+      "G": 8
+     }
+    ],
+    [
+     99,
+     {
+      "A": 8,
+      "B": 9,
+      "C": 8,
+      "D": 8,
+      "E": 7,
+      "F": 8,
+      "G": 7
+     }
+    ]
+   ],
+   "racial": [
+    [
+     1,
+     {
+      "hume": 17,
+      "elvaan": 18,
+      "tarutaru": 16,
+      "mithra": 17,
+      "galka": 19
+     }
+    ],
+    [
+     2,
+     {
+      "hume": 7,
+      "elvaan": 8,
+      "tarutaru": 6,
+      "mithra": 7,
+      "galka": 9
+     }
+    ],
+    [
+     11,
+     {
+      "hume": 9,
+      "elvaan": 9,
+      "tarutaru": 8,
+      "mithra": 9,
+      "galka": 10
+     }
+    ],
+    [
+     31,
+     {
+      "hume": 9,
+      "elvaan": 10,
+      "tarutaru": 9,
+      "mithra": 9,
+      "galka": 11
+     }
+    ],
+    [
+     51,
+     {
+      "hume": 10,
+      "elvaan": 11,
+      "tarutaru": 10,
+      "mithra": 10,
+      "galka": 12
+     }
+    ],
+    [
+     61,
+     {
+      "hume": 4,
+      "elvaan": 4,
+      "tarutaru": 4,
+      "mithra": 4,
+      "galka": 4
+     }
+    ],
+    [
+     76,
+     {
+      "hume": 0,
+      "elvaan": 0,
+      "tarutaru": 0,
+      "mithra": 0,
+      "galka": 0
+     }
+    ]
+   ]
+  },
+  "mp": {
+   "graded": [
+    [
+     1,
+     {
+      "A": 16,
+      "B": 14,
+      "C": 12,
+      "D": 10,
+      "F": 6
+     }
+    ],
+    [
+     2,
+     {
+      "A": 6,
+      "B": 5,
+      "C": 4,
+      "D": 3,
+      "F": 1
+     }
+    ],
+    [
+     61,
+     {
+      "A": 4,
+      "B": 4,
+      "C": 4,
+      "D": 4,
+      "F": 2
+     }
+    ],
+    [
+     76,
+     {
+      "A": 8,
+      "B": 8,
+      "C": 8,
+      "D": 8,
+      "F": 6
+     }
+    ],
+    [
+     77,
+     {
+      "A": 10,
+      "B": 9,
+      "C": 9,
+      "D": 9,
+      "F": 7
+     }
+    ],
+    [
+     78,
+     {
+      "A": 8,
+      "B": 9,
+      "C": 8,
+      "D": 8,
+      "F": 7
+     }
+    ],
+    [
+     79,
+     {
+      "A": 10,
+      "B": 9,
+      "C": 9,
+      "D": 9,
+      "F": 7
+     }
+    ],
+    [
+     80,
+     {
+      "A": 10,
+      "B": 10,
+      "C": 10,
+      "D": 9,
+      "F": 8
+     }
+    ],
+    [
+     81,
+     {
+      "A": 8,
+      "B": 8,
+      "C": 8,
+      "D": 8,
+      "F": 6
+     }
+    ],
+    [
+     82,
+     {
+      "A": 10,
+      "B": 10,
+      "C": 9,
+      "D": 9,
+      "F": 7
+     }
+    ],
+    [
+     83,
+     {
+      "A": 10,
+      "B": 9,
+      "C": 9,
+      "D": 9,
+      "F": 8
+     }
+    ],
+    [
+     84,
+     {
+      "A": 8,
+      "B": 9,
+      "C": 9,
+      "D": 8,
+      "F": 6
+     }
+    ],
+    [
+     85,
+     {
+      "A": 10,
+      "B": 9,
+      "C": 9,
+      "D": 9,
+      "F": 8
+     }
+    ],
+    [
+     86,
+     {
+      "A": 10,
+      "B": 10,
+      "C": 9,
+      "D": 9,
+      "F": 7
+     }
+    ],
+    [
+     87,
+     {
+      "A": 8,
+      "B": 8,
+      "C": 8,
+      "D": 8,
+      "F": 6
+     }
+    ],
+    [
+     88,
+     {
+      "A": 10,
+      "B": 10,
+      "C": 10,
+      "D": 10,
+      "F": 8
+     }
+    ],
+    [
+     89,
+     {
+      "A": 8,
+      "B": 8,
+      "C": 8,
+      "D": 8,
+      "F": 6
+     }
+    ],
+    [
+     90,
+     {
+      "A": 10,
+      "B": 10,
+      "C": 9,
+      "D": 9,
+      "F": 8
+     }
+    ],
+    [
+     91,
+     {
+      "A": 10,
+      "B": 9,
+      "C": 9,
+      "D": 9,
+      "F": 7
+     }
+    ],
+    [
+     92,
+     {
+      "A": 8,
+      "B": 9,
+      "C": 9,
+      "D": 8,
+      "F": 6
+     }
+    ],
+    [
+     93,
+     {
+      "A": 10,
+      "B": 9,
+      "C": 9,
+      "D": 9,
+      "F": 8
+     }
+    ],
+    [
+     94,
+     {
+      "A": 10,
+      "B": 10,
+      "C": 9,
+      "D": 9,
+      "F": 7
+     }
+    ],
+    [
+     95,
+     {
+      "A": 8,
+      "B": 8,
+      "C": 8,
+      "D": 8,
+      "F": 7
+     }
+    ],
+    [
+     96,
+     {
+      "A": 10,
+      "B": 10,
+      "C": 10,
+      "D": 9,
+      "F": 7
+     }
+    ],
+    [
+     97,
+     {
+      "A": 10,
+      "B": 9,
+      "C": 9,
+      "D": 9,
+      "F": 7
+     }
+    ],
+    [
+     98,
+     {
+      "A": 8,
+      "B": 9,
+      "C": 8,
+      "D": 8,
+      "F": 7
+     }
+    ],
+    [
+     99,
+     {
+      "A": 10,
+      "B": 9,
+      "C": 9,
+      "D": 9,
+      "F": 7
+     }
+    ]
+   ],
+   "racial": [
+    [
+     1,
+     {
+      "hume": 14,
+      "elvaan": 12,
+      "tarutaru": 16,
+      "mithra": 14,
+      "galka": 8
+     }
+    ],
+    [
+     2,
+     {
+      "hume": 5,
+      "elvaan": 4,
+      "tarutaru": 6,
+      "mithra": 5,
+      "galka": 3
+     }
+    ],
+    [
+     61,
+     {
+      "hume": 4,
+      "elvaan": 4,
+      "tarutaru": 4,
+      "mithra": 4,
+      "galka": 4
+     }
+    ],
+    [
+     76,
+     {
+      "hume": 0,
+      "elvaan": 0,
+      "tarutaru": 0,
+      "mithra": 0,
+      "galka": 0
+     }
+    ]
+   ],
+   "_note": "No job has MP grade E or G, so no E/G columns exist."
+  },
+  "attributes": {
+   "unit": "twentieths of a point per level; cumulative total is floored to half points (floor(total/10))",
+   "lastGradedLevel": 75,
+   "graded": [
+    [
+     1,
+     {
+      "A": 100,
+      "B": 80,
+      "C": 80,
+      "D": 60,
+      "E": 60,
+      "F": 40,
+      "G": 40
+     }
+    ],
+    [
+     2,
+     {
+      "A": 10,
+      "B": 9,
+      "C": 8,
+      "D": 7,
+      "E": 6,
+      "F": 5,
+      "G": 4
+     }
+    ],
+    [
+     61,
+     {
+      "A": 0,
+      "B": 0,
+      "C": 0,
+      "D": 0,
+      "E": 0,
+      "F": 0,
+      "G": 0
+     }
+    ],
+    [
+     62,
+     {
+      "A": 0,
+      "B": 0,
+      "C": 10,
+      "D": 10,
+      "E": 10,
+      "F": 10,
+      "G": 10
+     }
+    ],
+    [
+     63,
+     {
+      "A": 0,
+      "B": 10,
+      "C": 0,
+      "D": 10,
+      "E": 10,
+      "F": 10,
+      "G": 10
+     }
+    ],
+    [
+     64,
+     {
+      "A": 0,
+      "B": 0,
+      "C": 10,
+      "D": 0,
+      "E": 0,
+      "F": 10,
+      "G": 10
+     }
+    ],
+    [
+     65,
+     {
+      "A": 10,
+      "B": 10,
+      "C": 0,
+      "D": 10,
+      "E": 10,
+      "F": 10,
+      "G": 10
+     }
+    ],
+    [
+     66,
+     {
+      "A": 0,
+      "B": 0,
+      "C": 10,
+      "D": 10,
+      "E": 10,
+      "F": 0,
+      "G": 0
+     }
+    ],
+    [
+     67,
+     {
+      "A": 0,
+      "B": 0,
+      "C": 0,
+      "D": 0,
+      "E": 0,
+      "F": 10,
+      "G": 10
+     }
+    ],
+    [
+     68,
+     {
+      "A": 0,
+      "B": 10,
+      "C": 10,
+      "D": 10,
+      "E": 10,
+      "F": 10,
+      "G": 10
+     }
+    ],
+    [
+     69,
+     {
+      "A": 0,
+      "B": 0,
+      "C": 0,
+      "D": 10,
+      "E": 10,
+      "F": 10,
+      "G": 10
+     }
+    ],
+    [
+     70,
+     {
+      "A": 10,
+      "B": 10,
+      "C": 10,
+      "D": 10,
+      "E": 10,
+      "F": 10,
+      "G": 10
+     }
+    ],
+    [
+     71,
+     {
+      "A": 0,
+      "B": 0,
+      "C": 0,
+      "D": 0,
+      "E": 0,
+      "F": 0,
+      "G": 0
+     }
+    ],
+    [
+     72,
+     {
+      "A": 0,
+      "B": 0,
+      "C": 10,
+      "D": 10,
+      "E": 10,
+      "F": 10,
+      "G": 10
+     }
+    ],
+    [
+     73,
+     {
+      "A": 0,
+      "B": 10,
+      "C": 10,
+      "D": 10,
+      "E": 10,
+      "F": 10,
+      "G": 10
+     }
+    ],
+    [
+     74,
+     {
+      "A": 0,
+      "B": 0,
+      "C": 0,
+      "D": 0,
+      "E": 0,
+      "F": 10,
+      "G": 10
+     }
+    ],
+    [
+     75,
+     {
+      "A": 10,
+      "B": 10,
+      "C": 10,
+      "D": 10,
+      "E": 10,
+      "F": 10,
+      "G": 10
+     }
+    ]
+   ],
+   "ungraded": [
+    [
+     76,
+     0
+    ],
+    [
+     77,
+     1
+    ],
+    [
+     80,
+     0
+    ],
+    [
+     81,
+     1
+    ],
+    [
+     85,
+     0
+    ],
+    [
+     86,
+     1
+    ],
+    [
+     89,
+     0
+    ],
+    [
+     90,
+     1
+    ],
+    [
+     94,
+     0
+    ],
+    [
+     95,
+     1
+    ],
+    [
+     98,
+     0
+    ],
+    [
+     99,
+     1
+    ]
+   ],
+   "ungraded_doc": "Whole points every attribute gains per level above 75, regardless of grade (total +18 at 99). Main job level only."
+  },
+  "roundOnce": true,
+  "masterLevel": {
+   "cap": 50,
+   "attributes": 1,
+   "HP": 7,
+   "MP": 2,
+   "subLevel": "49 + floor(ML/5)"
+  }
+ },
+ "formula": "Main level L=99, support level S=49+floor(ML/5) (0 / no contribution without a support job), ML=Master Level 0..50. Curves are run-length tables in scales: cumulative(curve,column,N) = sum of the per-level gains for levels 1..N (row at level 1 is the starting value). ATTRIBUTES (STR..CHR): graded curve scales.attributes.graded is in twentieths of a point and stops growing after level 75. half(grade,N)=floor(cumulative(graded,grade,min(N,75))/10) = value in half points. attr = floor( ( half(raceGrade,L) + half(mainJobGrade,L) + floor(half(subJobGrade,S)/2) ) / 2 ) + over75(L) + ML, where over75(99)=18 (scales.attributes.ungraded: +1 per level 76-99 except 76,80,85,89,94,98; main level only). I.e. race + main job at full value, support job at half of its own-level value, pooled in half points and floored once (current retail, round_once=true). HP = cumulative(hp.racial, race, L) + cumulative(hp.graded, mainJob.HP grade, L) + floor(cumulative(hp.graded, subJob.HP grade, S)/2) + 7*ML. Race HP uses its own per-race curve (flat after 75), NOT the race letter grade; the 61+ / 76+ slow-down terms are already inside the curves. MP: if main job has an MP grade: MP = cumulative(mp.racial, race, L) + cumulative(mp.graded, mainJob.MP, L) + floor(cumulative(mp.graded, subJob.MP, S)/2) (sub term 0 if sub has no MP grade) + 2*ML. If main job has no MP grade but support job has: MP = floor(cumulative(mp.racial, race, S)/2) + floor(cumulative(mp.graded, subJob.MP, S)/2) (race part taken at the SUPPORT level and halved; no Master Level MP). If neither has an MP grade: MP = 0. Job-trait Max HP Boost / Max MP Boost (WAR, MNK, PLD, NIN, RUN / SMN, SCH, GEO, BLU spells) are NOT included; they are added on top in the HP/MP shown in game. Master Level: +1 to each of the 7 attributes, +7 max HP, +2 max MP (main jobs with native MP only) per level, cap 50; support job level cap 49+floor(ML/5).",
+ "samples": [
+  {
+   "race": "hume",
+   "job": "SAM",
+   "sub": "WAR",
+   "subLevel": 49,
+   "masterLevel": 0,
+   "expect": {
+    "HP": 1683,
+    "MP": 0,
+    "STR": 92,
+    "DEX": 89,
+    "VIT": 87,
+    "AGI": 86,
+    "INT": 79,
+    "MND": 79,
+    "CHR": 83
+   }
+  },
+  {
+   "race": "elvaan",
+   "job": "PLD",
+   "sub": "WAR",
+   "subLevel": 49,
+   "masterLevel": 0,
+   "expect": {
+    "HP": 1658,
+    "MP": 571,
+    "STR": 99,
+    "DEX": 80,
+    "VIT": 95,
+    "AGI": 71,
+    "INT": 67,
+    "MND": 90,
+    "CHR": 86
+   }
+  },
+  {
+   "race": "tarutaru",
+   "job": "BLM",
+   "sub": "RDM",
+   "subLevel": 49,
+   "masterLevel": 0,
+   "expect": {
+    "HP": 1281,
+    "MP": 1094,
+    "STR": 72,
+    "DEX": 87,
+    "VIT": 74,
+    "AGI": 89,
+    "INT": 101,
+    "MND": 80,
+    "CHR": 84
+   }
+  },
+  {
+   "race": "mithra",
+   "job": "THF",
+   "sub": "NIN",
+   "subLevel": 49,
+   "masterLevel": 0,
+   "expect": {
+    "HP": 1463,
+    "MP": 0,
+    "STR": 83,
+    "DEX": 102,
+    "VIT": 83,
+    "AGI": 97,
+    "INT": 87,
+    "MND": 68,
+    "CHR": 67
+   }
+  },
+  {
+   "race": "galka",
+   "job": "WAR",
+   "sub": "SAM",
+   "subLevel": 49,
+   "masterLevel": 0,
+   "expect": {
+    "HP": 1783,
+    "MP": 0,
+    "STR": 97,
+    "DEX": 89,
+    "VIT": 94,
+    "AGI": 84,
+    "INT": 74,
+    "MND": 77,
+    "CHR": 75
+   }
+  },
+  {
+   "race": "hume",
+   "job": "WAR",
+   "sub": "WHM",
+   "subLevel": 49,
+   "masterLevel": 0,
+   "expect": {
+    "HP": 1600,
+    "MP": 229,
+    "STR": 92,
+    "DEX": 85,
+    "VIT": 84,
+    "AGI": 86,
+    "INT": 77,
+    "MND": 83,
+    "CHR": 83
+   }
+  },
+  {
+   "race": "elvaan",
+   "job": "WHM",
+   "sub": "SCH",
+   "subLevel": 49,
+   "masterLevel": 0,
+   "expect": {
+    "HP": 1396,
+    "MP": 905,
+    "STR": 87,
+    "DEX": 75,
+    "VIT": 86,
+    "AGI": 75,
+    "INT": 78,
+    "MND": 97,
+    "CHR": 89
+   }
+  },
+  {
+   "race": "galka",
+   "job": "MNK",
+   "sub": "WAR",
+   "subLevel": 49,
+   "masterLevel": 0,
+   "expect": {
+    "HP": 1847,
+    "MP": 0,
+    "STR": 95,
+    "DEX": 91,
+    "VIT": 99,
+    "AGI": 77,
+    "INT": 70,
+    "MND": 82,
+    "CHR": 74
+   }
+  },
+  {
+   "race": "tarutaru",
+   "job": "SMN",
+   "sub": "WHM",
+   "subLevel": 49,
+   "masterLevel": 0,
+   "expect": {
+    "HP": 1189,
+    "MP": 1184,
+    "STR": 72,
+    "DEX": 79,
+    "VIT": 75,
+    "AGI": 86,
+    "INT": 96,
+    "MND": 91,
+    "CHR": 91
+   }
+  },
+  {
+   "race": "mithra",
+   "job": "COR",
+   "sub": "DNC",
+   "subLevel": 49,
+   "masterLevel": 0,
+   "expect": {
+    "HP": 1463,
+    "MP": 0,
+    "STR": 78,
+    "DEX": 97,
+    "VIT": 77,
+    "AGI": 97,
+    "INT": 85,
+    "MND": 76,
+    "CHR": 78
+   }
+  },
+  {
+   "race": "hume",
+   "job": "RUN",
+   "sub": "DRK",
+   "subLevel": 49,
+   "masterLevel": 0,
+   "expect": {
+    "HP": 1659,
+    "MP": 659,
+    "STR": 92,
+    "DEX": 86,
+    "VIT": 83,
+    "AGI": 89,
+    "INT": 86,
+    "MND": 80,
+    "CHR": 74
+   }
+  },
+  {
+   "race": "hume",
+   "job": "BLU",
+   "sub": null,
+   "subLevel": 0,
+   "masterLevel": 0,
+   "expect": {
+    "HP": 1293,
+    "MP": 824,
+    "STR": 72,
+    "DEX": 72,
+    "VIT": 72,
+    "AGI": 72,
+    "INT": 72,
+    "MND": 72,
+    "CHR": 72
+   }
+  },
+  {
+   "race": "hume",
+   "job": "SAM",
+   "sub": "WAR",
+   "subLevel": 59,
+   "masterLevel": 50,
+   "expect": {
+    "HP": 2088,
+    "MP": 0,
+    "STR": 145,
+    "DEX": 141,
+    "VIT": 139,
+    "AGI": 138,
+    "INT": 130,
+    "MND": 130,
+    "CHR": 135
+   }
+  },
+  {
+   "race": "tarutaru",
+   "job": "BLM",
+   "sub": "RDM",
+   "subLevel": 59,
+   "masterLevel": 50,
+   "expect": {
+    "HP": 1671,
+    "MP": 1209,
+    "STR": 124,
+    "DEX": 139,
+    "VIT": 126,
+    "AGI": 141,
+    "INT": 153,
+    "MND": 132,
+    "CHR": 136
+   }
+  },
+  {
+   "race": "elvaan",
+   "job": "PLD",
+   "sub": "WAR",
+   "subLevel": 59,
+   "masterLevel": 50,
+   "expect": {
+    "HP": 2063,
+    "MP": 671,
+    "STR": 152,
+    "DEX": 132,
+    "VIT": 147,
+    "AGI": 123,
+    "INT": 118,
+    "MND": 141,
+    "CHR": 138
+   }
+  },
+  {
+   "race": "galka",
+   "job": "WAR",
+   "sub": "SAM",
+   "subLevel": 59,
+   "masterLevel": 50,
+   "expect": {
+    "HP": 2188,
+    "MP": 0,
+    "STR": 149,
+    "DEX": 141,
+    "VIT": 146,
+    "AGI": 136,
+    "INT": 126,
+    "MND": 129,
+    "CHR": 127
+   }
+  },
+  {
+   "race": "mithra",
+   "job": "THF",
+   "sub": "NIN",
+   "subLevel": 54,
+   "masterLevel": 25,
+   "expect": {
+    "HP": 1658,
+    "MP": 0,
+    "STR": 109,
+    "DEX": 128,
+    "VIT": 109,
+    "AGI": 123,
+    "INT": 113,
+    "MND": 94,
+    "CHR": 92
+   }
+  },
+  {
+   "race": "hume",
+   "job": "WAR",
+   "sub": "WHM",
+   "subLevel": 59,
+   "masterLevel": 50,
+   "expect": {
+    "HP": 1984,
+    "MP": 274,
+    "STR": 144,
+    "DEX": 136,
+    "VIT": 136,
+    "AGI": 138,
+    "INT": 129,
+    "MND": 136,
+    "CHR": 135
+   }
+  }
+ ],
+ "notes": [
+  "Validation: reference_js reproduces all 110 race x job level-99 no-support-job rows and all 2310 race x main99 x sub49 rows of the capture spreadsheet (HP/MP after adding the Max HP/MP Boost trait amounts: HP tiers 30/60/120/180/240/280 then Max HP Boost II 430/580/730; MP tiers 10/20/40/60/80/100; highest tier of main-at-99 or sub-at-49 applies). Trait tier levels per the sheet: WAR 30/50/70/90, MNK 15/25/35/45/55/65 + II at 75/85/95, PLD 45/85, NIN and RUN 20/40/60/80/99; Max MP Boost SMN 10/30/50/70/76/96, GEO 30/60/90, SCH 30/88. BLU gets them only from set spells.",
+  "The capture sheet has no data for support levels 50-59 or for Master Levels; LandSandBoat does not implement Master Levels. ML samples are computed (curves at sub level 50-59 + BG Wiki per-ML bonuses) and are unverified against retail.",
+  "Master Level text, BG Wiki Master_Levels: \"As of the November 10th, 2022 Version Update, the cap on Master Levels is 50 per job. Every Master Level earned, the player receives the following for that job: +1 STR, DEX, VIT, AGI, INT, MND, and CHR per level; +1 to the cap of Combat Skills and Magic Skills per level (Only skills that are learned naturally for the job that gained a Master level will be increased...); +7 Maximum HP per level; +2 Maximum MP per level\". Also: \"For every five master levels your earn, your support job level cap will be increased by 1.\" BG Wiki Support_Job: \"Support Job = 49 + floor(Master Level/5)\". Pets also gain stats (see page). \"Every master level you gain effectively raises your character level by 1\" (affects /check, level correction).",
+  "wiki.ffo.jp マスターレベル: 「マスターレベルが1上昇するごとに、プレイヤー及びペットの全基礎パラメータと戦闘／魔法スキル上限がそれぞれ+1上昇し、HPとMP(メインで所持しているジョブのみ)も上昇する。」「マスターレベルの上限は50、サポートジョブは59となっている。」 -> MP bonus only for main jobs that natively have MP (implemented that way). The JP page gives no HP/MP amounts; +7/+2 are from BG Wiki only.",
+  "Disagreement: BG Wiki Support_Job lists \"Base MP by race (Level 75+)\" for MP-less main jobs as Tarutaru 116 / Hume 59 / Mithra 59 / Elvaan 40 / Galka 11. Those equal the pre-2014 formula at sub level 37 and do NOT match current captures: e.g. captured Hume WAR99/WHM49 MP = 229 = floor(254/2) racial + floor(204/2) WHM. The capture-backed LandSandBoat rule is used here (race part at level 49: Hume/Mithra 127, Elvaan 102, Tarutaru 152, Galka 76).",
+  "Race HP/MP letter grades in \"races\" are informational only (from grades.yaml; identical on wiki.ffo.jp ステータス). Since the April 2014 update racial HP/MP follow the per-race curves in scales.hp.racial / scales.mp.racial; race letters ARE used for the 7 attributes. Job grade letters match wiki.ffo.jp ステータス for all 22 jobs.",
+  "The older LandSandBoat/DSP HPScale/MPScale arrays (base, <30, <60, <75 scale columns) still exist in grades.cpp but are no longer used for player HP/MP; the level-by-level curves in data/stats.yaml replaced them.",
+  "Point 4 (white vs green): no wiki statement found. Evidence from LandSandBoat (mirrors the retail status packet): merit attribute points are added into the base attribute array (bp_base = white number) and HP/MP merits into max HP/MP; equipment/food/buff modifiers go to bp_adj (green +N). The capture sheet states \"Test characters have 0 merits\", consistent with merits being inside the base number. Job Point gifts grant no STR..CHR/HP/MP base values (they are attack/accuracy/skill etc. modifiers). Where Master Level attribute points are displayed (white vs green) was not confirmed by any source read; they are permanent per-job values and are treated as base here.",
+  "BLU: attribute/HP/MP bonuses from set blue magic are not part of this calculation.",
+  "BG Wiki race pages (Category:Hume etc.) have mostly empty/outdated stat tables and were not usable for level 99 values; BG Wiki pages \"Attributes\", \"Character_Stats\", \"Magic_Points\" do not exist."
+ ]
+}

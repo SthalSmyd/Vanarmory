@@ -1,0 +1,502 @@
+{
+ "note": "食事の効果。help はゲーム内のヘルプテキスト (FF11用語辞典の記載)、text は計算に使う値。「+10% (最大100)」のような割合の効果は、IL119 の基礎値なら上限に届くものとして上限の値で数える。カレーパンは 1 人のときの値。ペットへの効果は入れていない。英語の出典 (BG Wiki) と食い違うものは、ヘルプテキストを引用している日本語の出典を採用した: カレーパンＲ+1、ベヒーモステーキ (INT のマイナス)、味噌ラーメン+1 (STR/VIT+6)、豆大福 (防の効果)。",
+ "foods": [
+  {
+   "group": "命中",
+   "ja": "特上スシ",
+   "help": "HP+40 MP+20 STR+6 DEX+7 MND-3 CHR+6 命中+10% (最大100) 飛命+10% (最大100) レジストスリープ+1",
+   "text": "HP+40 MP+20 STR+6 DEX+7 MND-3 CHR+6 命中+100 飛命+100 レジストスリープ+1",
+   "source": "https://wiki.ffo.jp/html/35033.html"
+  },
+  {
+   "group": "命中",
+   "ja": "特上スシ+1",
+   "help": "HP+45 MP+25 STR+7 DEX+8 MND-4 CHR+7 命中+11% (最大105) 飛命+11% (最大105) レジストスリープ+2",
+   "text": "HP+45 MP+25 STR+7 DEX+8 MND-4 CHR+7 命中+105 飛命+105 レジストスリープ+2",
+   "source": "https://wiki.ffo.jp/html/35033.html"
+  },
+  {
+   "group": "命中",
+   "ja": "ソールスシ",
+   "help": "HP+20 STR+5 DEX+6 命中+15% (最大72) 飛命+15% (最大72) レジストスリープ+1",
+   "text": "HP+20 STR+5 DEX+6 命中+72 飛命+72 レジストスリープ+1",
+   "source": "https://wiki.ffo.jp/html/4730.html"
+  },
+  {
+   "group": "命中",
+   "ja": "ソールスシ+1",
+   "help": "HP+20 STR+5 DEX+6 命中+16% (最大76) 飛命+16% (最大76) レジストスリープ+2",
+   "text": "HP+20 STR+5 DEX+6 命中+76 飛命+76 レジストスリープ+2",
+   "source": "https://wiki.ffo.jp/html/4730.html"
+  },
+  {
+   "group": "命中",
+   "ja": "スキッドスシ",
+   "help": "HP+30 DEX+6 AGI+5 MND-1 命中+15% (最大72) 飛命+15% (最大72) レジストスリープ+1",
+   "text": "HP+30 DEX+6 AGI+5 MND-1 命中+72 飛命+72 レジストスリープ+1",
+   "source": "https://wiki.ffo.jp/html/5772.html"
+  },
+  {
+   "group": "命中",
+   "ja": "スキッドスシ+1",
+   "help": "HP+30 DEX+6 AGI+5 命中+16% (最大76) 飛命+16% (最大76) レジストスリープ+2",
+   "text": "HP+30 DEX+6 AGI+5 命中+76 飛命+76 レジストスリープ+2",
+   "source": "https://wiki.ffo.jp/html/5772.html"
+  },
+  {
+   "group": "命中",
+   "ja": "おでん",
+   "help": "DEX+5 INT+5 命中+15% (最大70) 魔命+15% (最大70)",
+   "text": "DEX+5 INT+5 命中+70 魔命+70",
+   "source": "https://wiki.ffo.jp/html/38108.html"
+  },
+  {
+   "group": "命中",
+   "ja": "おでん+1",
+   "help": "DEX+6 INT+6 命中+16% (最大75) 魔命+16% (最大75)",
+   "text": "DEX+6 INT+6 命中+75 魔命+75",
+   "source": "https://wiki.ffo.jp/html/38108.html"
+  },
+  {
+   "group": "命中",
+   "ja": "海の幸グラタン",
+   "help": "DEX+7 MND+7 命中+20% (最大70) 飛命+20% (最大70) 回避+12% (最大60) 魔回避+12% (最大60)",
+   "text": "DEX+7 MND+7 命中+70 飛命+70 回避+60 魔回避+60",
+   "source": "https://wiki.ffo.jp/html/38310.html"
+  },
+  {
+   "group": "命中",
+   "ja": "海の幸グラタン+1",
+   "help": "DEX+8 MND+8 命中+21% (最大75) 飛命+21% (最大75) 回避+13% (最大65) 魔回避+13% (最大65)",
+   "text": "DEX+8 MND+8 命中+75 飛命+75 回避+65 魔回避+65",
+   "source": "https://wiki.ffo.jp/html/38310.html"
+  },
+  {
+   "group": "命中",
+   "ja": "塩ラーメン",
+   "help": "DEX+5 VIT+5 AGI+5 命中+5% (最大90) 飛命+5% (最大90) 回避+5% (最大90) レジストスロウ+10",
+   "text": "DEX+5 VIT+5 AGI+5 命中+90 飛命+90 回避+90 レジストスロウ+10",
+   "source": "https://wiki.ffo.jp/html/35032.html"
+  },
+  {
+   "group": "命中",
+   "ja": "塩ラーメン+1",
+   "help": "DEX+6 VIT+6 AGI+6 命中+6% (最大95) 飛命+6% (最大95) 回避+6% (最大95) レジストスロウ+15",
+   "text": "DEX+6 VIT+6 AGI+6 命中+95 飛命+95 回避+95 レジストスロウ+15",
+   "source": "https://wiki.ffo.jp/html/35032.html"
+  },
+  {
+   "group": "命中と攻",
+   "ja": "ブドウ大福",
+   "help": "HP+20 STR+2 VIT+3 命中+10% (最大80) 攻+10% (最大50) 飛命+10% (最大80) 飛攻+10% (最大50) 魔攻+3",
+   "text": "HP+20 STR+2 VIT+3 命中+80 攻+50 飛命+80 飛攻+50 魔攻+3",
+   "source": "https://wiki.ffo.jp/html/32394.html"
+  },
+  {
+   "group": "命中と攻",
+   "ja": "ブドウ大福+1",
+   "help": "HP+30 STR+3 VIT+4 命中+11% (最大85) 攻+11% (最大55) 飛命+11% (最大85) 飛攻+11% (最大55) 魔攻+4",
+   "text": "HP+30 STR+3 VIT+4 命中+85 攻+55 飛命+85 飛攻+55 魔攻+4",
+   "source": "https://wiki.ffo.jp/html/32394.html"
+  },
+  {
+   "group": "命中と攻",
+   "ja": "ベリー大福",
+   "help": "HP+20 DEX+2 VIT+3 命中+10% (最大80) 飛命+10% (最大80) 魔命+50",
+   "text": "HP+20 DEX+2 VIT+3 命中+80 飛命+80 魔命+50",
+   "source": "https://wiki.ffo.jp/html/32392.html"
+  },
+  {
+   "group": "命中と攻",
+   "ja": "ベリー大福+1",
+   "help": "HP+30 DEX+3 VIT+4 命中+11% (最大85) 飛命+11% (最大85) 魔命+55",
+   "text": "HP+30 DEX+3 VIT+4 命中+85 飛命+85 魔命+55",
+   "source": "https://wiki.ffo.jp/html/32392.html"
+  },
+  {
+   "group": "命中と攻",
+   "ja": "豆大福",
+   "help": "HP+20 VIT+5 命中+10% (最大80) 飛命+10% (最大80) 防+10% (最大75)",
+   "text": "HP+20 VIT+5 命中+80 飛命+80 防+75",
+   "source": "https://wiki.ffo.jp/html/32393.html"
+  },
+  {
+   "group": "命中と攻",
+   "ja": "豆大福+1",
+   "help": "HP+30 VIT+7 命中+11% (最大85) 飛命+11% (最大85) 防+11% (最大80)",
+   "text": "HP+30 VIT+7 命中+85 飛命+85 防+80",
+   "source": "https://wiki.ffo.jp/html/32393.html"
+  },
+  {
+   "group": "命中と攻",
+   "ja": "赤餅",
+   "help": "HP+20 VIT+3 命中+10% (最大50) 攻+16% (最大50) 飛命+10% (最大50) 飛攻+16% (最大50)",
+   "text": "HP+20 VIT+3 命中+50 攻+50 飛命+50 飛攻+50",
+   "source": "https://wiki.ffo.jp/html/31503.html"
+  },
+  {
+   "group": "命中と攻",
+   "ja": "赤餅+1",
+   "help": "HP+30 VIT+4 命中+11% (最大54) 攻+17% (最大54) 飛命+11% (最大54) 飛攻+17% (最大54)",
+   "text": "HP+30 VIT+4 命中+54 攻+54 飛命+54 飛攻+54",
+   "source": "https://wiki.ffo.jp/html/31503.html"
+  },
+  {
+   "group": "命中と攻",
+   "ja": "草餅",
+   "help": "HP+20 VIT+3 攻+20% (最大72) 飛攻+20% (最大72)",
+   "text": "HP+20 VIT+3 攻+72 飛攻+72",
+   "source": "https://wiki.ffo.jp/html/31367.html"
+  },
+  {
+   "group": "命中と攻",
+   "ja": "草餅+1",
+   "help": "HP+30 VIT+4 攻+21% (最大77) 飛攻+21% (最大77)",
+   "text": "HP+30 VIT+4 攻+77 飛攻+77",
+   "source": "https://wiki.ffo.jp/html/31367.html"
+  },
+  {
+   "group": "命中と攻",
+   "ja": "白餅",
+   "help": "HP+20 VIT+3 命中+14% (最大70) 飛命+14% (最大70)",
+   "text": "HP+20 VIT+3 命中+70 飛命+70",
+   "source": "https://wiki.ffo.jp/html/31366.html"
+  },
+  {
+   "group": "命中と攻",
+   "ja": "白餅+1",
+   "help": "HP+30 VIT+4 命中+15% (最大74) 飛命+15% (最大74)",
+   "text": "HP+30 VIT+4 命中+74 飛命+74",
+   "source": "https://wiki.ffo.jp/html/31366.html"
+  },
+  {
+   "group": "命中と攻",
+   "ja": "フカヒレ姿煮",
+   "help": "命中+14% (最大90) 攻+18% (最大80) 飛命+14% (最大90) 飛攻+18% (最大80) アモルフキラー+5",
+   "text": "命中+90 攻+80 飛命+90 飛攻+80 アモルフキラー+5",
+   "source": "https://wiki.ffo.jp/html/28833.html"
+  },
+  {
+   "group": "命中と攻",
+   "ja": "オーシャン姿煮",
+   "help": "命中+15% (最大95) 攻+19% (最大85) 飛命+15% (最大95) 飛攻+19% (最大85) アモルフキラー+6",
+   "text": "命中+95 攻+85 飛命+95 飛攻+85 アモルフキラー+6",
+   "source": "https://wiki.ffo.jp/html/28833.html"
+  },
+  {
+   "group": "全体",
+   "ja": "漁師風近東鍋",
+   "help": "HP+90 命中+90 飛命+90 魔命+90",
+   "text": "HP+90 命中+90 飛命+90 魔命+90",
+   "source": "https://wiki.ffo.jp/html/36430.html"
+  },
+  {
+   "group": "全体",
+   "ja": "漁師風近東鍋目付",
+   "help": "HP+95 命中+95 飛命+95 魔命+95",
+   "text": "HP+95 命中+95 飛命+95 魔命+95",
+   "source": "https://wiki.ffo.jp/html/36430.html"
+  },
+  {
+   "group": "全体",
+   "ja": "アルタナ全席",
+   "help": "STR+10 DEX+10 VIT+10 AGI+10 INT+10 MND+10 CHR+10 命中+70 攻+70 飛命+70 飛攻+70 魔命+70 魔攻+10 回避+70 防+70 魔回避+70 魔防+3 ストアTP+6",
+   "text": "STR+10 DEX+10 VIT+10 AGI+10 INT+10 MND+10 CHR+10 命中+70 攻+70 飛命+70 飛攻+70 魔命+70 魔攻+10 回避+70 防+70 魔回避+70 魔防+3 ストアTP+6",
+   "source": "https://wiki.ffo.jp/html/37298.html"
+  },
+  {
+   "group": "全体",
+   "ja": "アルタナ全席+1",
+   "help": "STR+15 DEX+15 VIT+15 AGI+15 INT+15 MND+15 CHR+15 命中+80 攻+80 飛命+80 飛攻+80 魔命+80 魔攻+15 回避+80 防+80 魔回避+80 魔防+4 ストアTP+7",
+   "text": "STR+15 DEX+15 VIT+15 AGI+15 INT+15 MND+15 CHR+15 命中+80 攻+80 飛命+80 飛攻+80 魔命+80 魔攻+15 回避+80 防+80 魔回避+80 魔防+4 ストアTP+7",
+   "source": "https://wiki.ffo.jp/html/37298.html"
+  },
+  {
+   "group": "全体",
+   "ja": "アルタナ全席+2",
+   "help": "STR+20 DEX+20 VIT+20 AGI+20 INT+20 MND+20 CHR+20 命中+90 攻+90 飛命+90 飛攻+90 魔命+90 魔攻+20 回避+90 防+90 魔回避+90 魔防+5 ストアTP+8",
+   "text": "STR+20 DEX+20 VIT+20 AGI+20 INT+20 MND+20 CHR+20 命中+90 攻+90 飛命+90 飛攻+90 魔命+90 魔攻+20 回避+90 防+90 魔回避+90 魔防+5 ストアTP+8",
+   "source": "https://wiki.ffo.jp/html/37298.html"
+  },
+  {
+   "group": "攻",
+   "ja": "レッドカレーパン",
+   "help": "HP+25 STR+7 AGI+1 INT-2 攻+23% (最大150) 飛攻+23% (最大150) デーモンキラー+4 レジストスリープ+3 ヒーリングHP+2 ヒーリングMP+1",
+   "text": "HP+25 STR+7 AGI+1 INT-2 攻+150 飛攻+150 デーモンキラー+4 レジストスリープ+3 ヒーリングHP+2 ヒーリングMP+1",
+   "source": "https://wiki.ffo.jp/html/17770.html"
+  },
+  {
+   "group": "攻",
+   "ja": "カレーパンＲ+1",
+   "help": "HP+35 STR+7 AGI+3 攻+25% (最大150) 飛攻+25% (最大150) デーモンキラー+6 レジストスリープ+5 ヒーリングHP+6 ヒーリングMP+3",
+   "text": "HP+35 STR+7 AGI+3 攻+150 飛攻+150 デーモンキラー+6 レジストスリープ+5 ヒーリングHP+6 ヒーリングMP+3",
+   "source": "https://wiki.ffo.jp/html/17770.html"
+  },
+  {
+   "group": "攻",
+   "ja": "ベヒーモステーキ",
+   "help": "HP+40 STR+7 DEX+7 INT-3 攻+23% (最大160) 飛攻+23% (最大160) トリプルアタック+1% リザードキラー+4 ヒーリングHP+4",
+   "text": "HP+40 STR+7 DEX+7 INT-3 攻+160 飛攻+160 トリプルアタック+1% リザードキラー+4 ヒーリングHP+4",
+   "source": "https://wiki.ffo.jp/html/35029.html"
+  },
+  {
+   "group": "攻",
+   "ja": "ベヒーモステーキ+1",
+   "help": "HP+45 STR+8 DEX+8 INT-4 攻+24% (最大165) 飛攻+24% (最大165) トリプルアタック+2% リザードキラー+5 ヒーリングHP+5",
+   "text": "HP+45 STR+8 DEX+8 INT-4 攻+165 飛攻+165 トリプルアタック+2% リザードキラー+5 ヒーリングHP+5",
+   "source": "https://wiki.ffo.jp/html/35029.html"
+  },
+  {
+   "group": "攻",
+   "ja": "醤油ラーメン",
+   "help": "HP+50 STR+5 VIT+5 AGI+3 攻+10% (最大170) 飛攻+10% (最大170) レジストスロウ+10",
+   "text": "HP+50 STR+5 VIT+5 AGI+3 攻+170 飛攻+170 レジストスロウ+10",
+   "source": "https://wiki.ffo.jp/html/35030.html"
+  },
+  {
+   "group": "攻",
+   "ja": "醤油ラーメン+1",
+   "help": "HP+55 STR+6 VIT+6 AGI+4 攻+11% (最大175) 飛攻+11% (最大175) レジストスロウ+15",
+   "text": "HP+55 STR+6 VIT+6 AGI+4 攻+175 飛攻+175 レジストスロウ+15",
+   "source": "https://wiki.ffo.jp/html/35030.html"
+  },
+  {
+   "group": "攻",
+   "ja": "ドラゴンステーキ",
+   "help": "HP+25 STR+7 INT-3 攻+20% (最大150) 飛攻+20% (最大150) デーモンキラー+5 ヒーリングHP+2 ヒーリングMP+2",
+   "text": "HP+25 STR+7 INT-3 攻+150 飛攻+150 デーモンキラー+5 ヒーリングHP+2 ヒーリングMP+2",
+   "source": "https://wiki.ffo.jp/html/11938.html"
+  },
+  {
+   "group": "攻",
+   "ja": "ハイドラキョフテ",
+   "help": "STR+7 INT-3 攻+20% (最大150) 飛攻+20% (最大150) 防+25% (最大70) レジストポイズン+5",
+   "text": "STR+7 INT-3 攻+150 飛攻+150 防+70 レジストポイズン+5",
+   "source": "https://wiki.ffo.jp/html/11939.html"
+  },
+  {
+   "group": "攻",
+   "ja": "ハイドラキョフテ+1",
+   "help": "STR+8 INT-4 攻+20% (最大160) 飛攻+20% (最大160) 防+25% (最大75) レジストポイズン+5",
+   "text": "STR+8 INT-4 攻+160 飛攻+160 防+75 レジストポイズン+5",
+   "source": "https://wiki.ffo.jp/html/11939.html"
+  },
+  {
+   "group": "攻",
+   "ja": "ポポトグラタン",
+   "help": "STR+5 MND+5 攻+20% (最大130) 飛攻+20% (最大130) 回避+10% (最大50) 魔回避+10% (最大50)",
+   "text": "STR+5 MND+5 攻+130 飛攻+130 回避+50 魔回避+50",
+   "source": "https://wiki.ffo.jp/html/38311.html"
+  },
+  {
+   "group": "攻",
+   "ja": "ポポトグラタン+1",
+   "help": "STR+6 MND+6 攻+21% (最大135) 飛攻+21% (最大135) 回避+11% (最大55) 魔回避+11% (最大55)",
+   "text": "STR+6 MND+6 攻+135 飛攻+135 回避+55 魔回避+55",
+   "source": "https://wiki.ffo.jp/html/38311.html"
+  },
+  {
+   "group": "攻",
+   "ja": "スコッチエッグ",
+   "help": "HP+15 MP+15 STR+2 耐火+20 攻+20% (最大85) 飛攻+20% (最大85) モクシャ+8",
+   "text": "HP+15 MP+15 STR+2 耐火+20 攻+85 飛攻+85 モクシャ+8",
+   "source": "https://wiki.ffo.jp/html/31596.html"
+  },
+  {
+   "group": "攻",
+   "ja": "スコッチエッグ+1",
+   "help": "HP+20 MP+20 STR+3 耐火+21 攻+21% (最大90) 飛攻+21% (最大90) モクシャ+9",
+   "text": "HP+20 MP+20 STR+3 耐火+21 攻+90 飛攻+90 モクシャ+9",
+   "source": "https://wiki.ffo.jp/html/31596.html"
+  },
+  {
+   "group": "ストアTP",
+   "ja": "ポークカツ丼",
+   "help": "HP+60 MP+60 STR+7 VIT+3 AGI+5 INT-7 耐火+20 攻+23% (最大125) 飛攻+23% (最大125) ストアTP+4",
+   "text": "HP+60 MP+60 STR+7 VIT+3 AGI+5 INT-7 耐火+20 攻+125 飛攻+125 ストアTP+4",
+   "source": "https://wiki.ffo.jp/html/34767.html"
+  },
+  {
+   "group": "ストアTP",
+   "ja": "ポークカツ丼+1",
+   "help": "HP+65 MP+65 STR+8 VIT+4 AGI+6 INT-8 耐火+21 攻+24% (最大130) 飛攻+24% (最大130) ストアTP+5",
+   "text": "HP+65 MP+65 STR+8 VIT+4 AGI+6 INT-8 耐火+21 攻+130 飛攻+130 ストアTP+5",
+   "source": "https://wiki.ffo.jp/html/34767.html"
+  },
+  {
+   "group": "ストアTP",
+   "ja": "カルボナーラ",
+   "help": "HP+14% (最大175) MP+10 STR+4 VIT+2 INT-3 攻+17% (最大65) ストアTP+6",
+   "text": "HP+175 MP+10 STR+4 VIT+2 INT-3 攻+65 ストアTP+6",
+   "source": "https://wiki.ffo.jp/html/10545.html"
+  },
+  {
+   "group": "ストアTP",
+   "ja": "カルボナーラ+1",
+   "help": "HP+14% (最大180) MP+15 STR+4 VIT+2 INT-3 攻+17% (最大70) ストアTP+6",
+   "text": "HP+180 MP+15 STR+4 VIT+2 INT-3 攻+70 ストアTP+6",
+   "source": "https://wiki.ffo.jp/html/10545.html"
+  },
+  {
+   "group": "ストアTP",
+   "ja": "メランザーネ",
+   "help": "HP+25% (最大100) VIT+2 ストアTP+6 レジストスリープ+10",
+   "text": "HP+100 VIT+2 ストアTP+6 レジストスリープ+10",
+   "source": "https://wiki.ffo.jp/html/5540.html"
+  },
+  {
+   "group": "ストアTP",
+   "ja": "メランザーネ+1",
+   "help": "HP+25% (最大105) VIT+2 ストアTP+6 レジストスリープ+10",
+   "text": "HP+105 VIT+2 ストアTP+6 レジストスリープ+10",
+   "source": "https://wiki.ffo.jp/html/5540.html"
+  },
+  {
+   "group": "遠隔",
+   "ja": "ポトフ",
+   "help": "STR+3 AGI+3 INT-3 飛命+10% (最大50) 飛攻+15% (最大60) 敵対心-3",
+   "text": "STR+3 AGI+3 INT-3 飛命+50 飛攻+60 敵対心-3",
+   "source": "https://wiki.ffo.jp/html/17335.html"
+  },
+  {
+   "group": "遠隔",
+   "ja": "ポトフ+1",
+   "help": "STR+4 AGI+4 INT-3 飛命+11% (最大55) 飛攻+16% (最大65) 敵対心-3",
+   "text": "STR+4 AGI+4 INT-3 飛命+55 飛攻+65 敵対心-3",
+   "source": "https://wiki.ffo.jp/html/17335.html"
+  },
+  {
+   "group": "遠隔",
+   "ja": "コールロラーデン",
+   "help": "STR+3 AGI+3 INT-5 飛命+8% (最大60) 飛攻+14% (最大65) 敵対心-4 モクシャ+5",
+   "text": "STR+3 AGI+3 INT-5 飛命+60 飛攻+65 敵対心-4 モクシャ+5",
+   "source": "https://wiki.ffo.jp/html/17663.html"
+  },
+  {
+   "group": "遠隔",
+   "ja": "コールロラーデン+1",
+   "help": "STR+4 AGI+4 INT-4 飛命+10% (最大65) 飛攻+16% (最大70) 敵対心-5 モクシャ+6",
+   "text": "STR+4 AGI+4 INT-4 飛命+65 飛攻+70 敵対心-5 モクシャ+6",
+   "source": "https://wiki.ffo.jp/html/17663.html"
+  },
+  {
+   "group": "魔法",
+   "ja": "トロピカルクレープ",
+   "help": "INT+2 MND+2 魔命+20% (最大90) 魔防+1",
+   "text": "INT+2 MND+2 魔命+90 魔防+1",
+   "source": "https://wiki.ffo.jp/html/37610.html"
+  },
+  {
+   "group": "魔法",
+   "ja": "クレープ・デ・ロワ",
+   "help": "INT+2 MND+2 魔命+21% (最大95) 魔防+1",
+   "text": "INT+2 MND+2 魔命+95 魔防+1",
+   "source": "https://wiki.ffo.jp/html/37610.html"
+  },
+  {
+   "group": "魔法",
+   "ja": "ペアクレープ",
+   "help": "INT+2 魔命+20% (最大45) 魔防+1 ヒーリングMP+2",
+   "text": "INT+2 魔命+45 魔防+1 ヒーリングMP+2",
+   "source": "https://wiki.ffo.jp/html/18421.html"
+  },
+  {
+   "group": "魔法",
+   "ja": "クレープベレレーヌ",
+   "help": "INT+2 魔命+21% (最大50) 魔防+1 ヒーリングMP+3",
+   "text": "INT+2 魔命+50 魔防+1 ヒーリングMP+3",
+   "source": "https://wiki.ffo.jp/html/18421.html"
+  },
+  {
+   "group": "魔法",
+   "ja": "雪山の欠氷",
+   "help": "MP+20% (最大100) INT+5 MND+5 魔攻+13 リザードキラー+5",
+   "text": "MP+100 INT+5 MND+5 魔攻+13 リザードキラー+5",
+   "source": "https://wiki.ffo.jp/html/31099.html"
+  },
+  {
+   "group": "魔法",
+   "ja": "新雪の欠氷",
+   "help": "MP+25% (最大105) INT+6 MND+6 魔攻+14 リザードキラー+6",
+   "text": "MP+105 INT+6 MND+6 魔攻+14 リザードキラー+6",
+   "source": "https://wiki.ffo.jp/html/31099.html"
+  },
+  {
+   "group": "魔法",
+   "ja": "冬物語",
+   "help": "MP+30% (最大110) INT+7 MND+7 魔攻+15 リザードキラー+7",
+   "text": "MP+110 INT+7 MND+7 魔攻+15 リザードキラー+7",
+   "source": "https://wiki.ffo.jp/html/31099.html"
+  },
+  {
+   "group": "魔法",
+   "ja": "フルーツパフェ",
+   "help": "MP+5% (最大50) STR-3 INT+3 MND+2 CHR+1 魔命+3 魔攻+6",
+   "text": "MP+50 STR-3 INT+3 MND+2 CHR+1 魔命+3 魔攻+6",
+   "source": "https://wiki.ffo.jp/html/29640.html"
+  },
+  {
+   "group": "魔法",
+   "ja": "女王の王冠",
+   "help": "MP+6% (最大55) STR-2 INT+4 MND+3 CHR+2 魔命+4 魔攻+7",
+   "text": "MP+55 STR-2 INT+4 MND+3 CHR+2 魔命+4 魔攻+7",
+   "source": "https://wiki.ffo.jp/html/29640.html"
+  },
+  {
+   "group": "防御",
+   "ja": "味噌ラーメン",
+   "help": "HP+100 STR+5 VIT+5 防+10% (最大170) 魔回避+10% (最大50) 魔防+5 レジストスロウ+10",
+   "text": "HP+100 STR+5 VIT+5 防+170 魔回避+50 魔防+5 レジストスロウ+10",
+   "source": "https://wiki.ffo.jp/html/35031.html"
+  },
+  {
+   "group": "防御",
+   "ja": "味噌ラーメン+1",
+   "help": "HP+105 STR+6 VIT+6 防+11% (最大175) 魔回避+11% (最大55) 魔防+6 レジストスロウ+15",
+   "text": "HP+105 STR+6 VIT+6 防+175 魔回避+55 魔防+6 レジストスロウ+15",
+   "source": "https://wiki.ffo.jp/html/35031.html"
+  },
+  {
+   "group": "防御",
+   "ja": "オムレツサンド",
+   "help": "HP+11% (最大150) VIT+7 MND+7 命中+11% (最大80) 防+11% (最大120) 敵対心+4",
+   "text": "HP+150 VIT+7 MND+7 命中+80 防+120 敵対心+4",
+   "source": "https://wiki.ffo.jp/html/38042.html"
+  },
+  {
+   "group": "防御",
+   "ja": "オムレツサンド+1",
+   "help": "HP+11% (最大155) VIT+8 MND+8 命中+11% (最大85) 防+11% (最大125) 敵対心+5",
+   "text": "HP+155 VIT+8 MND+8 命中+85 防+125 敵対心+5",
+   "source": "https://wiki.ffo.jp/html/38042.html"
+  },
+  {
+   "group": "防御",
+   "ja": "タブナジア風タコス",
+   "help": "HP+20 MP+20 DEX+4 VIT+6 AGI+4 CHR+4 防+25% (最大150) ヒーリングHP+1 ヒーリングMP+1",
+   "text": "HP+20 MP+20 DEX+4 VIT+6 AGI+4 CHR+4 防+150 ヒーリングHP+1 ヒーリングMP+1",
+   "source": "https://wiki.ffo.jp/html/4539.html"
+  },
+  {
+   "group": "防御",
+   "ja": "ルルーミュタコス",
+   "help": "HP+20 MP+20 DEX+4 VIT+6 AGI+4 CHR+4 防+25% (最大160) ヒーリングHP+1 ヒーリングMP+1",
+   "text": "HP+20 MP+20 DEX+4 VIT+6 AGI+4 CHR+4 防+160 ヒーリングHP+1 ヒーリングMP+1",
+   "source": "https://wiki.ffo.jp/html/4539.html"
+  },
+  {
+   "group": "防御",
+   "ja": "ブラックカレーパン",
+   "help": "DEX+2 VIT+4 INT+1 命中+5 飛命+5 回避+5 防+15% (最大180) レジストスリープ+3 ヒーリングHP+2 ヒーリングMP+1",
+   "text": "DEX+2 VIT+4 INT+1 命中+5 飛命+5 回避+5 防+180 レジストスリープ+3 ヒーリングHP+2 ヒーリングMP+1",
+   "source": "https://wiki.ffo.jp/html/17769.html"
+  },
+  {
+   "group": "防御",
+   "ja": "カレーパンＢ+1",
+   "help": "DEX+4 VIT+6 AGI+2 INT+3 MND+1 命中+7 飛命+7 回避+7 防+25% (最大200) レジストスリープ+5 ヒーリングHP+6 ヒーリングMP+3",
+   "text": "DEX+4 VIT+6 AGI+2 INT+3 MND+1 命中+7 飛命+7 回避+7 防+200 レジストスリープ+5 ヒーリングHP+6 ヒーリングMP+3",
+   "source": "https://wiki.ffo.jp/html/17769.html"
+  }
+ ]
+}

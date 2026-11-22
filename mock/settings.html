@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vanarmory — 設定画面モック (タブつき)</title>
+<style>
+:root {
+  --bg: #f4f3ef; --panel: #ffffff; --sunken: #efeee9; --text: #20242b; --muted: #6d7480; --line: #dedbd2;
+  --accent: #9a5b13; --accent-bg: #fbecd3; --ok: #2e7d4f; --ok-bg: #e2f3e8; --fixed: #3b6ea8; --fixed-bg: #e3edf8;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14161b; --panel: #1d2027; --sunken: #262a33; --text: #e5e7eb; --muted: #969dab; --line: #333844;
+    --accent: #f0b35e; --accent-bg: #40311a; --ok: #7fd3a0; --ok-bg: #1d3a2a; --fixed: #8fbcf0; --fixed-bg: #1e2f45;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 14px/1.5 "Segoe UI", "Hiragino Sans", "Yu Gothic UI", "Meiryo", sans-serif; }
+button, select, input { font: inherit; color: inherit; }
+header { display: flex; align-items: center; gap: 14px; padding: 8px 20px; border-bottom: 1px solid var(--line); background: var(--panel); }
+h1 { margin: 0; font-size: 18px; color: var(--accent); }
+nav a { color: var(--muted); text-decoration: none; padding: 3px 12px; border-radius: 999px; }
+nav a.here { background: var(--accent-bg); color: var(--accent); font-weight: 600; }
+.mock-note { margin-left: auto; font-size: 12px; color: var(--muted); border: 1px dashed var(--line); border-radius: 6px; padding: 2px 10px; }
+select, .input { background: var(--sunken); border: 1px solid var(--line); border-radius: 6px; padding: 4px 8px; }
+.hint { color: var(--muted); font-size: 12px; }
+
+/* 設定の切り替え */
+.profiles { background: var(--panel); border-bottom: 1px solid var(--line); padding: 12px 20px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.profiles .label { color: var(--muted); font-size: 12px; font-weight: 600; margin-right: 6px; }
+.profile { border: 1px solid var(--line); background: var(--sunken); border-radius: 8px; padding: 5px 14px; cursor: pointer; }
+.profile.on { background: var(--accent); border-color: var(--accent); color: var(--panel); font-weight: 700; }
+.profile.new { border-style: dashed; border-color: var(--accent); color: var(--accent); background: none; }
+.profiles .acts { margin-left: auto; display: flex; gap: 6px; }
+.ghost { border: 1px solid var(--line); background: none; border-radius: 6px; font-size: 12px; padding: 3px 10px; cursor: pointer; }
+.ghost.danger { color: #c0392b; }
+
+.page { padding: 18px 20px; display: grid; gap: 16px; max-width: 1280px; }
+.cols { display: grid; grid-template-columns: 340px minmax(0, 1fr); gap: 16px; align-items: start; }
+@media (max-width: 900px) { .cols { grid-template-columns: minmax(0, 1fr); } }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px; }
+.panel h2 { margin: 0 0 4px; font-size: 14px; display: flex; align-items: baseline; gap: 10px; }
+.panel h2 .hint { font-weight: 400; }
+.panel h2 .right { margin-left: auto; display: flex; gap: 6px; }
+.panel > .hint { margin: 0 0 10px; }
+.stack { display: grid; gap: 16px; }
+.tier { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 8px; align-items: center; margin-bottom: 6px; color: var(--muted); }
+.tier select { color: var(--text); }
+
+/* コンテンツごとの行 */
+.group-title { margin: 14px 0 4px; font-size: 12px; color: var(--accent); font-weight: 700; }
+.group-title:first-of-type { margin-top: 4px; }
+.row { display: grid; grid-template-columns: 52px minmax(0, 1fr) 170px 64px; gap: 10px; align-items: center; padding: 6px 4px; border-bottom: 1px solid var(--line); }
+.row:last-child { border-bottom: 0; }
+.row.off .name, .row.off .count { color: var(--muted); }
+.row .name b { font-weight: 600; }
+.row .name .hint { display: block; }
+.row .count { text-align: right; color: var(--muted); font-size: 12px; white-space: nowrap; }
+.row select:disabled { opacity: .35; }
+.switch { width: 44px; height: 24px; border-radius: 999px; border: 0; background: var(--line); position: relative; cursor: pointer; }
+.switch::after { content: ""; position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; border-radius: 50%; background: var(--panel); transition: left .12s; }
+.switch.on { background: var(--ok); }
+.switch.on::after { left: 23px; }
+.sub { display: flex; flex-wrap: wrap; gap: 6px; padding: 8px 4px 10px 66px; border-bottom: 1px solid var(--line); }
+.sub[hidden] { display: none; }
+.pick { border: 1px solid var(--line); background: var(--sunken); color: var(--muted); border-radius: 6px; padding: 3px 10px 3px 8px; cursor: pointer; }
+.pick::before { content: "□ "; }
+.pick.on { background: var(--ok-bg); border-color: transparent; color: var(--ok); font-weight: 600; }
+.pick.on::before { content: "✓ "; }
+.chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.chip { background: var(--sunken); border-radius: 999px; padding: 2px 10px; font-size: 13px; }
+
+/* タブ */
+.tabs { display: flex; gap: 4px; padding: 10px 20px 0; border-bottom: 1px solid var(--line); background: var(--panel); }
+.tab { border: 1px solid transparent; border-bottom: 0; background: none; border-radius: 8px 8px 0 0; padding: 7px 18px; cursor: pointer; color: var(--muted); }
+.tab.on { background: var(--bg); border-color: var(--line); color: var(--accent); font-weight: 700; margin-bottom: -1px; }
+[hidden] { display: none !important; }
+.jobs { border-collapse: collapse; width: 100%; }
+.jobs th, .jobs td { text-align: left; padding: 5px 10px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+.jobs th { font-size: 12px; color: var(--muted); font-weight: 600; }
+.jobs td.name { font-weight: 600; white-space: nowrap; }
+.jobs input[type="number"] { width: 76px; background: var(--sunken); border: 1px solid var(--line); border-radius: 6px; padding: 3px 6px; }
+.jobs .quick { margin-left: 6px; }
+.jobs .sub { color: var(--muted); font-variant-numeric: tabular-nums; }
+.jobs .gain { color: var(--muted); font-size: 12px; }
+.jobs tr.idle td { color: var(--muted); }
+.chip.on { background: var(--ok-bg); color: var(--ok); font-weight: 600; }
+
+/* セットを組む画面での見え方 */
+.preview { border: 1px dashed var(--line); border-radius: 10px; padding: 10px 14px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.preview .cond-label { color: var(--muted); font-size: 12px; font-weight: 600; width: 64px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Vanarmory</h1>
+  <nav><a>セットを組む</a><a>装備を探す</a><a class="here">設定</a></nav>
+  <span class="mock-note">画面モック — 見た目の確認用。スイッチと設定の切り替えだけ動きます。件数は仮の数字です</span>
+</header>
+
+<!-- 設定は名前を付けて複数持てる。検索条件とは別に保存される -->
+<section class="profiles">
+  <span class="label">使う装備の設定</span>
+  <span id="profiles"></span>
+  <button class="profile new">＋ 新しい設定</button>
+  <span class="acts">
+    <button class="ghost">名前を変える</button>
+    <button class="ghost">複製する</button>
+    <button class="ghost danger">削除する</button>
+  </span>
+</section>
+
+<!-- 設定の中身は 2 つのタブに分ける -->
+<div class="tabs">
+  <button class="tab" data-tab="gear">装備の範囲</button>
+  <button class="tab on" data-tab="chara">ジョブの育成 (ギフト・マスターレベル)</button>
+</div>
+
+<div class="page" id="tab-chara">
+  <div class="panel" style="padding:10px 14px">
+    <div class="hint" style="margin-bottom:6px">「セットを組む」の画面では、ジョブを選ぶと、ここで入れた値が自動で使われます (サポ Lv はマスターレベルから計算。その場で変えることもできます):</div>
+    <div class="preview">
+      <span class="cond-label">ジョブ</span><select><option>侍</option></select>
+      <span class="cond-label" style="width:auto">サポ</span><select><option>戦士</option></select>
+      <span class="cond-label" style="width:auto">Lv</span><input class="input" style="width:54px" value="55">
+      <span class="hint">← 侍のマスターレベル 30 から計算</span>
+      <span class="cond-label" style="width:auto;margin-left:14px">装備以外</span>
+      <span class="chip on">✓ ジョブ特性</span><span class="chip on">✓ ギフト (JP 1200)</span><span class="chip on">✓ メリポ</span>
+    </div>
+  </div>
+  <div class="panel">
+    <h2>ジョブごとの育成 <span class="hint">ギフトとマスターレベルは、ジョブごとに入れる</span>
+      <span class="right"><button class="ghost">すべてマスター済みにする</button><button class="ghost">すべて未習得にする</button></span></h2>
+    <table class="jobs">
+      <thead><tr><th>ジョブ</th><th>ジョブポイント (ギフト)</th><th>マスターレベル</th><th>サポ Lv</th><th>メリポ (ジョブ別)</th><th>この設定で得る主な値</th></tr></thead>
+      <tbody id="jobs"></tbody>
+    </table>
+    <p class="hint" style="margin:10px 0 0">サポ Lv は「49 + マスターレベル ÷ 5」で出しています (対応は調査中)。ジョブポイントは、使った合計を入れると、そこまでに覚えるギフトを数えます。</p>
+  </div>
+</div>
+
+<div class="page" id="tab-gear" hidden>
+  <div class="panel" style="padding:10px 14px">
+    <div class="hint" style="margin-bottom:6px">「セットを組む」の画面では、左にあった「使う装備の範囲」の欄がなくなり、上段でどの設定を使うかを選ぶだけになります:</div>
+    <div class="preview">
+      <span class="cond-label">ジョブ</span><select><option>侍</option></select>
+      <span class="cond-label" style="width:auto;margin-left:14px">使う装備</span>
+      <select id="preview-profile"></select>
+      <button class="ghost">設定を開く</button>
+      <span class="hint">※ 選んだ設定の範囲の装備だけでセットを組みます</span>
+    </div>
+  </div>
+
+  <div class="cols">
+    <div class="stack">
+      <div class="panel">
+        <h2>ジョブ専用装束</h2>
+        <p class="hint">どの段階まで持っているか</p>
+        <label class="tier">AF<select><option>+4 まで</option><option selected>+3 まで</option><option>+2 まで</option><option>+1 まで</option><option>無印まで</option><option>使わない</option></select></label>
+        <label class="tier">レリック<select><option>+4 まで</option><option selected>+3 まで</option></select></label>
+        <label class="tier">エンピリアン<select><option>+3 まで</option><option selected>+2 まで</option></select></label>
+      </div>
+      <div class="panel">
+        <h2>オデシー装備 <span class="hint">RP のランク</span></h2>
+        <p class="hint">系統ごとに、いまのランクを選ぶ</p>
+        <label class="tier">まとめて<select><option>系統ごとに設定</option><option>RP30 (最大)</option></select></label>
+        <label class="tier">ニャメ<select><option>RP30 (最大)</option><option selected>RP20</option></select></label>
+        <label class="tier">サクパタ<select><option>RP30 (最大)</option><option selected>無強化</option></select></label>
+        <label class="tier">イケンガ<select><option>RP30 (最大)</option><option selected>使わない</option></select></label>
+        <label class="tier">ムパカ<select><option>RP30 (最大)</option><option selected>RP15</option></select></label>
+        <label class="tier">アグゥ<select><option selected>使わない</option></select></label>
+        <label class="tier">ブンジ<select><option selected>使わない</option></select></label>
+      </div>
+      <div class="panel">
+        <h2>個別に除外した装備 <span class="hint">2 点</span></h2>
+        <p class="hint">候補の「除外」で外した装備。この設定に保存されます</p>
+        <div class="chips"><span class="chip">レコリング ×</span><span class="chip">オゲルミルオーブ+1 ×</span></div>
+        <input class="input" style="width:100%;margin-top:8px" placeholder="名前で探して除外に追加">
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>コンテンツごとの装備 <span class="hint">行っていないコンテンツは切る。強化段階があるものは、どこまでかを選ぶ</span>
+        <span class="right"><button class="ghost">すべて使う</button><button class="ghost">すべて切る</button></span></h2>
+      <div id="contents"></div>
+      <p class="hint" style="margin:12px 0 0">ここに無い装備 (店売り・競売・クエスト報酬など) は、常に使います。</p>
+    </div>
+  </div>
+</div>
+
+<script>
+const el = (tag, cls, text) => { const n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; };
+// [名前, 補足, 段階の選択肢 (無ければ null), 件数 (仮), 初期状態]
+const GROUPS = [
+  ['継続コンテンツ', [
+    ['アンバス装備', 'フラマ、スレビア、ムンム など 10 系統', ['+2 まで', '+1 まで', '無印まで'], 150, true],
+    ['アンバス武器', '', ['最終段階まで', '途中の段階まで'], 40, true],
+    ['アンバスマント', 'オーグメントは目標に合わせて自動で選びます', ['オグメ最大'], 22, true],
+    ['オーメン', '王将の指輪、各ボスのドロップ', null, 60, true],
+    ['デュナミス〔D〕', 'ジョブ専用の首装備', ['+2 まで', '+1 まで', '無印まで'], 66, true],
+  ]],
+  ['高難度', [
+    ['ソーティ', 'ジョブ専用の耳装備', ['+2 まで', '+1 まで', '無印まで'], 66, true],
+    ['プライム武器', 'ソーティで強化する武器', ['最終段階まで', '途中の段階まで'], 30, false],
+    ['リンバス', '', null, 40, false],
+    ['上位ミッションBF (メリポBF)', '行っているバトルフィールドだけ入れる', null, 120, true,
+      ['バトルフィールド A', 'バトルフィールド B', 'バトルフィールド C', 'バトルフィールド D', 'バトルフィールド E', 'バトルフィールド F', 'バトルフィールド G', 'バトルフィールド H'], [0, 1, 4]],
+  ]],
+  ['エスカ・醴泉島', [
+    ['エスカ-ジ・タ', 'ギアスフェットの NM。倒せる強さまでを選ぶ', ['最上位 (T4) まで', 'T3 まで', 'T2 まで', 'T1 まで'], 80, true],
+    ['エスカ-ル・オン', 'ギアスフェットの NM。倒せる強さまでを選ぶ', ['最上位まで', 'T3 まで', 'T2 まで', 'T1 まで'], 110, true],
+    ['醴泉島', 'ギアスフェットの NM。倒せる強さまでを選ぶ', ['最上位 (T4) まで', 'T3 まで', 'T2 まで', 'T1 まで'], 130, true],
+    ['エスカッション装備', '龍王、アデマ、スヴレン など', ['+1 まで', 'NQ まで'], 110, true],
+  ]],
+  ['そのほか', [
+    ['ユニティ', 'ユニティ・ウォンテッドの装備', ['+1 まで', 'NQ まで'], 90, true],
+    ['ヴァナ・バウト', '', null, 20, true],
+    ['メナス・スカーム・レイヴ など', 'アドゥリンのコンテンツ (細かく分けるかは調査結果しだい)', null, 300, true],
+  ]],
+];
+const contents = document.getElementById('contents');
+for (const [title, rows] of GROUPS) {
+  contents.append(el('div', 'group-title', title));
+  for (const [name, note, tiers, count, on, children, checked] of rows) {
+    const row = el('div', 'row' + (on ? '' : ' off'));
+    const sw = el('button', 'switch' + (on ? ' on' : ''));
+    const label = el('div', 'name');
+    label.append(el('b', '', name));
+    if (note) label.append(el('span', 'hint', note));
+    const select = document.createElement('select');
+    if (tiers) for (const t of tiers) select.append(el('option', '', t));
+    else { select.append(el('option', '', '—')); select.style.visibility = 'hidden'; }
+    select.disabled = !on;
+    sw.addEventListener('click', () => { const now = sw.classList.toggle('on'); row.classList.toggle('off', !now); select.disabled = !now; });
+    row.append(sw, label, select, el('div', 'count', count + ' 点'));
+    contents.append(row);
+    // 中をさらに選べるコンテンツ (メリポBF のバトルフィールドなど)
+    if (children) {
+      const sub = el('div', 'sub');
+      children.forEach((child, i) => {
+        const pick = el('button', 'pick' + (checked.includes(i) ? ' on' : ''), child);
+        pick.addEventListener('click', () => pick.classList.toggle('on'));
+        sub.append(pick);
+      });
+      const all = el('button', 'ghost', 'すべて選ぶ');
+      all.addEventListener('click', () => sub.querySelectorAll('.pick').forEach((b) => b.classList.add('on')));
+      sub.append(all);
+      sw.addEventListener('click', () => (sub.hidden = !sw.classList.contains('on')));
+      contents.append(sub);
+    }
+  }
+}
+// ジョブごとの育成 (値は仮)
+const JOBS = [['戦士', 2100, 50, true, 'ダブルアタック +33% / 攻 +105'], ['モンク', 0, 0, false, ''], ['白魔道士', 550, 5, false, '魔防 +38'], ['黒魔道士', 2100, 20, true, '魔攻 +90'],
+  ['赤魔道士', 1200, 15, true, 'ファストキャスト +34%'], ['シーフ', 0, 0, false, ''], ['ナイト', 2100, 40, true, '防 +178'], ['暗黒騎士', 100, 0, false, '攻 +111'],
+  ['侍', 1200, 30, true, 'ストアTP +44 / 残心 +60%'], ['忍者', 2100, 50, true, '二刀流 +35'], ['踊り子', 0, 0, false, ''], ['風水士', 300, 0, false, '魔攻 +14']];
+for (const [name, jp, ml, merit, gain] of JOBS) {
+  const tr = el('tr', jp || ml ? '' : 'idle');
+  const jpCell = el('td');
+  const jpInput = document.createElement('input'); jpInput.type = 'number'; jpInput.value = jp; jpInput.min = 0; jpInput.max = 2100; jpInput.step = 50;
+  jpCell.append(jpInput);
+  const mlCell = el('td');
+  const mlInput = document.createElement('input'); mlInput.type = 'number'; mlInput.value = ml; mlInput.min = 0; mlInput.max = 50;
+  const sub = el('td', 'sub', String(49 + Math.floor(ml / 5)));
+  mlInput.addEventListener('input', () => (sub.textContent = String(49 + Math.floor(Number(mlInput.value) / 5))));
+  mlCell.append(mlInput);
+  const meritCell = el('td');
+  const check = document.createElement('input'); check.type = 'checkbox'; check.checked = merit;
+  meritCell.append(check, ' 最大まで');
+  tr.append(el('td', 'name', name), jpCell, mlCell, sub, meritCell, el('td', 'gain', gain));
+  document.getElementById('jobs').append(tr);
+}
+document.getElementById('jobs').append(Object.assign(el('tr'), { innerHTML: '<td colspan="6" class="gain">… 全 22 ジョブが並びます</td>' }));
+for (const tab of document.querySelectorAll('.tab')) {
+  tab.addEventListener('click', () => {
+    for (const other of document.querySelectorAll('.tab')) other.classList.toggle('on', other === tab);
+    document.getElementById('tab-gear').hidden = tab.dataset.tab !== 'gear';
+    document.getElementById('tab-chara').hidden = tab.dataset.tab !== 'chara';
+  });
+}
+
+const NAMES = ['メインキャラ', '復帰直後', '理想装備 (全部あり)'];
+const box = document.getElementById('profiles');
+NAMES.forEach((name, i) => {
+  const b = el('button', 'profile' + (i === 0 ? ' on' : ''), name);
+  b.style.marginRight = '6px';
+  b.addEventListener('click', () => { for (const o of box.children) o.classList.remove('on'); b.classList.add('on'); });
+  box.append(b);
+  document.getElementById('preview-profile').append(el('option', '', name));
+});
+</script>
+</body>
+</html>

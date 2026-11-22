@@ -1,0 +1,1163 @@
+{
+ "source": [
+  "https://www.bg-wiki.com/api.php?action=parse&page=<Job page>&prop=wikitext&format=json (22 job pages: trait level tables)",
+  "https://www.bg-wiki.com/ffxi/<Trait page> (Store_TP, Double_Attack, Triple_Attack, Dual_Wield, Fast_Cast, Magic_Attack_Bonus, Magic_Defense_Bonus, Attack_Bonus, Accuracy_Bonus, Evasion_Bonus, Defense_Bonus, Subtle_Blow, Counter, Kick_Attacks, Zanshin, Skillchain_Bonus, Critical_Attack_Bonus, Conserve_MP, Auto_Refresh, Auto_Regen, Max_HP_Boost, Max_MP_Boost, Treasure_Hunter: tier values)",
+  "https://www.bg-wiki.com/ffxi/Support_Job",
+  "https://www.bg-wiki.com/ffxi/Master_Levels",
+  "https://www.bg-wiki.com/ffxi/Category:Job_Traits",
+  "https://wiki.ffo.jp/html/450.html (ジョブ特性 index, cross-check of levels)",
+  "https://wiki.ffo.jp/html/38412.html (マスターレベル)",
+  "https://wiki.ffo.jp/html/632.html (サポートジョブ)",
+  "https://wiki.ffo.jp/html/2608.html , /1904.html , /449.html , /1717.html , /1727.html , /1730.html , /1731.html , /1732.html , /1733.html , /1681.html , /3066.html (individual trait pages, cross-check of values)",
+  "https://raw.githubusercontent.com/LandSandBoat/server/base/sql/traits.sql (third-party emulator table, tie-break cross-check only)"
+ ],
+ "jobs": {
+  "WAR": {
+   "ダブルアタック": [
+    [
+     25,
+     10
+    ],
+    [
+     50,
+     12
+    ],
+    [
+     75,
+     14
+    ],
+    [
+     85,
+     16
+    ],
+    [
+     99,
+     18
+    ]
+   ],
+   "攻": [
+    [
+     30,
+     10
+    ],
+    [
+     65,
+     22
+    ],
+    [
+     91,
+     35
+    ]
+   ],
+   "飛攻": [
+    [
+     30,
+     10
+    ],
+    [
+     65,
+     22
+    ],
+    [
+     91,
+     35
+    ]
+   ],
+   "防": [
+    [
+     10,
+     10
+    ],
+    [
+     45,
+     22
+    ],
+    [
+     86,
+     35
+    ]
+   ],
+   "クリティカルヒットダメージ": [
+    [
+     78,
+     5
+    ],
+    [
+     86,
+     8
+    ]
+   ],
+   "HP": [
+    [
+     30,
+     30
+    ],
+    [
+     50,
+     60
+    ],
+    [
+     70,
+     120
+    ],
+    [
+     90,
+     180
+    ]
+   ]
+  },
+  "MNK": {
+   "モクシャ": [
+    [
+     5,
+     5
+    ],
+    [
+     25,
+     10
+    ],
+    [
+     40,
+     15
+    ],
+    [
+     65,
+     20
+    ],
+    [
+     91,
+     25
+    ]
+   ],
+   "カウンター": [
+    [
+     10,
+     10
+    ],
+    [
+     81,
+     12
+    ]
+   ],
+   "蹴撃": [
+    [
+     51,
+     10
+    ],
+    [
+     71,
+     12
+    ],
+    [
+     76,
+     14
+    ]
+   ],
+   "連携ボーナス": [
+    [
+     85,
+     8
+    ],
+    [
+     95,
+     12
+    ]
+   ],
+   "HP": [
+    [
+     15,
+     30
+    ],
+    [
+     25,
+     60
+    ],
+    [
+     35,
+     120
+    ],
+    [
+     45,
+     180
+    ],
+    [
+     55,
+     240
+    ],
+    [
+     65,
+     280
+    ],
+    [
+     75,
+     430
+    ],
+    [
+     85,
+     580
+    ],
+    [
+     95,
+     730
+    ]
+   ]
+  },
+  "WHM": {
+   "魔防": [
+    [
+     10,
+     10
+    ],
+    [
+     30,
+     12
+    ],
+    [
+     50,
+     14
+    ],
+    [
+     70,
+     16
+    ],
+    [
+     81,
+     18
+    ],
+    [
+     91,
+     20
+    ]
+   ],
+   "リジェネ": [
+    [
+     25,
+     1
+    ],
+    [
+     76,
+     2
+    ]
+   ]
+  },
+  "BLM": {
+   "魔攻": [
+    [
+     10,
+     20
+    ],
+    [
+     30,
+     24
+    ],
+    [
+     50,
+     28
+    ],
+    [
+     70,
+     32
+    ],
+    [
+     81,
+     36
+    ],
+    [
+     91,
+     40
+    ]
+   ],
+   "コンサーブMP": [
+    [
+     20,
+     25
+    ],
+    [
+     76,
+     28
+    ],
+    [
+     86,
+     31
+    ]
+   ]
+  },
+  "RDM": {
+   "ファストキャスト": [
+    [
+     15,
+     10
+    ],
+    [
+     35,
+     15
+    ],
+    [
+     55,
+     20
+    ],
+    [
+     76,
+     25
+    ],
+    [
+     89,
+     30
+    ]
+   ],
+   "魔攻": [
+    [
+     20,
+     20
+    ],
+    [
+     40,
+     24
+    ],
+    [
+     86,
+     28
+    ]
+   ],
+   "魔防": [
+    [
+     25,
+     10
+    ],
+    [
+     45,
+     12
+    ],
+    [
+     96,
+     14
+    ]
+   ]
+  },
+  "THF": {
+   "トリプルアタック": [
+    [
+     55,
+     5
+    ],
+    [
+     95,
+     6
+    ]
+   ],
+   "二刀流": [
+    [
+     83,
+     10
+    ],
+    [
+     90,
+     15
+    ],
+    [
+     98,
+     25
+    ]
+   ],
+   "回避": [
+    [
+     10,
+     10
+    ],
+    [
+     30,
+     22
+    ],
+    [
+     50,
+     35
+    ],
+    [
+     70,
+     48
+    ],
+    [
+     76,
+     60
+    ],
+    [
+     88,
+     72
+    ]
+   ],
+   "クリティカルヒットダメージ": [
+    [
+     78,
+     5
+    ],
+    [
+     84,
+     8
+    ],
+    [
+     91,
+     11
+    ],
+    [
+     97,
+     14
+    ]
+   ],
+   "トレジャーハンター": [
+    [
+     15,
+     1
+    ],
+    [
+     45,
+     2
+    ],
+    [
+     90,
+     3
+    ]
+   ]
+  },
+  "PLD": {
+   "防": [
+    [
+     10,
+     10
+    ],
+    [
+     30,
+     22
+    ],
+    [
+     50,
+     35
+    ],
+    [
+     70,
+     48
+    ],
+    [
+     76,
+     60
+    ],
+    [
+     91,
+     72
+    ]
+   ],
+   "リフレシュ": [
+    [
+     35,
+     1
+    ]
+   ],
+   "HP": [
+    [
+     45,
+     30
+    ],
+    [
+     85,
+     60
+    ]
+   ]
+  },
+  "DRK": {
+   "攻": [
+    [
+     10,
+     10
+    ],
+    [
+     30,
+     22
+    ],
+    [
+     50,
+     35
+    ],
+    [
+     70,
+     48
+    ],
+    [
+     76,
+     60
+    ],
+    [
+     83,
+     72
+    ],
+    [
+     91,
+     84
+    ],
+    [
+     99,
+     96
+    ]
+   ],
+   "飛攻": [
+    [
+     10,
+     10
+    ],
+    [
+     30,
+     22
+    ],
+    [
+     50,
+     35
+    ],
+    [
+     70,
+     48
+    ],
+    [
+     76,
+     60
+    ],
+    [
+     83,
+     72
+    ],
+    [
+     91,
+     84
+    ],
+    [
+     99,
+     96
+    ]
+   ],
+   "クリティカルヒットダメージ": [
+    [
+     85,
+     5
+    ],
+    [
+     95,
+     8
+    ]
+   ]
+  },
+  "BST": {},
+  "BRD": {},
+  "RNG": {
+   "命中": [
+    [
+     10,
+     10
+    ],
+    [
+     30,
+     22
+    ],
+    [
+     50,
+     35
+    ],
+    [
+     70,
+     48
+    ],
+    [
+     86,
+     60
+    ],
+    [
+     96,
+     73
+    ]
+   ],
+   "飛命": [
+    [
+     10,
+     10
+    ],
+    [
+     30,
+     22
+    ],
+    [
+     50,
+     35
+    ],
+    [
+     70,
+     48
+    ],
+    [
+     86,
+     60
+    ],
+    [
+     96,
+     73
+    ]
+   ]
+  },
+  "SAM": {
+   "ストアTP": [
+    [
+     10,
+     10
+    ],
+    [
+     30,
+     15
+    ],
+    [
+     50,
+     20
+    ],
+    [
+     70,
+     25
+    ],
+    [
+     90,
+     30
+    ]
+   ],
+   "残心": [
+    [
+     20,
+     15
+    ],
+    [
+     35,
+     25
+    ],
+    [
+     50,
+     35
+    ],
+    [
+     75,
+     45
+    ],
+    [
+     95,
+     50
+    ]
+   ],
+   "連携ボーナス": [
+    [
+     78,
+     8
+    ],
+    [
+     88,
+     12
+    ],
+    [
+     98,
+     16
+    ]
+   ]
+  },
+  "NIN": {
+   "二刀流": [
+    [
+     10,
+     10
+    ],
+    [
+     25,
+     15
+    ],
+    [
+     45,
+     25
+    ],
+    [
+     65,
+     30
+    ],
+    [
+     83,
+     35
+    ]
+   ],
+   "モクシャ": [
+    [
+     15,
+     5
+    ],
+    [
+     30,
+     10
+    ],
+    [
+     45,
+     15
+    ],
+    [
+     60,
+     20
+    ],
+    [
+     75,
+     25
+    ],
+    [
+     91,
+     27
+    ]
+   ],
+   "連携ボーナス": [
+    [
+     85,
+     8
+    ],
+    [
+     95,
+     12
+    ]
+   ],
+   "HP": [
+    [
+     20,
+     30
+    ],
+    [
+     40,
+     60
+    ],
+    [
+     60,
+     120
+    ],
+    [
+     80,
+     180
+    ],
+    [
+     99,
+     240
+    ]
+   ]
+  },
+  "DRG": {
+   "攻": [
+    [
+     10,
+     10
+    ],
+    [
+     91,
+     22
+    ]
+   ],
+   "飛攻": [
+    [
+     10,
+     10
+    ],
+    [
+     91,
+     22
+    ]
+   ],
+   "命中": [
+    [
+     30,
+     10
+    ],
+    [
+     60,
+     22
+    ],
+    [
+     76,
+     35
+    ]
+   ],
+   "飛命": [
+    [
+     30,
+     10
+    ],
+    [
+     60,
+     22
+    ],
+    [
+     76,
+     35
+    ]
+   ]
+  },
+  "SMN": {
+   "リフレシュ": [
+    [
+     25,
+     1
+    ],
+    [
+     90,
+     2
+    ]
+   ],
+   "MP": [
+    [
+     10,
+     10
+    ],
+    [
+     30,
+     20
+    ],
+    [
+     50,
+     40
+    ],
+    [
+     70,
+     60
+    ],
+    [
+     76,
+     80
+    ],
+    [
+     96,
+     100
+    ]
+   ]
+  },
+  "BLU": {},
+  "COR": {},
+  "PUP": {
+   "回避": [
+    [
+     20,
+     10
+    ],
+    [
+     40,
+     22
+    ],
+    [
+     60,
+     35
+    ],
+    [
+     76,
+     48
+    ]
+   ]
+  },
+  "DNC": {
+   "二刀流": [
+    [
+     20,
+     10
+    ],
+    [
+     40,
+     15
+    ],
+    [
+     60,
+     25
+    ],
+    [
+     80,
+     30
+    ]
+   ],
+   "命中": [
+    [
+     30,
+     10
+    ],
+    [
+     60,
+     22
+    ],
+    [
+     76,
+     35
+    ]
+   ],
+   "飛命": [
+    [
+     30,
+     10
+    ],
+    [
+     60,
+     22
+    ],
+    [
+     76,
+     35
+    ]
+   ],
+   "回避": [
+    [
+     15,
+     10
+    ],
+    [
+     45,
+     22
+    ],
+    [
+     75,
+     35
+    ],
+    [
+     86,
+     48
+    ]
+   ],
+   "モクシャ": [
+    [
+     25,
+     5
+    ],
+    [
+     45,
+     10
+    ],
+    [
+     65,
+     15
+    ],
+    [
+     86,
+     20
+    ]
+   ],
+   "連携ボーナス": [
+    [
+     45,
+     8
+    ],
+    [
+     58,
+     12
+    ],
+    [
+     71,
+     16
+    ],
+    [
+     84,
+     20
+    ],
+    [
+     97,
+     23
+    ]
+   ],
+   "クリティカルヒットダメージ": [
+    [
+     80,
+     5
+    ],
+    [
+     88,
+     8
+    ],
+    [
+     99,
+     11
+    ]
+   ]
+  },
+  "SCH": {
+   "コンサーブMP": [
+    [
+     25,
+     25
+    ],
+    [
+     96,
+     28
+    ]
+   ],
+   "MP": [
+    [
+     30,
+     10
+    ],
+    [
+     88,
+     20
+    ]
+   ]
+  },
+  "GEO": {
+   "コンサーブMP": [
+    [
+     10,
+     25
+    ],
+    [
+     25,
+     28
+    ],
+    [
+     40,
+     31
+    ],
+    [
+     55,
+     34
+    ],
+    [
+     70,
+     37
+    ],
+    [
+     85,
+     40
+    ],
+    [
+     99,
+     43
+    ]
+   ],
+   "MP": [
+    [
+     30,
+     10
+    ],
+    [
+     60,
+     20
+    ],
+    [
+     90,
+     40
+    ]
+   ]
+  },
+  "RUN": {
+   "魔防": [
+    [
+     10,
+     10
+    ],
+    [
+     30,
+     12
+    ],
+    [
+     50,
+     14
+    ],
+    [
+     70,
+     16
+    ],
+    [
+     76,
+     18
+    ],
+    [
+     91,
+     20
+    ],
+    [
+     99,
+     22
+    ]
+   ],
+   "命中": [
+    [
+     50,
+     10
+    ],
+    [
+     70,
+     22
+    ],
+    [
+     90,
+     35
+    ]
+   ],
+   "飛命": [
+    [
+     50,
+     10
+    ],
+    [
+     70,
+     22
+    ],
+    [
+     90,
+     35
+    ]
+   ],
+   "リジェネ": [
+    [
+     35,
+     1
+    ],
+    [
+     65,
+     2
+    ],
+    [
+     95,
+     3
+    ]
+   ],
+   "HP": [
+    [
+     20,
+     30
+    ],
+    [
+     40,
+     60
+    ],
+    [
+     60,
+     120
+    ],
+    [
+     80,
+     180
+    ],
+    [
+     99,
+     240
+    ]
+   ]
+  }
+ },
+ "support_level": {
+  "base": 49,
+  "per_master_levels": 5,
+  "master_level_cap": 50,
+  "max": 59,
+  "formula": "support job level = floor(main level / 2) + floor(master level / 5); 49 + floor(ML/5) at level 99",
+  "source": "https://www.bg-wiki.com/ffxi/Support_Job ; https://www.bg-wiki.com/ffxi/Master_Levels ; https://wiki.ffo.jp/html/38412.html"
+ },
+ "stacking": "Only the highest tier applies; main-job and support-job copies of the same trait do NOT add. BG Wiki: \"Most traits have tiers and become more potent as the tier level increases, but stacking a higher and lower tier trait through sub jobs always just results in the highest trait level available.\" (https://www.bg-wiki.com/ffxi/Category:Job_Traits). BG Wiki Magic Defense Bonus: \"Same tiered traits do not stack, i.e. Magic Defense Bonus I from White Mage main and Magic Defense Bonus I from Red Mage Support Job.\" (https://www.bg-wiki.com/ffxi/Magic_Defense_Bonus). JP wiki オートリフレシュ: \"ジョブ特性のオートリフレシュは重複しない。ナイト50/召喚士25であっても特性で回復するMPは1である。\" (https://wiki.ffo.jp/html/2723.html). Different traits do add (JP ダブルアタック page: BLU Triple Attack 5% + /WAR Double Attack 10%), and trait values add to gear/merit/gift bonuses.",
+ "notes": [
+  "Values are CUMULATIVE totals at each tier: [level learned, total value]. For a job at level L take the last entry with level <= L. For main+sub take max(main value, sub value) per stat, not the sum.",
+  "Job Point gift tiers (level 99 main job only, e.g. WAR Double Attack 20/22/25/28%, RDM Fast Cast 32-38%, THF Dual Wield IV at 550 JP, DNC Dual Wield V at 550 JP, MNK Counter 14-22%, MNK/DNC Subtle Blow gifts, SAM Zanshin 60% at 1805 JP) and merit bonuses are NOT included.",
+  "攻/飛攻 share Attack Bonus and 命中/飛命 share Accuracy Bonus (JP wiki index: 物理攻撃力アップ = 攻・飛攻上昇, 物理命中率アップ = 命中・飛命上昇).",
+  "HP = Max HP Boost; MNK entries at 75/85/95 are Max HP Boost II tiers (+150/+300/+450) added on top of Max HP Boost VI (280), per BG Max_HP_Boost.",
+  "トレジャーハンター values are the trait tier (TH1/2/3).",
+  "Units: ダブルアタック/トリプルアタック/二刀流/ファストキャスト/カウンター/蹴撃/残心/連携ボーナス/クリティカルヒットダメージ/コンサーブMP are percent; リフレシュ/リジェネ are per tick; others flat.",
+  "BLU is empty on purpose (traits come from set spells). BST, BRD, COR have none of the covered traits.",
+  "DISAGREEMENT RNG Accuracy Bonus VI (lv96): BG Accuracy_Bonus page says 73 (also LandSandBoat); JP wiki says +72 (increments 10/12/13/13/12/12, same pattern as Attack/Evasion/Defense Bonus). File uses 73 (BG). Main-job-only tier, irrelevant for support job.",
+  "DISAGREEMENT NIN Dual Wield V level: BG Ninja job page and JP wiki say 83; BG Dual_Wield trait page (and LandSandBoat) say 85. File uses 83. Irrelevant at 99 and for support job.",
+  "DISAGREEMENT MNK Subtle Blow II level: BG (job + trait page) 25, JP wiki 20. File uses 25.",
+  "DISAGREEMENT RDM Fast Cast V level: BG (job + trait page) 89, JP wiki 90. File uses 89.",
+  "DISAGREEMENT WAR Crit. Atk. Bonus II level: BG 86 and JP trait page 86, JP index page 84. File uses 86.",
+  "Support-job differences: no covered trait has a different numeric value when it comes from the support job; the tier is simply limited by support level (49-59). Related main-job-only behaviour: Treasure Hunter procs/upgrades and the higher TH cap are THF-main only (non-THF main is limited to TH+4 base per BG Treasure_Hunter); Zanshin's Hasso/Seigan bonus effects are SAM-main only.",
+  "Tiers learned at 50-59 (e.g. WAR Double Attack II lv50, WAR Max HP Boost II lv50, SAM Store TP III lv50, DRK Attack Bonus III lv50, THF Triple Attack lv55, GEO Conserve MP IV lv55, MNK Kick Attacks lv51 / Max HP Boost V lv55) only become available to a support job through Master Levels."
+ ]
+}

@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vanarmory — 色のモック</title>
+<style>
+/* 色の役割を決め直す:
+   accent = 押す場所と「いま選んでいるもの」だけ / ok = 届いた・増えた / bad = 届かない・減った / fixed = 固定した装備
+   文字の大きさは 11・12・13・14・16・20 の 6 つだけ */
+:root {
+  --bg: #f4f3ef; --panel: #ffffff; --sunken: #efeee9; --text: #20242b; --muted: #6d7480; --line: #dedbd2;
+  --accent: #9a5b13; --accent-bg: #fbecd3; --ok: #2e7d4f; --ok-bg: #e2f3e8; --bad: #b3382a; --bad-bg: #fbe6e2;
+  --fixed: #3b6ea8; --fixed-bg: #e3edf8;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14161b; --panel: #1d2027; --sunken: #262a33; --text: #e5e7eb; --muted: #969dab; --line: #333844;
+    --accent: #f0b35e; --accent-bg: #40311a; --ok: #7fd3a0; --ok-bg: #1d3a2a; --bad: #f09a85; --bad-bg: #44231d;
+    --fixed: #8fbcf0; --fixed-bg: #1e2f45;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 14px/1.5 "Segoe UI", "Hiragino Sans", "Yu Gothic UI", "Meiryo", sans-serif; }
+button, select, input { font: inherit; color: inherit; }
+.num, input[type=number] { font-variant-numeric: tabular-nums; }
+.mock-note { margin: 0; padding: 6px 12px; font-size: 12px; color: var(--muted); background: var(--sunken); border-bottom: 1px dashed var(--line); }
+.mock-note b { color: var(--accent); }
+.n { display: inline-block; min-width: 16px; height: 16px; line-height: 16px; text-align: center; border-radius: 8px; background: var(--accent); color: var(--panel); font-size: 11px; font-weight: 700; margin-right: 3px; vertical-align: 1px; }
+
+header { display: flex; align-items: center; gap: 14px; padding: 6px 12px; border-bottom: 1px solid var(--line); background: var(--panel); }
+h1 { margin: 0; font-size: 16px; color: var(--accent); }
+nav a { color: var(--muted); text-decoration: none; padding: 3px 12px; border-radius: 999px; font-size: 13px; }
+nav a.here { background: var(--accent-bg); color: var(--accent); font-weight: 600; }
+.meta { margin: 0 0 0 auto; color: var(--muted); font-size: 12px; }
+
+/* ---- 条件 ---- */
+.conditions { background: var(--panel); border-bottom: 1px solid var(--line); padding: 10px 12px; display: grid; gap: 8px; }
+.row { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 8px; align-items: start; }
+.row > .label { color: var(--muted); font-size: 12px; font-weight: 600; padding-top: 6px; }
+.row > .body { display: flex; flex-wrap: wrap; gap: 6px 8px; align-items: center; }
+.field { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
+select, .input { background: var(--sunken); border: 1px solid var(--line); border-radius: 6px; padding: 4px 8px; font-size: 14px; color: var(--text); }
+.input.s { width: 56px; text-align: right; }
+.sep { width: 1px; align-self: stretch; background: var(--line); margin: 0 4px; }
+.toggle { display: inline-flex; align-items: center; gap: 4px; border: 1px solid var(--line); border-radius: 999px; padding: 2px 10px; font-size: 13px; color: var(--muted); }
+.toggle.on { background: var(--ok-bg); border-color: transparent; color: var(--ok); font-weight: 600; }
+.link { border: 0; background: none; color: var(--accent); font-size: 12px; cursor: pointer; padding: 0; }
+
+/* 目標: 色を付けない枠。読み替えた結果は同じ枠の 2 行目に出す */
+.goal { display: inline-grid; gap: 1px; border: 1px solid var(--line); border-radius: 8px; padding: 3px 4px 3px 10px; background: var(--panel); }
+.goal .main { display: flex; align-items: center; gap: 6px; font-weight: 600; }
+.goal .op, .goal .unit { color: var(--muted); font-weight: 400; }
+.goal input { width: 52px; text-align: right; background: var(--sunken); border: 1px solid var(--line); border-radius: 5px; padding: 1px 6px; }
+.goal .x { border: 0; background: none; color: var(--muted); cursor: pointer; padding: 0 6px; }
+.goal .sub { font-size: 11px; color: var(--muted); padding-bottom: 1px; }
+.goal .sub b { color: var(--text); }
+.goal .sub .edit { color: var(--accent); cursor: pointer; margin-left: 4px; }
+.goal.grow { border-style: dashed; }
+.add { border: 1px dashed var(--accent); color: var(--accent); background: none; border-radius: 8px; padding: 4px 12px; cursor: pointer; font-size: 13px; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.seg button { border: 0; background: var(--sunken); padding: 4px 12px; cursor: pointer; font-size: 13px; }
+.seg button.on { background: var(--accent); color: var(--panel); font-weight: 600; }
+.seg.small button { font-size: 12px; padding: 2px 8px; }
+.check { font-size: 13px; }
+.hint { color: var(--muted); font-size: 12px; }
+.notice { font-size: 12px; color: var(--muted); }
+.actions { display: flex; align-items: center; gap: 10px; border-top: 1px solid var(--line); padding-top: 8px; }
+.actions .notice { margin-right: auto; }
+.ghost { border: 1px solid var(--line); background: none; border-radius: 6px; font-size: 12px; padding: 4px 10px; cursor: pointer; }
+.primary { background: var(--accent); color: var(--panel); border: 0; border-radius: 8px; padding: 7px 28px; font-weight: 700; font-size: 14px; cursor: pointer; }
+
+/* ---- 下 ---- */
+.work { display: grid; grid-template-columns: 276px minmax(0, 1fr); gap: 12px; padding: 12px; align-items: start; }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 10px; }
+.panel h2 { margin: 0 0 8px; font-size: 13px; color: var(--muted); display: flex; justify-content: space-between; }
+.grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 3px; }
+.cell { position: relative; background: var(--sunken); border: 1px solid transparent; border-radius: 6px; padding: 3px 5px; min-height: 52px; overflow: hidden; }
+.cell .slot { font-size: 11px; color: var(--muted); }
+.cell .name { font-size: 12px; font-weight: 600; line-height: 1.3; overflow-wrap: anywhere; }
+.cell .gain { font-size: 11px; color: var(--muted); line-height: 1.35; }
+.cell.fixed { background: var(--fixed-bg); }
+.cell.fixed .slot { color: var(--fixed); font-weight: 700; }
+.cell.fixed .slot::before { content: "● "; font-size: 8px; vertical-align: 1px; }
+.cell.empty { display: grid; place-items: center; min-height: 44px; }
+.cell.empty .slot { font-size: 12px; opacity: .7; }
+.cell.unset { background: none; border: 1px dashed var(--line); display: grid; place-items: center; }
+.cell.diff { box-shadow: inset 3px 0 0 var(--accent); }
+.legend { display: flex; gap: 10px; flex-wrap: wrap; margin: 8px 0 0; font-size: 11px; color: var(--muted); }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; vertical-align: -1px; margin-right: 3px; background: var(--sunken); }
+.legend i.f { background: var(--fixed-bg); outline: 1px solid var(--fixed); }
+.legend i.d { box-shadow: inset 3px 0 0 var(--accent); }
+
+.results-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 8px; }
+.results-head h2 { margin: 0; font-size: 16px; }
+
+/* 候補の見比べ: 6 件を 1 つの表で */
+.overview { padding: 4px 10px 6px; margin-bottom: 10px; overflow-x: auto; }
+table.ov { border-collapse: collapse; font-size: 13px; }
+.ov th:nth-last-child(2), .ov td.changed { width: 100%; padding-left: 20px; }
+.ov th, .ov td { padding: 4px 14px; text-align: right; white-space: nowrap; border-bottom: 1px solid var(--line); }
+.ov tr:last-child td { border-bottom: 0; }
+.ov th { font-size: 11px; color: var(--muted); font-weight: 600; vertical-align: bottom; }
+.ov th small { display: block; font-weight: 400; }
+.ov th:first-child, .ov td:first-child, .ov td.changed { text-align: left; }
+.ov td:first-child { font-weight: 700; }
+.ov td.best { font-weight: 700; color: var(--ok); }
+.ov td.changed { color: var(--muted); font-size: 12px; white-space: normal; }
+.ov tr.here td { background: var(--accent-bg); }
+.ov td.go { color: var(--accent); font-size: 12px; cursor: pointer; }
+
+.cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+@media (max-width: 1560px) { .cards { grid-template-columns: minmax(0, 1fr); } }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 10px; display: grid; gap: 8px; align-content: start; }
+.card-head { display: flex; align-items: baseline; gap: 8px; }
+.card-head h3 { margin: 0; font-size: 16px; }
+.card-head .used { color: var(--muted); font-size: 12px; margin-right: auto; }
+.small { border: 1px solid var(--line); background: var(--panel); border-radius: 6px; font-size: 12px; padding: 2px 10px; cursor: pointer; }
+
+/* 目標の達成: 届いていれば 1 行の札。届かないものだけ棒で不足を見せる */
+.checks { display: flex; flex-wrap: wrap; gap: 4px 6px; }
+.chk { display: inline-flex; align-items: baseline; gap: 5px; border-radius: 6px; padding: 1px 8px; font-size: 12px; background: var(--ok-bg); }
+.chk::before { content: "✓"; color: var(--ok); font-weight: 700; }
+.chk b { font-size: 13px; }
+.chk span { color: var(--muted); }
+.chk.grow { background: var(--sunken); }
+.chk.grow::before { content: "↑"; color: var(--muted); }
+.chk.short { background: var(--bad-bg); }
+.chk.short::before { content: "✕"; color: var(--bad); }
+.chk.short b { color: var(--bad); }
+.chk .bar { align-self: center; width: 70px; height: 6px; border-radius: 3px; background: var(--panel); overflow: hidden; }
+.chk .bar i { display: block; height: 100%; background: var(--bad); }
+
+.top { display: grid; grid-template-columns: 188px minmax(0, 1fr); gap: 8px; }
+.sheet { background: var(--sunken); border-radius: 10px; padding: 8px 10px; font-size: 13px; }
+.sheet .who { font-weight: 700; }
+.sheet .who span { display: block; font-weight: 400; color: var(--muted); font-size: 11px; }
+.sheet table { border-collapse: collapse; width: 100%; margin-top: 4px; }
+.sheet td { padding: 1.5px 0; }
+.sheet td.k { color: var(--muted); width: 36px; }
+.sheet td.base { text-align: right; font-weight: 700; width: 46px; }
+.sheet td.plus { padding-left: 6px; color: var(--ok); font-weight: 700; }
+.sheet td.total { color: var(--muted); font-size: 11px; text-align: right; }
+.sheet tr.gap td { padding-top: 7px; }
+
+/* 攻撃・命中と TP を 1 段に。飛攻・飛命は遠隔の武器があるときだけ */
+.combat { display: grid; grid-template-columns: 188px minmax(0, 1fr); gap: 8px; }
+.tiles { display: grid; gap: 6px; align-content: start; }
+.tile { background: var(--sunken); border-radius: 8px; padding: 5px 10px; }
+.tile .k { font-size: 11px; color: var(--muted); }
+.tile .v { display: flex; align-items: baseline; gap: 5px; font-weight: 700; }
+.tile .v .base, .tile .v .plus { font-size: 12px; }
+.tile .v .plus { color: var(--ok); }
+.tile .v .sum { font-size: 16px; margin-left: auto; }
+.tpbox { background: var(--sunken); border-radius: 8px; padding: 6px 12px; display: grid; gap: 4px; align-content: start; }
+.tpbox .head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.tpbox .head .k { font-size: 11px; color: var(--muted); }
+.tpbox .swings { font-size: 20px; font-weight: 700; line-height: 1.2; }
+.tpbox .swings small { font-size: 12px; }
+.tpbox .avg { font-size: 12px; color: var(--muted); }
+.kv { display: flex; flex-wrap: wrap; gap: 2px 16px; font-size: 12px; }
+.kv span { color: var(--muted); }
+.kv b { margin-left: 4px; color: var(--text); }
+.steps { display: flex; gap: 3px; flex-wrap: wrap; font-size: 11px; align-items: center; }
+.steps span { background: var(--panel); border-radius: 4px; padding: 0 5px; }
+.steps .hit { background: var(--ok-bg); color: var(--ok); font-weight: 700; }
+.steps em { font-style: normal; color: var(--muted); }
+
+.stats-panel { display: grid; gap: 4px; }
+.stat-group { display: grid; grid-template-columns: 78px minmax(0, 1fr); gap: 6px; align-items: start; }
+.stat-title { font-size: 11px; font-weight: 700; color: var(--muted); padding-top: 2px; }
+.stat-list { display: flex; flex-wrap: wrap; gap: 3px 4px; }
+.stat { background: var(--sunken); border-radius: 6px; padding: 0 6px; font-size: 12px; white-space: nowrap; }
+.stat.goal-stat { background: var(--ok-bg); }
+details.rest summary { font-size: 12px; color: var(--accent); cursor: pointer; }
+details.rest[open] summary { margin-bottom: 4px; }
+
+/* ---- 色の案。data-theme で切り替える ---- */
+:root { --head-bg: var(--panel); --head-text: var(--muted); --head-accent: var(--accent); --panel-bg: var(--panel); --panel-border: var(--line); --panel-shadow: none; --on-accent: var(--panel); }
+/* A: ゲーム内のウィンドウのような濃紺。枠は青みのある線、強調は金、増える値は緑 */
+html[data-theme=window] {
+  --bg: #080d20; --panel: #131b3b; --sunken: #1e2850; --text: #eef0f7; --muted: #9ba7cb; --line: #34437a;
+  --accent: #f0d48a; --accent-bg: #3b3520; --ok: #8fe39a; --ok-bg: #173b33; --bad: #ff9c8c; --bad-bg: #4a2033;
+  --fixed: #7fd4ff; --fixed-bg: #12365c;
+  --head-bg: linear-gradient(180deg, #1b2657, #0e1533); --head-text: #b9c3e6; --head-accent: #f0d48a;
+  --panel-bg: linear-gradient(180deg, #171f45, #10173a); --panel-border: #5568ad; --panel-shadow: inset 0 0 0 1px rgb(255 255 255 / .05), 0 2px 8px rgb(0 0 0 / .35); --on-accent: #1a1608;
+}
+html[data-theme=window] body { background: radial-gradient(1200px 600px at 50% -100px, #16204a, #080d20); background-attachment: fixed; }
+/* B: 明るい画面。クリスタルの青を強調に、固定は金 */
+html[data-theme=crystal] {
+  --bg: #edf0f6; --panel: #ffffff; --sunken: #e7ebf3; --text: #18213a; --muted: #636e8a; --line: #d2d8e6;
+  --accent: #2a4f9c; --accent-bg: #dde6f8; --ok: #1f7a58; --ok-bg: #dbf0e6; --bad: #b3382a; --bad-bg: #fbe6e2;
+  --fixed: #9a6c0c; --fixed-bg: #f8edcf;
+  --head-bg: linear-gradient(180deg, #1f2c63, #141c44); --head-text: #b9c3e6; --head-accent: #f0d48a;
+  --panel-border: #c9d1e3; --panel-shadow: 0 1px 2px rgb(24 33 58 / .06); --on-accent: #ffffff;
+}
+/* C: 地図や本のような生成り。強調は紺、固定は青緑 */
+html[data-theme=parchment] {
+  --bg: #e8dec6; --panel: #f8f1e0; --sunken: #ede3cb; --text: #2b2118; --muted: #7a6a55; --line: #cfc1a0;
+  --accent: #1f3f7a; --accent-bg: #d9e1f1; --ok: #2f6b3c; --ok-bg: #dbe7cc; --bad: #a3322a; --bad-bg: #f3d8ce;
+  --fixed: #1c6f78; --fixed-bg: #d2e7e4;
+  --head-bg: linear-gradient(180deg, #2a2118, #1d160f); --head-text: #cbbd9f; --head-accent: #e9cf8b;
+  --panel-border: #bfae86; --panel-shadow: 0 1px 2px rgb(60 40 10 / .08); --on-accent: #f8f1e0;
+}
+header { background: var(--head-bg) !important; }
+header h1 { color: var(--head-accent) !important; letter-spacing: .04em; }
+header nav a { color: var(--head-text) !important; }
+header nav a.here { background: rgb(255 255 255 / .12) !important; color: var(--head-accent) !important; }
+html[data-theme=now] header nav a.here { background: var(--accent-bg) !important; color: var(--accent) !important; }
+header .meta { color: var(--head-text) !important; }
+.panel, .card { background: var(--panel-bg) !important; border-color: var(--panel-border) !important; box-shadow: var(--panel-shadow); }
+.primary, .seg button.on { color: var(--on-accent) !important; }
+.mock-note button { font-size: 12px; border: 1px solid var(--line); background: var(--panel); border-radius: 6px; padding: 1px 8px; margin-left: 4px; cursor: pointer; }
+.mock-note button.on { background: var(--accent); color: var(--on-accent); border-color: transparent; font-weight: 700; }
+</style>
+</head>
+<body>
+<p class="mock-note">色のモック (見た目だけ)。案を切り替え →
+  <button data-t="window" class="on">A ウィンドウ (濃紺 + 金)</button>
+  <button data-t="crystal">B クリスタル (白 + 青 + 金)</button>
+  <button data-t="parchment">C 羊皮紙 (生成り + 紺)</button>
+  <button data-t="now">いまの色</button></p>
+<header>
+  <h1>Vanarmory</h1>
+  <nav><a class="here">セットを組む</a><a>装備を探す</a><a>設定</a></nav>
+  <p class="meta">装備 15625 件 / データ 2026-11-22</p>
+</header>
+
+<section class="conditions">
+  <div class="row">
+    <span class="label">ジョブ</span>
+    <div class="body">
+      <select><option>戦士</option></select>
+      <span class="field">サポ <select><option>侍</option></select> <input class="input s" value="53"></span>
+      <span class="sep"></span>
+      <span class="field">キャラ <select><option>キャラクター1</option></select></span>
+      <span class="field">使う装備 <select><option>メイン</option></select></span>
+      <button class="link">設定を開く</button>
+    </div>
+  </div>
+  <div class="row">
+    <span class="label">装備以外</span>
+    <div class="body">
+      <span class="toggle on">✓ ジョブ特性</span><span class="toggle on">✓ ギフト (マスター)</span><span class="toggle on">✓ メリポ</span>
+      <span class="field">食事 <select><option>なし</option></select></span>
+    </div>
+  </div>
+  <div class="row">
+    <span class="label">目標</span>
+    <div class="body">
+      <span class="goal"><span class="main">ストアTP <span class="op">≥</span><input type="number" value="40"><button class="x">×</button></span>
+        <span class="sub">うち装備以外 <b>+20</b> (サポ特性) <span class="edit">＋手で足す</span></span></span>
+      <span class="goal"><span class="main">ヘイスト <span class="op">≥</span><input type="number" value="26"><span class="unit">%</span><button class="x">×</button></span>
+        <span class="sub">上限 +26%</span></span>
+      <span class="goal"><span class="main">被ダメージ <span class="op">≤</span><input type="number" value="-40"><span class="unit">%</span><button class="x">×</button></span>
+        <span class="sub">上限 -50%</span></span>
+      <span class="goal"><span class="main">近接の振り数 <span class="op">≤</span><input type="number" value="5"><span class="unit">振り</span><button class="x">×</button></span>
+        <span class="sub">隔 482・WS後TP 250 → <b>ストアTP +12 以上</b></span></span>
+      <button class="add">＋ ステータスを追加</button>
+    </div>
+  </div>
+  <div class="row">
+    <span class="label">WS後TP</span>
+    <div class="body">
+      <span class="field"><b style="color:var(--text)">近接</b> <span class="seg small"><button class="on">数値</button><button>WS の段数</button></span> <input class="input s" value="250"></span>
+      <span class="hint">遠隔は、レンジを固定するか「遠隔の振り数」を目標にすると出ます</span>
+    </div>
+  </div>
+  <div class="row">
+    <span class="label">選び方</span>
+    <div class="body">
+      <span class="seg"><button>少ない部位で満たす</button><button class="on">満たしたうえで伸ばす</button></span>
+      <span class="goal grow"><span class="main">ダブルアタック <span class="op">×</span><input type="number" value="2" style="width:44px"><button class="x">×</button></span>
+        <span class="sub">上限 +100%</span></span>
+      <span class="goal grow"><span class="main">攻 <span class="op">×</span><input type="number" value="1" style="width:44px"><button class="x">×</button></span>
+        <span class="sub">重み</span></span>
+      <button class="add">＋ 伸ばすステータスを追加</button>
+      <label class="check"><input type="checkbox"> マイナスのある装備を使わない</label>
+    </div>
+  </div>
+  <div class="actions">
+    <span class="notice">6 件・0.82 秒 (最良と確認済み)</span>
+    <button class="ghost">条件の URL をコピー</button>
+    <button class="primary">セットを探す</button>
+  </div>
+</section>
+
+<div class="work">
+  <aside>
+    <div class="panel">
+      <h2><span>固定する装備</span> <button class="link">すべて解除</button></h2>
+      <div class="grid" id="mine"></div>
+      <p class="legend"><span><i class="f"></i>固定</span><span><i></i>空 = 自動で選ぶ</span><span>武器は固定したものだけ使う</span></p>
+    </div>
+    <div class="panel" style="margin-top:12px">
+      <h2>保存したセット <button class="link">固定中の装備を保存</button></h2>
+      <p class="hint" style="margin:0">まだありません。候補の「保存」で増えます。</p>
+    </div>
+  </aside>
+
+  <main>
+    <div class="results-head"><h2>候補 6 件</h2><span class="hint">マスを押すと、その装備の説明と「固定」「除外」が出ます</span></div>
+
+    <div class="panel overview">
+      <table class="ov num">
+        <thead><tr>
+          <th>見比べ</th>
+          <th>ストアTP<small>≥ 40</small></th><th>ヘイスト<small>≥ 26%</small></th><th>被ダメージ<small>≤ -40%</small></th>
+          <th>ダブルアタック<small>伸ばす ×2</small></th><th>攻<small>伸ばす ×1</small></th><th>近接<small>≤ 5 振り</small></th>
+          <th style="text-align:left">候補 1 と違う部位</th><th></th>
+        </tr></thead>
+        <tbody>
+          <tr class="here"><td>候補 1</td><td class="best">+43</td><td>+26%</td><td>-40%</td><td>+92%</td><td class="best">+644</td><td>4 振り</td><td class="changed">—</td><td class="go">見る ↓</td></tr>
+          <tr><td>候補 2</td><td>+42</td><td>+26%</td><td>-40%</td><td class="best">+93%</td><td>+642</td><td>4 振り</td><td class="changed">耳2・指1・指2・腰</td><td class="go">見る ↓</td></tr>
+          <tr><td>候補 3</td><td>+41</td><td>+26%</td><td class="best">-42%</td><td>+91%</td><td>+640</td><td>4 振り</td><td class="changed">首・両足</td><td class="go">見る ↓</td></tr>
+          <tr><td>候補 4</td><td>+40</td><td>+26%</td><td>-40%</td><td>+92%</td><td>+631</td><td>4 振り</td><td class="changed">耳1・腰・背</td><td class="go">見る ↓</td></tr>
+          <tr><td>候補 5</td><td>+42</td><td>+26%</td><td>-41%</td><td>+90%</td><td>+638</td><td>4 振り</td><td class="changed">頭・指2</td><td class="go">見る ↓</td></tr>
+          <tr><td>候補 6</td><td>+40</td><td>+26%</td><td>-40%</td><td>+91%</td><td>+629</td><td>4 振り</td><td class="changed">両手・両脚・腰</td><td class="go">見る ↓</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="cards" id="cards"></div>
+
+    <h2 style="font-size:13px;color:var(--muted);margin:18px 0 6px">届かない目標があるときの札 (棒は不足しているものだけ)</h2>
+    <div class="panel" style="max-width:760px">
+      <div class="checks num">
+        <span class="chk short">ストアTP <b>+92</b><span>/ 120</span><span class="bar"><i style="width:77%"></i></span><span>あと 28</span></span>
+        <span class="chk">ヘイスト <b>+26%</b><span>/ 26%</span></span>
+        <span class="chk">被ダメージ <b>-40%</b><span>/ -40%</span></span>
+        <span class="chk grow">ダブルアタック <b>+95%</b></span>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+const pick = (t) => { document.documentElement.dataset.theme = t; for (const b of document.querySelectorAll('.mock-note button')) b.classList.toggle('on', b.dataset.t === t); };
+for (const b of document.querySelectorAll('.mock-note button')) b.addEventListener('click', () => pick(b.dataset.t));
+pick(location.hash.slice(1) || 'window');
+const h = (s) => s;
+const mine = [['メイン', 'ウコンバサラ [R15]', 'f'], ['サブ', 'ウトゥグリップ', 'f'], ['レンジ', '未設定', 'u'], ['矢弾'], ['頭'], ['首'], ['耳1'], ['耳2'], ['胴'], ['両手'], ['指1'], ['指2'], ['背'], ['腰'], ['両脚'], ['両足']];
+document.getElementById('mine').innerHTML = mine.map(([slot, name, kind]) =>
+  kind === 'f' ? `<div class="cell fixed"><div class="slot">${slot}</div><div class="name">${name}</div></div>`
+  : kind === 'u' ? `<div class="cell unset"><div class="slot" style="text-align:center">${slot}<br>未設定</div></div>`
+  : `<div class="cell empty"><div class="slot">${slot}</div></div>`).join('');
+
+const gear1 = [
+  ['メイン', 'ウコンバサラ [R15]', '', 'f'], ['サブ', 'ウトゥグリップ', '攻+30', 'f'], ['レンジ', '', '', 'u'], ['矢弾', 'ノブキエリ', '攻+23'],
+  ['頭', 'ＢＩマスク+3', 'ヘイスト+7 被ダメ-11 DA+7 攻+71'], ['首', '戦士の数珠+2 [R25]', 'DA+7 攻+25'], ['耳1', 'テロスピアス', 'STP+5 DA+1 攻+10'], ['耳2', 'ボイイピアス+2', 'DA+9'],
+  ['胴', 'ＡＧロリカ+4', 'ヘイスト+4 DA+7 攻+95'], ['両手', 'サクパタガントレ [RP30]', 'STP+8 ヘイスト+4 被ダメ-8 DA+6 攻+70'], ['指1', 'ＡＤリング+1', '攻+20'], ['指2', 'レコリング', 'STP+10 ヘイスト+10'],
+  ['背', 'シコルマント [オグメ最大]', '被ダメ-5 DA+10 攻+30'], ['腰', 'スーラベルト', '攻+30'], ['両脚', 'サクパタクウィス [RP30]', 'ヘイスト+4 被ダメ-9 DA+7 攻+70'], ['両足', 'ニャメソルレット [RP30 B]', 'ヘイスト+3 被ダメ-7 DA+5 攻+65'],
+];
+const gear2 = gear1.map((g) => g.slice());
+gear2[7] = ['耳2', 'バルダーピアス+1', 'STP+3 攻+10', 'd']; gear2[10] = ['指1', '王将の指輪', '攻+20', 'd'];
+gear2[11] = ['指2', 'フィックリング', 'DA+10', 'd']; gear2[13] = ['腰', 'ソードフェーテル+1', 'STP+6 ヘイスト+4 攻+18', 'd'];
+const cells = (gear) => gear.map(([slot, name, gain, kind]) =>
+  kind === 'u' ? `<div class="cell unset"><div class="slot">${slot} 未設定</div></div>`
+  : `<div class="cell ${kind === 'f' ? 'fixed' : kind === 'd' ? 'diff' : ''}"><div class="slot">${slot}</div><div class="name">${name}</div><div class="gain">${gain}</div></div>`).join('');
+const sheet = (rows) => `<div class="sheet num"><div class="who">戦士 99 / 侍 53<span>ヒューム・マスターレベル 20</span></div><table>${rows.map(([k, b, p, t], i) =>
+  `<tr class="${i === 2 ? 'gap' : ''}"><td class="k">${k}</td><td class="base">${b}</td><td class="plus">${p}</td><td class="total">${t}</td></tr>`).join('')}</table></div>`;
+const card = (no, d) => `<div class="card">
+  <div class="card-head"><h3>候補 ${no}</h3><span class="used">13 部位を自動で選択${d.note}</span><button class="small">比較</button><button class="small">保存</button><button class="small">テキストでコピー</button></div>
+  <div class="checks num">${d.checks}</div>
+  <div class="top">${sheet(d.sheet)}<div class="grid">${cells(d.gear)}</div></div>
+  <div class="combat">
+    <div class="tiles num">
+      <div class="tile"><div class="k">攻撃 (両手斧)</div><div class="v"><span class="base">841</span><span class="plus">${d.atk[0]}</span><span class="sum">${d.atk[1]}</span></div></div>
+      <div class="tile"><div class="k">命中 (両手斧)</div><div class="v"><span class="base">557</span><span class="plus">${d.acc[0]}</span><span class="sum">${d.acc[1]}</span></div></div>
+    </div>
+    <div class="tpbox num">
+      <div class="head"><span class="k">近接の TP・ウコンバサラ・隔 482</span></div>
+      <div class="head"><span class="swings">4<small> 振り</small></span><span class="avg">平均 2.0 ラウンド (1 ラウンド ${d.round} 回)</span></div>
+      <div class="kv"><span>ストアTP<b>${d.stp}</b></span><span>1 ヒットの得TP<b>${d.hit}</b></span><span>WS後TP<b>250</b> (入力)</span><span>3 振りにするには<b>ストアTP +87</b> (あと ${d.more})</span></div>
+      <div class="steps">${d.steps.map((s, i, a) => `<span class="${i === a.length - 1 ? 'hit' : ''}">${s}</span>`).join('<em>›</em>')}</div>
+    </div>
+  </div>
+  <div class="stats-panel">
+    <div class="stat-group"><div class="stat-title">物理攻撃</div><div class="stat-list"><span class="stat goal-stat">ダブルアタック <b>${d.da}</b></span><span class="stat">クリティカルヒット <b>${d.crit}</b></span><span class="stat">クリティカルヒットダメージ <b>+18%</b></span><span class="stat">物理ダメージ上限 <b>+13%</b></span><span class="stat">ダブルアタックダメージ <b>+20</b></span><span class="stat">残心 <b>+35</b></span></div></div>
+    <div class="stat-group"><div class="stat-title">TP・攻撃間隔</div><div class="stat-list"><span class="stat goal-stat">ストアTP <b>${d.stp}</b></span><span class="stat goal-stat">ヘイスト <b>+26%</b></span><span class="stat">モクシャ <b>+15</b></span></div></div>
+    <div class="stat-group"><div class="stat-title">ウェポンスキル</div><div class="stat-list"><span class="stat">ウェポンスキルのダメージ <b>+20%</b></span><span class="stat">連携ボーナス <b>+20</b></span><span class="stat">ウェポンスキルDEX補正 <b>+10%</b></span></div></div>
+    <div class="stat-group"><div class="stat-title">防御・カット</div><div class="stat-list"><span class="stat goal-stat">被ダメージ <b>-40%</b></span><span class="stat">防 <b>+879</b></span><span class="stat">回避 <b>+440</b></span><span class="stat">魔回避 <b>+670</b></span><span class="stat">魔防 <b>+34</b></span></div></div>
+    <details class="rest"><summary>そのほか 5 分類 (魔法攻撃・回復・強化・スキル・ペット・特殊効果) を開く</summary></details>
+  </div>
+</div>`;
+const base = [['HP', '2,175', '+662', '2,837'], ['MP', '150', '+196', '346'], ['STR', '129', '+269', '398'], ['DEX', '125', '+173', '298'], ['VIT', '122', '+192', '314'], ['AGI', '123', '+129', '252'], ['INT', '113', '+130', '243'], ['MND', '113', '+136', '249'], ['CHR', '117', '+137', '254']];
+document.getElementById('cards').innerHTML =
+  card(1, { note: '', gear: gear1, sheet: base, atk: ['+1,292', '2,133'], acc: ['+730', '1,287'], round: '1.92', stp: '+43', hit: '191', more: '+44', steps: [250, 441, 632, 823, 1014], da: '+92%', crit: '+26%',
+    checks: '<span class="chk">ストアTP <b>+43</b><span>/ 40</span></span><span class="chk">ヘイスト <b>+26%</b><span>/ 26%・上限 (装備の合計は +32%)</span></span><span class="chk">被ダメージ <b>-40%</b><span>/ -40%</span></span><span class="chk">近接 <b>4 振り</b><span>/ 5 振り</span></span><span class="chk grow">ダブルアタック <b>+92%</b></span><span class="chk grow">攻 <b>+644</b></span>' }) +
+  card(2, { note: '・<b style="color:var(--accent)">候補 1 と 4 部位が違う</b> ', gear: gear2, sheet: base.map((r, i) => i === 2 ? ['STR', '129', '+279', '408'] : i === 0 ? ['HP', '2,175', '+657', '2,832'] : r), atk: ['+1,302', '2,143'], acc: ['+722', '1,279'], round: '1.95', stp: '+42', hit: '190', more: '+45', steps: [250, 440, 630, 820, 1010], da: '+93%', crit: '+16%',
+    checks: '<span class="chk">ストアTP <b>+42</b><span>/ 40</span></span><span class="chk">ヘイスト <b>+26%</b><span>/ 26%</span></span><span class="chk">被ダメージ <b>-40%</b><span>/ -40%</span></span><span class="chk">近接 <b>4 振り</b><span>/ 5 振り</span></span><span class="chk grow">ダブルアタック <b>+93%</b></span><span class="chk grow">攻 <b>+642</b></span>' });
+</script>
+</body>
+</html>

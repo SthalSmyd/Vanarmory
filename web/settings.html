@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Vanarmory — 設定</title>
+<link rel="stylesheet" href="theme.css">
+<link rel="stylesheet" href="settings.css">
+</head>
+<body>
+<header>
+  <h1>Vanarmory</h1>
+  <nav><a href="index.html">セットを組む</a><a href="search.html">装備を探す</a><a href="settings.html" class="here">設定</a></nav>
+  <p class="meta" id="meta"></p>
+</header>
+
+<!-- 1 段目: キャラクター。育成と装備の範囲の設定は、キャラクターごとに持つ -->
+<section class="profiles">
+  <span class="label">キャラクター</span>
+  <span id="chars"></span>
+  <button type="button" class="profile new" id="char-new">＋ 新しいキャラクター</button>
+  <span class="saved" id="saved"></span>
+  <span class="acts">
+    <button type="button" class="ghost" id="char-rename">名前を変える</button>
+    <button type="button" class="ghost" id="char-copy">複製する</button>
+    <button type="button" class="ghost danger" id="char-delete">削除する</button>
+  </span>
+</section>
+
+<div class="tabs">
+  <button type="button" class="tab" data-tab="gear">装備の範囲</button>
+  <button type="button" class="tab" data-tab="jobs">ジョブの育成 (ギフト・マスターレベル)</button>
+  <button type="button" class="tab" data-tab="manual">オーグメントの手入力</button>
+</div>
+
+<div class="page" id="tab-jobs" hidden>
+  <p class="hint" style="margin:0">「セットを組む」でジョブを選ぶと、ここに入れたそのジョブの値が使われます。育成はキャラクターごとで、装備の範囲の設定を切り替えても変わりません。サポートジョブのレベルは、メインジョブのマスターレベルから決まります (49 + マスターレベル ÷ 5、最大 59)。</p>
+  <div class="panel">
+    <h2>種族</h2>
+    <select id="race" class="input" style="margin-top:6px"></select>
+    <span class="hint" style="margin-left:8px">素のステータス (HP・MP・STR〜CHR) の計算に使います</span>
+  </div>
+  <div class="panel">
+    <h2>共通のメリポ <span class="hint">全ジョブに効きます。項目ごとに、振った段階を入れます。初期値は最大で、合計に上限のある「その他」だけ 0 から入れます</span></h2>
+    <div id="shared" class="shared-groups"></div>
+  </div>
+  <div class="panel">
+    <h2>ジョブごとの育成 <span class="hint">ギフトとマスターレベルは、ジョブごとに入れる</span>
+</h2>
+    <table class="jobs">
+      <thead><tr><th>ジョブ</th><th title="使ったジョブポイントの合計 (0〜2100)。そこまでに覚えるギフトを数えます。ジョブマスター済みなら「マスター」にチェック">ジョブポイント</th><th>マスターレベル</th><th title="このジョブをメインにしたときの、サポートジョブのレベル">サポ Lv</th><th title="ジョブ別のメリットポイントを最大まで振っているか">メリポ</th><th>ギフトとメリポで得る値</th></tr></thead>
+      <tbody id="jobs"></tbody>
+    </table>
+  </div>
+</div>
+
+<div class="page" id="tab-manual" hidden>
+  <p class="hint" style="margin:0">ランダムで付くオーグメント (ソーティの耳装備など) は人によって値が違うので、ここに入力します。ゲーム内の表記で「STR+8 DEX+8 命中+12」のように、空白で区切って書きます。入力はキャラクターごとに保存され、その装備の性能に上乗せされます。「セットを組む」で候補のマスを押したところからも入力できます。</p>
+  <div class="panel">
+    <h2>入力したオーグメント <span class="hint" id="manual-count"></span></h2>
+    <div id="manual-list" class="manual-list"></div>
+    <div class="finder">
+      <input class="input" id="manual-find" type="search" autocomplete="off" placeholder="装備の名前で探して追加 (例: ボイイピアス)">
+      <ul id="manual-found"></ul>
+    </div>
+  </div>
+</div>
+
+<div id="tab-gear">
+<!-- 2 段目: このキャラクターの、装備の範囲の設定 -->
+<section class="profiles in-tab">
+  <span class="label">装備の範囲の設定</span>
+  <span id="profiles"></span>
+  <button type="button" class="profile new" id="profile-new">＋ 新しい設定</button>
+  <span class="acts">
+    <span id="copy-box" class="copy-box" hidden>この設定を <select id="copy-target"></select> <button type="button" class="ghost" id="copy-go">へコピー</button></span>
+    <button type="button" class="ghost" id="profile-rename">名前を変える</button>
+    <button type="button" class="ghost" id="profile-copy">複製する</button>
+    <button type="button" class="ghost danger" id="profile-delete">削除する</button>
+  </span>
+</section>
+
+<div class="page">
+  <p class="hint" style="margin:0">選んだ設定は「セットを組む」の画面でも使われます。変更はすぐ保存されます。メイン・頭・胴・両手・両脚・両足は IL119 の装備だけを扱い、武器は固定したものだけを使うので、ここでは防具とアクセサリの範囲を決めます。</p>
+  <div class="cols">
+    <div class="stack">
+      <div class="panel">
+        <h2>ジョブ専用装束</h2>
+        <p class="hint">どの段階まで持っているか</p>
+        <div id="job-sets"></div>
+      </div>
+      <div class="panel">
+        <h2><span id="odyssey-title">オデシー装備</span> <span class="hint">RP のランク</span></h2>
+        <div id="odyssey"></div>
+      </div>
+      <div class="panel">
+        <h2>個別に除外した装備 <span class="hint" id="excluded-count"></span></h2>
+        <p class="hint">候補の「除外」で外した装備。この設定に保存されます</p>
+        <div class="chips" id="excluded"></div>
+        <div class="finder">
+          <input class="input" id="exclude-find" type="search" autocomplete="off" placeholder="名前で探して除外に追加">
+          <ul id="exclude-list"></ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>コンテンツごとの装備 <span class="hint">行っていないコンテンツは切る</span>
+        <span class="right"><button type="button" class="ghost" id="all-on">すべて使う</button><button type="button" class="ghost" id="all-off">すべて切る</button></span></h2>
+      <div class="col-head"><span>使う</span><span></span><span>どこまで</span><span>強化</span><span></span></div>
+      <div id="contents"></div>
+      <p class="hint" style="margin:12px 0 0">ここに無い装備 (店売り・競売・クエスト報酬など) は、常に使います。</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<script src="data.js"></script>
+<script src="search.js"></script>
+<script src="parse.js"></script>
+<script src="profiles.js"></script>
+<script src="augment.js"></script>
+<script src="settings.js"></script>
+</body>
+</html>

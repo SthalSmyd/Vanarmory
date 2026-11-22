@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Vanarmory — 装備を探す</title>
+<link rel="stylesheet" href="theme.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>Vanarmory</h1>
+  <nav><a href="index.html">セットを組む</a><a href="search.html" class="here">装備を探す</a><a href="settings.html">設定</a></nav>
+  <p class="meta" id="meta"></p>
+</header>
+
+<div class="layout">
+  <aside>
+    <section>
+      <h2>ステータス・特殊効果</h2>
+      <div class="picker">
+        <input id="stat-input" type="search" autocomplete="off" placeholder="例: ストアTP、WSダメージ、STP、DA、カット">
+        <ul id="stat-suggest" class="suggest" hidden></ul>
+      </div>
+      <ul id="selected" class="selected"></ul>
+      <div class="row" id="mode-row">
+        <label><input type="radio" name="mode" value="and" checked> すべて持つ</label>
+        <label><input type="radio" name="mode" value="or"> どれかを持つ</label>
+      </div>
+      <details id="presets" open>
+        <summary>よく使うもの</summary>
+        <div id="preset-groups"></div>
+      </details>
+    </section>
+
+    <section>
+      <h2>部位 <button type="button" class="link" id="slots-clear">解除</button></h2>
+      <div id="slots" class="chips"></div>
+    </section>
+
+    <section>
+      <h2>絞り込み</h2>
+      <label class="field">ジョブ
+        <select id="job"><option value="0">指定なし</option></select>
+      </label>
+      <label class="field">武器種
+        <select id="skill"><option value="-1">指定なし</option></select>
+      </label>
+      <label class="field">レベル
+        <select id="level">
+          <option value="il119">IL119 のみ</option>
+          <option value="99" selected>Lv99 以上</option>
+          <option value="all">すべて</option>
+        </select>
+      </label>
+      <label class="field">名前・説明文
+        <input id="text" type="search" autocomplete="off" placeholder="例: ニャメ、範囲化">
+      </label>
+    </section>
+
+    <section>
+      <button type="button" id="reset">条件をすべて消す</button>
+    </section>
+  </aside>
+
+  <main>
+    <div class="toolbar">
+      <span id="count"></span>
+      <span class="spacer"></span>
+      <label><input type="radio" name="view" value="list" checked> 一覧</label>
+      <label><input type="radio" name="view" value="slots"> 部位ごとの上位</label>
+      <select id="top" title="部位ごとに表示する件数">
+        <option value="3">3 件</option>
+        <option value="5" selected>5 件</option>
+        <option value="10">10 件</option>
+      </select>
+    </div>
+    <div id="results"></div>
+    <button type="button" id="more" hidden>さらに表示</button>
+  </main>
+</div>
+
+<script src="data.js"></script>
+<script src="search.js"></script>
+<script src="search-page.js"></script>
+</body>
+</html>

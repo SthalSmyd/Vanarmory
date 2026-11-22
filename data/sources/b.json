@@ -1,0 +1,9768 @@
+{
+ "contents": [
+  {
+   "id": "sortie",
+   "label_ja": "ソーティ",
+   "source": [
+    "https://www.bg-wiki.com/ffxi/Sortie",
+    "https://www.bg-wiki.com/ffxi/Category:Sortie_Rewards",
+    "https://www.bg-wiki.com/ffxi/Prime_Weapons"
+   ],
+   "items": [
+    {
+     "en": "Boii Earring",
+     "ja": "ボイイピアス",
+     "tier": 0,
+     "from": "Old Case (JSE earring)",
+     "id": 25420
+    },
+    {
+     "en": "Bhikku Earring",
+     "ja": "ビックピアス",
+     "tier": 0,
+     "from": "Old Case (JSE earring)",
+     "id": 25426
+    },
+    {
+     "en": "Ebers Earring",
+     "ja": "エーベルピアス",
+     "tier": 0,
+     "from": "Old Case (JSE earring)",
+     "id": 25432
+    },
+    {
+     "en": "Wicce Earring",
+     "ja": "ウィッケピアス",
+     "tier": 0,
+     "from": "Old Case (JSE earring)",
+     "id": 25438
+    },
+    {
+     "en": "Lethargy Earring",
+     "ja": "レサジーピアス",
+     "tier": 0,
+     "from": "Old Case (JSE earring)",
+     "id": 25444
+    },
+    {
+     "en": "Skulker's Earring",
+     "ja": "スカルカピアス",
+     "tier": 0,
+     "from": "Old Case (JSE earring)",
+     "id": 25450
+    },
+    {
+     "en": "Chev. Earring",
+     "ja": "シバリエピアス",
+     "tier": 0,
+     "from": "Old Case (JSE earring)",
+     "id": 25456
+    },
+    {
+     "en": "Heathen's Earring",
+     "ja": "ヒーズンピアス",
+     "tier": 0,
+     "from": "Old Case (JSE earring)",
+     "id": 25462
+    },
+    {
+     "en": "Nukumi Earring",
+     "ja": "ヌグーミピアス",
+     "tier": 0,
+     "from": "Old Case (JSE earring)",
+     "id": 25468
+    },
+    {
+     "en": "Fili Earring",
+     "ja": "フィリピアス",
+     "tier": 0,
+     "from": "Old Case (JSE earring)",
+     "id": 25474
+    },
+    {
+     "en": "Amini Earring",
+     "ja": "アミニピアス",
+     "tier": 0,
+     "from": "Old Case (JSE earring)",
+     "id": 25480
+    },
+    {
+     "en": "Kasuga Earring",
+     "ja": "春日耳飾り",
+     "tier": 0,
+     "from": "Old Case (JSE earring)",
+     "id": 25486
+    },
+    {
+     "en": "Hattori Earring",
+     "ja": "服部耳飾り",
+     "tier": 0,
+     "from": "Old Case (JSE earring)",
+     "id": 25492
+    },
+    {
+     "en": "Peltast's Earring",
+     "ja": "ペルタスピアス",
+     "tier": 0,
+     "from": "Old Case (JSE earring)",
+     "id": 25498
+    },
+    {
+     "en": "Beck. Earring",
+     "ja": "ベコナーピアス",
+     "tier": 0,
+     "from": "Old Case (JSE earring)",
+     "id": 25504
+    },
+    {
+     "en": "Hashishin Earring",
+     "ja": "ハシシンピアス",
+     "tier": 0,
+     "from": "Old Case (JSE earring)",
+     "id": 25510
+    },
+    {
+     "en": "Chas. Earring",
+     "ja": "シャスーピアス",
+     "tier": 0,
+     "from": "Old Case (JSE earring)",
+     "id": 25516
+    },
+    {
+     "en": "Karagoz Earring",
+     "ja": "カラゴズピアス",
+     "tier": 0,
+     "from": "Old Case (JSE earring)",
+     "id": 25522
+    },
+    {
+     "en": "Maculele Earring",
+     "ja": "マクレレピアス",
+     "tier": 0,
+     "from": "Old Case (JSE earring)",
+     "id": 25528
+    },
+    {
+     "en": "Arbatel Earring",
+     "ja": "アバテルピアス",
+     "tier": 0,
+     "from": "Old Case (JSE earring)",
+     "id": 25534
+    },
+    {
+     "en": "Azimuth Earring",
+     "ja": "アジムスピアス",
+     "tier": 0,
+     "from": "Old Case (JSE earring)",
+     "id": 25540
+    },
+    {
+     "en": "Erilaz Earring",
+     "ja": "エリラズピアス",
+     "tier": 0,
+     "from": "Old Case (JSE earring)",
+     "id": 25546
+    },
+    {
+     "en": "Boii Earring +1",
+     "ja": "ボイイピアス+1",
+     "tier": 1,
+     "from": "Old Case (JSE earring)",
+     "id": 25421
+    },
+    {
+     "en": "Bhikku Earring +1",
+     "ja": "ビックピアス+1",
+     "tier": 1,
+     "from": "Old Case (JSE earring)",
+     "id": 25427
+    },
+    {
+     "en": "Ebers Earring +1",
+     "ja": "エーベルピアス+1",
+     "tier": 1,
+     "from": "Old Case (JSE earring)",
+     "id": 25433
+    },
+    {
+     "en": "Wicce Earring +1",
+     "ja": "ウィッケピアス+1",
+     "tier": 1,
+     "from": "Old Case (JSE earring)",
+     "id": 25439
+    },
+    {
+     "en": "Leth. Earring +1",
+     "ja": "レサジーピアス+1",
+     "tier": 1,
+     "from": "Old Case (JSE earring)",
+     "id": 25445
+    },
+    {
+     "en": "Skulk. Earring +1",
+     "ja": "スカルカピアス+1",
+     "tier": 1,
+     "from": "Old Case (JSE earring)",
+     "id": 25451
+    },
+    {
+     "en": "Chev. Earring +1",
+     "ja": "シバリエピアス+1",
+     "tier": 1,
+     "from": "Old Case (JSE earring)",
+     "id": 25457
+    },
+    {
+     "en": "Heath. Earring +1",
+     "ja": "ヒーズンピアス+1",
+     "tier": 1,
+     "from": "Old Case (JSE earring)",
+     "id": 25463
+    },
+    {
+     "en": "Nukumi Earring +1",
+     "ja": "ヌグーミピアス+1",
+     "tier": 1,
+     "from": "Old Case (JSE earring)",
+     "id": 25469
+    },
+    {
+     "en": "Fili Earring +1",
+     "ja": "フィリピアス+1",
+     "tier": 1,
+     "from": "Old Case (JSE earring)",
+     "id": 25475
+    },
+    {
+     "en": "Amini Earring +1",
+     "ja": "アミニピアス+1",
+     "tier": 1,
+     "from": "Old Case (JSE earring)",
+     "id": 25481
+    },
+    {
+     "en": "Kasuga Earring +1",
+     "ja": "春日耳飾り改",
+     "tier": 1,
+     "from": "Old Case (JSE earring)",
+     "id": 25487
+    },
+    {
+     "en": "Hattori Earring +1",
+     "ja": "服部耳飾り改",
+     "tier": 1,
+     "from": "Old Case (JSE earring)",
+     "id": 25493
+    },
+    {
+     "en": "Pel. Earring +1",
+     "ja": "ペルタスピアス+1",
+     "tier": 1,
+     "from": "Old Case (JSE earring)",
+     "id": 25499
+    },
+    {
+     "en": "Beck. Earring +1",
+     "ja": "ベコナーピアス+1",
+     "tier": 1,
+     "from": "Old Case (JSE earring)",
+     "id": 25505
+    },
+    {
+     "en": "Hashi. Earring +1",
+     "ja": "ハシシンピアス+1",
+     "tier": 1,
+     "from": "Old Case (JSE earring)",
+     "id": 25511
+    },
+    {
+     "en": "Chas. Earring +1",
+     "ja": "シャスーピアス+1",
+     "tier": 1,
+     "from": "Old Case (JSE earring)",
+     "id": 25517
+    },
+    {
+     "en": "Kara. Earring +1",
+     "ja": "カラゴズピアス+1",
+     "tier": 1,
+     "from": "Old Case (JSE earring)",
+     "id": 25523
+    },
+    {
+     "en": "Macu. Earring +1",
+     "ja": "マクレレピアス+1",
+     "tier": 1,
+     "from": "Old Case (JSE earring)",
+     "id": 25529
+    },
+    {
+     "en": "Arbatel Earring +1",
+     "ja": "アバテルピアス+1",
+     "tier": 1,
+     "from": "Old Case (JSE earring)",
+     "id": 25535
+    },
+    {
+     "en": "Azimuth Earring +1",
+     "ja": "アジムスピアス+1",
+     "tier": 1,
+     "from": "Old Case (JSE earring)",
+     "id": 25541
+    },
+    {
+     "en": "Erilaz Earring +1",
+     "ja": "エリラズピアス+1",
+     "tier": 1,
+     "from": "Old Case (JSE earring)",
+     "id": 25547
+    },
+    {
+     "en": "Boii Earring +2",
+     "ja": "ボイイピアス+2",
+     "tier": 2,
+     "from": "Old Case (JSE earring)",
+     "id": 25422
+    },
+    {
+     "en": "Bhikku Earring +2",
+     "ja": "ビックピアス+2",
+     "tier": 2,
+     "from": "Old Case (JSE earring)",
+     "id": 25428
+    },
+    {
+     "en": "Ebers Earring +2",
+     "ja": "エーベルピアス+2",
+     "tier": 2,
+     "from": "Old Case (JSE earring)",
+     "id": 25434
+    },
+    {
+     "en": "Wicce Earring +2",
+     "ja": "ウィッケピアス+2",
+     "tier": 2,
+     "from": "Old Case (JSE earring)",
+     "id": 25440
+    },
+    {
+     "en": "Leth. Earring +2",
+     "ja": "レサジーピアス+2",
+     "tier": 2,
+     "from": "Old Case (JSE earring)",
+     "id": 25446
+    },
+    {
+     "en": "Skulk. Earring +2",
+     "ja": "スカルカピアス+2",
+     "tier": 2,
+     "from": "Old Case (JSE earring)",
+     "id": 25452
+    },
+    {
+     "en": "Chev. Earring +2",
+     "ja": "シバリエピアス+2",
+     "tier": 2,
+     "from": "Old Case (JSE earring)",
+     "id": 25458
+    },
+    {
+     "en": "Heath. Earring +2",
+     "ja": "ヒーズンピアス+2",
+     "tier": 2,
+     "from": "Old Case (JSE earring)",
+     "id": 25464
+    },
+    {
+     "en": "Nukumi Earring +2",
+     "ja": "ヌグーミピアス+2",
+     "tier": 2,
+     "from": "Old Case (JSE earring)",
+     "id": 25470
+    },
+    {
+     "en": "Fili Earring +2",
+     "ja": "フィリピアス+2",
+     "tier": 2,
+     "from": "Old Case (JSE earring)",
+     "id": 25476
+    },
+    {
+     "en": "Amini Earring +2",
+     "ja": "アミニピアス+2",
+     "tier": 2,
+     "from": "Old Case (JSE earring)",
+     "id": 25482
+    },
+    {
+     "en": "Kasuga Earring +2",
+     "ja": "真春日耳飾り",
+     "tier": 2,
+     "from": "Old Case (JSE earring)",
+     "id": 25488
+    },
+    {
+     "en": "Hattori Earring +2",
+     "ja": "真服部耳飾り",
+     "tier": 2,
+     "from": "Old Case (JSE earring)",
+     "id": 25494
+    },
+    {
+     "en": "Pel. Earring +2",
+     "ja": "ペルタスピアス+2",
+     "tier": 2,
+     "from": "Old Case (JSE earring)",
+     "id": 25500
+    },
+    {
+     "en": "Beck. Earring +2",
+     "ja": "ベコナーピアス+2",
+     "tier": 2,
+     "from": "Old Case (JSE earring)",
+     "id": 25506
+    },
+    {
+     "en": "Hashi. Earring +2",
+     "ja": "ハシシンピアス+2",
+     "tier": 2,
+     "from": "Old Case (JSE earring)",
+     "id": 25512
+    },
+    {
+     "en": "Chas. Earring +2",
+     "ja": "シャスーピアス+2",
+     "tier": 2,
+     "from": "Old Case (JSE earring)",
+     "id": 25518
+    },
+    {
+     "en": "Kara. Earring +2",
+     "ja": "カラゴズピアス+2",
+     "tier": 2,
+     "from": "Old Case (JSE earring)",
+     "id": 25524
+    },
+    {
+     "en": "Macu. Earring +2",
+     "ja": "マクレレピアス+2",
+     "tier": 2,
+     "from": "Old Case (JSE earring)",
+     "id": 25530
+    },
+    {
+     "en": "Arbatel Earring +2",
+     "ja": "アバテルピアス+2",
+     "tier": 2,
+     "from": "Old Case (JSE earring)",
+     "id": 25536
+    },
+    {
+     "en": "Azimuth Earring +2",
+     "ja": "アジムスピアス+2",
+     "tier": 2,
+     "from": "Old Case (JSE earring)",
+     "id": 25542
+    },
+    {
+     "en": "Erilaz Earring +2",
+     "ja": "エリラズピアス+2",
+     "tier": 2,
+     "from": "Old Case (JSE earring)",
+     "id": 25548
+    },
+    {
+     "en": "Varga Purnikawa",
+     "ja": "ヴァルガプルニカワ",
+     "tier": 4,
+     "from": "Prime Weapon stage 5",
+     "id": 21535
+    },
+    {
+     "en": "Prime Fists",
+     "ja": "プライムフィスト",
+     "tier": 0,
+     "from": "Prime Weapon stage 1",
+     "id": 21531
+    },
+    {
+     "en": "Varga Purnikawa",
+     "ja": "ヴァルガプルニカワ",
+     "tier": 1,
+     "from": "Prime Weapon stage 2",
+     "id": 21532
+    },
+    {
+     "en": "Varga Purnikawa",
+     "ja": "ヴァルガプルニカワ",
+     "tier": 2,
+     "from": "Prime Weapon stage 3",
+     "id": 21533
+    },
+    {
+     "en": "Varga Purnikawa",
+     "ja": "ヴァルガプルニカワ",
+     "tier": 3,
+     "from": "Prime Weapon stage 4",
+     "id": 21534
+    },
+    {
+     "en": "Mpu Gandring",
+     "ja": "ンプガンドリング",
+     "tier": 4,
+     "from": "Prime Weapon stage 5",
+     "id": 21590
+    },
+    {
+     "en": "Prime Dagger",
+     "ja": "プライムダガー",
+     "tier": 0,
+     "from": "Prime Weapon stage 1",
+     "id": 21586
+    },
+    {
+     "en": "Mpu Gandring",
+     "ja": "ンプガンドリング",
+     "tier": 1,
+     "from": "Prime Weapon stage 2",
+     "id": 21587
+    },
+    {
+     "en": "Mpu Gandring",
+     "ja": "ンプガンドリング",
+     "tier": 2,
+     "from": "Prime Weapon stage 3",
+     "id": 21588
+    },
+    {
+     "en": "Mpu Gandring",
+     "ja": "ンプガンドリング",
+     "tier": 3,
+     "from": "Prime Weapon stage 4",
+     "id": 21589
+    },
+    {
+     "en": "Caliburnus",
+     "ja": "カリブルヌス",
+     "tier": 4,
+     "from": "Prime Weapon stage 5",
+     "id": 21646
+    },
+    {
+     "en": "Prime Sword",
+     "ja": "プライムソード",
+     "tier": 0,
+     "from": "Prime Weapon stage 1",
+     "id": 21642
+    },
+    {
+     "en": "Caliburnus",
+     "ja": "カリブルヌス",
+     "tier": 1,
+     "from": "Prime Weapon stage 2",
+     "id": 21643
+    },
+    {
+     "en": "Caliburnus",
+     "ja": "カリブルヌス",
+     "tier": 2,
+     "from": "Prime Weapon stage 3",
+     "id": 21644
+    },
+    {
+     "en": "Caliburnus",
+     "ja": "カリブルヌス",
+     "tier": 3,
+     "from": "Prime Weapon stage 4",
+     "id": 21645
+    },
+    {
+     "en": "Helheim",
+     "ja": "ヘルヘイム",
+     "tier": 4,
+     "from": "Prime Weapon stage 5",
+     "id": 21653
+    },
+    {
+     "en": "Prime Blade",
+     "ja": "プライムブレード",
+     "tier": 0,
+     "from": "Prime Weapon stage 1",
+     "id": 21650
+    },
+    {
+     "en": "Helheim",
+     "ja": "ヘルヘイム",
+     "tier": 1,
+     "from": "Prime Weapon stage 2",
+     "id": 21649
+    },
+    {
+     "en": "Helheim",
+     "ja": "ヘルヘイム",
+     "tier": 2,
+     "from": "Prime Weapon stage 3",
+     "id": 21651
+    },
+    {
+     "en": "Helheim",
+     "ja": "ヘルヘイム",
+     "tier": 3,
+     "from": "Prime Weapon stage 4",
+     "id": 21652
+    },
+    {
+     "en": "Spalirisos",
+     "ja": "スパリリソス",
+     "tier": 4,
+     "from": "Prime Weapon stage 5",
+     "id": 21730
+    },
+    {
+     "en": "Prime Pickaxe",
+     "ja": "プライムピック",
+     "tier": 0,
+     "from": "Prime Weapon stage 1",
+     "id": 21726
+    },
+    {
+     "en": "Spalirisos",
+     "ja": "スパリリソス",
+     "tier": 1,
+     "from": "Prime Weapon stage 2",
+     "id": 21727
+    },
+    {
+     "en": "Spalirisos",
+     "ja": "スパリリソス",
+     "tier": 2,
+     "from": "Prime Weapon stage 3",
+     "id": 21728
+    },
+    {
+     "en": "Spalirisos",
+     "ja": "スパリリソス",
+     "tier": 3,
+     "from": "Prime Weapon stage 4",
+     "id": 21729
+    },
+    {
+     "en": "Laphria",
+     "ja": "ラフリア",
+     "tier": 4,
+     "from": "Prime Weapon stage 5",
+     "id": 21785
+    },
+    {
+     "en": "Prime Great Axe",
+     "ja": "プライムアクス",
+     "tier": 0,
+     "from": "Prime Weapon stage 1",
+     "id": 21781
+    },
+    {
+     "en": "Laphria",
+     "ja": "ラフリア",
+     "tier": 1,
+     "from": "Prime Weapon stage 2",
+     "id": 21782
+    },
+    {
+     "en": "Laphria",
+     "ja": "ラフリア",
+     "tier": 2,
+     "from": "Prime Weapon stage 3",
+     "id": 21783
+    },
+    {
+     "en": "Laphria",
+     "ja": "ラフリア",
+     "tier": 3,
+     "from": "Prime Weapon stage 4",
+     "id": 21784
+    },
+    {
+     "en": "Foenaria",
+     "ja": "フォエナリア",
+     "tier": 4,
+     "from": "Prime Weapon stage 5",
+     "id": 21837
+    },
+    {
+     "en": "Prime Scythe",
+     "ja": "プライムサイズ",
+     "tier": 0,
+     "from": "Prime Weapon stage 1",
+     "id": 21833
+    },
+    {
+     "en": "Foenaria",
+     "ja": "フォエナリア",
+     "tier": 1,
+     "from": "Prime Weapon stage 2",
+     "id": 21834
+    },
+    {
+     "en": "Foenaria",
+     "ja": "フォエナリア",
+     "tier": 2,
+     "from": "Prime Weapon stage 3",
+     "id": 21835
+    },
+    {
+     "en": "Foenaria",
+     "ja": "フォエナリア",
+     "tier": 3,
+     "from": "Prime Weapon stage 4",
+     "id": 21836
+    },
+    {
+     "en": "Gae Buide",
+     "ja": "ゲイブィード",
+     "tier": 4,
+     "from": "Prime Weapon stage 5",
+     "id": 21891
+    },
+    {
+     "en": "Prime Lance",
+     "ja": "プライムランス",
+     "tier": 0,
+     "from": "Prime Weapon stage 1",
+     "id": 21887
+    },
+    {
+     "en": "Gae Buide",
+     "ja": "ゲイブィード",
+     "tier": 1,
+     "from": "Prime Weapon stage 2",
+     "id": 21888
+    },
+    {
+     "en": "Gae Buide",
+     "ja": "ゲイブィード",
+     "tier": 2,
+     "from": "Prime Weapon stage 3",
+     "id": 21889
+    },
+    {
+     "en": "Gae Buide",
+     "ja": "ゲイブィード",
+     "tier": 3,
+     "from": "Prime Weapon stage 4",
+     "id": 21890
+    },
+    {
+     "en": "Dokoku",
+     "ja": "慟哭",
+     "tier": 4,
+     "from": "Prime Weapon stage 5",
+     "id": 21932
+    },
+    {
+     "en": "Genshitanto",
+     "ja": "原始短刀",
+     "tier": 0,
+     "from": "Prime Weapon stage 1",
+     "id": 21928
+    },
+    {
+     "en": "Dokoku",
+     "ja": "慟哭",
+     "tier": 1,
+     "from": "Prime Weapon stage 2",
+     "id": 21929
+    },
+    {
+     "en": "Dokoku",
+     "ja": "慟哭",
+     "tier": 2,
+     "from": "Prime Weapon stage 3",
+     "id": 21930
+    },
+    {
+     "en": "Dokoku",
+     "ja": "慟哭",
+     "tier": 3,
+     "from": "Prime Weapon stage 4",
+     "id": 21931
+    },
+    {
+     "en": "Kusanagi",
+     "ja": "草薙剣",
+     "tier": 4,
+     "from": "Prime Weapon stage 5",
+     "id": 21986
+    },
+    {
+     "en": "Genshito",
+     "ja": "原始刀",
+     "tier": 0,
+     "from": "Prime Weapon stage 1",
+     "id": 21982
+    },
+    {
+     "en": "Kusanagi",
+     "ja": "草薙剣",
+     "tier": 1,
+     "from": "Prime Weapon stage 2",
+     "id": 21983
+    },
+    {
+     "en": "Kusanagi",
+     "ja": "草薙剣",
+     "tier": 2,
+     "from": "Prime Weapon stage 3",
+     "id": 21984
+    },
+    {
+     "en": "Kusanagi",
+     "ja": "草薙剣",
+     "tier": 3,
+     "from": "Prime Weapon stage 4",
+     "id": 21985
+    },
+    {
+     "en": "Lorg Mor",
+     "ja": "ローグモル",
+     "tier": 4,
+     "from": "Prime Weapon stage 5",
+     "id": 22002
+    },
+    {
+     "en": "Prime Maul",
+     "ja": "プライムモール",
+     "tier": 0,
+     "from": "Prime Weapon stage 1",
+     "id": 21999
+    },
+    {
+     "en": "Lorg Mor",
+     "ja": "ローグモル",
+     "tier": 1,
+     "from": "Prime Weapon stage 2",
+     "id": 21998
+    },
+    {
+     "en": "Lorg Mor",
+     "ja": "ローグモル",
+     "tier": 2,
+     "from": "Prime Weapon stage 3",
+     "id": 22000
+    },
+    {
+     "en": "Lorg Mor",
+     "ja": "ローグモル",
+     "tier": 3,
+     "from": "Prime Weapon stage 4",
+     "id": 22001
+    },
+    {
+     "en": "Opashoro",
+     "ja": "オパショーロ",
+     "tier": 4,
+     "from": "Prime Weapon stage 5",
+     "id": 22106
+    },
+    {
+     "en": "Prime Staff",
+     "ja": "プライムスタッフ",
+     "tier": 0,
+     "from": "Prime Weapon stage 1",
+     "id": 22102
+    },
+    {
+     "en": "Opashoro",
+     "ja": "オパショーロ",
+     "tier": 1,
+     "from": "Prime Weapon stage 2",
+     "id": 22103
+    },
+    {
+     "en": "Opashoro",
+     "ja": "オパショーロ",
+     "tier": 2,
+     "from": "Prime Weapon stage 3",
+     "id": 22104
+    },
+    {
+     "en": "Opashoro",
+     "ja": "オパショーロ",
+     "tier": 3,
+     "from": "Prime Weapon stage 4",
+     "id": 22105
+    },
+    {
+     "en": "Pinaka",
+     "ja": "ピナカ",
+     "tier": 4,
+     "from": "Prime Weapon stage 5",
+     "id": 22163
+    },
+    {
+     "en": "Prime Bow",
+     "ja": "プライムボウ",
+     "tier": 0,
+     "from": "Prime Weapon stage 1",
+     "id": 22155
+    },
+    {
+     "en": "Pinaka",
+     "ja": "ピナカ",
+     "tier": 1,
+     "from": "Prime Weapon stage 2",
+     "id": 22156
+    },
+    {
+     "en": "Pinaka",
+     "ja": "ピナカ",
+     "tier": 2,
+     "from": "Prime Weapon stage 3",
+     "id": 22157
+    },
+    {
+     "en": "Pinaka",
+     "ja": "ピナカ",
+     "tier": 3,
+     "from": "Prime Weapon stage 4",
+     "id": 22158
+    },
+    {
+     "en": "Earp",
+     "ja": "アープ",
+     "tier": 4,
+     "from": "Prime Weapon stage 5",
+     "id": 22164
+    },
+    {
+     "en": "Prime Gun",
+     "ja": "プライムガン",
+     "tier": 0,
+     "from": "Prime Weapon stage 1",
+     "id": 22159
+    },
+    {
+     "en": "Earp",
+     "ja": "アープ",
+     "tier": 1,
+     "from": "Prime Weapon stage 2",
+     "id": 22160
+    },
+    {
+     "en": "Earp",
+     "ja": "アープ",
+     "tier": 2,
+     "from": "Prime Weapon stage 3",
+     "id": 22161
+    },
+    {
+     "en": "Earp",
+     "ja": "アープ",
+     "tier": 3,
+     "from": "Prime Weapon stage 4",
+     "id": 22162
+    },
+    {
+     "en": "Duban",
+     "ja": "ドゥバン",
+     "tier": 4,
+     "from": "Prime Weapon stage 5",
+     "id": 26495
+    },
+    {
+     "en": "Prime Shield",
+     "ja": "プライムシールド",
+     "tier": 0,
+     "from": "Prime Weapon stage 1",
+     "id": 26491
+    },
+    {
+     "en": "Duban",
+     "ja": "ドゥバン",
+     "tier": 1,
+     "from": "Prime Weapon stage 2",
+     "id": 26492
+    },
+    {
+     "en": "Duban",
+     "ja": "ドゥバン",
+     "tier": 2,
+     "from": "Prime Weapon stage 3",
+     "id": 26493
+    },
+    {
+     "en": "Duban",
+     "ja": "ドゥバン",
+     "tier": 3,
+     "from": "Prime Weapon stage 4",
+     "id": 26494
+    },
+    {
+     "en": "Loughnashade",
+     "ja": "ラックナシェード",
+     "tier": 4,
+     "from": "Prime Weapon stage 5",
+     "id": 22307
+    },
+    {
+     "en": "Prime Horn",
+     "ja": "プライムホルン",
+     "tier": 0,
+     "from": "Prime Weapon stage 1",
+     "id": 22303
+    },
+    {
+     "en": "Loughnashade",
+     "ja": "ラックナシェード",
+     "tier": 1,
+     "from": "Prime Weapon stage 2",
+     "id": 22304
+    },
+    {
+     "en": "Loughnashade",
+     "ja": "ラックナシェード",
+     "tier": 2,
+     "from": "Prime Weapon stage 3",
+     "id": 22305
+    },
+    {
+     "en": "Loughnashade",
+     "ja": "ラックナシェード",
+     "tier": 3,
+     "from": "Prime Weapon stage 4",
+     "id": 22306
+    }
+   ]
+  },
+  {
+   "id": "limbus",
+   "label_ja": "リンバス",
+   "source": [
+    "https://www.bg-wiki.com/ffxi/Limbus"
+   ],
+   "items": [
+    {
+     "en": "Justice Crown",
+     "ja": "ジャストクラウン",
+     "tier": 0,
+     "from": "Justice Set",
+     "id": 24165
+    },
+    {
+     "en": "Magnif. Crown",
+     "ja": "マグニクラウン",
+     "tier": 1,
+     "from": "Justice Set",
+     "id": 24166
+    },
+    {
+     "en": "Duty Crown",
+     "ja": "ドゥーテクラウン",
+     "tier": 2,
+     "from": "Justice Set",
+     "id": 24167
+    },
+    {
+     "en": "Justice Cyclas",
+     "ja": "ジャストシクラス",
+     "tier": 0,
+     "from": "Justice Set",
+     "id": 24168
+    },
+    {
+     "en": "Magnif. Cyclas",
+     "ja": "マグニシクラス",
+     "tier": 1,
+     "from": "Justice Set",
+     "id": 24169
+    },
+    {
+     "en": "Duty Cyclas",
+     "ja": "ドゥーテシクラス",
+     "tier": 2,
+     "from": "Justice Set",
+     "id": 24170
+    },
+    {
+     "en": "Just. Gauntlets",
+     "ja": "ジャストガントレ",
+     "tier": 0,
+     "from": "Justice Set",
+     "id": 24171
+    },
+    {
+     "en": "Magnif. Gaunt.",
+     "ja": "マグニガントレ",
+     "tier": 1,
+     "from": "Justice Set",
+     "id": 24172
+    },
+    {
+     "en": "Duty Gauntlets",
+     "ja": "ドゥーテガントレ",
+     "tier": 2,
+     "from": "Justice Set",
+     "id": 24173
+    },
+    {
+     "en": "Just. Flanchard",
+     "ja": "ジャストフランチャ",
+     "tier": 0,
+     "from": "Justice Set",
+     "id": 24174
+    },
+    {
+     "en": "Magnif. Flan.",
+     "ja": "マグニフランチャ",
+     "tier": 1,
+     "from": "Justice Set",
+     "id": 24175
+    },
+    {
+     "en": "Duty Flanchard",
+     "ja": "ドゥーテフランチャ",
+     "tier": 2,
+     "from": "Justice Set",
+     "id": 24176
+    },
+    {
+     "en": "Just. Soll.",
+     "ja": "ジャストソルレット",
+     "tier": 0,
+     "from": "Justice Set",
+     "id": 24177
+    },
+    {
+     "en": "Magnif. Soll.",
+     "ja": "マグニソルレット",
+     "tier": 1,
+     "from": "Justice Set",
+     "id": 24178
+    },
+    {
+     "en": "Duty Sollerets",
+     "ja": "ドゥーテソルレット",
+     "tier": 2,
+     "from": "Justice Set",
+     "id": 24179
+    },
+    {
+     "en": "Hope Masque",
+     "ja": "ホープマスク",
+     "tier": 0,
+     "from": "Hope Set",
+     "id": 24120
+    },
+    {
+     "en": "Perfection Masque",
+     "ja": "パーフェクマスク",
+     "tier": 1,
+     "from": "Hope Set",
+     "id": 24121
+    },
+    {
+     "en": "Revelation Masque",
+     "ja": "レベレマスク",
+     "tier": 2,
+     "from": "Hope Set",
+     "id": 24122
+    },
+    {
+     "en": "Hope Platemail",
+     "ja": "ホーププレート",
+     "tier": 0,
+     "from": "Hope Set",
+     "id": 24123
+    },
+    {
+     "en": "Perfection Plate.",
+     "ja": "パーフェクプレート",
+     "tier": 1,
+     "from": "Hope Set",
+     "id": 24124
+    },
+    {
+     "en": "Revelation Plate.",
+     "ja": "レベレプレート",
+     "tier": 2,
+     "from": "Hope Set",
+     "id": 24125
+    },
+    {
+     "en": "Hope Gauntlets",
+     "ja": "ホープガントレ",
+     "tier": 0,
+     "from": "Hope Set",
+     "id": 24126
+    },
+    {
+     "en": "Perfection Gaunt.",
+     "ja": "パーフェクガントレ",
+     "tier": 1,
+     "from": "Hope Set",
+     "id": 24127
+    },
+    {
+     "en": "Revelation Gaunt.",
+     "ja": "レベレガントレ",
+     "tier": 2,
+     "from": "Hope Set",
+     "id": 24128
+    },
+    {
+     "en": "Hope Brais",
+     "ja": "ホープブレー",
+     "tier": 0,
+     "from": "Hope Set",
+     "id": 24129
+    },
+    {
+     "en": "Perfection Brais",
+     "ja": "パーフェクブレー",
+     "tier": 1,
+     "from": "Hope Set",
+     "id": 24130
+    },
+    {
+     "en": "Revelation Brais",
+     "ja": "レベレブレー",
+     "tier": 2,
+     "from": "Hope Set",
+     "id": 24131
+    },
+    {
+     "en": "Hope Sabatons",
+     "ja": "ホープサバトン",
+     "tier": 0,
+     "from": "Hope Set",
+     "id": 24132
+    },
+    {
+     "en": "Perfection Sab.",
+     "ja": "パーフェクサバトン",
+     "tier": 1,
+     "from": "Hope Set",
+     "id": 24133
+    },
+    {
+     "en": "Revelation Sab.",
+     "ja": "レベレサバトン",
+     "tier": 2,
+     "from": "Hope Set",
+     "id": 24134
+    },
+    {
+     "en": "Trust Crown",
+     "ja": "トラストクラウン",
+     "tier": 0,
+     "from": "Trust Set",
+     "id": 24135
+    },
+    {
+     "en": "Prestige Crown",
+     "ja": "プレステクラウン",
+     "tier": 1,
+     "from": "Trust Set",
+     "id": 24136
+    },
+    {
+     "en": "Sworn Crown",
+     "ja": "スオーンクラウン",
+     "tier": 2,
+     "from": "Trust Set",
+     "id": 24137
+    },
+    {
+     "en": "Trust Platemail",
+     "ja": "トラストプレート",
+     "tier": 0,
+     "from": "Trust Set",
+     "id": 24138
+    },
+    {
+     "en": "Prestige Plate.",
+     "ja": "プレステプレート",
+     "tier": 1,
+     "from": "Trust Set",
+     "id": 24139
+    },
+    {
+     "en": "Sworn Platemail",
+     "ja": "スオーンプレート",
+     "tier": 2,
+     "from": "Trust Set",
+     "id": 24140
+    },
+    {
+     "en": "Trust Gauntlets",
+     "ja": "トラストガントレ",
+     "tier": 0,
+     "from": "Trust Set",
+     "id": 24141
+    },
+    {
+     "en": "Prestige Gaunt.",
+     "ja": "プレステガントレ",
+     "tier": 1,
+     "from": "Trust Set",
+     "id": 24142
+    },
+    {
+     "en": "Sworn Gauntlets",
+     "ja": "スオーンガントレ",
+     "tier": 2,
+     "from": "Trust Set",
+     "id": 24143
+    },
+    {
+     "en": "Trust Brais",
+     "ja": "トラストブレー",
+     "tier": 0,
+     "from": "Trust Set",
+     "id": 24144
+    },
+    {
+     "en": "Prestige Brais",
+     "ja": "プレステブレー",
+     "tier": 1,
+     "from": "Trust Set",
+     "id": 24145
+    },
+    {
+     "en": "Sworn Brais",
+     "ja": "スオーンブレー",
+     "tier": 2,
+     "from": "Trust Set",
+     "id": 24146
+    },
+    {
+     "en": "Trust Sabatons",
+     "ja": "トラストサバトン",
+     "tier": 0,
+     "from": "Trust Set",
+     "id": 24147
+    },
+    {
+     "en": "Prestige Sab.",
+     "ja": "プレステサバトン",
+     "tier": 1,
+     "from": "Trust Set",
+     "id": 24148
+    },
+    {
+     "en": "Sworn Sabatons",
+     "ja": "スオーンサバトン",
+     "tier": 2,
+     "from": "Trust Set",
+     "id": 24149
+    },
+    {
+     "en": "Bravery Petasos",
+     "ja": "ブレーブペタソス",
+     "tier": 0,
+     "from": "Bravery Set",
+     "id": 24150
+    },
+    {
+     "en": "Intrepid Petasos",
+     "ja": "イントレペタソス",
+     "tier": 1,
+     "from": "Bravery Set",
+     "id": 24151
+    },
+    {
+     "en": "Indom. Petasos",
+     "ja": "インドムペタソス",
+     "tier": 2,
+     "from": "Bravery Set",
+     "id": 24152
+    },
+    {
+     "en": "Bravery Coat",
+     "ja": "ブレーブコート",
+     "tier": 0,
+     "from": "Bravery Set",
+     "id": 24153
+    },
+    {
+     "en": "Intrepid Coat",
+     "ja": "イントレコート",
+     "tier": 1,
+     "from": "Bravery Set",
+     "id": 24154
+    },
+    {
+     "en": "Indomitable Coat",
+     "ja": "インドムコート",
+     "tier": 2,
+     "from": "Bravery Set",
+     "id": 24155
+    },
+    {
+     "en": "Bravery Gloves",
+     "ja": "ブレーブグローブ",
+     "tier": 0,
+     "from": "Bravery Set",
+     "id": 24156
+    },
+    {
+     "en": "Intrepid Gloves",
+     "ja": "イントレグローブ",
+     "tier": 1,
+     "from": "Bravery Set",
+     "id": 24157
+    },
+    {
+     "en": "Indom. Gloves",
+     "ja": "インドムグローブ",
+     "tier": 2,
+     "from": "Bravery Set",
+     "id": 24158
+    },
+    {
+     "en": "Bravery Tonban",
+     "ja": "ブレーブトンバン",
+     "tier": 0,
+     "from": "Bravery Set",
+     "id": 24159
+    },
+    {
+     "en": "Intrep. Tonban",
+     "ja": "イントレトンバン",
+     "tier": 1,
+     "from": "Bravery Set",
+     "id": 24160
+    },
+    {
+     "en": "Indom. Tonban",
+     "ja": "インドムトンバン",
+     "tier": 2,
+     "from": "Bravery Set",
+     "id": 24161
+    },
+    {
+     "en": "Bravery Sabots",
+     "ja": "ブレーブサボ",
+     "tier": 0,
+     "from": "Bravery Set",
+     "id": 24162
+    },
+    {
+     "en": "Intrep. Sabots",
+     "ja": "イントレサボ",
+     "tier": 1,
+     "from": "Bravery Set",
+     "id": 24163
+    },
+    {
+     "en": "Indom. Sabots",
+     "ja": "インドムサボ",
+     "tier": 2,
+     "from": "Bravery Set",
+     "id": 24164
+    },
+    {
+     "en": "Mercy Somen",
+     "ja": "慈悲総面",
+     "tier": 0,
+     "from": "Mercy Set",
+     "id": 24180
+    },
+    {
+     "en": "Grace Somen",
+     "ja": "慈愛総面",
+     "tier": 1,
+     "from": "Mercy Set",
+     "id": 24181
+    },
+    {
+     "en": "Clemen. Somen",
+     "ja": "寵愛総面",
+     "tier": 2,
+     "from": "Mercy Set",
+     "id": 24182
+    },
+    {
+     "en": "Mercy Haramaki",
+     "ja": "慈悲腹巻",
+     "tier": 0,
+     "from": "Mercy Set",
+     "id": 24183
+    },
+    {
+     "en": "Grace Haramaki",
+     "ja": "慈愛腹巻",
+     "tier": 1,
+     "from": "Mercy Set",
+     "id": 24184
+    },
+    {
+     "en": "Clemen. Hara.",
+     "ja": "寵愛腹巻",
+     "tier": 2,
+     "from": "Mercy Set",
+     "id": 24185
+    },
+    {
+     "en": "Mercy Kote",
+     "ja": "慈悲篭手",
+     "tier": 0,
+     "from": "Mercy Set",
+     "id": 24186
+    },
+    {
+     "en": "Grace Kote",
+     "ja": "慈愛篭手",
+     "tier": 1,
+     "from": "Mercy Set",
+     "id": 24187
+    },
+    {
+     "en": "Clemency Kote",
+     "ja": "寵愛篭手",
+     "tier": 2,
+     "from": "Mercy Set",
+     "id": 24188
+    },
+    {
+     "en": "Mercy Haidate",
+     "ja": "慈悲膝甲",
+     "tier": 0,
+     "from": "Mercy Set",
+     "id": 24189
+    },
+    {
+     "en": "Grace Haidate",
+     "ja": "慈愛膝甲",
+     "tier": 1,
+     "from": "Mercy Set",
+     "id": 24190
+    },
+    {
+     "en": "Clem. Haidate",
+     "ja": "寵愛膝甲",
+     "tier": 2,
+     "from": "Mercy Set",
+     "id": 24191
+    },
+    {
+     "en": "Mercy Sune-Ate",
+     "ja": "慈悲脛当",
+     "tier": 0,
+     "from": "Mercy Set",
+     "id": 24192
+    },
+    {
+     "en": "Grace Sune-Ate",
+     "ja": "慈愛脛当",
+     "tier": 1,
+     "from": "Mercy Set",
+     "id": 24193
+    },
+    {
+     "en": "Clem. Sune-Ate",
+     "ja": "寵愛脛当",
+     "tier": 2,
+     "from": "Mercy Set",
+     "id": 24194
+    },
+    {
+     "en": "Auge Knuckles",
+     "ja": "アウゲーナックル",
+     "tier": 0,
+     "from": "Limbus Weapons",
+     "id": 21547
+    },
+    {
+     "en": "Daduchos Knuckles",
+     "ja": "ダデュコナックル",
+     "tier": 1,
+     "from": "Limbus Weapons",
+     "id": 21548
+    },
+    {
+     "en": "Telopanos Knuckles",
+     "ja": "テロパノナックル",
+     "tier": 2,
+     "from": "Limbus Weapons",
+     "id": 21549
+    },
+    {
+     "en": "Auge Knife",
+     "ja": "アウゲーナイフ",
+     "tier": 0,
+     "from": "Limbus Weapons",
+     "id": 21597
+    },
+    {
+     "en": "Daduchos Knife",
+     "ja": "ダデュコナイフ",
+     "tier": 1,
+     "from": "Limbus Weapons",
+     "id": 21598
+    },
+    {
+     "en": "Telopanos Knife",
+     "ja": "テロパノナイフ",
+     "tier": 2,
+     "from": "Limbus Weapons",
+     "id": 21599
+    },
+    {
+     "en": "Auge Sword",
+     "ja": "アウゲーソード",
+     "tier": 0,
+     "from": "Limbus Weapons",
+     "id": 22180
+    },
+    {
+     "en": "Daduchos Sword",
+     "ja": "ダデュコソード",
+     "tier": 1,
+     "from": "Limbus Weapons",
+     "id": 22181
+    },
+    {
+     "en": "Telopanos Sword",
+     "ja": "テロパノソード",
+     "tier": 2,
+     "from": "Limbus Weapons",
+     "id": 22182
+    },
+    {
+     "en": "Auge Saber",
+     "ja": "アウゲーセイバー",
+     "tier": 0,
+     "from": "Limbus Weapons",
+     "id": 22186
+    },
+    {
+     "en": "Daduchos Saber",
+     "ja": "ダデュコセイバー",
+     "tier": 1,
+     "from": "Limbus Weapons",
+     "id": 22187
+    },
+    {
+     "en": "Telopanos Saber",
+     "ja": "テロパノセイバー",
+     "tier": 2,
+     "from": "Limbus Weapons",
+     "id": 22188
+    },
+    {
+     "en": "Auge Claymore",
+     "ja": "アウゲークレイモア",
+     "tier": 0,
+     "from": "Limbus Weapons",
+     "id": 22235
+    },
+    {
+     "en": "Daduchos Claymore",
+     "ja": "ダデュコクレイモア",
+     "tier": 1,
+     "from": "Limbus Weapons",
+     "id": 22236
+    },
+    {
+     "en": "Telopanos Claymore",
+     "ja": "テロパノクレイモア",
+     "tier": 2,
+     "from": "Limbus Weapons",
+     "id": 22237
+    },
+    {
+     "en": "Auge Axe",
+     "ja": "アウゲーアクス",
+     "tier": 0,
+     "from": "Limbus Weapons",
+     "id": 21736
+    },
+    {
+     "en": "Daduchos Axe",
+     "ja": "ダデュコアクス",
+     "tier": 1,
+     "from": "Limbus Weapons",
+     "id": 21737
+    },
+    {
+     "en": "Telopanos Axe",
+     "ja": "テロパノアクス",
+     "tier": 2,
+     "from": "Limbus Weapons",
+     "id": 21738
+    },
+    {
+     "en": "Auge Chopper",
+     "ja": "アウゲーチョッパー",
+     "tier": 0,
+     "from": "Limbus Weapons",
+     "id": 21793
+    },
+    {
+     "en": "Daduchos Chopper",
+     "ja": "ダデュコチョッパー",
+     "tier": 1,
+     "from": "Limbus Weapons",
+     "id": 21794
+    },
+    {
+     "en": "Telopanos Chopper",
+     "ja": "テロパノチョッパー",
+     "tier": 2,
+     "from": "Limbus Weapons",
+     "id": 21795
+    },
+    {
+     "en": "Auge Scythe",
+     "ja": "アウゲーサイズ",
+     "tier": 0,
+     "from": "Limbus Weapons",
+     "id": 21846
+    },
+    {
+     "en": "Daduchos Scythe",
+     "ja": "ダデュコサイズ",
+     "tier": 1,
+     "from": "Limbus Weapons",
+     "id": 21847
+    },
+    {
+     "en": "Telopanos Scythe",
+     "ja": "テロパノサイズ",
+     "tier": 2,
+     "from": "Limbus Weapons",
+     "id": 21848
+    },
+    {
+     "en": "Auge Halberd",
+     "ja": "アウゲーハルバード",
+     "tier": 0,
+     "from": "Limbus Weapons",
+     "id": 21897
+    },
+    {
+     "en": "Daduchos Halberd",
+     "ja": "ダデュコハルバード",
+     "tier": 1,
+     "from": "Limbus Weapons",
+     "id": 21898
+    },
+    {
+     "en": "Telopanos Halberd",
+     "ja": "テロパノハルバード",
+     "tier": 2,
+     "from": "Limbus Weapons",
+     "id": 21899
+    },
+    {
+     "en": "Auge Shin.",
+     "ja": "五光の忍刀",
+     "tier": 0,
+     "from": "Limbus Weapons",
+     "id": 21940
+    },
+    {
+     "en": "Daduchos Shin.",
+     "ja": "聖光の忍刀",
+     "tier": 1,
+     "from": "Limbus Weapons",
+     "id": 21941
+    },
+    {
+     "en": "Telopanos Shin.",
+     "ja": "極光の忍刀",
+     "tier": 2,
+     "from": "Limbus Weapons",
+     "id": 21942
+    },
+    {
+     "en": "Auge Katana",
+     "ja": "五光の刀",
+     "tier": 0,
+     "from": "Limbus Weapons",
+     "id": 21946
+    },
+    {
+     "en": "Daduchos Katana",
+     "ja": "聖光の刀",
+     "tier": 1,
+     "from": "Limbus Weapons",
+     "id": 21947
+    },
+    {
+     "en": "Telopanos Katana",
+     "ja": "極光の刀",
+     "tier": 2,
+     "from": "Limbus Weapons",
+     "id": 21948
+    },
+    {
+     "en": "Auge Maul",
+     "ja": "アウゲーモール",
+     "tier": 0,
+     "from": "Limbus Weapons",
+     "id": 22223
+    },
+    {
+     "en": "Daduchos Maul",
+     "ja": "ダデュコモール",
+     "tier": 1,
+     "from": "Limbus Weapons",
+     "id": 22224
+    },
+    {
+     "en": "Telopanos Maul",
+     "ja": "テロパノモール",
+     "tier": 2,
+     "from": "Limbus Weapons",
+     "id": 22225
+    },
+    {
+     "en": "Auge Staff",
+     "ja": "アウゲースタッフ",
+     "tier": 0,
+     "from": "Limbus Weapons",
+     "id": 22229
+    },
+    {
+     "en": "Daduchos Staff",
+     "ja": "ダデュコスタッフ",
+     "tier": 1,
+     "from": "Limbus Weapons",
+     "id": 22230
+    },
+    {
+     "en": "Telopanos Staff",
+     "ja": "テロパノスタッフ",
+     "tier": 2,
+     "from": "Limbus Weapons",
+     "id": 22231
+    },
+    {
+     "en": "Auge Bow",
+     "ja": "アウゲーボウ",
+     "tier": 0,
+     "from": "Limbus Weapons",
+     "id": 22174
+    },
+    {
+     "en": "Daduchos Bow",
+     "ja": "ダデュコボウ",
+     "tier": 1,
+     "from": "Limbus Weapons",
+     "id": 22175
+    },
+    {
+     "en": "Telopanos Bow",
+     "ja": "テロパノボウ",
+     "tier": 2,
+     "from": "Limbus Weapons",
+     "id": 22176
+    },
+    {
+     "en": "Auge Grip",
+     "ja": "アウゲーグリップ",
+     "tier": 0,
+     "from": "Limbus Weapons",
+     "id": 18798
+    },
+    {
+     "en": "Daduchos Grip",
+     "ja": "ダデュコグリップ",
+     "tier": 1,
+     "from": "Limbus Weapons",
+     "id": 18799
+    },
+    {
+     "en": "Telopanos Grip",
+     "ja": "テロパノグリップ",
+     "tier": 2,
+     "from": "Limbus Weapons",
+     "id": 18800
+    },
+    {
+     "en": "Auge Shield",
+     "ja": "アウゲーシールド",
+     "tier": 0,
+     "from": "Limbus Weapons",
+     "id": 26501
+    },
+    {
+     "en": "Daduchos Shield",
+     "ja": "ダデュコシールド",
+     "tier": 1,
+     "from": "Limbus Weapons",
+     "id": 26502
+    },
+    {
+     "en": "Telopanos Shield",
+     "ja": "テロパノシールド",
+     "tier": 2,
+     "from": "Limbus Weapons",
+     "id": 26503
+    }
+   ]
+  },
+  {
+   "id": "escha_zitah",
+   "label_ja": "エスカ-ジ・タ",
+   "source": [
+    "https://www.bg-wiki.com/ffxi/Category:Escha_Rewards",
+    "https://www.bg-wiki.com/ffxi/Escha_-_Zi'Tah",
+    "https://www.bg-wiki.com/ffxi/Category:Geas_Fete"
+   ],
+   "nm_tiers": {
+    "1": "(Level 119) Tier I NMs",
+    "2": "(Level 125) Tier II NMs",
+    "3": "(Level 135) Tier III NMs",
+    "4": "(Level 135) Tier I HELM NMs + (Level 135) Tier II HELM NM"
+   },
+   "items": [
+    {
+     "en": "Eschite Gauntlets",
+     "ja": "エスカイトガントレ",
+     "tier": 0,
+     "from": "Aglaophotis",
+     "id": 27097,
+     "nm_tier": 1
+    },
+    {
+     "en": "Marked Gorget",
+     "ja": "マークドゴルジェ",
+     "tier": 0,
+     "from": "Aglaophotis",
+     "id": 27512,
+     "nm_tier": 1
+    },
+    {
+     "en": "Naga Kyahan",
+     "ja": "那伽脚絆",
+     "tier": 0,
+     "from": "Aglaophotis",
+     "id": 27459,
+     "nm_tier": 1
+    },
+    {
+     "en": "Psycloth Vest",
+     "ja": "サイクロスベスト",
+     "tier": 0,
+     "from": "Aglaophotis",
+     "id": 26952,
+     "nm_tier": 1
+    },
+    {
+     "en": "Despair Mail",
+     "ja": "デスペアメイル",
+     "tier": 0,
+     "from": "Angrboda",
+     "id": 26948,
+     "nm_tier": 1
+    },
+    {
+     "en": "Lucidity Sash",
+     "ja": "ルセデティサッシュ",
+     "tier": 0,
+     "from": "Angrboda",
+     "id": 28416,
+     "nm_tier": 1
+    },
+    {
+     "en": "Rawhide Trousers",
+     "ja": "ローハイドトラウザ",
+     "tier": 0,
+     "from": "Angrboda",
+     "id": 27285,
+     "nm_tier": 1
+    },
+    {
+     "en": "Vanya Hood",
+     "ja": "ヴァニヤフード",
+     "tier": 0,
+     "from": "Angrboda",
+     "id": 26797,
+     "nm_tier": 1
+    },
+    {
+     "en": "Falcon Eye",
+     "ja": "ファルコンアイ",
+     "tier": 0,
+     "from": "Blazewing",
+     "id": 22253,
+     "nm_tier": 4
+    },
+    {
+     "en": "Kubira Meikogai",
+     "ja": "宮毘羅明光鎧",
+     "tier": 0,
+     "from": "Blazewing",
+     "id": 26959,
+     "nm_tier": 4
+    },
+    {
+     "en": "Nibiru Faussar",
+     "ja": "ニビルフォセ",
+     "tier": 0,
+     "from": "Brittlis",
+     "id": 21699,
+     "nm_tier": 2
+    },
+    {
+     "en": "Nibiru Harp",
+     "ja": "ニビルハープ",
+     "tier": 0,
+     "from": "Brittlis",
+     "id": 21399,
+     "nm_tier": 2
+    },
+    {
+     "en": "Purity Ring",
+     "ja": "ピュリティーリング",
+     "tier": 0,
+     "from": "Brittlis",
+     "id": 27554,
+     "nm_tier": 2
+    },
+    {
+     "en": "Sensui",
+     "ja": "泉水",
+     "tier": 0,
+     "from": "Brittlis",
+     "id": 21031,
+     "nm_tier": 2
+    },
+    {
+     "en": "Annoint. Kalasiris",
+     "ja": "アノインカラシリス",
+     "tier": 0,
+     "from": "Bucca / Puca / Alpluachra",
+     "id": 26960,
+     "nm_tier": 4
+    },
+    {
+     "en": "Hermetic Earring",
+     "ja": "ハメティックピアス",
+     "tier": 0,
+     "from": "Bucca / Puca / Alpluachra",
+     "id": 28477,
+     "nm_tier": 4
+    },
+    {
+     "en": "Despair Fin. Gaunt.",
+     "ja": "デスペアフィンガー",
+     "tier": 0,
+     "from": "Cunnast",
+     "id": 27098,
+     "nm_tier": 1
+    },
+    {
+     "en": "Rawhide Boots",
+     "ja": "ローハイドブーツ",
+     "tier": 0,
+     "from": "Cunnast",
+     "id": 27460,
+     "nm_tier": 1
+    },
+    {
+     "en": "Vanya Robe",
+     "ja": "ヴァニヤローブ",
+     "tier": 0,
+     "from": "Cunnast",
+     "id": 26953,
+     "nm_tier": 1
+    },
+    {
+     "en": "Willpower Grip",
+     "ja": "ウイルパワグリップ",
+     "tier": 0,
+     "from": "Cunnast",
+     "id": 21414,
+     "nm_tier": 1
+    },
+    {
+     "en": "Despair Greaves",
+     "ja": "デスペアグリーヴ",
+     "tier": 0,
+     "from": "Ferrodon",
+     "id": 27458,
+     "nm_tier": 1
+    },
+    {
+     "en": "Pursuer's Doublet",
+     "ja": "パスーアダブレット",
+     "tier": 0,
+     "from": "Ferrodon",
+     "id": 26951,
+     "nm_tier": 1
+    },
+    {
+     "en": "Subtlety Spec.",
+     "ja": "サテルティグラス",
+     "tier": 0,
+     "from": "Ferrodon",
+     "id": 27513,
+     "nm_tier": 1
+    },
+    {
+     "en": "Vanya Slops",
+     "ja": "ヴァニヤスロップス",
+     "tier": 0,
+     "from": "Ferrodon",
+     "id": 27288,
+     "nm_tier": 1
+    },
+    {
+     "en": "Penetrating Cape",
+     "ja": "ペネトレートケープ",
+     "tier": 0,
+     "from": "Fleetstalker",
+     "id": 27605,
+     "nm_tier": 3
+    },
+    {
+     "en": "Router",
+     "ja": "ラウター",
+     "tier": 0,
+     "from": "Fleetstalker",
+     "id": 20847,
+     "nm_tier": 3
+    },
+    {
+     "en": "Shrieker's Cuffs",
+     "ja": "シュリーカーカフス",
+     "tier": 0,
+     "from": "Fleetstalker",
+     "id": 27104,
+     "nm_tier": 3
+    },
+    {
+     "en": "Sweller's Harness",
+     "ja": "スウェラーハーネス",
+     "tier": 0,
+     "from": "Fleetstalker",
+     "id": 26958,
+     "nm_tier": 3
+    },
+    {
+     "en": "Despair Helm",
+     "ja": "デスペアヘルム",
+     "tier": 0,
+     "from": "Gestalt",
+     "id": 26792,
+     "nm_tier": 1
+    },
+    {
+     "en": "Disperser's Cape",
+     "ja": "ディスパーサケープ",
+     "tier": 0,
+     "from": "Gestalt",
+     "id": 27606,
+     "nm_tier": 1
+    },
+    {
+     "en": "Psycloth Boots",
+     "ja": "サイクロスブーツ",
+     "tier": 0,
+     "from": "Gestalt",
+     "id": 27462,
+     "nm_tier": 1
+    },
+    {
+     "en": "Rawhide Gloves",
+     "ja": "ローハイドグローブ",
+     "tier": 0,
+     "from": "Gestalt",
+     "id": 27100,
+     "nm_tier": 1
+    },
+    {
+     "en": "Infused Earring",
+     "ja": "インフューズピアス",
+     "tier": 0,
+     "from": "Gulltop",
+     "id": 28475,
+     "nm_tier": 1
+    },
+    {
+     "en": "Naga Somen",
+     "ja": "那伽総面",
+     "tier": 0,
+     "from": "Gulltop",
+     "id": 26793,
+     "nm_tier": 1
+    },
+    {
+     "en": "Pursuer's Cuffs",
+     "ja": "パスーアカフス",
+     "tier": 0,
+     "from": "Gulltop",
+     "id": 27101,
+     "nm_tier": 1
+    },
+    {
+     "en": "Vanya Clogs",
+     "ja": "ヴァニヤクロッグ",
+     "tier": 0,
+     "from": "Gulltop",
+     "id": 27463,
+     "nm_tier": 1
+    },
+    {
+     "en": "Nibiru Bow",
+     "ja": "ニビルボウ",
+     "tier": 0,
+     "from": "Ionos",
+     "id": 21216,
+     "nm_tier": 2
+    },
+    {
+     "en": "Nibiru Sainti",
+     "ja": "ニビルサインティ",
+     "tier": 0,
+     "from": "Ionos",
+     "id": 20524,
+     "nm_tier": 2
+    },
+    {
+     "en": "Nibiru Sickle",
+     "ja": "ニビルシックル",
+     "tier": 0,
+     "from": "Ionos",
+     "id": 20895,
+     "nm_tier": 2
+    },
+    {
+     "en": "Thauma. Cape",
+     "ja": "サウマタージケープ",
+     "tier": 0,
+     "from": "Ionos",
+     "id": 27607,
+     "nm_tier": 2
+    },
+    {
+     "en": "Forefathers' Grip",
+     "ja": "フォファザグリップ",
+     "tier": 0,
+     "from": "Kamohoalii",
+     "id": 21415,
+     "nm_tier": 2
+    },
+    {
+     "en": "Nibiru Cudgel",
+     "ja": "ニビルカジェル",
+     "tier": 0,
+     "from": "Kamohoalii",
+     "id": 21092,
+     "nm_tier": 2
+    },
+    {
+     "en": "Nibiru Tabar",
+     "ja": "ニビルタバル",
+     "tier": 0,
+     "from": "Kamohoalii",
+     "id": 20801,
+     "nm_tier": 2
+    },
+    {
+     "en": "Eschite Breast.",
+     "ja": "エスカイトブレスト",
+     "tier": 0,
+     "from": "Lustful Lydia",
+     "id": 26947,
+     "nm_tier": 1
+    },
+    {
+     "en": "Naga Hakama",
+     "ja": "那伽筒袴",
+     "tier": 0,
+     "from": "Lustful Lydia",
+     "id": 27284,
+     "nm_tier": 1
+    },
+    {
+     "en": "Psycloth Tiara",
+     "ja": "サイクロスティアラ",
+     "tier": 0,
+     "from": "Lustful Lydia",
+     "id": 26796,
+     "nm_tier": 1
+    },
+    {
+     "en": "Seraphic Ampulla",
+     "ja": "セラフィクアムプラ",
+     "tier": 0,
+     "from": "Lustful Lydia",
+     "id": 22250,
+     "nm_tier": 1
+    },
+    {
+     "en": "Calamitous Earring",
+     "ja": "カラミタスピアス",
+     "tier": 0,
+     "from": "Nosoi",
+     "id": 28476,
+     "nm_tier": 2
+    },
+    {
+     "en": "Mijin",
+     "ja": "微塵",
+     "tier": 0,
+     "from": "Nosoi",
+     "id": 20983,
+     "nm_tier": 2
+    },
+    {
+     "en": "Nibiru Blade",
+     "ja": "ニビルブレード",
+     "tier": 0,
+     "from": "Nosoi",
+     "id": 20710,
+     "nm_tier": 2
+    },
+    {
+     "en": "Nibiru Shield",
+     "ja": "ニビルシールド",
+     "tier": 0,
+     "from": "Nosoi",
+     "id": 27642,
+     "nm_tier": 2
+    },
+    {
+     "en": "Empath Necklace",
+     "ja": "エンパスネックレス",
+     "tier": 0,
+     "from": "Pazuzu",
+     "id": 27514,
+     "nm_tier": 4
+    },
+    {
+     "en": "Makora Meikogai",
+     "ja": "摩虎羅明光鎧",
+     "tier": 0,
+     "from": "Pazuzu",
+     "id": 26961,
+     "nm_tier": 4
+    },
+    {
+     "en": "Despair Cuisses",
+     "ja": "デスペアクウィス",
+     "tier": 0,
+     "from": "Revetaur",
+     "id": 27283,
+     "nm_tier": 1
+    },
+    {
+     "en": "Grenade Core",
+     "ja": "グレネードの魂",
+     "tier": 0,
+     "from": "Revetaur",
+     "id": 22251,
+     "nm_tier": 1
+    },
+    {
+     "en": "Pursuer's Beret",
+     "ja": "パスーアベレー",
+     "tier": 0,
+     "from": "Revetaur",
+     "id": 26795,
+     "nm_tier": 1
+    },
+    {
+     "en": "Vanya Cuffs",
+     "ja": "ヴァニヤカフス",
+     "tier": 0,
+     "from": "Revetaur",
+     "id": 27103,
+     "nm_tier": 1
+    },
+    {
+     "en": "Nibiru Gun",
+     "ja": "ニビルガン",
+     "tier": 0,
+     "from": "Sensual Sandy",
+     "id": 21273,
+     "nm_tier": 2
+    },
+    {
+     "en": "Nibiru Knife",
+     "ja": "ニビルナイフ",
+     "tier": 0,
+     "from": "Sensual Sandy",
+     "id": 20600,
+     "nm_tier": 2
+    },
+    {
+     "en": "Nibiru Lance",
+     "ja": "ニビルランス",
+     "tier": 0,
+     "from": "Sensual Sandy",
+     "id": 20939,
+     "nm_tier": 2
+    },
+    {
+     "en": "Sinew Belt",
+     "ja": "シヌーベルト",
+     "tier": 0,
+     "from": "Sensual Sandy",
+     "id": 28417,
+     "nm_tier": 2
+    },
+    {
+     "en": "Annealed Lance",
+     "ja": "アニールドランス",
+     "tier": 0,
+     "from": "Shockmaw",
+     "id": 20938,
+     "nm_tier": 3
+    },
+    {
+     "en": "Dampener's Torque",
+     "ja": "ダンペナートルク",
+     "tier": 0,
+     "from": "Shockmaw",
+     "id": 27511,
+     "nm_tier": 3
+    },
+    {
+     "en": "Doyen Pants",
+     "ja": "ドイエンズボン",
+     "tier": 0,
+     "from": "Shockmaw",
+     "id": 27289,
+     "nm_tier": 3
+    },
+    {
+     "en": "Inspirited Boots",
+     "ja": "インスピリトブーツ",
+     "tier": 0,
+     "from": "Shockmaw",
+     "id": 27464,
+     "nm_tier": 3
+    },
+    {
+     "en": "Eschite Cuisses",
+     "ja": "エスカイトクウィス",
+     "tier": 0,
+     "from": "Tangata Manu",
+     "id": 27282,
+     "nm_tier": 1
+    },
+    {
+     "en": "Mendi. Earring",
+     "ja": "メンデカントピアス",
+     "tier": 0,
+     "from": "Tangata Manu",
+     "id": 28474,
+     "nm_tier": 1
+    },
+    {
+     "en": "Psycloth Manillas",
+     "ja": "サイクロスマニラ",
+     "tier": 0,
+     "from": "Tangata Manu",
+     "id": 27102,
+     "nm_tier": 1
+    },
+    {
+     "en": "Rawhide Mask",
+     "ja": "ローハイドマスク",
+     "tier": 0,
+     "from": "Tangata Manu",
+     "id": 26794,
+     "nm_tier": 1
+    },
+    {
+     "en": "Nibiru Chopper",
+     "ja": "ニビルチョッパー",
+     "tier": 0,
+     "from": "Umdhlebi",
+     "id": 20848,
+     "nm_tier": 2
+    },
+    {
+     "en": "Nibiru Staff",
+     "ja": "ニビルスタッフ",
+     "tier": 0,
+     "from": "Umdhlebi",
+     "id": 21156,
+     "nm_tier": 2
+    },
+    {
+     "en": "Sapience Orb",
+     "ja": "サピエンスオーブ",
+     "tier": 0,
+     "from": "Umdhlebi",
+     "id": 22252,
+     "nm_tier": 2
+    },
+    {
+     "en": "Chastisers",
+     "ja": "チャスタイザー",
+     "tier": 0,
+     "from": "Urmahlullu",
+     "id": 20523,
+     "nm_tier": 3
+    },
+    {
+     "en": "Eschan Stone",
+     "ja": "エスカンストーン",
+     "tier": 0,
+     "from": "Urmahlullu",
+     "id": 28415,
+     "nm_tier": 3
+    },
+    {
+     "en": "Onca Suit",
+     "ja": "オンカスーツ",
+     "tier": 0,
+     "from": "Urmahlullu",
+     "id": 26963,
+     "nm_tier": 3
+    },
+    {
+     "en": "Skormoth Mask",
+     "ja": "スコーモスマスク",
+     "tier": 0,
+     "from": "Urmahlullu",
+     "id": 27783,
+     "nm_tier": 3
+    },
+    {
+     "en": "Eschite Greaves",
+     "ja": "エスカイトグリーヴ",
+     "tier": 0,
+     "from": "Vidala",
+     "id": 27457,
+     "nm_tier": 1
+    },
+    {
+     "en": "Overbearing Ring",
+     "ja": "オーバーベアリング",
+     "tier": 0,
+     "from": "Vidala",
+     "id": 27552,
+     "nm_tier": 1
+    },
+    {
+     "en": "Psycloth Lappas",
+     "ja": "サイクロスラッパ",
+     "tier": 0,
+     "from": "Vidala",
+     "id": 27287,
+     "nm_tier": 1
+    },
+    {
+     "en": "Rawhide Vest",
+     "ja": "ローハイドベスト",
+     "tier": 0,
+     "from": "Vidala",
+     "id": 26950,
+     "nm_tier": 1
+    },
+    {
+     "en": "Naga Samue",
+     "ja": "那伽作務衣",
+     "tier": 0,
+     "from": "Vyala",
+     "id": 26949,
+     "nm_tier": 1
+    },
+    {
+     "en": "Pursuer's Pants",
+     "ja": "パスーアパンツ",
+     "tier": 0,
+     "from": "Vyala",
+     "id": 27286,
+     "nm_tier": 1
+    },
+    {
+     "en": "Resonance Ring",
+     "ja": "レソネンスリング",
+     "tier": 0,
+     "from": "Vyala",
+     "id": 27553,
+     "nm_tier": 1
+    },
+    {
+     "en": "Clemency Grip",
+     "ja": "スレメンシグリップ",
+     "tier": 0,
+     "from": "Wepwawet",
+     "id": 21413,
+     "nm_tier": 1
+    },
+    {
+     "en": "Eschite Helm",
+     "ja": "エスカイトヘルム",
+     "tier": 0,
+     "from": "Wepwawet",
+     "id": 26791,
+     "nm_tier": 1
+    },
+    {
+     "en": "Naga Tekko",
+     "ja": "那伽手甲",
+     "tier": 0,
+     "from": "Wepwawet",
+     "id": 27099,
+     "nm_tier": 1
+    },
+    {
+     "en": "Pursuer's Gaiters",
+     "ja": "パスーアゲートル",
+     "tier": 0,
+     "from": "Wepwawet",
+     "id": 27461,
+     "nm_tier": 1
+    },
+    {
+     "en": "Enforcer's Harness",
+     "ja": "エンフォサハーネス",
+     "tier": 0,
+     "from": "Wrathare",
+     "id": 26962,
+     "nm_tier": 4
+    },
+    {
+     "en": "Warden's Ring",
+     "ja": "ワーデンリング",
+     "tier": 0,
+     "from": "Wrathare",
+     "id": 27555,
+     "nm_tier": 4
+    }
+   ],
+   "nm_tiers_note": "Labels are from the BG Wiki Geas Fete tables; 4 = every group above Tier III. Japanese terms not retrieved (wiki.ffo.jp search not scriptable)."
+  },
+  {
+   "id": "escha_ruaun",
+   "label_ja": "エスカ-ル・オン",
+   "source": [
+    "https://www.bg-wiki.com/ffxi/Category:Escha_Rewards",
+    "https://www.bg-wiki.com/ffxi/Escha_-_Ru'Aun",
+    "https://www.bg-wiki.com/ffxi/Category:Geas_Fete"
+   ],
+   "nm_tiers": {
+    "1": "(Level 119) Tier I NMs",
+    "2": "(Level 125) Tier II NMs",
+    "3": "(Level 135) Tier III NMs",
+    "4": "(Level 140) Ark Angel NMs + (Level 140) Heavenly Beast NMs(Kirin Level 150) + (Level 150) Nazar NM",
+    "0": "No tier in the Geas Fete table: the 10 lottery Warder NMs (Warder of Temperance/Fortitude/Faith/Justice/Hope/Prudence/Love/Dignity/Loyalty/Mercy), not Geas Fete pops"
+   },
+   "items": [
+    {
+     "en": "Bidenhander",
+     "ja": "バイデンハンダー",
+     "tier": 0,
+     "from": "Amymone",
+     "id": 21698,
+     "nm_tier": 2
+    },
+    {
+     "en": "Compensator",
+     "ja": "コンペンセーター",
+     "tier": 0,
+     "from": "Amymone",
+     "id": 21482,
+     "nm_tier": 2
+    },
+    {
+     "en": "Deathbane",
+     "ja": "デスベインサイズ",
+     "tier": 0,
+     "from": "Amymone",
+     "id": 20892,
+     "nm_tier": 2
+    },
+    {
+     "en": "Shijo",
+     "ja": "四条",
+     "tier": 0,
+     "from": "Amymone",
+     "id": 20598,
+     "nm_tier": 2
+    },
+    {
+     "en": "Deacon Sword",
+     "ja": "ディーコンソード",
+     "tier": 0,
+     "from": "Ark Angel EV",
+     "id": 20704,
+     "nm_tier": 4
+    },
+    {
+     "en": "Elis Tome",
+     "ja": "エリストーム",
+     "tier": 0,
+     "from": "Ark Angel EV",
+     "id": 22265,
+     "nm_tier": 4
+    },
+    {
+     "en": "Deacon Blade",
+     "ja": "ディーコンブレード",
+     "tier": 0,
+     "from": "Ark Angel GK",
+     "id": 21028,
+     "nm_tier": 4
+    },
+    {
+     "en": "Deacon Saber",
+     "ja": "ディーコンセイバー",
+     "tier": 0,
+     "from": "Ark Angel HM",
+     "id": 20703,
+     "nm_tier": 4
+    },
+    {
+     "en": "Kerygma Belt",
+     "ja": "ケリグマベルト",
+     "tier": 0,
+     "from": "Ark Angel HM",
+     "id": 26322,
+     "nm_tier": 4
+    },
+    {
+     "en": "Lithelimb Cap",
+     "ja": "ライスリムキャップ",
+     "tier": 0,
+     "from": "Ark Angel HM",
+     "id": 27744,
+     "nm_tier": 4
+    },
+    {
+     "en": "Deacon Tabar",
+     "ja": "ディーコンタバール",
+     "tier": 0,
+     "from": "Ark Angel MR",
+     "id": 20798,
+     "nm_tier": 4
+    },
+    {
+     "en": "Enuma Mantle",
+     "ja": "エヌママント",
+     "tier": 0,
+     "from": "Ark Angel MR",
+     "id": 27617,
+     "nm_tier": 4
+    },
+    {
+     "en": "Deacon Scythe",
+     "ja": "ディーコンサイズ",
+     "tier": 0,
+     "from": "Ark Angel TT",
+     "id": 20894,
+     "nm_tier": 4
+    },
+    {
+     "en": "Fravashi Mantle",
+     "ja": "ベドウインマント",
+     "tier": 0,
+     "from": "Ark Angel TT",
+     "id": 28616,
+     "nm_tier": 4
+    },
+    {
+     "en": "Rahab Ring",
+     "ja": "ラハブリング",
+     "tier": 0,
+     "from": "Ark Angel TT",
+     "id": 26162,
+     "nm_tier": 4
+    },
+    {
+     "en": "Balarama Grip",
+     "ja": "バララマグリップ",
+     "tier": 0,
+     "from": "Asida",
+     "id": 21411,
+     "nm_tier": 1
+    },
+    {
+     "en": "Vertigo Ring",
+     "ja": "ヴァーティゴリング",
+     "tier": 0,
+     "from": "Asida",
+     "id": 10774,
+     "nm_tier": 1
+    },
+    {
+     "en": "Albin Bane",
+     "ja": "アルビンベーン",
+     "tier": 0,
+     "from": "Bia",
+     "id": 21390,
+     "nm_tier": 1
+    },
+    {
+     "en": "Reti Pendant",
+     "ja": "レチペンダント",
+     "tier": 0,
+     "from": "Bia",
+     "id": 27521,
+     "nm_tier": 1
+    },
+    {
+     "en": "Jokushu Chain",
+     "ja": "蓐収首鎖",
+     "tier": 0,
+     "from": "Byakko",
+     "id": 27525,
+     "nm_tier": 4
+    },
+    {
+     "en": "Jokushu Haidate",
+     "ja": "蓐収佩楯",
+     "tier": 0,
+     "from": "Byakko",
+     "id": 27318,
+     "nm_tier": 4
+    },
+    {
+     "en": "Jokushunoibuki",
+     "ja": "蓐収の息吹",
+     "tier": 0,
+     "from": "Byakko",
+     "id": 22256,
+     "nm_tier": 4
+    },
+    {
+     "en": "Jokushuono",
+     "ja": "蓐収斧",
+     "tier": 0,
+     "from": "Byakko",
+     "id": 20846,
+     "nm_tier": 4
+    },
+    {
+     "en": "Eshus",
+     "ja": "エシュ",
+     "tier": 0,
+     "from": "Duke Vepar",
+     "id": 20518,
+     "nm_tier": 3
+    },
+    {
+     "en": "Obatala Subligar",
+     "ja": "オバタラサブリガ",
+     "tier": 0,
+     "from": "Duke Vepar",
+     "id": 27319,
+     "nm_tier": 3
+    },
+    {
+     "en": "Shango Robe",
+     "ja": "シャンゴローブ",
+     "tier": 0,
+     "from": "Duke Vepar",
+     "id": 25706,
+     "nm_tier": 3
+    },
+    {
+     "en": "Yemaya Belt",
+     "ja": "イェマヤベルト",
+     "tier": 0,
+     "from": "Duke Vepar",
+     "id": 28411,
+     "nm_tier": 3
+    },
+    {
+     "en": "Assuage Earring",
+     "ja": "アセージイヤリング",
+     "tier": 0,
+     "from": "Emputa",
+     "id": 27536,
+     "nm_tier": 1
+    },
+    {
+     "en": "Fortified Ring",
+     "ja": "フォテファイリング",
+     "tier": 0,
+     "from": "Emputa",
+     "id": 10773,
+     "nm_tier": 1
+    },
+    {
+     "en": "Genmei Earring",
+     "ja": "玄冥耳飾り",
+     "tier": 0,
+     "from": "Genbu",
+     "id": 27539,
+     "nm_tier": 4
+    },
+    {
+     "en": "Genmei Kabuto",
+     "ja": "玄冥兜",
+     "tier": 0,
+     "from": "Genbu",
+     "id": 25629,
+     "nm_tier": 4
+    },
+    {
+     "en": "Genmei Shield",
+     "ja": "玄冥盾",
+     "tier": 0,
+     "from": "Genbu",
+     "id": 27645,
+     "nm_tier": 4
+    },
+    {
+     "en": "Genmeinoibuki",
+     "ja": "玄冥の息吹",
+     "tier": 0,
+     "from": "Genbu",
+     "id": 22257,
+     "nm_tier": 4
+    },
+    {
+     "en": "Akademos",
+     "ja": "アカデモス",
+     "tier": 0,
+     "from": "Hanbi",
+     "id": 21150,
+     "nm_tier": 2
+    },
+    {
+     "en": "Enchufla",
+     "ja": "エンチュフラ",
+     "tier": 0,
+     "from": "Hanbi",
+     "id": 20597,
+     "nm_tier": 2
+    },
+    {
+     "en": "Espiritus",
+     "ja": "エスピリトゥス",
+     "tier": 0,
+     "from": "Hanbi",
+     "id": 21149,
+     "nm_tier": 2
+    },
+    {
+     "en": "Rhomphaia",
+     "ja": "ロムフェーヤ",
+     "tier": 0,
+     "from": "Hanbi",
+     "id": 20937,
+     "nm_tier": 2
+    },
+    {
+     "en": "Ichigohitofuri",
+     "ja": "一期一振",
+     "tier": 0,
+     "from": "Kammavaca",
+     "id": 21027,
+     "nm_tier": 2
+    },
+    {
+     "en": "Kali",
+     "ja": "カーリ",
+     "tier": 0,
+     "from": "Kammavaca",
+     "id": 20599,
+     "nm_tier": 2
+    },
+    {
+     "en": "Midnights",
+     "ja": "ミッドナイト",
+     "tier": 0,
+     "from": "Kammavaca",
+     "id": 20520,
+     "nm_tier": 2
+    },
+    {
+     "en": "Caro Necklace",
+     "ja": "カロネックレス",
+     "tier": 0,
+     "from": "Khon",
+     "id": 27523,
+     "nm_tier": 1
+    },
+    {
+     "en": "Sokolski Mantle",
+     "ja": "ソコルソキーマント",
+     "tier": 0,
+     "from": "Khon",
+     "id": 27612,
+     "nm_tier": 1
+    },
+    {
+     "en": "Grunfeld Rope",
+     "ja": "グルンフェルロープ",
+     "tier": 0,
+     "from": "Khun",
+     "id": 28408,
+     "nm_tier": 1
+    },
+    {
+     "en": "Halasz Earring",
+     "ja": "ハラサズピアス",
+     "tier": 0,
+     "from": "Khun",
+     "id": 27535,
+     "nm_tier": 1
+    },
+    {
+     "en": "Reiki Cloak",
+     "ja": "霊亀外套",
+     "tier": 0,
+     "from": "Kirin / Kouryu",
+     "id": 27615,
+     "nm_tier": 4
+    },
+    {
+     "en": "Reiki Osode",
+     "ja": "霊亀大袖",
+     "tier": 0,
+     "from": "Kirin / Kouryu",
+     "id": 25702,
+     "nm_tier": 4
+    },
+    {
+     "en": "Reiki Yotai",
+     "ja": "霊亀腰帯",
+     "tier": 0,
+     "from": "Kirin / Kouryu",
+     "id": 26321,
+     "nm_tier": 4
+    },
+    {
+     "en": "Reikiko",
+     "ja": "霊亀鈎",
+     "tier": 0,
+     "from": "Kirin / Kouryu",
+     "id": 20690,
+     "nm_tier": 4
+    },
+    {
+     "en": "Reikikon",
+     "ja": "霊亀棍",
+     "tier": 0,
+     "from": "Kirin / Kouryu",
+     "id": 21152,
+     "nm_tier": 4
+    },
+    {
+     "en": "Reikiono",
+     "ja": "霊亀斧",
+     "tier": 0,
+     "from": "Kirin / Kouryu",
+     "id": 20842,
+     "nm_tier": 4
+    },
+    {
+     "en": "Giuoco Grip",
+     "ja": "ジウオコグリップ",
+     "tier": 0,
+     "from": "Ma",
+     "id": 21410,
+     "nm_tier": 1
+    },
+    {
+     "en": "Philidor Mantle",
+     "ja": "フィリドアマント",
+     "tier": 0,
+     "from": "Ma",
+     "id": 27611,
+     "nm_tier": 1
+    },
+    {
+     "en": "Amar Cluster",
+     "ja": "アマークラスター",
+     "tier": 0,
+     "from": "Met",
+     "id": 22262,
+     "nm_tier": 1
+    },
+    {
+     "en": "Evans Earring",
+     "ja": "エヴァンズピアス",
+     "tier": 0,
+     "from": "Met",
+     "id": 27534,
+     "nm_tier": 1
+    },
+    {
+     "en": "Skullrender",
+     "ja": "スカルレンダー",
+     "tier": 0,
+     "from": "Naphula",
+     "id": 20797,
+     "nm_tier": 2
+    },
+    {
+     "en": "Solstice",
+     "ja": "ソールスティス",
+     "tier": 0,
+     "from": "Naphula",
+     "id": 21085,
+     "nm_tier": 2
+    },
+    {
+     "en": "Vijaya Bow",
+     "ja": "ヴィジャヤボウ",
+     "tier": 0,
+     "from": "Naphula",
+     "id": 21215,
+     "nm_tier": 2
+    },
+    {
+     "en": "Kurys Gloves",
+     "ja": "クーリスグローブ",
+     "tier": 0,
+     "from": "Pakecet",
+     "id": 27134,
+     "nm_tier": 3
+    },
+    {
+     "en": "Tutyr Sabots",
+     "ja": "トゥティアサボ",
+     "tier": 0,
+     "from": "Pakecet",
+     "id": 27490,
+     "nm_tier": 3
+    },
+    {
+     "en": "Uac Jerkin",
+     "ja": "ウアックメイル",
+     "tier": 0,
+     "from": "Pakecet",
+     "id": 25703,
+     "nm_tier": 3
+    },
+    {
+     "en": "Xucau Mantle",
+     "ja": "ズーカウマント",
+     "tier": 0,
+     "from": "Pakecet",
+     "id": 27614,
+     "nm_tier": 3
+    },
+    {
+     "en": "Aizushintogo",
+     "ja": "会津新藤五",
+     "tier": 0,
+     "from": "Palila",
+     "id": 20979,
+     "nm_tier": 2
+    },
+    {
+     "en": "Hammerfists",
+     "ja": "ハマーフィスト",
+     "tier": 0,
+     "from": "Palila",
+     "id": 20519,
+     "nm_tier": 2
+    },
+    {
+     "en": "Instigator",
+     "ja": "インスティゲーター",
+     "tier": 0,
+     "from": "Palila",
+     "id": 20845,
+     "nm_tier": 2
+    },
+    {
+     "en": "Nixxer",
+     "ja": "ニックサー",
+     "tier": 0,
+     "from": "Palila",
+     "id": 20700,
+     "nm_tier": 2
+    },
+    {
+     "en": "Hydrocera",
+     "ja": "ハイドロセラ",
+     "tier": 0,
+     "from": "Peirithoos",
+     "id": 22263,
+     "nm_tier": 1
+    },
+    {
+     "en": "Ishvara Earring",
+     "ja": "イシュヴァラピアス",
+     "tier": 0,
+     "from": "Peirithoos",
+     "id": 27537,
+     "nm_tier": 1
+    },
+    {
+     "en": "Diemer Gorget",
+     "ja": "ディマーゴルゲット",
+     "tier": 0,
+     "from": "Ruea",
+     "id": 27522,
+     "nm_tier": 1
+    },
+    {
+     "en": "Petrov Ring",
+     "ja": "ペトロフリング",
+     "tier": 0,
+     "from": "Ruea",
+     "id": 10772,
+     "nm_tier": 1
+    },
+    {
+     "en": "Evanescence Ring",
+     "ja": "エバネセンスリング",
+     "tier": 0,
+     "from": "Sava Savanovic",
+     "id": 26160,
+     "nm_tier": 1
+    },
+    {
+     "en": "Nodens Gorget",
+     "ja": "ノデンズゴルゲット",
+     "tier": 0,
+     "from": "Sava Savanovic",
+     "id": 27524,
+     "nm_tier": 1
+    },
+    {
+     "en": "Kobo Kote",
+     "ja": "句芒篭手",
+     "tier": 0,
+     "from": "Seiryu",
+     "id": 27133,
+     "nm_tier": 4
+    },
+    {
+     "en": "Kobo Obi",
+     "ja": "句芒の帯",
+     "tier": 0,
+     "from": "Seiryu",
+     "id": 26320,
+     "nm_tier": 4
+    },
+    {
+     "en": "Kobonoibuki",
+     "ja": "句芒の息吹",
+     "tier": 0,
+     "from": "Seiryu",
+     "id": 22259,
+     "nm_tier": 4
+    },
+    {
+     "en": "Koboto",
+     "ja": "句芒刀",
+     "tier": 0,
+     "from": "Seiryu",
+     "id": 20699,
+     "nm_tier": 4
+    },
+    {
+     "en": "Shukuyu Ring",
+     "ja": "祝融の指輪",
+     "tier": 0,
+     "from": "Suzaku",
+     "id": 26161,
+     "nm_tier": 4
+    },
+    {
+     "en": "Shukuyu Sune-Ate",
+     "ja": "祝融脛当",
+     "tier": 0,
+     "from": "Suzaku",
+     "id": 27489,
+     "nm_tier": 4
+    },
+    {
+     "en": "Shukuyu's Scythe",
+     "ja": "祝融戈",
+     "tier": 0,
+     "from": "Suzaku",
+     "id": 20893,
+     "nm_tier": 4
+    },
+    {
+     "en": "Shukuyunoibuki",
+     "ja": "祝融の息吹",
+     "tier": 0,
+     "from": "Suzaku",
+     "id": 22258,
+     "nm_tier": 4
+    },
+    {
+     "en": "Mantoptera Eye",
+     "ja": "マントテラアイ",
+     "tier": 0,
+     "from": "Tenodera",
+     "id": 22264,
+     "nm_tier": 1
+    },
+    {
+     "en": "Sulla Belt",
+     "ja": "スーラベルト",
+     "tier": 0,
+     "from": "Tenodera",
+     "id": 28410,
+     "nm_tier": 1
+    },
+    {
+     "en": "Abnoba Kaftan",
+     "ja": "アブノーバカフタン",
+     "tier": 0,
+     "from": "Vir'ava",
+     "id": 25704,
+     "nm_tier": 3
+    },
+    {
+     "en": "Lempo Earring",
+     "ja": "レンポイヤリング",
+     "tier": 0,
+     "from": "Vir'ava",
+     "id": 27538,
+     "nm_tier": 3
+    },
+    {
+     "en": "Selvans Subligar",
+     "ja": "セルヴァンサブリガ",
+     "tier": 0,
+     "from": "Vir'ava",
+     "id": 27320,
+     "nm_tier": 3
+    },
+    {
+     "en": "Sucellus",
+     "ja": "スセレスロッド",
+     "tier": 0,
+     "from": "Vir'ava",
+     "id": 21083,
+     "nm_tier": 3
+    },
+    {
+     "en": "Alber Strap",
+     "ja": "アルバーストラップ",
+     "tier": 0,
+     "from": "Warder of Courage",
+     "id": 22196,
+     "nm_tier": 4
+    },
+    {
+     "en": "Dacnomania",
+     "ja": "ダクノマニア",
+     "tier": 0,
+     "from": "Warder of Courage",
+     "id": 20887,
+     "nm_tier": 4
+    },
+    {
+     "en": "Habile Mazrak",
+     "ja": "ハビルメザラク",
+     "tier": 0,
+     "from": "Warder of Courage",
+     "id": 20932,
+     "nm_tier": 4
+    },
+    {
+     "en": "Molybdosis",
+     "ja": "國崩し",
+     "tier": 0,
+     "from": "Warder of Courage",
+     "id": 19209,
+     "nm_tier": 4
+    },
+    {
+     "en": "Telos Earring",
+     "ja": "テロスピアス",
+     "tier": 0,
+     "from": "Warder of Courage",
+     "id": 27545,
+     "nm_tier": 4
+    },
+    {
+     "en": "Zendik Robe",
+     "ja": "ゼンディックローブ",
+     "tier": 0,
+     "from": "Warder of Courage",
+     "id": 25728,
+     "nm_tier": 4
+    },
+    {
+     "en": "Henic Torque",
+     "ja": "ヘニックトルク",
+     "tier": 0,
+     "from": "Warder of Dignity",
+     "id": 26013,
+     "nm_tier": 0
+    },
+    {
+     "en": "Impassive Mantle",
+     "ja": "インパシヴマント",
+     "tier": 0,
+     "from": "Warder of Dignity",
+     "id": 27622,
+     "nm_tier": 0
+    },
+    {
+     "en": "Thereoid Greaves",
+     "ja": "セレオイドグリーヴ",
+     "tier": 0,
+     "from": "Warder of Dignity",
+     "id": 27503,
+     "nm_tier": 0
+    },
+    {
+     "en": "Barathrum",
+     "ja": "バラスルーム",
+     "tier": 0,
+     "from": "Warder of Faith",
+     "id": 22269,
+     "nm_tier": 0
+    },
+    {
+     "en": "Bilious Torque",
+     "ja": "ビリアストルク",
+     "tier": 0,
+     "from": "Warder of Faith",
+     "id": 26007,
+     "nm_tier": 0
+    },
+    {
+     "en": "Maenadic Gambieras",
+     "ja": "メナデクガンビエラ",
+     "tier": 0,
+     "from": "Warder of Faith",
+     "id": 27502,
+     "nm_tier": 0
+    },
+    {
+     "en": "Bewegt Cuffs",
+     "ja": "ビウェグカフス",
+     "tier": 0,
+     "from": "Warder of Fortitude",
+     "id": 27146,
+     "nm_tier": 0
+    },
+    {
+     "en": "Decimus Torque",
+     "ja": "デシマストルク",
+     "tier": 0,
+     "from": "Warder of Fortitude",
+     "id": 26006,
+     "nm_tier": 0
+    },
+    {
+     "en": "Dedition Earring",
+     "ja": "デディションピアス",
+     "tier": 0,
+     "from": "Warder of Fortitude",
+     "id": 27544,
+     "nm_tier": 0
+    },
+    {
+     "en": "Redan Gloves",
+     "ja": "レダングローブ",
+     "tier": 0,
+     "from": "Warder of Hope",
+     "id": 27147,
+     "nm_tier": 0
+    },
+    {
+     "en": "Refoccilation Stone",
+     "ja": "レフォシレストーン",
+     "tier": 0,
+     "from": "Warder of Hope",
+     "id": 26325,
+     "nm_tier": 0
+    },
+    {
+     "en": "Yarak Torque",
+     "ja": "ヤラックトルク",
+     "tier": 0,
+     "from": "Warder of Hope",
+     "id": 26009,
+     "nm_tier": 0
+    },
+    {
+     "en": "Agelast Torque",
+     "ja": "アジラストトルク",
+     "tier": 0,
+     "from": "Warder of Justice",
+     "id": 26008,
+     "nm_tier": 0
+    },
+    {
+     "en": "Flanged Grip",
+     "ja": "フランジドグリップ",
+     "tier": 0,
+     "from": "Warder of Justice",
+     "id": 22195,
+     "nm_tier": 0
+    },
+    {
+     "en": "Halitus Helm",
+     "ja": "ハリタスヘルム",
+     "tier": 0,
+     "from": "Warder of Justice",
+     "id": 25653,
+     "nm_tier": 0
+    },
+    {
+     "en": "Baetyl Pendant",
+     "ja": "ベーテルペンダント",
+     "tier": 0,
+     "from": "Warder of Love",
+     "id": 26003,
+     "nm_tier": 0
+    },
+    {
+     "en": "Maskirova Torque",
+     "ja": "マスキロブカトルク",
+     "tier": 0,
+     "from": "Warder of Love",
+     "id": 26011,
+     "nm_tier": 0
+    },
+    {
+     "en": "Passion Jacket",
+     "ja": "パションジャケット",
+     "tier": 0,
+     "from": "Warder of Love",
+     "id": 25727,
+     "nm_tier": 0
+    },
+    {
+     "en": "Deceiver's Torque",
+     "ja": "デシーバートルク",
+     "tier": 0,
+     "from": "Warder of Loyalty",
+     "id": 26014,
+     "nm_tier": 0
+    },
+    {
+     "en": "Lissome Necklace",
+     "ja": "リソムネックレス",
+     "tier": 0,
+     "from": "Warder of Loyalty",
+     "id": 26004,
+     "nm_tier": 0
+    },
+    {
+     "en": "Vatic Byrnie",
+     "ja": "ヴァチックバーニー",
+     "tier": 0,
+     "from": "Warder of Loyalty",
+     "id": 25729,
+     "nm_tier": 0
+    },
+    {
+     "en": "Melic Torque",
+     "ja": "メリックトルク",
+     "tier": 0,
+     "from": "Warder of Mercy",
+     "id": 26012,
+     "nm_tier": 0
+    },
+    {
+     "en": "Rufescent Ring",
+     "ja": "ルフェセントリング",
+     "tier": 0,
+     "from": "Warder of Mercy",
+     "id": 26171,
+     "nm_tier": 0
+    },
+    {
+     "en": "Welkin Crown",
+     "ja": "ウエルキンクラウン",
+     "tier": 0,
+     "from": "Warder of Mercy",
+     "id": 25654,
+     "nm_tier": 0
+    },
+    {
+     "en": "Acantha Torque",
+     "ja": "アカンサトルク",
+     "tier": 0,
+     "from": "Warder of Prudence",
+     "id": 26010,
+     "nm_tier": 0
+    },
+    {
+     "en": "Querkening Brais",
+     "ja": "クァーケンブレー",
+     "tier": 0,
+     "from": "Warder of Prudence",
+     "id": 25853,
+     "nm_tier": 0
+    },
+    {
+     "en": "Relucent Cape",
+     "ja": "レルーセントケープ",
+     "tier": 0,
+     "from": "Warder of Prudence",
+     "id": 27621,
+     "nm_tier": 0
+    },
+    {
+     "en": "Carnal Torque",
+     "ja": "カーナルトルク",
+     "tier": 0,
+     "from": "Warder of Temperance",
+     "id": 26005,
+     "nm_tier": 0
+    },
+    {
+     "en": "Darraigner's Brais",
+     "ja": "ダレイナーブレー",
+     "tier": 0,
+     "from": "Warder of Temperance",
+     "id": 25852,
+     "nm_tier": 0
+    },
+    {
+     "en": "Speaker's Ring",
+     "ja": "スピーカーリング",
+     "tier": 0,
+     "from": "Warder of Temperance",
+     "id": 26170,
+     "nm_tier": 0
+    },
+    {
+     "en": "Porous Rope",
+     "ja": "ポーラスロープ",
+     "tier": 0,
+     "from": "Wasserspeier",
+     "id": 28409,
+     "nm_tier": 1
+    },
+    {
+     "en": "Quarrel Mantle",
+     "ja": "クァーレルマント",
+     "tier": 0,
+     "from": "Wasserspeier",
+     "id": 27613,
+     "nm_tier": 1
+    },
+    {
+     "en": "Emissary",
+     "ja": "エミセリーソード",
+     "tier": 0,
+     "from": "Yilan",
+     "id": 20702,
+     "nm_tier": 2
+    },
+    {
+     "en": "Iris",
+     "ja": "アイリス",
+     "tier": 0,
+     "from": "Yilan",
+     "id": 20701,
+     "nm_tier": 2
+    },
+    {
+     "en": "Lathi",
+     "ja": "ラシ",
+     "tier": 0,
+     "from": "Yilan",
+     "id": 21151,
+     "nm_tier": 2
+    },
+    {
+     "en": "Queller Rod",
+     "ja": "クェラーロッド",
+     "tier": 0,
+     "from": "Yilan",
+     "id": 21084,
+     "nm_tier": 2
+    }
+   ],
+   "nm_tiers_note": "Labels are from the BG Wiki Geas Fete tables; 4 = every group above Tier III. Japanese terms not retrieved (wiki.ffo.jp search not scriptable)."
+  },
+  {
+   "id": "reisenjima",
+   "label_ja": "醴泉島",
+   "source": [
+    "https://www.bg-wiki.com/ffxi/Category:Escha_Rewards",
+    "https://www.bg-wiki.com/ffxi/Reisenjima",
+    "https://www.bg-wiki.com/ffxi/Category:Geas_Fete"
+   ],
+   "nm_tiers": {
+    "1": "(Level 129) Tier I NMs",
+    "2": "(Level 135) Tier II NMs",
+    "3": "(Level 145) Tier III NMs",
+    "4": "(Level 150) HELM NMs"
+   },
+   "items": [
+    {
+     "en": "Freydis",
+     "ja": "フレイディス",
+     "tier": 0,
+     "from": "Albumen",
+     "id": 21747,
+     "nm_tier": 4
+    },
+    {
+     "en": "Skaoi Boots",
+     "ja": "スカウイブーツ",
+     "tier": 0,
+     "from": "Albumen",
+     "id": 25921,
+     "nm_tier": 4
+    },
+    {
+     "en": "Steinthor",
+     "ja": "スタインソール",
+     "tier": 0,
+     "from": "Albumen",
+     "id": 22114,
+     "nm_tier": 4
+    },
+    {
+     "en": "Ynglinga Sallet",
+     "ja": "インリンガサリット",
+     "tier": 0,
+     "from": "Albumen",
+     "id": 25656,
+     "nm_tier": 4
+    },
+    {
+     "en": "Aganoshe",
+     "ja": "アガノーシェ",
+     "tier": 0,
+     "from": "Bashmu",
+     "id": 21754,
+     "nm_tier": 2
+    },
+    {
+     "en": "Grioavolr",
+     "ja": "グリオアヴァール",
+     "tier": 0,
+     "from": "Bashmu",
+     "id": 22054,
+     "nm_tier": 2
+    },
+    {
+     "en": "Sarissapho. Belt",
+     "ja": "サリサフロイベルト",
+     "tier": 0,
+     "from": "Bashmu",
+     "id": 26328,
+     "nm_tier": 2
+    },
+    {
+     "en": "Asklepian Belt",
+     "ja": "アスクレピアベルト",
+     "tier": 0,
+     "from": "Belphegor",
+     "id": 26327,
+     "nm_tier": 1
+    },
+    {
+     "en": "Herculean Boots",
+     "ja": "ヘルクリアブーツ",
+     "tier": 0,
+     "from": "Belphegor",
+     "id": 27496,
+     "nm_tier": 1
+    },
+    {
+     "en": "Odyssean Cuisses",
+     "ja": "オディシアクウィス",
+     "tier": 0,
+     "from": "Belphegor",
+     "id": 25840,
+     "nm_tier": 1
+    },
+    {
+     "en": "Channeler's Stone",
+     "ja": "チャネラーストーン",
+     "tier": 0,
+     "from": "Crom Dubh",
+     "id": 26326,
+     "nm_tier": 1
+    },
+    {
+     "en": "Merlinic Shalwar",
+     "ja": "マーリンシャルワ",
+     "tier": 0,
+     "from": "Crom Dubh",
+     "id": 25843,
+     "nm_tier": 1
+    },
+    {
+     "en": "Odyssean Gauntlets",
+     "ja": "オディシアガントレ",
+     "tier": 0,
+     "from": "Crom Dubh",
+     "id": 27138,
+     "nm_tier": 1
+    },
+    {
+     "en": "Merlinic Hood",
+     "ja": "マーリンフード",
+     "tier": 0,
+     "from": "Dazzling Dolores",
+     "id": 25643,
+     "nm_tier": 1
+    },
+    {
+     "en": "Niobid Strap",
+     "ja": "ニオビッドストラップ",
+     "tier": 0,
+     "from": "Dazzling Dolores",
+     "id": 22197,
+     "nm_tier": 1
+    },
+    {
+     "en": "Odyssean Greaves",
+     "ja": "オディシアグリーヴ",
+     "tier": 0,
+     "from": "Dazzling Dolores",
+     "id": 27494,
+     "nm_tier": 1
+    },
+    {
+     "en": "Hodadenon",
+     "ja": "ホダデノン",
+     "tier": 0,
+     "from": "Erinys",
+     "id": 21755,
+     "nm_tier": 4
+    },
+    {
+     "en": "Iktomi Dastanas",
+     "ja": "イクトミダスタナ",
+     "tier": 0,
+     "from": "Erinys",
+     "id": 25761,
+     "nm_tier": 4
+    },
+    {
+     "en": "Sayadio's Kaftan",
+     "ja": "サヤディオカフタン",
+     "tier": 0,
+     "from": "Erinys",
+     "id": 25731,
+     "nm_tier": 4
+    },
+    {
+     "en": "Wochowsen",
+     "ja": "ウォチャウセン",
+     "tier": 0,
+     "from": "Erinys",
+     "id": 22119,
+     "nm_tier": 4
+    },
+    {
+     "en": "Condemners",
+     "ja": "カンデムア",
+     "tier": 0,
+     "from": "Gajasimha",
+     "id": 20505,
+     "nm_tier": 2
+    },
+    {
+     "en": "Obschine",
+     "ja": "オブズチャイン",
+     "tier": 0,
+     "from": "Gajasimha",
+     "id": 21804,
+     "nm_tier": 2
+    },
+    {
+     "en": "Persis Ring",
+     "ja": "パーシスリング",
+     "tier": 0,
+     "from": "Gajasimha",
+     "id": 26174,
+     "nm_tier": 2
+    },
+    {
+     "en": "Teller",
+     "ja": "テルア",
+     "tier": 0,
+     "from": "Gajasimha",
+     "id": 22113,
+     "nm_tier": 2
+    },
+    {
+     "en": "Tantalic Cape",
+     "ja": "タンタリクケープ",
+     "tier": 0,
+     "from": "Golden Kist",
+     "id": 26240,
+     "nm_tier": 1
+    },
+    {
+     "en": "Valorous Greaves",
+     "ja": "バロラスグリーヴ",
+     "tier": 0,
+     "from": "Golden Kist",
+     "id": 27495,
+     "nm_tier": 1
+    },
+    {
+     "en": "Colada",
+     "ja": "コラーダ",
+     "tier": 0,
+     "from": "Ironside",
+     "id": 20677,
+     "nm_tier": 2
+    },
+    {
+     "en": "Homeric Gorget",
+     "ja": "ホメリクゴルゲット",
+     "tier": 0,
+     "from": "Ironside",
+     "id": 26019,
+     "nm_tier": 2
+    },
+    {
+     "en": "Kanaria",
+     "ja": "金糸雀",
+     "tier": 0,
+     "from": "Ironside",
+     "id": 21904,
+     "nm_tier": 2
+    },
+    {
+     "en": "Merlinic Dastanas",
+     "ja": "マーリンダスタナ",
+     "tier": 0,
+     "from": "Kabandha",
+     "id": 27141,
+     "nm_tier": 1
+    },
+    {
+     "en": "Scintillating Cape",
+     "ja": "シンチレートケープ",
+     "tier": 0,
+     "from": "Kabandha",
+     "id": 26241,
+     "nm_tier": 1
+    },
+    {
+     "en": "Hetairoi Ring",
+     "ja": "ヘタイロイリング",
+     "tier": 0,
+     "from": "Maju",
+     "id": 26175,
+     "nm_tier": 3
+    },
+    {
+     "en": "Merlinic Jubbah",
+     "ja": "マーリンジュバ",
+     "tier": 0,
+     "from": "Maju",
+     "id": 25719,
+     "nm_tier": 3
+    },
+    {
+     "en": "Odyss. Chestplate",
+     "ja": "オディシアプレート",
+     "tier": 0,
+     "from": "Maju",
+     "id": 25716,
+     "nm_tier": 3
+    },
+    {
+     "en": "Perimede Cape",
+     "ja": "ペリミデケープ",
+     "tier": 0,
+     "from": "Maju",
+     "id": 26243,
+     "nm_tier": 3
+    },
+    {
+     "en": "Begrudging Ring",
+     "ja": "ビグラッジリング",
+     "tier": 0,
+     "from": "Mauve-wristed Gomberry",
+     "id": 26172,
+     "nm_tier": 1
+    },
+    {
+     "en": "Chironic Hat",
+     "ja": "カイロンハット",
+     "tier": 0,
+     "from": "Mauve-wristed Gomberry",
+     "id": 25644,
+     "nm_tier": 1
+    },
+    {
+     "en": "Valorous Mitts",
+     "ja": "バロラスミトン",
+     "tier": 0,
+     "from": "Mauve-wristed Gomberry",
+     "id": 27139,
+     "nm_tier": 1
+    },
+    {
+     "en": "Agema Cape",
+     "ja": "アゲマケープ",
+     "tier": 0,
+     "from": "Neak",
+     "id": 26244,
+     "nm_tier": 3
+    },
+    {
+     "en": "Herculean Vest",
+     "ja": "ヘルクリアベスト",
+     "tier": 0,
+     "from": "Neak",
+     "id": 25718,
+     "nm_tier": 3
+    },
+    {
+     "en": "Luminary Sash",
+     "ja": "ルーミネリサッシュ",
+     "tier": 0,
+     "from": "Neak",
+     "id": 26329,
+     "nm_tier": 3
+    },
+    {
+     "en": "Digirbalag",
+     "ja": "デゲールバラグ",
+     "tier": 0,
+     "from": "Old Shuck",
+     "id": 21746,
+     "nm_tier": 2
+    },
+    {
+     "en": "Gada",
+     "ja": "ガーダ",
+     "tier": 0,
+     "from": "Old Shuck",
+     "id": 21072,
+     "nm_tier": 2
+    },
+    {
+     "en": "Phalangite Mantle",
+     "ja": "ファランジトマント",
+     "tier": 0,
+     "from": "Old Shuck",
+     "id": 26242,
+     "nm_tier": 2
+    },
+    {
+     "en": "Firangi",
+     "ja": "フィランギ",
+     "tier": 0,
+     "from": "Onychophora",
+     "id": 20678,
+     "nm_tier": 4
+    },
+    {
+     "en": "Gozuki Mezuki",
+     "ja": "牛頭鬼馬頭鬼",
+     "tier": 0,
+     "from": "Onychophora",
+     "id": 22056,
+     "nm_tier": 4
+    },
+    {
+     "en": "Lembing",
+     "ja": "レムビング",
+     "tier": 0,
+     "from": "Onychophora",
+     "id": 21855,
+     "nm_tier": 4
+    },
+    {
+     "en": "Navon Crackows",
+     "ja": "ナヴォンクラッコー",
+     "tier": 0,
+     "from": "Onychophora",
+     "id": 25922,
+     "nm_tier": 4
+    },
+    {
+     "en": "Herculean Helm",
+     "ja": "ヘルクリアヘルム",
+     "tier": 0,
+     "from": "Oryx",
+     "id": 25642,
+     "nm_tier": 1
+    },
+    {
+     "en": "Potent Grip",
+     "ja": "ポテントグリップ",
+     "tier": 0,
+     "from": "Oryx",
+     "id": 22198,
+     "nm_tier": 1
+    },
+    {
+     "en": "Chironic Slippers",
+     "ja": "カイロンスリッパー",
+     "tier": 0,
+     "from": "Sabotender Royal",
+     "id": 27498,
+     "nm_tier": 1
+    },
+    {
+     "en": "Deino Collar",
+     "ja": "デイノカラー",
+     "tier": 0,
+     "from": "Sabotender Royal",
+     "id": 26018,
+     "nm_tier": 1
+    },
+    {
+     "en": "Odyssean Helm",
+     "ja": "オディシアヘルム",
+     "tier": 0,
+     "from": "Sabotender Royal",
+     "id": 25640,
+     "nm_tier": 1
+    },
+    {
+     "en": "Chironic Gloves",
+     "ja": "カイロングローブ",
+     "tier": 0,
+     "from": "Sang Buaya",
+     "id": 27142,
+     "nm_tier": 1
+    },
+    {
+     "en": "Thureous Earring",
+     "ja": "スリオスイヤリング",
+     "tier": 0,
+     "from": "Sang Buaya",
+     "id": 27546,
+     "nm_tier": 1
+    },
+    {
+     "en": "Valorous Mask",
+     "ja": "バロラスマスク",
+     "tier": 0,
+     "from": "Sang Buaya",
+     "id": 25641,
+     "nm_tier": 1
+    },
+    {
+     "en": "Pemphredo Tathlum",
+     "ja": "ペムフレドタスラム",
+     "tier": 0,
+     "from": "Sarsaok",
+     "id": 22271,
+     "nm_tier": 2
+    },
+    {
+     "en": "Umaru",
+     "ja": "鵜丸",
+     "tier": 0,
+     "from": "Sarsaok",
+     "id": 21021,
+     "nm_tier": 2
+    },
+    {
+     "en": "Zulfiqar",
+     "ja": "ザルフィカール",
+     "tier": 0,
+     "from": "Sarsaok",
+     "id": 21686,
+     "nm_tier": 2
+    },
+    {
+     "en": "Ahosi Leggings",
+     "ja": "アホシレギンス",
+     "tier": 0,
+     "from": "Schah",
+     "id": 25920,
+     "nm_tier": 4
+    },
+    {
+     "en": "Nzingha Cuirass",
+     "ja": "ンジンガキュイラス",
+     "tier": 0,
+     "from": "Schah",
+     "id": 25730,
+     "nm_tier": 4
+    },
+    {
+     "en": "Oranyan",
+     "ja": "オランヤン",
+     "tier": 0,
+     "from": "Schah",
+     "id": 22055,
+     "nm_tier": 4
+    },
+    {
+     "en": "Takoba",
+     "ja": "タコーバ",
+     "tier": 0,
+     "from": "Schah",
+     "id": 21687,
+     "nm_tier": 4
+    },
+    {
+     "en": "Apate Ring",
+     "ja": "アペートリング",
+     "tier": 0,
+     "from": "Selkit",
+     "id": 26173,
+     "nm_tier": 1
+    },
+    {
+     "en": "Herculean Trousers",
+     "ja": "ヘルクリアトラウザ",
+     "tier": 0,
+     "from": "Selkit",
+     "id": 25842,
+     "nm_tier": 1
+    },
+    {
+     "en": "Merlinic Crackows",
+     "ja": "マーリンクラッコー",
+     "tier": 0,
+     "from": "Selkit",
+     "id": 27497,
+     "nm_tier": 1
+    },
+    {
+     "en": "Digni. Earring",
+     "ja": "ディグニタリピアス",
+     "tier": 0,
+     "from": "Strophadia",
+     "id": 27547,
+     "nm_tier": 2
+    },
+    {
+     "en": "Holliday",
+     "ja": "ハリデー",
+     "tier": 0,
+     "from": "Strophadia",
+     "id": 22134,
+     "nm_tier": 2
+    },
+    {
+     "en": "Reienkyo",
+     "ja": "冷艶鋸",
+     "tier": 0,
+     "from": "Strophadia",
+     "id": 21854,
+     "nm_tier": 2
+    },
+    {
+     "en": "Skinflayer",
+     "ja": "スキンフレア",
+     "tier": 0,
+     "from": "Strophadia",
+     "id": 20579,
+     "nm_tier": 2
+    },
+    {
+     "en": "Clotharius Torque",
+     "ja": "クロタリウストルク",
+     "tier": 0,
+     "from": "Taelmoth the Diremaw",
+     "id": 26017,
+     "nm_tier": 1
+    },
+    {
+     "en": "Herculean Gloves",
+     "ja": "ヘルクリアグローブ",
+     "tier": 0,
+     "from": "Taelmoth the Diremaw",
+     "id": 27140,
+     "nm_tier": 1
+    },
+    {
+     "en": "Valorous Hose",
+     "ja": "バロラスホーズ",
+     "tier": 0,
+     "from": "Taelmoth the Diremaw",
+     "id": 25841,
+     "nm_tier": 1
+    },
+    {
+     "en": "Composer's Mitts",
+     "ja": "コンポーザーミトン",
+     "tier": 0,
+     "from": "Teles",
+     "id": 27143,
+     "nm_tier": 4
+    },
+    {
+     "en": "Composer's Sabots",
+     "ja": "コンポーザーサボ",
+     "tier": 0,
+     "from": "Teles",
+     "id": 27499,
+     "nm_tier": 4
+    },
+    {
+     "en": "Misanthropy",
+     "ja": "ミサンスロピー",
+     "tier": 0,
+     "from": "Teles",
+     "id": 20889,
+     "nm_tier": 4
+    },
+    {
+     "en": "Sangoma",
+     "ja": "サンゴマ",
+     "tier": 0,
+     "from": "Teles",
+     "id": 20592,
+     "nm_tier": 4
+    },
+    {
+     "en": "Ipoca Beret",
+     "ja": "イポカベレー",
+     "tier": 0,
+     "from": "Vinipata",
+     "id": 25655,
+     "nm_tier": 4
+    },
+    {
+     "en": "Izcalli",
+     "ja": "イズカリ",
+     "tier": 0,
+     "from": "Vinipata",
+     "id": 21073,
+     "nm_tier": 4
+    },
+    {
+     "en": "Shishio",
+     "ja": "獅子王",
+     "tier": 0,
+     "from": "Vinipata",
+     "id": 21022,
+     "nm_tier": 4
+    },
+    {
+     "en": "Taka",
+     "ja": "鷹",
+     "tier": 0,
+     "from": "Vinipata",
+     "id": 21905,
+     "nm_tier": 4
+    },
+    {
+     "en": "Ainia Collar",
+     "ja": "アイニアカラー",
+     "tier": 0,
+     "from": "Yakshi",
+     "id": 26020,
+     "nm_tier": 3
+    },
+    {
+     "en": "Chironic Doublet",
+     "ja": "カイロンダブレット",
+     "tier": 0,
+     "from": "Yakshi",
+     "id": 25720,
+     "nm_tier": 3
+    },
+    {
+     "en": "Thrace Strap",
+     "ja": "スエースストラップ",
+     "tier": 0,
+     "from": "Yakshi",
+     "id": 22199,
+     "nm_tier": 3
+    },
+    {
+     "en": "Valorous Mail",
+     "ja": "バロラスメイル",
+     "tier": 0,
+     "from": "Yakshi",
+     "id": 25717,
+     "nm_tier": 3
+    },
+    {
+     "en": "Chironic Hose",
+     "ja": "カイロンホーズ",
+     "tier": 0,
+     "from": "Zduhac",
+     "id": 25844,
+     "nm_tier": 1
+    },
+    {
+     "en": "Expeditious Pinion",
+     "ja": "エクスペデピニオン",
+     "tier": 0,
+     "from": "Zduhac",
+     "id": 22270,
+     "nm_tier": 1
+    },
+    {
+     "en": "Arjuna Breeches",
+     "ja": "アジュナブリーチズ",
+     "tier": 0,
+     "from": "Zerde",
+     "id": 25854,
+     "nm_tier": 4
+    },
+    {
+     "en": "Mrigavyadha Gloves",
+     "ja": "ムリガヴダグローブ",
+     "tier": 0,
+     "from": "Zerde",
+     "id": 25760,
+     "nm_tier": 4
+    },
+    {
+     "en": "Suwaiyas",
+     "ja": "スワイヤ",
+     "tier": 0,
+     "from": "Zerde",
+     "id": 20506,
+     "nm_tier": 4
+    },
+    {
+     "en": "Vedic Coat",
+     "ja": "ヴェディクコート",
+     "tier": 0,
+     "from": "Zerde",
+     "id": 25721,
+     "nm_tier": 4
+    }
+   ],
+   "nm_tiers_note": "Labels are from the BG Wiki Geas Fete tables; 4 = every group above Tier III. Japanese terms not retrieved (wiki.ffo.jp search not scriptable)."
+  },
+  {
+   "id": "abjuration",
+   "label_ja": "エスカッション装備",
+   "source": [
+    "https://www.bg-wiki.com/ffxi/Abjuration",
+    "https://www.bg-wiki.com/ffxi/Category:Escha_Rewards"
+   ],
+   "items": [
+    {
+     "en": "Apogee Crown",
+     "ja": "アポジクラウン",
+     "tier": 0,
+     "from": "Apogee",
+     "id": 26676
+    },
+    {
+     "en": "Apogee Crown +1",
+     "ja": "ＡＰクラウン+1",
+     "tier": 1,
+     "from": "Apogee",
+     "id": 26677
+    },
+    {
+     "en": "Apogee Dalmatica",
+     "ja": "アポジダルマティカ",
+     "tier": 0,
+     "from": "Apogee",
+     "id": 26852
+    },
+    {
+     "en": "Apo. Dalmatica +1",
+     "ja": "ＡＰダルマティカ+1",
+     "tier": 1,
+     "from": "Apogee",
+     "id": 26853
+    },
+    {
+     "en": "Apogee Mitts",
+     "ja": "アポジミトン",
+     "tier": 0,
+     "from": "Apogee",
+     "id": 27028
+    },
+    {
+     "en": "Apogee Mitts +1",
+     "ja": "ＡＰミトン+1",
+     "tier": 1,
+     "from": "Apogee",
+     "id": 27029
+    },
+    {
+     "en": "Apogee Slacks",
+     "ja": "アポジズボン",
+     "tier": 0,
+     "from": "Apogee",
+     "id": 27204
+    },
+    {
+     "en": "Apogee Slacks +1",
+     "ja": "ＡＰズボン+1",
+     "tier": 1,
+     "from": "Apogee",
+     "id": 27205
+    },
+    {
+     "en": "Apogee Pumps",
+     "ja": "アポジパンプス",
+     "tier": 0,
+     "from": "Apogee",
+     "id": 27380
+    },
+    {
+     "en": "Apogee Pumps +1",
+     "ja": "ＡＰパンプス+1",
+     "tier": 1,
+     "from": "Apogee",
+     "id": 27381
+    },
+    {
+     "en": "Ryuo Somen",
+     "ja": "龍王総面",
+     "tier": 0,
+     "from": "Ryuo",
+     "id": 25611
+    },
+    {
+     "en": "Ryuo Somen +1",
+     "ja": "龍王総面改",
+     "tier": 1,
+     "from": "Ryuo",
+     "id": 25612
+    },
+    {
+     "en": "Ryuo Domaru",
+     "ja": "龍王胴丸",
+     "tier": 0,
+     "from": "Ryuo",
+     "id": 25684
+    },
+    {
+     "en": "Ryuo Domaru +1",
+     "ja": "龍王胴丸改",
+     "tier": 1,
+     "from": "Ryuo",
+     "id": 25685
+    },
+    {
+     "en": "Ryuo Tekko",
+     "ja": "龍王手甲",
+     "tier": 0,
+     "from": "Ryuo",
+     "id": 27115
+    },
+    {
+     "en": "Ryuo Tekko +1",
+     "ja": "龍王手甲改",
+     "tier": 1,
+     "from": "Ryuo",
+     "id": 27116
+    },
+    {
+     "en": "Ryuo Hakama",
+     "ja": "龍王筒袴",
+     "tier": 0,
+     "from": "Ryuo",
+     "id": 27300
+    },
+    {
+     "en": "Ryuo Hakama +1",
+     "ja": "龍王筒袴改",
+     "tier": 1,
+     "from": "Ryuo",
+     "id": 27301
+    },
+    {
+     "en": "Ryuo Sune-Ate",
+     "ja": "龍王脛当",
+     "tier": 0,
+     "from": "Ryuo",
+     "id": 27471
+    },
+    {
+     "en": "Ryuo Sune-Ate +1",
+     "ja": "龍王脛当改",
+     "tier": 1,
+     "from": "Ryuo",
+     "id": 27472
+    },
+    {
+     "en": "Souveran Schaller",
+     "ja": "スヴレンシャレル",
+     "tier": 0,
+     "from": "Souveran",
+     "id": 26670
+    },
+    {
+     "en": "Souv. Schaller +1",
+     "ja": "ＳＶシャレル+1",
+     "tier": 1,
+     "from": "Souveran",
+     "id": 26671
+    },
+    {
+     "en": "Souveran Cuirass",
+     "ja": "スヴレンキュイラス",
+     "tier": 0,
+     "from": "Souveran",
+     "id": 26846
+    },
+    {
+     "en": "Souv. Cuirass +1",
+     "ja": "ＳＶキュイラス+1",
+     "tier": 1,
+     "from": "Souveran",
+     "id": 26847
+    },
+    {
+     "en": "Souv. Handschuhs",
+     "ja": "スヴレンハントシュ",
+     "tier": 0,
+     "from": "Souveran",
+     "id": 27022
+    },
+    {
+     "en": "Souv. Handsch. +1",
+     "ja": "ＳＶハントシュ+1",
+     "tier": 1,
+     "from": "Souveran",
+     "id": 27023
+    },
+    {
+     "en": "Souveran Diechlings",
+     "ja": "スヴレンディヒリン",
+     "tier": 0,
+     "from": "Souveran",
+     "id": 27198
+    },
+    {
+     "en": "Souv. Diechlings +1",
+     "ja": "ＳＶディヒリン+1",
+     "tier": 1,
+     "from": "Souveran",
+     "id": 27199
+    },
+    {
+     "en": "Souveran Schuhs",
+     "ja": "スヴレンシュー",
+     "tier": 0,
+     "from": "Souveran",
+     "id": 27374
+    },
+    {
+     "en": "Souveran Schuhs +1",
+     "ja": "ＳＶシュー+1",
+     "tier": 1,
+     "from": "Souveran",
+     "id": 27375
+    },
+    {
+     "en": "Emicho Coronet",
+     "ja": "エミチョコロネット",
+     "tier": 0,
+     "from": "Emicho",
+     "id": 25609
+    },
+    {
+     "en": "Emicho Coronet +1",
+     "ja": "ＥＭコロネット+1",
+     "tier": 1,
+     "from": "Emicho",
+     "id": 25610
+    },
+    {
+     "en": "Emicho Haubert",
+     "ja": "エミチョオーベール",
+     "tier": 0,
+     "from": "Emicho",
+     "id": 25682
+    },
+    {
+     "en": "Emicho Haubert +1",
+     "ja": "ＥＭオーベール+1",
+     "tier": 1,
+     "from": "Emicho",
+     "id": 25683
+    },
+    {
+     "en": "Emicho Gauntlets",
+     "ja": "エミチョガントレ",
+     "tier": 0,
+     "from": "Emicho",
+     "id": 27113
+    },
+    {
+     "en": "Emi. Gauntlets +1",
+     "ja": "ＥＭガントレ+1",
+     "tier": 1,
+     "from": "Emicho",
+     "id": 27114
+    },
+    {
+     "en": "Emicho Hose",
+     "ja": "エミチョホーズ",
+     "tier": 0,
+     "from": "Emicho",
+     "id": 27298
+    },
+    {
+     "en": "Emicho Hose +1",
+     "ja": "ＥＭホーズ+1",
+     "tier": 1,
+     "from": "Emicho",
+     "id": 27299
+    },
+    {
+     "en": "Emicho Gambieras",
+     "ja": "エミチョガンビエラ",
+     "tier": 0,
+     "from": "Emicho",
+     "id": 27469
+    },
+    {
+     "en": "Emi. Gambieras +1",
+     "ja": "ＥＭガンビエラ+1",
+     "tier": 1,
+     "from": "Emicho",
+     "id": 27470
+    },
+    {
+     "en": "Kaykaus Mitra",
+     "ja": "ケカスミトラ",
+     "tier": 0,
+     "from": "Kaykaus",
+     "id": 25617
+    },
+    {
+     "en": "Kaykaus Mitra +1",
+     "ja": "ケカスミトラ+1",
+     "tier": 1,
+     "from": "Kaykaus",
+     "id": 25618
+    },
+    {
+     "en": "Kaykaus Bliaut",
+     "ja": "ケカスブリオー",
+     "tier": 0,
+     "from": "Kaykaus",
+     "id": 25690
+    },
+    {
+     "en": "Kaykaus Bliaut +1",
+     "ja": "ケカスブリオー+1",
+     "tier": 1,
+     "from": "Kaykaus",
+     "id": 25691
+    },
+    {
+     "en": "Kaykaus Cuffs",
+     "ja": "ケカスカフス",
+     "tier": 0,
+     "from": "Kaykaus",
+     "id": 27121
+    },
+    {
+     "en": "Kaykaus Cuffs +1",
+     "ja": "ケカスカフス+1",
+     "tier": 1,
+     "from": "Kaykaus",
+     "id": 27122
+    },
+    {
+     "en": "Kaykaus Tights",
+     "ja": "ケカスタイツ",
+     "tier": 0,
+     "from": "Kaykaus",
+     "id": 27306
+    },
+    {
+     "en": "Kaykaus Tights +1",
+     "ja": "ケカスタイツ+1",
+     "tier": 1,
+     "from": "Kaykaus",
+     "id": 27307
+    },
+    {
+     "en": "Kaykaus Boots",
+     "ja": "ケカスブーツ",
+     "tier": 0,
+     "from": "Kaykaus",
+     "id": 27477
+    },
+    {
+     "en": "Kaykaus Boots +1",
+     "ja": "ケカスブーツ+1",
+     "tier": 1,
+     "from": "Kaykaus",
+     "id": 27478
+    },
+    {
+     "en": "Rao Kabuto",
+     "ja": "羅王頭成兜",
+     "tier": 0,
+     "from": "Rao",
+     "id": 26674
+    },
+    {
+     "en": "Rao Kabuto +1",
+     "ja": "羅王頭成兜改",
+     "tier": 1,
+     "from": "Rao",
+     "id": 26675
+    },
+    {
+     "en": "Rao Togi",
+     "ja": "羅王闘着",
+     "tier": 0,
+     "from": "Rao",
+     "id": 26850
+    },
+    {
+     "en": "Rao Togi +1",
+     "ja": "羅王闘着改",
+     "tier": 1,
+     "from": "Rao",
+     "id": 26851
+    },
+    {
+     "en": "Rao Kote",
+     "ja": "羅王篠篭手",
+     "tier": 0,
+     "from": "Rao",
+     "id": 27026
+    },
+    {
+     "en": "Rao Kote +1",
+     "ja": "羅王篠篭手改",
+     "tier": 1,
+     "from": "Rao",
+     "id": 27027
+    },
+    {
+     "en": "Rao Haidate",
+     "ja": "羅王板佩楯",
+     "tier": 0,
+     "from": "Rao",
+     "id": 27202
+    },
+    {
+     "en": "Rao Haidate +1",
+     "ja": "羅王板佩楯改",
+     "tier": 1,
+     "from": "Rao",
+     "id": 27203
+    },
+    {
+     "en": "Rao Sune-Ate",
+     "ja": "羅王篠脛当",
+     "tier": 0,
+     "from": "Rao",
+     "id": 27378
+    },
+    {
+     "en": "Rao Sune-Ate +1",
+     "ja": "羅王篠脛当改",
+     "tier": 1,
+     "from": "Rao",
+     "id": 27379
+    },
+    {
+     "en": "Adhemar Bonnet",
+     "ja": "アデマボンネット",
+     "tier": 0,
+     "from": "Adhemar",
+     "id": 25613
+    },
+    {
+     "en": "Adhemar Bonnet +1",
+     "ja": "アデマボンネット+1",
+     "tier": 1,
+     "from": "Adhemar",
+     "id": 25614
+    },
+    {
+     "en": "Adhemar Jacket",
+     "ja": "アデマジャケット",
+     "tier": 0,
+     "from": "Adhemar",
+     "id": 25686
+    },
+    {
+     "en": "Adhemar Jacket +1",
+     "ja": "アデマジャケット+1",
+     "tier": 1,
+     "from": "Adhemar",
+     "id": 25687
+    },
+    {
+     "en": "Adhemar Wristbands",
+     "ja": "アデマリスト",
+     "tier": 0,
+     "from": "Adhemar",
+     "id": 27117
+    },
+    {
+     "en": "Adhemar Wrist. +1",
+     "ja": "アデマリスト+1",
+     "tier": 1,
+     "from": "Adhemar",
+     "id": 27118
+    },
+    {
+     "en": "Adhemar Kecks",
+     "ja": "アデマケックス",
+     "tier": 0,
+     "from": "Adhemar",
+     "id": 27302
+    },
+    {
+     "en": "Adhemar Kecks +1",
+     "ja": "アデマケックス+1",
+     "tier": 1,
+     "from": "Adhemar",
+     "id": 27303
+    },
+    {
+     "en": "Adhemar Gamashes",
+     "ja": "アデマゲマッシュ",
+     "tier": 0,
+     "from": "Adhemar",
+     "id": 27473
+    },
+    {
+     "en": "Adhe. Gamashes +1",
+     "ja": "アデマゲマッシュ+1",
+     "tier": 1,
+     "from": "Adhemar",
+     "id": 27474
+    },
+    {
+     "en": "Carmine Mask",
+     "ja": "カマインマスク",
+     "tier": 0,
+     "from": "Carmine",
+     "id": 26678
+    },
+    {
+     "en": "Carmine Mask +1",
+     "ja": "カマインマスク+1",
+     "tier": 1,
+     "from": "Carmine",
+     "id": 26679
+    },
+    {
+     "en": "Carm. Scale Mail",
+     "ja": "カマインスケイル",
+     "tier": 0,
+     "from": "Carmine",
+     "id": 26854
+    },
+    {
+     "en": "Carm. Sc. Mail +1",
+     "ja": "カマインスケイル+1",
+     "tier": 1,
+     "from": "Carmine",
+     "id": 26855
+    },
+    {
+     "en": "Carmine Fin. Ga.",
+     "ja": "カマインフィンガー",
+     "tier": 0,
+     "from": "Carmine",
+     "id": 27030
+    },
+    {
+     "en": "Carmine Fin. Ga. +1",
+     "ja": "カマインフィンガ+1",
+     "tier": 1,
+     "from": "Carmine",
+     "id": 27031
+    },
+    {
+     "en": "Carmine Cuisses",
+     "ja": "カマインクウィス",
+     "tier": 0,
+     "from": "Carmine",
+     "id": 27206
+    },
+    {
+     "en": "Carmine Cuisses +1",
+     "ja": "カマインクウィス+1",
+     "tier": 1,
+     "from": "Carmine",
+     "id": 27207
+    },
+    {
+     "en": "Carmine Greaves",
+     "ja": "カマイングリーヴ",
+     "tier": 0,
+     "from": "Carmine",
+     "id": 27382
+    },
+    {
+     "en": "Carmine Greaves +1",
+     "ja": "カマイングリーヴ+1",
+     "tier": 1,
+     "from": "Carmine",
+     "id": 27383
+    },
+    {
+     "en": "Lustratio Cap",
+     "ja": "ルストラキャップ",
+     "tier": 0,
+     "from": "Lustratio",
+     "id": 26668
+    },
+    {
+     "en": "Lustratio Cap +1",
+     "ja": "ルストラキャップ+1",
+     "tier": 1,
+     "from": "Lustratio",
+     "id": 26669
+    },
+    {
+     "en": "Lustratio Harness",
+     "ja": "ルストラハーネス",
+     "tier": 0,
+     "from": "Lustratio",
+     "id": 26844
+    },
+    {
+     "en": "Lustr. Harness +1",
+     "ja": "ルストラハーネス+1",
+     "tier": 1,
+     "from": "Lustratio",
+     "id": 26845
+    },
+    {
+     "en": "Lustratio Mittens",
+     "ja": "ルストラミトン",
+     "tier": 0,
+     "from": "Lustratio",
+     "id": 27020
+    },
+    {
+     "en": "Lustr. Mittens +1",
+     "ja": "ルストラミトン+1",
+     "tier": 1,
+     "from": "Lustratio",
+     "id": 27021
+    },
+    {
+     "en": "Lustratio Subligar",
+     "ja": "ルストラサブリガ",
+     "tier": 0,
+     "from": "Lustratio",
+     "id": 27196
+    },
+    {
+     "en": "Lustr. Subligar +1",
+     "ja": "ルストラサブリガ+1",
+     "tier": 1,
+     "from": "Lustratio",
+     "id": 27197
+    },
+    {
+     "en": "Lustratio Leggings",
+     "ja": "ルストラレギンス",
+     "tier": 0,
+     "from": "Lustratio",
+     "id": 27372
+    },
+    {
+     "en": "Lustra. Leggings +1",
+     "ja": "ルストラレギンス+1",
+     "tier": 1,
+     "from": "Lustratio",
+     "id": 27373
+    },
+    {
+     "en": "Argosy Celata",
+     "ja": "アゴシチェラータ",
+     "tier": 0,
+     "from": "Argosy",
+     "id": 26672
+    },
+    {
+     "en": "Argosy Celata +1",
+     "ja": "アゴシチェラータ+1",
+     "tier": 1,
+     "from": "Argosy",
+     "id": 26673
+    },
+    {
+     "en": "Argosy Hauberk",
+     "ja": "アゴシホーバーク",
+     "tier": 0,
+     "from": "Argosy",
+     "id": 26848
+    },
+    {
+     "en": "Argosy Hauberk +1",
+     "ja": "アゴシホーバーク+1",
+     "tier": 1,
+     "from": "Argosy",
+     "id": 26849
+    },
+    {
+     "en": "Argosy Mufflers",
+     "ja": "アゴシマフラ",
+     "tier": 0,
+     "from": "Argosy",
+     "id": 27024
+    },
+    {
+     "en": "Argosy Mufflers +1",
+     "ja": "アゴシマフラ+1",
+     "tier": 1,
+     "from": "Argosy",
+     "id": 27025
+    },
+    {
+     "en": "Argosy Breeches",
+     "ja": "アゴシブリーチズ",
+     "tier": 0,
+     "from": "Argosy",
+     "id": 27200
+    },
+    {
+     "en": "Argosy Breeches +1",
+     "ja": "アゴシブリーチズ+1",
+     "tier": 1,
+     "from": "Argosy",
+     "id": 27201
+    },
+    {
+     "en": "Argosy Sollerets",
+     "ja": "アゴシソルレット",
+     "tier": 0,
+     "from": "Argosy",
+     "id": 27376
+    },
+    {
+     "en": "Argosy Sollerets +1",
+     "ja": "アゴシソルレット+1",
+     "tier": 1,
+     "from": "Argosy",
+     "id": 27377
+    },
+    {
+     "en": "Amalric Coif",
+     "ja": "アマリクコイフ",
+     "tier": 0,
+     "from": "Amalric",
+     "id": 25615
+    },
+    {
+     "en": "Amalric Coif +1",
+     "ja": "ＡＭコイフ+1",
+     "tier": 1,
+     "from": "Amalric",
+     "id": 25616
+    },
+    {
+     "en": "Amalric Doublet",
+     "ja": "アマリクダブレット",
+     "tier": 0,
+     "from": "Amalric",
+     "id": 25688
+    },
+    {
+     "en": "Amalric Doublet +1",
+     "ja": "ＡＭダブレット+1",
+     "tier": 1,
+     "from": "Amalric",
+     "id": 25689
+    },
+    {
+     "en": "Amalric Gages",
+     "ja": "アマリクゲージ",
+     "tier": 0,
+     "from": "Amalric",
+     "id": 27119
+    },
+    {
+     "en": "Amalric Gages +1",
+     "ja": "ＡＭゲージ+1",
+     "tier": 1,
+     "from": "Amalric",
+     "id": 27120
+    },
+    {
+     "en": "Amalric Slops",
+     "ja": "アマリクスロップス",
+     "tier": 0,
+     "from": "Amalric",
+     "id": 27304
+    },
+    {
+     "en": "Amalric Slops +1",
+     "ja": "ＡＭスロップス+1",
+     "tier": 1,
+     "from": "Amalric",
+     "id": 27305
+    },
+    {
+     "en": "Amalric Nails",
+     "ja": "アマリクネール",
+     "tier": 0,
+     "from": "Amalric",
+     "id": 27475
+    },
+    {
+     "en": "Amalric Nails +1",
+     "ja": "ＡＭネール+1",
+     "tier": 1,
+     "from": "Amalric",
+     "id": 27476
+    }
+   ]
+  },
+  {
+   "id": "unity",
+   "label_ja": "ユニティ",
+   "source": [
+    "https://www.bg-wiki.com/ffxi/Category:Unity_Concord",
+    "https://www.bg-wiki.com/ffxi/Category:Unity_Rewards",
+    "https://www.bg-wiki.com/ffxi/Unity_Weapons",
+    "https://www.bg-wiki.com/ffxi/Unity_Armor",
+    "https://www.bg-wiki.com/ffxi/Unity_Accessories"
+   ],
+   "items": [
+    {
+     "en": "Aizkora",
+     "ja": "アイズコラブージ",
+     "tier": 0,
+     "from": "Azrael",
+     "id": 20851
+    },
+    {
+     "en": "Aizkora +1",
+     "ja": "アイズコラブージ+1",
+     "tier": 1,
+     "from": "Azrael",
+     "id": 20852
+    },
+    {
+     "en": "Anathema Harpe",
+     "ja": "アナセマハルパー",
+     "tier": 0,
+     "from": "Muut",
+     "id": 20606
+    },
+    {
+     "en": "Anathema Harpe +1",
+     "ja": "アナセマハルパー+1",
+     "tier": 1,
+     "from": "Muut",
+     "id": 20607
+    },
+    {
+     "en": "Beheader",
+     "ja": "ビヘッダー",
+     "tier": 0,
+     "from": "Borealis Shadow",
+     "id": 20853
+    },
+    {
+     "en": "Beheader +1",
+     "ja": "ビヘッダー+1",
+     "tier": 1,
+     "from": "Borealis Shadow",
+     "id": 20854
+    },
+    {
+     "en": "Buramgh",
+     "ja": "ブラアーム",
+     "tier": 0,
+     "from": "Jester Malatrix",
+     "id": 20806
+    },
+    {
+     "en": "Buramgh +1",
+     "ja": "ブラアーム+1",
+     "tier": 1,
+     "from": "Jester Malatrix",
+     "id": 20807
+    },
+    {
+     "en": "Combuster",
+     "ja": "コンバスター",
+     "tier": 0,
+     "from": "Hidhaegg",
+     "id": 20696
+    },
+    {
+     "en": "Combuster +1",
+     "ja": "コンバスター+1",
+     "tier": 1,
+     "from": "Hidhaegg",
+     "id": 20697
+    },
+    {
+     "en": "Comeuppances",
+     "ja": "カマッパンス",
+     "tier": 0,
+     "from": "Tumult Curator",
+     "id": 20507
+    },
+    {
+     "en": "Comeuppances +1",
+     "ja": "カマッパンス+1",
+     "tier": 1,
+     "from": "Tumult Curator",
+     "id": 20508
+    },
+    {
+     "en": "Demersal Degen",
+     "ja": "デマサルデーゲン",
+     "tier": 0,
+     "from": "Bakunawa",
+     "id": 20708
+    },
+    {
+     "en": "Demers. Degen +1",
+     "ja": "デマサルデーゲン+1",
+     "tier": 1,
+     "from": "Bakunawa",
+     "id": 20709
+    },
+    {
+     "en": "Emeici",
+     "ja": "峨嵋刺",
+     "tier": 0,
+     "from": "Garbage Gel",
+     "id": 20521
+    },
+    {
+     "en": "Emeici +1",
+     "ja": "峨嵋刺改",
+     "tier": 1,
+     "from": "Garbage Gel",
+     "id": 20522
+    },
+    {
+     "en": "Fists of Fury",
+     "ja": "フューリーフィスト",
+     "tier": 0,
+     "from": "Borealis Shadow",
+     "id": 20527
+    },
+    {
+     "en": "Fists of Fury +1",
+     "ja": "フューリーフィスト+1",
+     "tier": 1,
+     "from": "Borealis Shadow",
+     "id": 20528
+    },
+    {
+     "en": "Flyssa",
+     "ja": "フリッサ",
+     "tier": 0,
+     "from": "Shedu",
+     "id": 20681
+    },
+    {
+     "en": "Flyssa +1",
+     "ja": "フリッサ+1",
+     "tier": 1,
+     "from": "Shedu",
+     "id": 20682
+    },
+    {
+     "en": "Gae Derg",
+     "ja": "ゲイダーグ",
+     "tier": 0,
+     "from": "Coca",
+     "id": 20942
+    },
+    {
+     "en": "Gae Derg +1",
+     "ja": "ゲイダーグ+1",
+     "tier": 1,
+     "from": "Coca",
+     "id": 20943
+    },
+    {
+     "en": "Habilitator",
+     "ja": "ハビリテイター",
+     "tier": 0,
+     "from": "Thu'ban",
+     "id": 21748
+    },
+    {
+     "en": "Habilitator +1",
+     "ja": "ハビリテイター+1",
+     "tier": 1,
+     "from": "Thu'ban",
+     "id": 21749
+    },
+    {
+     "en": "Jugo Kukri",
+     "ja": "ユーゴククリ",
+     "tier": 0,
+     "from": "Vedrfolnir",
+     "id": 20608
+    },
+    {
+     "en": "Jugo Kukri +1",
+     "ja": "ユーゴククリ+1",
+     "tier": 1,
+     "from": "Vedrfolnir",
+     "id": 20609
+    },
+    {
+     "en": "Kladenets",
+     "ja": "クラデネツ",
+     "tier": 0,
+     "from": "Specter Worm",
+     "id": 21702
+    },
+    {
+     "en": "Kladenets +1",
+     "ja": "クラデネツ+1",
+     "tier": 1,
+     "from": "Specter Worm",
+     "id": 21703
+    },
+    {
+     "en": "Kunimune",
+     "ja": "国宗",
+     "tier": 0,
+     "from": "Keeper of Heiligtum",
+     "id": 21034
+    },
+    {
+     "en": "Kunimune +1",
+     "ja": "国宗改",
+     "tier": 1,
+     "from": "Keeper of Heiligtum",
+     "id": 21035
+    },
+    {
+     "en": "Kustawi",
+     "ja": "クスタウィ",
+     "tier": 0,
+     "from": "Glazemane",
+     "id": 20580
+    },
+    {
+     "en": "Kustawi +1",
+     "ja": "クスタウィ+1",
+     "tier": 1,
+     "from": "Glazemane",
+     "id": 20581
+    },
+    {
+     "en": "Loxotic Mace",
+     "ja": "ロクソテクメイス",
+     "tier": 0,
+     "from": "Grand Grenade",
+     "id": 21090
+    },
+    {
+     "en": "Loxotic Mace +1",
+     "ja": "ロクソテクメイス+1",
+     "tier": 1,
+     "from": "Grand Grenade",
+     "id": 21091
+    },
+    {
+     "en": "Mdomo Axe",
+     "ja": "ンドモアクス",
+     "tier": 0,
+     "from": "Kubool Ja's Mhuufya",
+     "id": 20799
+    },
+    {
+     "en": "Mdomo Axe +1",
+     "ja": "ンドモアクス+1",
+     "tier": 1,
+     "from": "Kubool Ja's Mhuufya",
+     "id": 20800
+    },
+    {
+     "en": "Montante",
+     "ja": "モンタント",
+     "tier": 0,
+     "from": "Sarama",
+     "id": 21688
+    },
+    {
+     "en": "Montante +1",
+     "ja": "モンタント+1",
+     "tier": 1,
+     "from": "Sarama",
+     "id": 21689
+    },
+    {
+     "en": "Norifusa",
+     "ja": "則房",
+     "tier": 0,
+     "from": "Volatile Cluster",
+     "id": 21029
+    },
+    {
+     "en": "Norifusa +1",
+     "ja": "則房改",
+     "tier": 1,
+     "from": "Volatile Cluster",
+     "id": 21030
+    },
+    {
+     "en": "Nullis",
+     "ja": "ナリス",
+     "tier": 0,
+     "from": "Hidhaegg",
+     "id": 21695
+    },
+    {
+     "en": "Nullis +1",
+     "ja": "ナリス+1",
+     "tier": 1,
+     "from": "Hidhaegg",
+     "id": 21696
+    },
+    {
+     "en": "Perun",
+     "ja": "ペルーン",
+     "tier": 0,
+     "from": "Ayapec",
+     "id": 20804
+    },
+    {
+     "en": "Perun +1",
+     "ja": "ペルーン+1",
+     "tier": 1,
+     "from": "Ayapec",
+     "id": 20805
+    },
+    {
+     "en": "Pixquizpan",
+     "ja": "ピクイズパン",
+     "tier": 0,
+     "from": "Wyvernhunter Bambrox",
+     "id": 21805
+    },
+    {
+     "en": "Pixquizpan +1",
+     "ja": "ピクイズパン+1",
+     "tier": 1,
+     "from": "Wyvernhunter Bambrox",
+     "id": 21806
+    },
+    {
+     "en": "Pukulatmuj",
+     "ja": "プクラトムージュ",
+     "tier": 0,
+     "from": "Arke",
+     "id": 20613
+    },
+    {
+     "en": "Pukulatmuj +1",
+     "ja": "プクラトムージュ+1",
+     "tier": 1,
+     "from": "Arke",
+     "id": 20614
+    },
+    {
+     "en": "Raicho",
+     "ja": "雷鳥",
+     "tier": 0,
+     "from": "Vidmapire",
+     "id": 20980
+    },
+    {
+     "en": "Raicho +1",
+     "ja": "雷鳥改",
+     "tier": 1,
+     "from": "Vidmapire",
+     "id": 20981
+    },
+    {
+     "en": "Sangarius",
+     "ja": "サンガリアス",
+     "tier": 0,
+     "from": "Lumber Jill",
+     "id": 20611
+    },
+    {
+     "en": "Sangarius +1",
+     "ja": "サンガリアス+1",
+     "tier": 1,
+     "from": "Lumber Jill",
+     "id": 20612
+    },
+    {
+     "en": "Tancho",
+     "ja": "丹頂",
+     "tier": 0,
+     "from": "Orcfeltrap",
+     "id": 20987
+    },
+    {
+     "en": "Tancho +1",
+     "ja": "丹頂改",
+     "tier": 1,
+     "from": "Orcfeltrap",
+     "id": 20988
+    },
+    {
+     "en": "Tanmogayi",
+     "ja": "タンモガイ",
+     "tier": 0,
+     "from": "Sarama",
+     "id": 20679
+    },
+    {
+     "en": "Tanmogayi +1",
+     "ja": "タンモガイ+1",
+     "tier": 1,
+     "from": "Sarama",
+     "id": 20680
+    },
+    {
+     "en": "Ternion Dagger",
+     "ja": "ターニオンダガー",
+     "tier": 0,
+     "from": "Mephitas",
+     "id": 20603
+    },
+    {
+     "en": "Ternion Dagger +1",
+     "ja": "ターニオンダガー+1",
+     "tier": 1,
+     "from": "Mephitas",
+     "id": 20604
+    },
+    {
+     "en": "Triska Scythe",
+     "ja": "トリスカサイズ",
+     "tier": 0,
+     "from": "Camahueto",
+     "id": 20898
+    },
+    {
+     "en": "Triska Scythe +1",
+     "ja": "トリスカサイズ+1",
+     "tier": 1,
+     "from": "Camahueto",
+     "id": 20899
+    },
+    {
+     "en": "Ushenzi",
+     "ja": "ウシェンジ",
+     "tier": 0,
+     "from": "Glazemane",
+     "id": 21690
+    },
+    {
+     "en": "Ushenzi +1",
+     "ja": "ウシェンジ+1",
+     "tier": 1,
+     "from": "Glazemane",
+     "id": 21691
+    },
+    {
+     "en": "Ababinili",
+     "ja": "アバブリニ",
+     "tier": 0,
+     "from": "Arke",
+     "id": 21164
+    },
+    {
+     "en": "Ababinili +1",
+     "ja": "アバブリニ+1",
+     "tier": 1,
+     "from": "Arke",
+     "id": 21165
+    },
+    {
+     "en": "Contemplator",
+     "ja": "コンテムプレータ",
+     "tier": 0,
+     "from": "Tumult Curator",
+     "id": 22057
+    },
+    {
+     "en": "Contemplator +1",
+     "ja": "コンテムプレータ+1",
+     "tier": 1,
+     "from": "Tumult Curator",
+     "id": 22058
+    },
+    {
+     "en": "Magesmasher",
+     "ja": "メイジスマッシャー",
+     "tier": 0,
+     "from": "Strix",
+     "id": 21099
+    },
+    {
+     "en": "Magesmasher +1",
+     "ja": "メイジスマッシャ+1",
+     "tier": 1,
+     "from": "Strix",
+     "id": 21100
+    },
+    {
+     "en": "Marin Staff",
+     "ja": "マランスタッフ",
+     "tier": 0,
+     "from": "Vedrfolnir",
+     "id": 21159
+    },
+    {
+     "en": "Marin Staff +1",
+     "ja": "マランスタッフ+1",
+     "tier": 1,
+     "from": "Vedrfolnir",
+     "id": 21160
+    },
+    {
+     "en": "Pouwhenua",
+     "ja": "ポウェンワ",
+     "tier": 0,
+     "from": "Woodland Mender",
+     "id": 21162
+    },
+    {
+     "en": "Pouwhenua +1",
+     "ja": "ポウェンワ+1",
+     "tier": 1,
+     "from": "Woodland Mender",
+     "id": 21163
+    },
+    {
+     "en": "Septoptic",
+     "ja": "セプトプテック",
+     "tier": 0,
+     "from": "Shedu",
+     "id": 21075
+    },
+    {
+     "en": "Septoptic +1",
+     "ja": "セプトプテック+1",
+     "tier": 1,
+     "from": "Shedu",
+     "id": 21076
+    },
+    {
+     "en": "Antitail",
+     "ja": "アンチテイル",
+     "tier": 0,
+     "from": "Sovereign Behemoth",
+     "id": 22266
+    },
+    {
+     "en": "Antitail +1",
+     "ja": "アンチテイル+1",
+     "tier": 1,
+     "from": "Sovereign Behemoth",
+     "id": 22267
+    },
+    {
+     "en": "Imati",
+     "ja": "イマーティ",
+     "tier": 0,
+     "from": "Wyvernhunter Bambrox",
+     "id": 22120
+    },
+    {
+     "en": "Imati +1",
+     "ja": "イマーティ+1",
+     "tier": 1,
+     "from": "Wyvernhunter Bambrox",
+     "id": 22121
+    },
+    {
+     "en": "Malison",
+     "ja": "マリソン",
+     "tier": 0,
+     "from": "Tolba",
+     "id": 21483
+    },
+    {
+     "en": "Malison +1",
+     "ja": "マリソン+1",
+     "tier": 1,
+     "from": "Tolba",
+     "id": 21484
+    },
+    {
+     "en": "Mengado",
+     "ja": "メンガド",
+     "tier": 0,
+     "from": "Cactrot Veloz",
+     "id": 21222
+    },
+    {
+     "en": "Mengado +1",
+     "ja": "メンガド+1",
+     "tier": 1,
+     "from": "Cactrot Veloz",
+     "id": 21223
+    },
+    {
+     "en": "Paloma Bow",
+     "ja": "ポローマボウ",
+     "tier": 0,
+     "from": "Borealis Shadow",
+     "id": 21219
+    },
+    {
+     "en": "Paloma Bow +1",
+     "ja": "ポローマボウ+1",
+     "tier": 1,
+     "from": "Borealis Shadow",
+     "id": 21220
+    },
+    {
+     "en": "Wingcutter",
+     "ja": "ウィングカッター",
+     "tier": 0,
+     "from": "Abyssdiver",
+     "id": 21349
+    },
+    {
+     "en": "Wingcutter +1",
+     "ja": "ウィングカッター+1",
+     "tier": 1,
+     "from": "Abyssdiver",
+     "id": 21350
+    },
+    {
+     "en": "Ajax",
+     "ja": "エージャックス",
+     "tier": 0,
+     "from": "Coca",
+     "id": 27638
+    },
+    {
+     "en": "Ajax +1",
+     "ja": "エージャックス+1",
+     "tier": 1,
+     "from": "Coca",
+     "id": 27639
+    },
+    {
+     "en": "Deliverance",
+     "ja": "デリベレンス",
+     "tier": 0,
+     "from": "Borealis Shadow",
+     "id": 27640
+    },
+    {
+     "en": "Deliverance +1",
+     "ja": "デリベレンス+1",
+     "tier": 1,
+     "from": "Borealis Shadow",
+     "id": 27641
+    },
+    {
+     "en": "Evalach",
+     "ja": "エヴァラック",
+     "tier": 0,
+     "from": "Jester Malatrix",
+     "id": 27636
+    },
+    {
+     "en": "Evalach +1",
+     "ja": "エヴァラック+1",
+     "tier": 1,
+     "from": "Jester Malatrix",
+     "id": 27637
+    },
+    {
+     "en": "Forfend",
+     "ja": "フォフェンド",
+     "tier": 0,
+     "from": "Tolba",
+     "id": 26401
+    },
+    {
+     "en": "Forfend +1",
+     "ja": "フォフェンド+1",
+     "tier": 1,
+     "from": "Tolba",
+     "id": 26402
+    },
+    {
+     "en": "Refined Grip",
+     "ja": "リファイグリップ",
+     "tier": 0,
+     "from": "Voso",
+     "id": 21416
+    },
+    {
+     "en": "Refined Grip +1",
+     "ja": "リファイグリップ+1",
+     "tier": 1,
+     "from": "Voso",
+     "id": 21417
+    },
+    {
+     "en": "Rigorous Grip",
+     "ja": "リガレスグリップ",
+     "tier": 0,
+     "from": "Douma Weapon",
+     "id": 21418
+    },
+    {
+     "en": "Rigorous Grip +1",
+     "ja": "リガレスグリップ+1",
+     "tier": 1,
+     "from": "Douma Weapon",
+     "id": 21419
+    },
+    {
+     "en": "Damani Horn",
+     "ja": "ダマニホルン",
+     "tier": 0,
+     "from": "Sleepy Mabel",
+     "id": 21402
+    },
+    {
+     "en": "Damani Horn +1",
+     "ja": "ダマニホルン+1",
+     "tier": 1,
+     "from": "Sleepy Mabel",
+     "id": 21403
+    },
+    {
+     "en": "Thorfinn Shield",
+     "ja": "ソアフンシールド",
+     "tier": 0,
+     "from": "Ironhorn Baldurno",
+     "id": 27633
+    },
+    {
+     "en": "Thorfinn Shield +1",
+     "ja": "ソアフンシールド+1",
+     "tier": 1,
+     "from": "Ironhorn Baldurno",
+     "id": 27634
+    },
+    {
+     "en": "Cloud Hairpin",
+     "ja": "曇天の首飾り",
+     "tier": 0,
+     "from": "Serpopard Ninlil",
+     "id": 28350
+    },
+    {
+     "en": "Cloud Hairpin +1",
+     "ja": "曇天の首飾り+1",
+     "tier": 1,
+     "from": "Serpopard Ninlil",
+     "id": 28351
+    },
+    {
+     "en": "Adorned Helm",
+     "ja": "アドーンドヘルム",
+     "tier": 0,
+     "from": "Beist",
+     "id": 26714
+    },
+    {
+     "en": "Adorned Helm +1",
+     "ja": "アドーンドヘルム+1",
+     "tier": 1,
+     "from": "Beist",
+     "id": 26715
+    },
+    {
+     "en": "Alhazen Hat",
+     "ja": "アルハゼンハット",
+     "tier": 0,
+     "from": "Azrael",
+     "id": 26786
+    },
+    {
+     "en": "Alhazen Hat +1",
+     "ja": "アルハゼンハット+1",
+     "tier": 1,
+     "from": "Azrael",
+     "id": 26787
+    },
+    {
+     "en": "Blistering Sallet",
+     "ja": "ブリスタサリット",
+     "tier": 0,
+     "from": "Vermillion Fishfly",
+     "id": 25601
+    },
+    {
+     "en": "Blistering Sallet +1",
+     "ja": "ブリスタサリット+1",
+     "tier": 1,
+     "from": "Vermillion Fishfly",
+     "id": 25602
+    },
+    {
+     "en": "Hike Khat",
+     "ja": "ヒーケカット",
+     "tier": 0,
+     "from": "Ayapec",
+     "id": 26784
+    },
+    {
+     "en": "Hike Khat +1",
+     "ja": "ヒーケカット+1",
+     "tier": 1,
+     "from": "Ayapec",
+     "id": 26785
+    },
+    {
+     "en": "Imp. Wing Hairpin",
+     "ja": "聖帝羽虫の髪飾り",
+     "tier": 0,
+     "from": "Valkurm Imperator",
+     "id": 26709
+    },
+    {
+     "en": "Imp. Wing Hair. +1",
+     "ja": "聖帝羽虫の髪飾り+1",
+     "tier": 1,
+     "from": "Valkurm Imperator",
+     "id": 26710
+    },
+    {
+     "en": "Loess Barbuta",
+     "ja": "ロースバルブータ",
+     "tier": 0,
+     "from": "Hidhaegg",
+     "id": 25635
+    },
+    {
+     "en": "Loess Barbuta +1",
+     "ja": "ロースバルブータ+1",
+     "tier": 1,
+     "from": "Hidhaegg",
+     "id": 25636
+    },
+    {
+     "en": "Stinger Helm",
+     "ja": "スティンガヘルム",
+     "tier": 0,
+     "from": "King Uropygid",
+     "id": 26731
+    },
+    {
+     "en": "Stinger Helm +1",
+     "ja": "スティンガヘルム+1",
+     "tier": 1,
+     "from": "King Uropygid",
+     "id": 26732
+    },
+    {
+     "en": "Agony Jerkin",
+     "ja": "アゴニジャーキン",
+     "tier": 0,
+     "from": "Voso",
+     "id": 26942
+    },
+    {
+     "en": "Agony Jerkin +1",
+     "ja": "アゴニジャーキン+1",
+     "tier": 1,
+     "from": "Voso",
+     "id": 26943
+    },
+    {
+     "en": "Cohort Cloak",
+     "ja": "コーホトクローク",
+     "tier": 0,
+     "from": "Centurio XX-I",
+     "id": 25680
+    },
+    {
+     "en": "Cohort Cloak +1",
+     "ja": "コーホトクローク+1",
+     "tier": 1,
+     "from": "Centurio XX-I",
+     "id": 25681
+    },
+    {
+     "en": "Emet Harness",
+     "ja": "エメットハーネス",
+     "tier": 0,
+     "from": "Largantua",
+     "id": 26870
+    },
+    {
+     "en": "Emet Harness +1",
+     "ja": "エメットハーネス+1",
+     "tier": 1,
+     "from": "Largantua",
+     "id": 26871
+    },
+    {
+     "en": "Hime Domaru",
+     "ja": "比売胴丸",
+     "tier": 0,
+     "from": "Beist",
+     "id": 26872
+    },
+    {
+     "en": "Hime Domaru +1",
+     "ja": "比売胴丸改",
+     "tier": 1,
+     "from": "Beist",
+     "id": 26873
+    },
+    {
+     "en": "Lugra Cloak",
+     "ja": "ルーグラクローク",
+     "tier": 0,
+     "from": "Tiyanak",
+     "id": 26896
+    },
+    {
+     "en": "Lugra Cloak +1",
+     "ja": "ルーグラクローク+1",
+     "tier": 1,
+     "from": "Tiyanak",
+     "id": 26897
+    },
+    {
+     "en": "Obviation Cuirass",
+     "ja": "オビエキュイラス",
+     "tier": 0,
+     "from": "Tolba",
+     "id": 25709
+    },
+    {
+     "en": "Obviat. Cuirass +1",
+     "ja": "オビエキュイラス+1",
+     "tier": 1,
+     "from": "Tolba",
+     "id": 25710
+    },
+    {
+     "en": "Rosette Jaseran",
+     "ja": "ロゼトジャズラン",
+     "tier": 0,
+     "from": "Woodland Mender",
+     "id": 26868
+    },
+    {
+     "en": "Ros. Jaseran +1",
+     "ja": "ロゼトジャズラン+1",
+     "tier": 1,
+     "from": "Woodland Mender",
+     "id": 26869
+    },
+    {
+     "en": "Shomonjijoe",
+     "ja": "唱門師浄衣",
+     "tier": 0,
+     "from": "Douma Weapon",
+     "id": 26887
+    },
+    {
+     "en": "Shomonjijoe +1",
+     "ja": "唱門師浄衣改",
+     "tier": 1,
+     "from": "Douma Weapon",
+     "id": 26888
+    },
+    {
+     "en": "Tatena. Haramaki",
+     "ja": "楯無腹巻",
+     "tier": 0,
+     "from": "Tumult Curator",
+     "id": 25732
+    },
+    {
+     "en": "Tatena. Harama. +1",
+     "ja": "楯無腹巻改",
+     "tier": 1,
+     "from": "Tumult Curator",
+     "id": 25733
+    },
+    {
+     "en": "Asteria Mitts",
+     "ja": "アステリアミトン",
+     "tier": 0,
+     "from": "Azure-toothed Clawberry",
+     "id": 27106
+    },
+    {
+     "en": "Asteria Mitts +1",
+     "ja": "アステリアミトン+1",
+     "tier": 1,
+     "from": "Azure-toothed Clawberry",
+     "id": 27107
+    },
+    {
+     "en": "Gazu Bracelets",
+     "ja": "ガズブレスレット",
+     "tier": 0,
+     "from": "Carousing Celine",
+     "id": 27150
+    },
+    {
+     "en": "Gazu Bracelets +1",
+     "ja": "ガズブレスレット+1",
+     "tier": 1,
+     "from": "Carousing Celine",
+     "id": 27151
+    },
+    {
+     "en": "Kachimusha Kote",
+     "ja": "徒武者の篭手",
+     "tier": 0,
+     "from": "Muut",
+     "id": 27050
+    },
+    {
+     "en": "Kachi. Kote +1",
+     "ja": "徒武者の篭手改",
+     "tier": 1,
+     "from": "Muut",
+     "id": 27051
+    },
+    {
+     "en": "Lamassu Mitts",
+     "ja": "ラマスミトン",
+     "tier": 0,
+     "from": "Azure-toothed Clawberry",
+     "id": 27108
+    },
+    {
+     "en": "Lamassu Mitts +1",
+     "ja": "ラマスミトン+1",
+     "tier": 1,
+     "from": "Azure-toothed Clawberry",
+     "id": 27109
+    },
+    {
+     "en": "Macabre Gaunt.",
+     "ja": "マカブルガントレ",
+     "tier": 0,
+     "from": "Abyssdiver",
+     "id": 27993
+    },
+    {
+     "en": "Macabre Gaunt. +1",
+     "ja": "マカブルガントレ+1",
+     "tier": 1,
+     "from": "Abyssdiver",
+     "id": 27994
+    },
+    {
+     "en": "Shigure Tekko",
+     "ja": "時雨手甲",
+     "tier": 0,
+     "from": "Warblade Beak",
+     "id": 27995
+    },
+    {
+     "en": "Shigure Tekko +1",
+     "ja": "時雨手甲改",
+     "tier": 1,
+     "from": "Warblade Beak",
+     "id": 27996
+    },
+    {
+     "en": "Tatena. Gote",
+     "ja": "楯無篭手",
+     "tier": 0,
+     "from": "Shedu",
+     "id": 27148
+    },
+    {
+     "en": "Tatena. Gote +1",
+     "ja": "楯無篭手改",
+     "tier": 1,
+     "from": "Shedu",
+     "id": 27149
+    },
+    {
+     "en": "Assiduity Pants",
+     "ja": "アシドゥイズボン",
+     "tier": 0,
+     "from": "Intuila",
+     "id": 28134
+    },
+    {
+     "en": "Assid. Pants +1",
+     "ja": "アシドゥイズボン+1",
+     "tier": 1,
+     "from": "Intuila",
+     "id": 28135
+    },
+    {
+     "en": "Augury Cuisses",
+     "ja": "オーグリクウィス",
+     "tier": 0,
+     "from": "Emperor Arthro",
+     "id": 28136
+    },
+    {
+     "en": "Augury Cuisses +1",
+     "ja": "オーグリクウィス+1",
+     "tier": 1,
+     "from": "Emperor Arthro",
+     "id": 28137
+    },
+    {
+     "en": "Tatena. Haidate",
+     "ja": "楯無佩楯",
+     "tier": 0,
+     "from": "Sarama",
+     "id": 25855
+    },
+    {
+     "en": "Tatena. Haidate +1",
+     "ja": "楯無佩楯改",
+     "tier": 1,
+     "from": "Sarama",
+     "id": 25856
+    },
+    {
+     "en": "Zoar Subligar",
+     "ja": "ゾアサブリガ",
+     "tier": 0,
+     "from": "Keeper of Heiligtum",
+     "id": 27230
+    },
+    {
+     "en": "Zoar Subligar +1",
+     "ja": "ゾアサブリガ+1",
+     "tier": 1,
+     "from": "Keeper of Heiligtum",
+     "id": 27231
+    },
+    {
+     "en": "Hippomenes Socks",
+     "ja": "ヒポメネソックス",
+     "tier": 0,
+     "from": "Immanibugard",
+     "id": 27409
+    },
+    {
+     "en": "Hippo. Socks +1",
+     "ja": "ヒポメネソックス+1",
+     "tier": 1,
+     "from": "Immanibugard",
+     "id": 27410
+    },
+    {
+     "en": "Hygieia Clogs",
+     "ja": "ハイゲアクロッグ",
+     "tier": 0,
+     "from": "Camahueto",
+     "id": 27407
+    },
+    {
+     "en": "Hygieia Clogs +1",
+     "ja": "ハイゲアクロッグ+1",
+     "tier": 1,
+     "from": "Camahueto",
+     "id": 27408
+    },
+    {
+     "en": "Jute Boots",
+     "ja": "ジュートブーツ",
+     "tier": 0,
+     "from": "Strix",
+     "id": 28275
+    },
+    {
+     "en": "Jute Boots +1",
+     "ja": "ジュートブーツ+1",
+     "tier": 1,
+     "from": "Strix",
+     "id": 28276
+    },
+    {
+     "en": "Regal Pumps",
+     "ja": "リーガルパンプス",
+     "tier": 0,
+     "from": "Valkurm Imperator",
+     "id": 28273
+    },
+    {
+     "en": "Regal Pumps +1",
+     "ja": "リーガルパンプス+1",
+     "tier": 1,
+     "from": "Valkurm Imperator",
+     "id": 28274
+    },
+    {
+     "en": "Tatena. Sune.",
+     "ja": "楯無脛当",
+     "tier": 0,
+     "from": "Thu'ban",
+     "id": 25923
+    },
+    {
+     "en": "Tatena. Sune. +1",
+     "ja": "楯無脛当改",
+     "tier": 1,
+     "from": "Thu'ban",
+     "id": 25924
+    },
+    {
+     "en": "Acuity Belt",
+     "ja": "アキュイテベルト",
+     "tier": 0,
+     "from": "Joyous Green",
+     "id": 28429
+    },
+    {
+     "en": "Acuity Belt +1",
+     "ja": "アキュイテベルト+1",
+     "tier": 1,
+     "from": "Joyous Green",
+     "id": 28430
+    },
+    {
+     "en": "Apeile Ring",
+     "ja": "アペリエリング",
+     "tier": 0,
+     "from": "Immanibugard",
+     "id": 27560
+    },
+    {
+     "en": "Apeile Ring +1",
+     "ja": "アペリエリング+1",
+     "tier": 1,
+     "from": "Immanibugard",
+     "id": 27561
+    },
+    {
+     "en": "Arete del Luna",
+     "ja": "アレテデルルナ",
+     "tier": 0,
+     "from": "Cactrot Veloz",
+     "id": 28486
+    },
+    {
+     "en": "Arete del Luna +1",
+     "ja": "アレテデルルナ+1",
+     "tier": 1,
+     "from": "Cactrot Veloz",
+     "id": 28487
+    },
+    {
+     "en": "Aurist's Cape",
+     "ja": "オリストケープ",
+     "tier": 0,
+     "from": "Volatile Cluster",
+     "id": 27619
+    },
+    {
+     "en": "Aurist's Cape +1",
+     "ja": "オリストケープ+1",
+     "tier": 1,
+     "from": "Volatile Cluster",
+     "id": 27620
+    },
+    {
+     "en": "Bathy Choker",
+     "ja": "バーシチョーカー",
+     "tier": 0,
+     "from": "Bakunawa",
+     "id": 27517
+    },
+    {
+     "en": "Bathy Choker +1",
+     "ja": "バーシチョーカー+1",
+     "tier": 1,
+     "from": "Bakunawa",
+     "id": 27518
+    },
+    {
+     "en": "Cacoethic Ring",
+     "ja": "カコエシクリング",
+     "tier": 0,
+     "from": "Vermillion Fishfly",
+     "id": 10770
+    },
+    {
+     "en": "Cacoethic Ring +1",
+     "ja": "カコエシクリング+1",
+     "tier": 1,
+     "from": "Vermillion Fishfly",
+     "id": 10771
+    },
+    {
+     "en": "Canto Necklace",
+     "ja": "カントネックレス",
+     "tier": 0,
+     "from": "Joyous Green",
+     "id": 28352
+    },
+    {
+     "en": "Canto Necklace +1",
+     "ja": "カントネックレス+1",
+     "tier": 1,
+     "from": "Joyous Green",
+     "id": 28353
+    },
+    {
+     "en": "Dominance Earring",
+     "ja": "ドミネンスピアス",
+     "tier": 0,
+     "from": "Sovereign Behemoth",
+     "id": 27542
+    },
+    {
+     "en": "Domin. Earring +1",
+     "ja": "ドミネンスピアス+1",
+     "tier": 1,
+     "from": "Sovereign Behemoth",
+     "id": 27543
+    },
+    {
+     "en": "Fi Follet Cape",
+     "ja": "フィフォレケープ",
+     "tier": 0,
+     "from": "Vidmapire",
+     "id": 27609
+    },
+    {
+     "en": "Fi Follet Cape +1",
+     "ja": "フィフォレケープ+1",
+     "tier": 1,
+     "from": "Vidmapire",
+     "id": 27610
+    },
+    {
+     "en": "Gelatinous Ring",
+     "ja": "ゼラチナスリング",
+     "tier": 0,
+     "from": "Garbage Gel",
+     "id": 10768
+    },
+    {
+     "en": "Gelatinous Ring +1",
+     "ja": "ゼラチナスリング+1",
+     "tier": 1,
+     "from": "Garbage Gel",
+     "id": 10769
+    },
+    {
+     "en": "Ghastly Tathlum",
+     "ja": "ガストリタスラム",
+     "tier": 0,
+     "from": "Specter Worm",
+     "id": 21343
+    },
+    {
+     "en": "Ghastly Tathlum +1",
+     "ja": "ガストリタスラム+1",
+     "tier": 1,
+     "from": "Specter Worm",
+     "id": 21344
+    },
+    {
+     "en": "Grounded Mantle",
+     "ja": "グラウンドマント",
+     "tier": 0,
+     "from": "Lumber Jill",
+     "id": 27601
+    },
+    {
+     "en": "Ground. Mantle +1",
+     "ja": "グラウンドマント+1",
+     "tier": 1,
+     "from": "Lumber Jill",
+     "id": 27602
+    },
+    {
+     "en": "Handler's Earring",
+     "ja": "ハンドラーピアス",
+     "tier": 0,
+     "from": "Warblade Beak",
+     "id": 28490
+    },
+    {
+     "en": "Handler's Earring +1",
+     "ja": "ハンドラーピアス+1",
+     "tier": 1,
+     "from": "Warblade Beak",
+     "id": 28491
+    },
+    {
+     "en": "Kentarch Belt",
+     "ja": "ケンタークベルト",
+     "tier": 0,
+     "from": "Centurio XX-I",
+     "id": 28412
+    },
+    {
+     "en": "Kentarch Belt +1",
+     "ja": "ケンタークベルト+1",
+     "tier": 1,
+     "from": "Centurio XX-I",
+     "id": 28413
+    },
+    {
+     "en": "Loricate Torque",
+     "ja": "ロリケートトルク",
+     "tier": 0,
+     "from": "Sovereign Behemoth",
+     "id": 26001
+    },
+    {
+     "en": "Loricate Torque +1",
+     "ja": "ロリケートトルク+1",
+     "tier": 1,
+     "from": "Sovereign Behemoth",
+     "id": 26002
+    },
+    {
+     "en": "Lugra Earring",
+     "ja": "ルーグラピアス",
+     "tier": 0,
+     "from": "Tiyanak",
+     "id": 28481
+    },
+    {
+     "en": "Lugra Earring +1",
+     "ja": "ルーグラピアス+1",
+     "tier": 1,
+     "from": "Tiyanak",
+     "id": 28482
+    },
+    {
+     "en": "Mephitas's Ring",
+     "ja": "メフィタスリング",
+     "tier": 0,
+     "from": "Mephitas",
+     "id": 27558
+    },
+    {
+     "en": "Mephitas's Ring +1",
+     "ja": "メフィタスリング+1",
+     "tier": 1,
+     "from": "Mephitas",
+     "id": 27559
+    },
+    {
+     "en": "Metamorph Ring",
+     "ja": "メタモルリング",
+     "tier": 0,
+     "from": "Sybaritic Samantha",
+     "id": 27562
+    },
+    {
+     "en": "Metamor. Ring +1",
+     "ja": "メタモルリング+1",
+     "tier": 1,
+     "from": "Sybaritic Samantha",
+     "id": 27563
+    },
+    {
+     "en": "Nourish. Earring",
+     "ja": "ナーリシュピアス",
+     "tier": 0,
+     "from": "Intuila",
+     "id": 28484
+    },
+    {
+     "en": "Nourish. Earring +1",
+     "ja": "ナーリシュピアス+1",
+     "tier": 1,
+     "from": "Intuila",
+     "id": 28485
+    },
+    {
+     "en": "Odnowa Earring",
+     "ja": "オノワイヤリング",
+     "tier": 0,
+     "from": "Carousing Celine",
+     "id": 27548
+    },
+    {
+     "en": "Odnowa Earring +1",
+     "ja": "オノワイヤリング+1",
+     "tier": 1,
+     "from": "Carousing Celine",
+     "id": 27549
+    },
+    {
+     "en": "Sailfi Belt",
+     "ja": "セールフィベルト",
+     "tier": 0,
+     "from": "Emperor Arthro",
+     "id": 28427
+    },
+    {
+     "en": "Sailfi Belt +1",
+     "ja": "セールフィベルト+1",
+     "tier": 1,
+     "from": "Emperor Arthro",
+     "id": 28428
+    },
+    {
+     "en": "Shinjutsu-no-Obi",
+     "ja": "神術帯",
+     "tier": 0,
+     "from": "Orcfeltrap",
+     "id": 28423
+    },
+    {
+     "en": "Shinjutsu-no-Obi +1",
+     "ja": "神術帯+1",
+     "tier": 1,
+     "from": "Orcfeltrap",
+     "id": 28424
+    },
+    {
+     "en": "Seething Bomblet",
+     "ja": "シーズボムレット",
+     "tier": 0,
+     "from": "Grand Grenade",
+     "id": 22254
+    },
+    {
+     "en": "Seeth. Bomblet +1",
+     "ja": "シーズボムレット+1",
+     "tier": 1,
+     "from": "Grand Grenade",
+     "id": 22255
+    },
+    {
+     "en": "Unmoving Collar",
+     "ja": "アンムーヴカラー",
+     "tier": 0,
+     "from": "Sybaritic Samantha",
+     "id": 27508
+    },
+    {
+     "en": "Unmoving Collar +1",
+     "ja": "アンムーヴカラー+1",
+     "tier": 1,
+     "from": "Sybaritic Samantha",
+     "id": 27509
+    },
+    {
+     "en": "Vim Torque",
+     "ja": "ヴィムトルク",
+     "tier": 0,
+     "from": "Thu'ban",
+     "id": 26021
+    },
+    {
+     "en": "Vim Torque +1",
+     "ja": "ヴィムトルク+1",
+     "tier": 1,
+     "from": "Thu'ban",
+     "id": 26022
+    },
+    {
+     "en": "Warder's Charm",
+     "ja": "ウォーダチャーム",
+     "tier": 0,
+     "from": "Largantua",
+     "id": 27504
+    },
+    {
+     "en": "Warder's Charm +1",
+     "ja": "ウォーダチャーム+1",
+     "tier": 1,
+     "from": "Largantua",
+     "id": 27505
+    },
+    {
+     "en": "Zwazo Earring",
+     "ja": "ズワゾピアス",
+     "tier": 0,
+     "from": "Kubool Ja's Mhuufya",
+     "id": 27532
+    },
+    {
+     "en": "Zwazo Earring +1",
+     "ja": "ズワゾピアス+1",
+     "tier": 1,
+     "from": "Kubool Ja's Mhuufya",
+     "id": 27533
+    },
+    {
+     "en": "Narmar Boomerang",
+     "ja": "ナーマーブーメラン",
+     "tier": 0,
+     "from": "Serpopard Ninlil",
+     "id": 21348
+    },
+    {
+     "en": "Nekhen Ring",
+     "ja": "ネックヘンリング",
+     "tier": 0,
+     "from": "Serpopard Ninlil",
+     "id": 28534
+    }
+   ]
+  },
+  {
+   "id": "vanabout",
+   "label_ja": "ヴァナ・バウト",
+   "source": [
+    "https://www.bg-wiki.com/ffxi/Vana'Bout"
+   ],
+   "note": "No combat gear; only utility/cosmetic equipment-category items from past rounds (Facility Ring, S. Reraiser Tank, level-1 Maven weapons). Current round offers none.",
+   "items": [
+    {
+     "en": "Facility Ring",
+     "ja": "ファシリティリング",
+     "tier": 0,
+     "from": "Personal reward exchange (past rounds)",
+     "id": 26165
+    },
+    {
+     "en": "S. Reraiser Tank",
+     "ja": "Ｓリレイザータンク",
+     "tier": 0,
+     "from": "Personal reward exchange (past rounds)",
+     "id": 26272
+    },
+    {
+     "en": "Maven's Scythe",
+     "ja": "メーヴンサイズ",
+     "tier": 0,
+     "from": "Personal reward exchange (past rounds)",
+     "id": 21840
+    },
+    {
+     "en": "Maven's Staff",
+     "ja": "メーヴンスタッフ",
+     "tier": 0,
+     "from": "Personal reward exchange (past rounds)",
+     "id": 21995
+    }
+   ]
+  },
+  {
+   "id": "delve",
+   "label_ja": "メナス(Delve)",
+   "source": [
+    "https://www.bg-wiki.com/ffxi/Category:Delve",
+    "https://www.bg-wiki.com/ffxi/Delve_I_Rewards",
+    "https://www.bg-wiki.com/ffxi/Delve_II_Rewards"
+   ],
+   "items": [
+    {
+     "en": "Bokwus Slops",
+     "ja": "ボクワススロップス",
+     "tier": 0,
+     "from": "Aberrant Uragnite",
+     "id": 28200
+    },
+    {
+     "en": "Mephitis Grip",
+     "ja": "メフィテスグリップ",
+     "tier": 0,
+     "from": "Aberrant Uragnite",
+     "id": 21429
+    },
+    {
+     "en": "Mikinaak Greaves",
+     "ja": "ミキナクグリーヴ",
+     "tier": 0,
+     "from": "Aberrant Uragnite",
+     "id": 28338
+    },
+    {
+     "en": "Dashavatara Sachet",
+     "ja": "ダシャバタラサシェ",
+     "tier": 0,
+     "from": "Accessories",
+     "id": 21388
+    },
+    {
+     "en": "Adlivun Arrow",
+     "ja": "アドリブンアロー",
+     "tier": 0,
+     "from": "Ammunition/Other",
+     "id": 21306
+    },
+    {
+     "en": "Adlivun Bolt",
+     "ja": "アドリブンボルト",
+     "tier": 0,
+     "from": "Ammunition/Other",
+     "id": 21320
+    },
+    {
+     "en": "Adlivun Bullet",
+     "ja": "アドリブンブレット",
+     "tier": 0,
+     "from": "Ammunition/Other",
+     "id": 21336
+    },
+    {
+     "en": "Artsieq Hose",
+     "ja": "アートシクロップス",
+     "tier": 0,
+     "from": "Azeman",
+     "id": 28159
+    },
+    {
+     "en": "Gevaudan Belt",
+     "ja": "ジェヴォダンベルト",
+     "tier": 0,
+     "from": "Azeman",
+     "id": 28453
+    },
+    {
+     "en": "Xaddi Headgear",
+     "ja": "シャディヘッドギア",
+     "tier": 0,
+     "from": "Azeman",
+     "id": 27723
+    },
+    {
+     "en": "Artsieq Boots",
+     "ja": "アートシクブーツ",
+     "tier": 0,
+     "from": "Broxa",
+     "id": 28296
+    },
+    {
+     "en": "Kuwunga Earring",
+     "ja": "クヴォンガピアス",
+     "tier": 0,
+     "from": "Broxa",
+     "id": 28508
+    },
+    {
+     "en": "Xaddi Gauntlets",
+     "ja": "シャディガントレ",
+     "tier": 0,
+     "from": "Broxa",
+     "id": 28015
+    },
+    {
+     "en": "Andoaa Earring",
+     "ja": "アンドアーピアス",
+     "tier": 0,
+     "from": "Cailimh / Cailimh Plumageplucker",
+     "id": 28506
+    },
+    {
+     "en": "Chaac Belt",
+     "ja": "チャークベルト",
+     "tier": 0,
+     "from": "Cailimh / Cailimh Plumageplucker",
+     "id": 28450
+    },
+    {
+     "en": "Izizoeksi",
+     "ja": "イジゾエクシ",
+     "tier": 0,
+     "from": "Cailimh / Cailimh Plumageplucker",
+     "id": 20812
+    },
+    {
+     "en": "Tajabit",
+     "ja": "タジャビット",
+     "tier": 0,
+     "from": "Cailimh / Cailimh Plumageplucker",
+     "id": 20905
+    },
+    {
+     "en": "Ukudyoni",
+     "ja": "ウクドゥヨニ",
+     "tier": 0,
+     "from": "Cailimh / Cailimh Plumageplucker",
+     "id": 20762
+    },
+    {
+     "en": "Umbani Boots",
+     "ja": "ウンバニブーツ",
+     "tier": 0,
+     "from": "Cailimh / Cailimh Plumageplucker",
+     "id": 28293
+    },
+    {
+     "en": "Umbani Cap",
+     "ja": "ウンバニキャップ",
+     "tier": 0,
+     "from": "Cailimh / Cailimh Plumageplucker",
+     "id": 27720
+    },
+    {
+     "en": "Nguruve Ring",
+     "ja": "ングルベリング",
+     "tier": 0,
+     "from": "Calydontis",
+     "id": 28566
+    },
+    {
+     "en": "Qaaxo Mitaines",
+     "ja": "カークソミトン",
+     "tier": 0,
+     "from": "Calydontis",
+     "id": 28016
+    },
+    {
+     "en": "Xaddi Boots",
+     "ja": "シャディブーツ",
+     "tier": 0,
+     "from": "Calydontis",
+     "id": 28294
+    },
+    {
+     "en": "Cibitshavore",
+     "ja": "シビトシャヴォール",
+     "tier": 0,
+     "from": "Cherti",
+     "id": 21229
+    },
+    {
+     "en": "Gabaxorea",
+     "ja": "ガバゾレア",
+     "tier": 0,
+     "from": "Cherti",
+     "id": 21112
+    },
+    {
+     "en": "Kbiroj",
+     "ja": "キビロッジュ",
+     "tier": 0,
+     "from": "Cherti",
+     "id": 20763
+    },
+    {
+     "en": "Kupayopl",
+     "ja": "クパヨプル",
+     "tier": 0,
+     "from": "Cherti",
+     "id": 21422
+    },
+    {
+     "en": "Achiyal. Arrow",
+     "ja": "アチヤルアロー",
+     "tier": 0,
+     "from": "Dakuwaqa",
+     "id": 21307
+    },
+    {
+     "en": "Achiyal. Bolt",
+     "ja": "アチヤルボルト",
+     "tier": 0,
+     "from": "Dakuwaqa",
+     "id": 21321
+    },
+    {
+     "en": "Achiyal. Bullet",
+     "ja": "アチヤルブレット",
+     "tier": 0,
+     "from": "Dakuwaqa",
+     "id": 21337
+    },
+    {
+     "en": "Eddy Necklace",
+     "ja": "エディネクラス",
+     "tier": 0,
+     "from": "Dakuwaqa",
+     "id": 28401
+    },
+    {
+     "en": "Illapa",
+     "ja": "イラッパ",
+     "tier": 0,
+     "from": "Dakuwaqa",
+     "id": 21256
+    },
+    {
+     "en": "Izhiikoh",
+     "ja": "イツィコー",
+     "tier": 0,
+     "from": "Dakuwaqa",
+     "id": 20636
+    },
+    {
+     "en": "Sangoma Ring",
+     "ja": "サンゴマリング",
+     "tier": 0,
+     "from": "Dakuwaqa",
+     "id": 28580
+    },
+    {
+     "en": "Tsurumaru",
+     "ja": "鶴丸",
+     "tier": 0,
+     "from": "Dakuwaqa",
+     "id": 21052
+    },
+    {
+     "en": "Whirlpool Greaves",
+     "ja": "ウァールグリーヴ",
+     "tier": 0,
+     "from": "Dakuwaqa",
+     "id": 28337
+    },
+    {
+     "en": "Whirlpool Mask",
+     "ja": "ウァールマスク",
+     "tier": 0,
+     "from": "Dakuwaqa",
+     "id": 27774
+    },
+    {
+     "en": "Dudgeon Earring",
+     "ja": "ダッジョンピアス",
+     "tier": 0,
+     "from": "Divagating Jagil",
+     "id": 28522
+    },
+    {
+     "en": "Miki. Breastplate",
+     "ja": "ミキナクブレスト",
+     "tier": 0,
+     "from": "Divagating Jagil",
+     "id": 27917
+    },
+    {
+     "en": "Bokwus Circlet",
+     "ja": "ボクワスフッド",
+     "tier": 0,
+     "from": "Faded Craklaw",
+     "id": 27778
+    },
+    {
+     "en": "Manibozho Gloves",
+     "ja": "マニボゾグローブ",
+     "tier": 0,
+     "from": "Faded Craklaw",
+     "id": 28058
+    },
+    {
+     "en": "Psystorm Earring",
+     "ja": "サイストームピアス",
+     "tier": 0,
+     "from": "Faded Craklaw",
+     "id": 28525
+    },
+    {
+     "en": "Fucho-no-Obi",
+     "ja": "風鳥の帯",
+     "tier": 0,
+     "from": "Hakawai",
+     "id": 28452
+    },
+    {
+     "en": "Xaddi Mail",
+     "ja": "シャディメイル",
+     "tier": 0,
+     "from": "Hakawai",
+     "id": 27869
+    },
+    {
+     "en": "Lekboza",
+     "ja": "レックボザ",
+     "tier": 0,
+     "from": "Hyoscya",
+     "id": 20862
+    },
+    {
+     "en": "Magneto",
+     "ja": "ハイストリンガー＋",
+     "tier": 0,
+     "from": "Hyoscya",
+     "id": 21375
+    },
+    {
+     "en": "Pulfanxa",
+     "ja": "プルファンジャ",
+     "tier": 0,
+     "from": "Hyoscya",
+     "id": 21276
+    },
+    {
+     "en": "Twebuliij",
+     "ja": "トウェブリージ",
+     "tier": 0,
+     "from": "Hyoscya",
+     "id": 21177
+    },
+    {
+     "en": "Iqabi Necklace",
+     "ja": "イカビネックレス",
+     "tier": 0,
+     "from": "Ircinraq",
+     "id": 28380
+    },
+    {
+     "en": "Isuka",
+     "ja": "交喙",
+     "tier": 0,
+     "from": "Ircinraq",
+     "id": 20995
+    },
+    {
+     "en": "Usonmunku",
+     "ja": "ウソンムンク",
+     "tier": 0,
+     "from": "Ircinraq",
+     "id": 20722
+    },
+    {
+     "en": "Gwati Earring",
+     "ja": "グアチピアス",
+     "tier": 0,
+     "from": "Ironbeak Inguza",
+     "id": 28507
+    },
+    {
+     "en": "Sabebus",
+     "ja": "サベブス",
+     "tier": 0,
+     "from": "Ironbeak Inguza",
+     "id": 20620
+    },
+    {
+     "en": "Vunetshelo",
+     "ja": "ヴネトシェロ",
+     "tier": 0,
+     "from": "Ironbeak Inguza",
+     "id": 20906
+    },
+    {
+     "en": "Alternator",
+     "ja": "ハイストリンガー",
+     "tier": 0,
+     "from": "Krabakarpo",
+     "id": 21455
+    },
+    {
+     "en": "Brethren Axe",
+     "ja": "ブレサレンアクス",
+     "tier": 0,
+     "from": "Krabakarpo",
+     "id": 20828
+    },
+    {
+     "en": "Mondaha Cudgel",
+     "ja": "モンダハカジェル",
+     "tier": 0,
+     "from": "Krabakarpo",
+     "id": 21128
+    },
+    {
+     "en": "Speleogen Bow",
+     "ja": "スピリオジェンボウ",
+     "tier": 0,
+     "from": "Krabakarpo",
+     "id": 21238
+    },
+    {
+     "en": "Bloodbath Axe",
+     "ja": "ブラッドバスアクス",
+     "tier": 0,
+     "from": "Kurma",
+     "id": 20873
+    },
+    {
+     "en": "Refraction Cape",
+     "ja": "リフラクトケープ",
+     "tier": 0,
+     "from": "Kurma",
+     "id": 28643
+    },
+    {
+     "en": "Soothsayer Staff",
+     "ja": "スーセーヤスタッフ",
+     "tier": 0,
+     "from": "Kurma",
+     "id": 21198
+    },
+    {
+     "en": "Qaaxo Mask",
+     "ja": "カークソマスク",
+     "tier": 0,
+     "from": "Laevvid",
+     "id": 27724
+    },
+    {
+     "en": "Xaddi Cuisses",
+     "ja": "シャディクウィス",
+     "tier": 0,
+     "from": "Laevvid",
+     "id": 28157
+    },
+    {
+     "en": "Zanhi Ring",
+     "ja": "ザニリング",
+     "tier": 0,
+     "from": "Laevvid",
+     "id": 28565
+    },
+    {
+     "en": "Contriver's Cape",
+     "ja": "コントライブケープ",
+     "tier": 0,
+     "from": "Mastop",
+     "id": 28642
+    },
+    {
+     "en": "Dimmet Scythe",
+     "ja": "ディメットサイズ",
+     "tier": 0,
+     "from": "Mastop",
+     "id": 20918
+    },
+    {
+     "en": "Rigor Baghnakhs",
+     "ja": "リゴアバグナウ",
+     "tier": 0,
+     "from": "Mastop",
+     "id": 20549
+    },
+    {
+     "en": "Yaskomo's Pole",
+     "ja": "ヤスコモポール",
+     "tier": 0,
+     "from": "Mastop",
+     "id": 21199
+    },
+    {
+     "en": "Idaraaja",
+     "ja": "イダラージャ",
+     "tier": 0,
+     "from": "Mirka",
+     "id": 21377
+    },
+    {
+     "en": "Kumalo",
+     "ja": "クマロ",
+     "tier": 0,
+     "from": "Mirka",
+     "id": 20949
+    },
+    {
+     "en": "Tinhaspa",
+     "ja": "ティハスパ",
+     "tier": 0,
+     "from": "Mirka",
+     "id": 20536
+    },
+    {
+     "en": "Tumafyrig",
+     "ja": "トゥマフィリッグ",
+     "tier": 0,
+     "from": "Mirka",
+     "id": 21178
+    },
+    {
+     "en": "Artsieq Jubbah",
+     "ja": "アートシクジュバ",
+     "tier": 0,
+     "from": "Morseiu",
+     "id": 27871
+    },
+    {
+     "en": "Samanisi Cape",
+     "ja": "サマニシケープ",
+     "tier": 0,
+     "from": "Morseiu",
+     "id": 28605
+    },
+    {
+     "en": "Beeline Ring",
+     "ja": "ビーラインリング",
+     "tier": 0,
+     "from": "Muyingwa",
+     "id": 28581
+    },
+    {
+     "en": "Kerehcatl",
+     "ja": "ケレカトル",
+     "tier": 0,
+     "from": "Muyingwa",
+     "id": 20827
+    },
+    {
+     "en": "Nahtirah Hat",
+     "ja": "ナティラハット",
+     "tier": 0,
+     "from": "Muyingwa",
+     "id": 27775
+    },
+    {
+     "en": "Nahtirah Trousers",
+     "ja": "ナティラトラウザ",
+     "tier": 0,
+     "from": "Muyingwa",
+     "id": 28197
+    },
+    {
+     "en": "Upukirex",
+     "ja": "ウプキレフ",
+     "tier": 0,
+     "from": "Muyingwa",
+     "id": 20963
+    },
+    {
+     "en": "Vespid Mantle",
+     "ja": "ヴェスピッドマント",
+     "tier": 0,
+     "from": "Muyingwa",
+     "id": 28641
+    },
+    {
+     "en": "Aphotic Kukri",
+     "ja": "エイフォトククリ",
+     "tier": 0,
+     "from": "Nerrivik",
+     "id": 20637
+    },
+    {
+     "en": "Asperity Necklace",
+     "ja": "アスパーネックレス",
+     "tier": 0,
+     "from": "Nerrivik",
+     "id": 28402
+    },
+    {
+     "en": "Ophidian Trident",
+     "ja": "オフィトライデント",
+     "tier": 0,
+     "from": "Nerrivik",
+     "id": 20964
+    },
+    {
+     "en": "Bladeborn Earring",
+     "ja": "ブレードボンピアス",
+     "tier": 0,
+     "from": "Perdurable Raptor",
+     "id": 28521
+    },
+    {
+     "en": "Bokwus Boots",
+     "ja": "ボクワスブーツ",
+     "tier": 0,
+     "from": "Perdurable Raptor",
+     "id": 28340
+    },
+    {
+     "en": "Manibozho Beret",
+     "ja": "マニボゾベレー",
+     "tier": 0,
+     "from": "Perdurable Raptor",
+     "id": 27777
+    },
+    {
+     "en": "Artsieq Hat",
+     "ja": "アートシクハット",
+     "tier": 0,
+     "from": "Plaguevein Bats",
+     "id": 27725
+    },
+    {
+     "en": "Paeapua",
+     "ja": "ピアプア",
+     "tier": 0,
+     "from": "Plaguevein Bats",
+     "id": 21374
+    },
+    {
+     "en": "Qaaxo Tights",
+     "ja": "カークソタイツ",
+     "tier": 0,
+     "from": "Plaguevein Bats",
+     "id": 28158
+    },
+    {
+     "en": "Emxgha",
+     "ja": "エムシガー",
+     "tier": 0,
+     "from": "Podarge",
+     "id": 20813
+    },
+    {
+     "en": "Mubvum. Mantle",
+     "ja": "ムブンバミリマント",
+     "tier": 0,
+     "from": "Podarge",
+     "id": 28604
+    },
+    {
+     "en": "Shokudaikiri",
+     "ja": "燭台切光忠",
+     "tier": 0,
+     "from": "Podarge",
+     "id": 21040
+    },
+    {
+     "en": "Bokwus Robe",
+     "ja": "ボクワスローブ",
+     "tier": 0,
+     "from": "Shimmering Tarichuk",
+     "id": 27919
+    },
+    {
+     "en": "Lifestorm Earring",
+     "ja": "ライストームピアス",
+     "tier": 0,
+     "from": "Shimmering Tarichuk",
+     "id": 28524
+    },
+    {
+     "en": "Imbodla Necklace",
+     "ja": "イボドラネックレス",
+     "tier": 0,
+     "from": "Sinaa",
+     "id": 28381
+    },
+    {
+     "en": "Qaaxo Harness",
+     "ja": "カークソハーネス",
+     "tier": 0,
+     "from": "Sinaa",
+     "id": 27870
+    },
+    {
+     "en": "Bokwus Gloves",
+     "ja": "ボクワスグローブ",
+     "tier": 0,
+     "from": "Supernal Chapuli",
+     "id": 28059
+    },
+    {
+     "en": "Heartseeker Earring",
+     "ja": "ハートシーカピアス",
+     "tier": 0,
+     "from": "Supernal Chapuli",
+     "id": 28523
+    },
+    {
+     "en": "Miki. Cuisses",
+     "ja": "ミキナククウィス",
+     "tier": 0,
+     "from": "Supernal Chapuli",
+     "id": 28198
+    },
+    {
+     "en": "Bereaver",
+     "ja": "ベリーヴァー",
+     "tier": 0,
+     "from": "Tax'et",
+     "id": 20778
+    },
+    {
+     "en": "Locus Ring",
+     "ja": "ローカスリング",
+     "tier": 0,
+     "from": "Tax'et",
+     "id": 28582
+    },
+    {
+     "en": "Steadfast Shield",
+     "ja": "ステドファシールド",
+     "tier": 0,
+     "from": "Tax'et",
+     "id": 28663
+    },
+    {
+     "en": "Uguisumaru",
+     "ja": "鶯丸",
+     "tier": 0,
+     "from": "Tax'et",
+     "id": 21053
+    },
+    {
+     "en": "Buramenk'ah",
+     "ja": "ブラメンカー",
+     "tier": 0,
+     "from": "Tojil",
+     "id": 20738
+    },
+    {
+     "en": "Hurch'lan Sash",
+     "ja": "フレフランサッシュ",
+     "tier": 0,
+     "from": "Tojil",
+     "id": 28462
+    },
+    {
+     "en": "K'ayres Ring",
+     "ja": "カッヤレスリング",
+     "tier": 0,
+     "from": "Tojil",
+     "id": 28579
+    },
+    {
+     "en": "Oatixur",
+     "ja": "オアティフール",
+     "tier": 0,
+     "from": "Tojil",
+     "id": 20548
+    },
+    {
+     "en": "Yaoyotl Gloves",
+     "ja": "ヤオヨトルグローブ",
+     "tier": 0,
+     "from": "Tojil",
+     "id": 28056
+    },
+    {
+     "en": "Yaoyotl Helm",
+     "ja": "ヤオヨトルヘルム",
+     "tier": 0,
+     "from": "Tojil",
+     "id": 27773
+    },
+    {
+     "en": "Manibozho Jerkin",
+     "ja": "マニボゾジャーキン",
+     "tier": 0,
+     "from": "Transcendent Scorpion",
+     "id": 27918
+    },
+    {
+     "en": "Steelflash Earring",
+     "ja": "ブランデシュピアス",
+     "tier": 0,
+     "from": "Transcendent Scorpion",
+     "id": 28520
+    },
+    {
+     "en": "Halachuinic Sword",
+     "ja": "ハラチュイニソード",
+     "tier": 0,
+     "from": "Tutewehiwehi",
+     "id": 20739
+    },
+    {
+     "en": "Honed Tathlum",
+     "ja": "ホーンドタスラム",
+     "tier": 0,
+     "from": "Tutewehiwehi",
+     "id": 21389
+    },
+    {
+     "en": "Kiji",
+     "ja": "雉",
+     "tier": 0,
+     "from": "Tutewehiwehi",
+     "id": 21005
+    },
+    {
+     "en": "Surefire Arquebus",
+     "ja": "Ｓ．アークゥイバス",
+     "tier": 0,
+     "from": "Tutewehiwehi",
+     "id": 21288
+    },
+    {
+     "en": "Inq. Bead Necklace",
+     "ja": "インクイジタビーズ",
+     "tier": 0,
+     "from": "Unfettered Twitherym",
+     "id": 28403
+    },
+    {
+     "en": "Manibozho Boots",
+     "ja": "マニボゾブーツ",
+     "tier": 0,
+     "from": "Unfettered Twitherym",
+     "id": 28339
+    },
+    {
+     "en": "Mikinaak Helm",
+     "ja": "ミキナクヘルム",
+     "tier": 0,
+     "from": "Unfettered Twitherym",
+     "id": 27776
+    },
+    {
+     "en": "Falubeza",
+     "ja": "ファルベザ",
+     "tier": 0,
+     "from": "Utkux / Utkux Peltburner",
+     "id": 21228
+    },
+    {
+     "en": "Ighwa Cap",
+     "ja": "イグワカップ",
+     "tier": 0,
+     "from": "Utkux / Utkux Peltburner",
+     "id": 27722
+    },
+    {
+     "en": "Ighwa Trousers",
+     "ja": "イグワトラウザ",
+     "tier": 0,
+     "from": "Utkux / Utkux Peltburner",
+     "id": 28156
+    },
+    {
+     "en": "Isa Belt",
+     "ja": "イーサベルト",
+     "tier": 0,
+     "from": "Utkux / Utkux Peltburner",
+     "id": 28451
+    },
+    {
+     "en": "Kuchekula Ring",
+     "ja": "クチェクラリング",
+     "tier": 0,
+     "from": "Utkux / Utkux Peltburner",
+     "id": 28564
+    },
+    {
+     "en": "Ngqoqwanb",
+     "ja": "ンゴコクワンブ",
+     "tier": 0,
+     "from": "Utkux / Utkux Peltburner",
+     "id": 21176
+    },
+    {
+     "en": "Manibozho Brais",
+     "ja": "マニボゾブレー",
+     "tier": 0,
+     "from": "Volatile Matamata",
+     "id": 28199
+    },
+    {
+     "en": "Miki. Gauntlets",
+     "ja": "ミキナクガントレ",
+     "tier": 0,
+     "from": "Volatile Matamata",
+     "id": 28057
+    },
+    {
+     "en": "Zoran's Belt",
+     "ja": "ゾランベルト",
+     "tier": 0,
+     "from": "Volatile Matamata",
+     "id": 28463
+    },
+    {
+     "en": "Bolelabunga",
+     "ja": "ボレラブンガ",
+     "tier": 0,
+     "from": "Wopket / Wopket Trunksplitter",
+     "id": 21111
+    },
+    {
+     "en": "Kumbira Cape",
+     "ja": "クンビラケープ",
+     "tier": 0,
+     "from": "Wopket / Wopket Trunksplitter",
+     "id": 28603
+    },
+    {
+     "en": "Qalgwer",
+     "ja": "カルグウェル",
+     "tier": 0,
+     "from": "Wopket / Wopket Trunksplitter",
+     "id": 20861
+    },
+    {
+     "en": "Sihirik",
+     "ja": "シヒリック",
+     "tier": 0,
+     "from": "Wopket / Wopket Trunksplitter",
+     "id": 21373
+    },
+    {
+     "en": "Umuthi Gloves",
+     "ja": "ウムシクグローブ",
+     "tier": 0,
+     "from": "Wopket / Wopket Trunksplitter",
+     "id": 28014
+    },
+    {
+     "en": "Umuthi Hat",
+     "ja": "ウムシクハット",
+     "tier": 0,
+     "from": "Wopket / Wopket Trunksplitter",
+     "id": 27721
+    },
+    {
+     "en": "Artsieq Cuffs",
+     "ja": "アートシクカフス",
+     "tier": 0,
+     "from": "Xag'Nar",
+     "id": 28017
+    },
+    {
+     "en": "Inlamvuyeso",
+     "ja": "インラムブイェソ",
+     "tier": 0,
+     "from": "Xag'Nar",
+     "id": 21376
+    },
+    {
+     "en": "Qaaxo Leggings",
+     "ja": "カークソレギンス",
+     "tier": 0,
+     "from": "Xag'Nar",
+     "id": 28295
+    }
+   ]
+  },
+  {
+   "id": "skirmish",
+   "label_ja": "スカーム",
+   "source": [
+    "https://www.bg-wiki.com/ffxi/Category:Skirmish",
+    "https://www.bg-wiki.com/ffxi/Category:Skirmish_Weapon",
+    "https://www.bg-wiki.com/ffxi/Category:Skirmish_Armor"
+   ],
+   "items": [
+    {
+     "en": "Beatific Shield",
+     "ja": "ビアテフィバルワク",
+     "tier": 0,
+     "from": "Beatific Shield",
+     "id": 28662
+    },
+    {
+     "en": "Beatific Shield +1",
+     "ja": "ＢＦバルワク+1",
+     "tier": 1,
+     "from": "Beatific Shield",
+     "id": 28654
+    },
+    {
+     "en": "Cizin Breeches",
+     "ja": "キィジンブリーチズ",
+     "tier": 0,
+     "from": "Cizin Armor Set",
+     "id": 28192
+    },
+    {
+     "en": "Cizin Breeches +1",
+     "ja": "ＣＩブリーチズ+1",
+     "tier": 1,
+     "from": "Cizin Armor Set",
+     "id": 28160
+    },
+    {
+     "en": "Cizin Greaves",
+     "ja": "キィジングリーヴ",
+     "tier": 0,
+     "from": "Cizin Armor Set",
+     "id": 28332
+    },
+    {
+     "en": "Cizin Greaves +1",
+     "ja": "ＣＩグリーヴ+1",
+     "tier": 1,
+     "from": "Cizin Armor Set",
+     "id": 28297
+    },
+    {
+     "en": "Cizin Helm",
+     "ja": "キィジンヘルム",
+     "tier": 0,
+     "from": "Cizin Armor Set",
+     "id": 27768
+    },
+    {
+     "en": "Cizin Helm +1",
+     "ja": "ＣＩヘルム+1",
+     "tier": 1,
+     "from": "Cizin Armor Set",
+     "id": 27728
+    },
+    {
+     "en": "Cizin Mail",
+     "ja": "キィジンメイル",
+     "tier": 0,
+     "from": "Cizin Armor Set",
+     "id": 27912
+    },
+    {
+     "en": "Cizin Mail +1",
+     "ja": "ＣＩメイル+1",
+     "tier": 1,
+     "from": "Cizin Armor Set",
+     "id": 27874
+    },
+    {
+     "en": "Cizin Mufflers",
+     "ja": "キィジンマフラ",
+     "tier": 0,
+     "from": "Cizin Armor Set",
+     "id": 28051
+    },
+    {
+     "en": "Cizin Mufflers +1",
+     "ja": "ＣＩマフラ+1",
+     "tier": 1,
+     "from": "Cizin Armor Set",
+     "id": 28018
+    },
+    {
+     "en": "Gende. Bliaut +1",
+     "ja": "ＧＥブリオー+1",
+     "tier": 1,
+     "from": "Gendewitha Armor Set",
+     "id": 27877
+    },
+    {
+     "en": "Gende. Caubeen",
+     "ja": "ゲンデサカウビーン",
+     "tier": 0,
+     "from": "Gendewitha Armor Set",
+     "id": 27771
+    },
+    {
+     "en": "Gende. Caubeen +1",
+     "ja": "ＧＥカウビーン+1",
+     "tier": 1,
+     "from": "Gendewitha Armor Set",
+     "id": 27731
+    },
+    {
+     "en": "Gende. Gages +1",
+     "ja": "ＧＥゲージ+1",
+     "tier": 1,
+     "from": "Gendewitha Armor Set",
+     "id": 28021
+    },
+    {
+     "en": "Gende. Galosh. +1",
+     "ja": "ＧＥガロッシュ+1",
+     "tier": 1,
+     "from": "Gendewitha Armor Set",
+     "id": 28300
+    },
+    {
+     "en": "Gende. Galoshes",
+     "ja": "ゲンデサガロッシュ",
+     "tier": 0,
+     "from": "Gendewitha Armor Set",
+     "id": 28335
+    },
+    {
+     "en": "Gende. Spats +1",
+     "ja": "ＧＥスパッツ+1",
+     "tier": 1,
+     "from": "Gendewitha Armor Set",
+     "id": 28163
+    },
+    {
+     "en": "Gendewitha Bliaut",
+     "ja": "ゲンデサブリオー",
+     "tier": 0,
+     "from": "Gendewitha Armor Set",
+     "id": 27915
+    },
+    {
+     "en": "Gendewitha Gages",
+     "ja": "ゲンデサゲージ",
+     "tier": 0,
+     "from": "Gendewitha Armor Set",
+     "id": 28054
+    },
+    {
+     "en": "Gendewitha Spats",
+     "ja": "ゲンデサスパッツ",
+     "tier": 0,
+     "from": "Gendewitha Armor Set",
+     "id": 28195
+    },
+    {
+     "en": "Hag. Sabots +1",
+     "ja": "ＨＡサボ+1",
+     "tier": 1,
+     "from": "Hagondes Armor Set",
+     "id": 28301
+    },
+    {
+     "en": "Hagondes Coat",
+     "ja": "ハゴンデスコート",
+     "tier": 0,
+     "from": "Hagondes Armor Set",
+     "id": 27916
+    },
+    {
+     "en": "Hagondes Coat +1",
+     "ja": "ＨＡコート+1",
+     "tier": 1,
+     "from": "Hagondes Armor Set",
+     "id": 27878
+    },
+    {
+     "en": "Hagondes Cuffs",
+     "ja": "ハゴンデスカフス",
+     "tier": 0,
+     "from": "Hagondes Armor Set",
+     "id": 28055
+    },
+    {
+     "en": "Hagondes Cuffs +1",
+     "ja": "ＨＡカフス+1",
+     "tier": 1,
+     "from": "Hagondes Armor Set",
+     "id": 28022
+    },
+    {
+     "en": "Hagondes Hat",
+     "ja": "ハゴンデスハット",
+     "tier": 0,
+     "from": "Hagondes Armor Set",
+     "id": 27772
+    },
+    {
+     "en": "Hagondes Hat +1",
+     "ja": "ＨＡハット+1",
+     "tier": 1,
+     "from": "Hagondes Armor Set",
+     "id": 27732
+    },
+    {
+     "en": "Hagondes Pants",
+     "ja": "ハゴンデスパンツ",
+     "tier": 0,
+     "from": "Hagondes Armor Set",
+     "id": 28196
+    },
+    {
+     "en": "Hagondes Pants +1",
+     "ja": "ＨＡパンツ+1",
+     "tier": 1,
+     "from": "Hagondes Armor Set",
+     "id": 28164
+    },
+    {
+     "en": "Hagondes Sabots",
+     "ja": "ハゴンデスサボ",
+     "tier": 0,
+     "from": "Hagondes Armor Set",
+     "id": 28336
+    },
+    {
+     "en": "Iuitl Gaiters",
+     "ja": "ユイトルゲートル",
+     "tier": 0,
+     "from": "Iuitl Armor Set",
+     "id": 28334
+    },
+    {
+     "en": "Iuitl Gaiters +1",
+     "ja": "ＩＵゲートル+1",
+     "tier": 1,
+     "from": "Iuitl Armor Set",
+     "id": 28299
+    },
+    {
+     "en": "Iuitl Headgear",
+     "ja": "ユイトルヘッドギア",
+     "tier": 0,
+     "from": "Iuitl Armor Set",
+     "id": 27770
+    },
+    {
+     "en": "Iuitl Headgear +1",
+     "ja": "ＩＵヘッドギア+1",
+     "tier": 1,
+     "from": "Iuitl Armor Set",
+     "id": 27730
+    },
+    {
+     "en": "Iuitl Tights",
+     "ja": "ユイトルタイツ",
+     "tier": 0,
+     "from": "Iuitl Armor Set",
+     "id": 28194
+    },
+    {
+     "en": "Iuitl Tights +1",
+     "ja": "ＩＵタイツ+1",
+     "tier": 1,
+     "from": "Iuitl Armor Set",
+     "id": 28162
+    },
+    {
+     "en": "Iuitl Vest",
+     "ja": "ユイトルベスト",
+     "tier": 0,
+     "from": "Iuitl Armor Set",
+     "id": 27914
+    },
+    {
+     "en": "Iuitl Vest +1",
+     "ja": "ＩＵベスト+1",
+     "tier": 1,
+     "from": "Iuitl Armor Set",
+     "id": 27876
+    },
+    {
+     "en": "Iuitl Wristbands",
+     "ja": "ユイトルリスト",
+     "tier": 0,
+     "from": "Iuitl Armor Set",
+     "id": 28053
+    },
+    {
+     "en": "Iuitl Wristbands +1",
+     "ja": "ＩＵリスト+1",
+     "tier": 1,
+     "from": "Iuitl Armor Set",
+     "id": 28020
+    },
+    {
+     "en": "Otro. Harness +1",
+     "ja": "ＯＴハーネス+1",
+     "tier": 1,
+     "from": "Otronif Armor Set",
+     "id": 27875
+    },
+    {
+     "en": "Otronif Boots",
+     "ja": "オトロニフブーツ",
+     "tier": 0,
+     "from": "Otronif Armor Set",
+     "id": 28333
+    },
+    {
+     "en": "Otronif Boots +1",
+     "ja": "ＯＴブーツ+1",
+     "tier": 1,
+     "from": "Otronif Armor Set",
+     "id": 28298
+    },
+    {
+     "en": "Otronif Brais",
+     "ja": "オトロニフブレー",
+     "tier": 0,
+     "from": "Otronif Armor Set",
+     "id": 28193
+    },
+    {
+     "en": "Otronif Brais +1",
+     "ja": "ＯＴブレー+1",
+     "tier": 1,
+     "from": "Otronif Armor Set",
+     "id": 28161
+    },
+    {
+     "en": "Otronif Gloves",
+     "ja": "オトロニフグローブ",
+     "tier": 0,
+     "from": "Otronif Armor Set",
+     "id": 28052
+    },
+    {
+     "en": "Otronif Gloves +1",
+     "ja": "ＯＴグローブ+1",
+     "tier": 1,
+     "from": "Otronif Armor Set",
+     "id": 28019
+    },
+    {
+     "en": "Otronif Harness",
+     "ja": "オトロニフハーネス",
+     "tier": 0,
+     "from": "Otronif Armor Set",
+     "id": 27913
+    },
+    {
+     "en": "Otronif Mask",
+     "ja": "オトロニフマスク",
+     "tier": 0,
+     "from": "Otronif Armor Set",
+     "id": 27769
+    },
+    {
+     "en": "Otronif Mask +1",
+     "ja": "ＯＴマスク+1",
+     "tier": 1,
+     "from": "Otronif Armor Set",
+     "id": 27729
+    },
+    {
+     "en": "Bocluamni",
+     "ja": "ボカルアムニ",
+     "tier": 0,
+     "from": "Skirmish Weapon (Cirdas Caverns (U))",
+     "id": 21242
+    },
+    {
+     "en": "Bocluamni +1",
+     "ja": "ボカルアムニ+1",
+     "tier": 1,
+     "from": "Skirmish Weapon (Cirdas Caverns (U))",
+     "id": 21236
+    },
+    {
+     "en": "Bocluamni +2",
+     "ja": "ボカルアムニ+2",
+     "tier": 2,
+     "from": "Skirmish Weapon (Cirdas Caverns (U))",
+     "id": 21230
+    },
+    {
+     "en": "Iizamal",
+     "ja": "イイザマル",
+     "tier": 0,
+     "from": "Skirmish Weapon (Cirdas Caverns (U))",
+     "id": 20924
+    },
+    {
+     "en": "Iizamal +1",
+     "ja": "イイザマル+1",
+     "tier": 1,
+     "from": "Skirmish Weapon (Cirdas Caverns (U))",
+     "id": 20915
+    },
+    {
+     "en": "Iizamal +2",
+     "ja": "イイザマル+2",
+     "tier": 2,
+     "from": "Skirmish Weapon (Cirdas Caverns (U))",
+     "id": 20907
+    },
+    {
+     "en": "Iztaasu",
+     "ja": "イズアース",
+     "tier": 0,
+     "from": "Skirmish Weapon (Cirdas Caverns (U))",
+     "id": 20742
+    },
+    {
+     "en": "Iztaasu +1",
+     "ja": "イズアース+1",
+     "tier": 1,
+     "from": "Skirmish Weapon (Cirdas Caverns (U))",
+     "id": 20736
+    },
+    {
+     "en": "Iztaasu +2",
+     "ja": "イズアース+2",
+     "tier": 2,
+     "from": "Skirmish Weapon (Cirdas Caverns (U))",
+     "id": 20725
+    },
+    {
+     "en": "Leisilonu",
+     "ja": "レイシロヌ",
+     "tier": 0,
+     "from": "Skirmish Weapon (Cirdas Caverns (U))",
+     "id": 20641
+    },
+    {
+     "en": "Leisilonu +1",
+     "ja": "レイシロヌ+1",
+     "tier": 1,
+     "from": "Skirmish Weapon (Cirdas Caverns (U))",
+     "id": 20634
+    },
+    {
+     "en": "Leisilonu +2",
+     "ja": "レイシロヌ+2",
+     "tier": 2,
+     "from": "Skirmish Weapon (Cirdas Caverns (U))",
+     "id": 20623
+    },
+    {
+     "en": "Ninzas",
+     "ja": "ニンザ",
+     "tier": 0,
+     "from": "Skirmish Weapon (Cirdas Caverns (U))",
+     "id": 20553
+    },
+    {
+     "en": "Ninzas +1",
+     "ja": "ニンザ+1",
+     "tier": 1,
+     "from": "Skirmish Weapon (Cirdas Caverns (U))",
+     "id": 20546
+    },
+    {
+     "en": "Ninzas +2",
+     "ja": "ニンザ+2",
+     "tier": 2,
+     "from": "Skirmish Weapon (Cirdas Caverns (U))",
+     "id": 20539
+    },
+    {
+     "en": "Qatsunoci",
+     "ja": "カツノッチ",
+     "tier": 0,
+     "from": "Skirmish Weapon (Cirdas Caverns (U))",
+     "id": 20967
+    },
+    {
+     "en": "Qatsunoci +1",
+     "ja": "カツノッチ+1",
+     "tier": 1,
+     "from": "Skirmish Weapon (Cirdas Caverns (U))",
+     "id": 20961
+    },
+    {
+     "en": "Qatsunoci +2",
+     "ja": "カツノッチ+2",
+     "tier": 2,
+     "from": "Skirmish Weapon (Cirdas Caverns (U))",
+     "id": 20952
+    },
+    {
+     "en": "Shichishito",
+     "ja": "七支刀",
+     "tier": 0,
+     "from": "Skirmish Weapon (Cirdas Caverns (U))",
+     "id": 21058
+    },
+    {
+     "en": "Shichishito +1",
+     "ja": "七支刀改",
+     "tier": 1,
+     "from": "Skirmish Weapon (Cirdas Caverns (U))",
+     "id": 21051
+    },
+    {
+     "en": "Shichishito +2",
+     "ja": "真七支刀",
+     "tier": 2,
+     "from": "Skirmish Weapon (Cirdas Caverns (U))",
+     "id": 21043
+    },
+    {
+     "en": "Uffrat",
+     "ja": "ウッフラット",
+     "tier": 0,
+     "from": "Skirmish Weapon (Cirdas Caverns (U))",
+     "id": 21209
+    },
+    {
+     "en": "Uffrat +1",
+     "ja": "ウッフラット+1",
+     "tier": 1,
+     "from": "Skirmish Weapon (Cirdas Caverns (U))",
+     "id": 21195
+    },
+    {
+     "en": "Uffrat +2",
+     "ja": "ウッフラット+2",
+     "tier": 2,
+     "from": "Skirmish Weapon (Cirdas Caverns (U))",
+     "id": 21180
+    },
+    {
+     "en": "Aedold",
+     "ja": "イドルド",
+     "tier": 0,
+     "from": "Skirmish Weapon (Rala Waterways (U))",
+     "id": 21132
+    },
+    {
+     "en": "Aedold +1",
+     "ja": "イドルド+1",
+     "tier": 1,
+     "from": "Skirmish Weapon (Rala Waterways (U))",
+     "id": 21126
+    },
+    {
+     "en": "Aedold +2",
+     "ja": "イドルド+2",
+     "tier": 2,
+     "from": "Skirmish Weapon (Rala Waterways (U))",
+     "id": 21115
+    },
+    {
+     "en": "Crobaci",
+     "ja": "クロバッチ",
+     "tier": 0,
+     "from": "Skirmish Weapon (Rala Waterways (U))",
+     "id": 20787
+    },
+    {
+     "en": "Crobaci +1",
+     "ja": "クロバッチ+1",
+     "tier": 1,
+     "from": "Skirmish Weapon (Rala Waterways (U))",
+     "id": 20775
+    },
+    {
+     "en": "Crobaci +2",
+     "ja": "クロバッチ+2",
+     "tier": 2,
+     "from": "Skirmish Weapon (Rala Waterways (U))",
+     "id": 20764
+    },
+    {
+     "en": "Faizzeer",
+     "ja": "ファイジール",
+     "tier": 0,
+     "from": "Skirmish Weapon (Rala Waterways (U))",
+     "id": 20833
+    },
+    {
+     "en": "Faizzeer +1",
+     "ja": "ファイジール+1",
+     "tier": 1,
+     "from": "Skirmish Weapon (Rala Waterways (U))",
+     "id": 20824
+    },
+    {
+     "en": "Faizzeer +2",
+     "ja": "ファイジール+2",
+     "tier": 2,
+     "from": "Skirmish Weapon (Rala Waterways (U))",
+     "id": 20816
+    },
+    {
+     "en": "Hgafircian",
+     "ja": "ヒガフィリシャン",
+     "tier": 0,
+     "from": "Skirmish Weapon (Rala Waterways (U))",
+     "id": 21294
+    },
+    {
+     "en": "Hgafircian +1",
+     "ja": "ヒガフィリシャン+1",
+     "tier": 1,
+     "from": "Skirmish Weapon (Rala Waterways (U))",
+     "id": 21286
+    },
+    {
+     "en": "Hgafircian +2",
+     "ja": "ヒガフィリシャン+2",
+     "tier": 2,
+     "from": "Skirmish Weapon (Rala Waterways (U))",
+     "id": 21279
+    },
+    {
+     "en": "Iclamar",
+     "ja": "イックラマー",
+     "tier": 0,
+     "from": "Skirmish Weapon (Rala Waterways (U))",
+     "id": 20877
+    },
+    {
+     "en": "Iclamar +1",
+     "ja": "イックラマー+1",
+     "tier": 1,
+     "from": "Skirmish Weapon (Rala Waterways (U))",
+     "id": 20870
+    },
+    {
+     "en": "Iclamar +2",
+     "ja": "イックラマー+2",
+     "tier": 2,
+     "from": "Skirmish Weapon (Rala Waterways (U))",
+     "id": 20863
+    },
+    {
+     "en": "Kannakiri",
+     "ja": "鉋切",
+     "tier": 0,
+     "from": "Skirmish Weapon (Rala Waterways (U))",
+     "id": 21013
+    },
+    {
+     "en": "Kannakiri +1",
+     "ja": "鉋切改",
+     "tier": 1,
+     "from": "Skirmish Weapon (Rala Waterways (U))",
+     "id": 21004
+    },
+    {
+     "en": "Kannakiri +2",
+     "ja": "真鉋切",
+     "tier": 2,
+     "from": "Skirmish Weapon (Rala Waterways (U))",
+     "id": 20996
+    },
+    {
+     "en": "Lehbrailg",
+     "ja": "レブレイルグ",
+     "tier": 0,
+     "from": "Skirmish Weapon (Rala Waterways (U))",
+     "id": 21208
+    },
+    {
+     "en": "Lehbrailg +1",
+     "ja": "レブレイルグ+1",
+     "tier": 1,
+     "from": "Skirmish Weapon (Rala Waterways (U))",
+     "id": 21194
+    },
+    {
+     "en": "Lehbrailg +2",
+     "ja": "レブレイルグ+2",
+     "tier": 2,
+     "from": "Skirmish Weapon (Rala Waterways (U))",
+     "id": 21179
+    }
+   ]
+  },
+  {
+   "id": "wildskeeper",
+   "label_ja": "ワイルドキーパー・レイヴ",
+   "source": [
+    "https://www.bg-wiki.com/ffxi/Wildskeeper_Reive",
+    "https://www.bg-wiki.com/ffxi/Colkhab",
+    "https://www.bg-wiki.com/ffxi/Tchakka",
+    "https://www.bg-wiki.com/ffxi/Achuka",
+    "https://www.bg-wiki.com/ffxi/Yumcax",
+    "https://www.bg-wiki.com/ffxi/Hurkan",
+    "https://www.bg-wiki.com/ffxi/Kumhau",
+    "https://www.bg-wiki.com/ffxi/Eternal_Flame"
+   ],
+   "items": [
+    {
+     "en": "Achaq Grip",
+     "ja": "アチャクグリップ",
+     "tier": 0,
+     "from": "Achuka",
+     "id": 21426
+    },
+    {
+     "en": "Aqreqaq Bomblet",
+     "ja": "アクレカボムレット",
+     "tier": 0,
+     "from": "Achuka",
+     "id": 21385
+    },
+    {
+     "en": "Buquwik Cape",
+     "ja": "ブクイックケープ",
+     "tier": 0,
+     "from": "Achuka",
+     "id": 28612
+    },
+    {
+     "en": "Camatlatia",
+     "ja": "カマトラタシア",
+     "tier": 0,
+     "from": "Achuka",
+     "id": 20740
+    },
+    {
+     "en": "Cuamiz Collar",
+     "ja": "クアミズカラー",
+     "tier": 0,
+     "from": "Achuka",
+     "id": 28386
+    },
+    {
+     "en": "Maochinoli",
+     "ja": "マオチノーリ",
+     "tier": 0,
+     "from": "Achuka",
+     "id": 20543
+    },
+    {
+     "en": "Otomi Gloves",
+     "ja": "オトミグローブ",
+     "tier": 0,
+     "from": "Achuka",
+     "id": 28028
+    },
+    {
+     "en": "Otomi Helm",
+     "ja": "オトミヘルム",
+     "tier": 0,
+     "from": "Achuka",
+     "id": 27739
+    },
+    {
+     "en": "Quauhpilli Gloves",
+     "ja": "クァウピリグローブ",
+     "tier": 0,
+     "from": "Achuka",
+     "id": 28062
+    },
+    {
+     "en": "Quauhpilli Helm",
+     "ja": "クァウピリヘルム",
+     "tier": 0,
+     "from": "Achuka",
+     "id": 27779
+    },
+    {
+     "en": "Tlalpoloani",
+     "ja": "トラロポアラニ",
+     "tier": 0,
+     "from": "Achuka",
+     "id": 20554
+    },
+    {
+     "en": "Xiutleato",
+     "ja": "シウトレアト",
+     "tier": 0,
+     "from": "Achuka",
+     "id": 20731
+    },
+    {
+     "en": "Hatxiik",
+     "ja": "ハツシーク",
+     "tier": 0,
+     "from": "Colkhab",
+     "id": 20820
+    },
+    {
+     "en": "Huani Collar",
+     "ja": "フアニカラー",
+     "tier": 0,
+     "from": "Colkhab",
+     "id": 28384
+    },
+    {
+     "en": "Icoyoca",
+     "ja": "イコヨカ",
+     "tier": 0,
+     "from": "Colkhab",
+     "id": 20829
+    },
+    {
+     "en": "Ik Cape",
+     "ja": "イックケープ",
+     "tier": 0,
+     "from": "Colkhab",
+     "id": 28610
+    },
+    {
+     "en": "Kaabnax Hat",
+     "ja": "カブナフハット",
+     "tier": 0,
+     "from": "Colkhab",
+     "id": 27737
+    },
+    {
+     "en": "Kaabnax Trousers",
+     "ja": "カブナフトラウザ",
+     "tier": 0,
+     "from": "Colkhab",
+     "id": 28167
+    },
+    {
+     "en": "Kuakuakait",
+     "ja": "クアクアカイト",
+     "tier": 0,
+     "from": "Colkhab",
+     "id": 20958
+    },
+    {
+     "en": "Kuku Stone",
+     "ja": "ククストーン",
+     "tier": 0,
+     "from": "Colkhab",
+     "id": 28457
+    },
+    {
+     "en": "Phawaylla Earring",
+     "ja": "パワイライヤリング",
+     "tier": 0,
+     "from": "Colkhab",
+     "id": 28513
+    },
+    {
+     "en": "Taikogane",
+     "ja": "太鼓鐘",
+     "tier": 0,
+     "from": "Colkhab",
+     "id": 20992
+    },
+    {
+     "en": "Tlamini",
+     "ja": "トラミニ",
+     "tier": 0,
+     "from": "Colkhab",
+     "id": 20965
+    },
+    {
+     "en": "Xux Hat",
+     "ja": "ズッフハット",
+     "tier": 0,
+     "from": "Colkhab",
+     "id": 27781
+    },
+    {
+     "en": "Xux Trousers",
+     "ja": "ズッフトラウザ",
+     "tier": 0,
+     "from": "Colkhab",
+     "id": 28201
+    },
+    {
+     "en": "Animikii Bullet",
+     "ja": "アニミキーブレット",
+     "tier": 0,
+     "from": "Hurkan",
+     "id": 21334
+    },
+    {
+     "en": "Hunahpu",
+     "ja": "フンアープ",
+     "tier": 0,
+     "from": "Hurkan",
+     "id": 20826
+    },
+    {
+     "en": "Jaq'ij Sash",
+     "ja": "ジャキジュサッシュ",
+     "tier": 0,
+     "from": "Hurkan",
+     "id": 28458
+    },
+    {
+     "en": "Jukukik Feather",
+     "ja": "ジュクキクフェザー",
+     "tier": 0,
+     "from": "Hurkan",
+     "id": 21386
+    },
+    {
+     "en": "Kaquljaan",
+     "ja": "カクルジャンソード",
+     "tier": 0,
+     "from": "Hurkan",
+     "id": 20768
+    },
+    {
+     "en": "Kayapa Cape",
+     "ja": "カヤパケープ",
+     "tier": 0,
+     "from": "Hurkan",
+     "id": 28613
+    },
+    {
+     "en": "Paqichikaji Ring",
+     "ja": "パキチハジリング",
+     "tier": 0,
+     "from": "Hurkan",
+     "id": 28576
+    },
+    {
+     "en": "Tzacab Grip",
+     "ja": "トザカブガント",
+     "tier": 0,
+     "from": "Hurkan",
+     "id": 21428
+    },
+    {
+     "en": "Uk'uxkaj Boots",
+     "ja": "ウクシカジブーツ",
+     "tier": 0,
+     "from": "Hurkan",
+     "id": 28331
+    },
+    {
+     "en": "Uk'uxkaj Cap",
+     "ja": "ウクシカジキャップ",
+     "tier": 0,
+     "from": "Hurkan",
+     "id": 27766
+    },
+    {
+     "en": "Xbalanque",
+     "ja": "シャバランケ",
+     "tier": 0,
+     "from": "Hurkan",
+     "id": 20917
+    },
+    {
+     "en": "Ajjub Bow",
+     "ja": "アジュブボウ",
+     "tier": 0,
+     "from": "Kumhau",
+     "id": 21233
+    },
+    {
+     "en": "Baqil Staff",
+     "ja": "バキルスタッフ",
+     "tier": 0,
+     "from": "Kumhau",
+     "id": 21186
+    },
+    {
+     "en": "Cetl Belt",
+     "ja": "セトルベルト",
+     "tier": 0,
+     "from": "Kumhau",
+     "id": 28460
+    },
+    {
+     "en": "Friomisi Earring",
+     "ja": "フリオミシピアス",
+     "tier": 0,
+     "from": "Kumhau",
+     "id": 28514
+    },
+    {
+     "en": "Nepote Bell",
+     "ja": "ネポテベル",
+     "tier": 0,
+     "from": "Kumhau",
+     "id": 21463
+    },
+    {
+     "en": "Quiahuiz Helm",
+     "ja": "クイアイズヘルム",
+     "tier": 0,
+     "from": "Kumhau",
+     "id": 27736
+    },
+    {
+     "en": "Quiahuiz Trousers",
+     "ja": "クイアイズトラウザ",
+     "tier": 0,
+     "from": "Kumhau",
+     "id": 28166
+    },
+    {
+     "en": "Tlamiztli Collar",
+     "ja": "トラミツリカラー",
+     "tier": 0,
+     "from": "Kumhau",
+     "id": 28388
+    },
+    {
+     "en": "Toro Cape",
+     "ja": "トーロケープ",
+     "tier": 0,
+     "from": "Kumhau",
+     "id": 28615
+    },
+    {
+     "en": "Atetepeyorg",
+     "ja": "アテテペヨルグ",
+     "tier": 0,
+     "from": "Tchakka",
+     "id": 21253
+    },
+    {
+     "en": "Atoyac",
+     "ja": "アトヤク",
+     "tier": 0,
+     "from": "Tchakka",
+     "id": 20630
+    },
+    {
+     "en": "Atzintli Necklace",
+     "ja": "アツィンネックレス",
+     "tier": 0,
+     "from": "Tchakka",
+     "id": 28385
+    },
+    {
+     "en": "Azukinagamitsu",
+     "ja": "小豆長光",
+     "tier": 0,
+     "from": "Tchakka",
+     "id": 21047
+    },
+    {
+     "en": "Cho'j Band",
+     "ja": "チョージバンド",
+     "tier": 0,
+     "from": "Tchakka",
+     "id": 28575
+    },
+    {
+     "en": "Chocaliztli Boots",
+     "ja": "チョカリツリブーツ",
+     "tier": 0,
+     "from": "Tchakka",
+     "id": 28343
+    },
+    {
+     "en": "Chocaliztli Mask",
+     "ja": "チョカリツリマスク",
+     "tier": 0,
+     "from": "Tchakka",
+     "id": 27780
+    },
+    {
+     "en": "Ejekamal Boots",
+     "ja": "エヘカマルブーツ",
+     "tier": 0,
+     "from": "Tchakka",
+     "id": 28305
+    },
+    {
+     "en": "Ejekamal Mask",
+     "ja": "エヘカマルマスク",
+     "tier": 0,
+     "from": "Tchakka",
+     "id": 27738
+    },
+    {
+     "en": "Kalboron Stone",
+     "ja": "カルボロンストーン",
+     "tier": 0,
+     "from": "Tchakka",
+     "id": 21384
+    },
+    {
+     "en": "Macoquetza",
+     "ja": "マコクエッツァ",
+     "tier": 0,
+     "from": "Tchakka",
+     "id": 20643
+    },
+    {
+     "en": "Suijingiri KM",
+     "ja": "水神切兼光",
+     "tier": 0,
+     "from": "Tchakka",
+     "id": 21054
+    },
+    {
+     "en": "Tuilha Cape",
+     "ja": "トィルハケープ",
+     "tier": 0,
+     "from": "Tchakka",
+     "id": 28611
+    },
+    {
+     "en": "Zoquittihuitz",
+     "ja": "ゾクィティフイツォ",
+     "tier": 0,
+     "from": "Tchakka",
+     "id": 21257
+    },
+    {
+     "en": "Barataria Ring",
+     "ja": "バラタリアリング",
+     "tier": 0,
+     "from": "Yumcax",
+     "id": 28548
+    },
+    {
+     "en": "Buremte Gloves",
+     "ja": "ブレムテグローブ",
+     "tier": 0,
+     "from": "Yumcax",
+     "id": 28050
+    },
+    {
+     "en": "Buremte Hat",
+     "ja": "ブレムテハット",
+     "tier": 0,
+     "from": "Yumcax",
+     "id": 27767
+    },
+    {
+     "en": "Chuq'aba Belt",
+     "ja": "チュカバベルト",
+     "tier": 0,
+     "from": "Yumcax",
+     "id": 28459
+    },
+    {
+     "en": "Iximulew Cape",
+     "ja": "イシムウルケープ",
+     "tier": 0,
+     "from": "Yumcax",
+     "id": 28614
+    },
+    {
+     "en": "Ixtab",
+     "ja": "イシタブ",
+     "tier": 0,
+     "from": "Yumcax",
+     "id": 20872
+    },
+    {
+     "en": "Kunaji Ring",
+     "ja": "クナジリング",
+     "tier": 0,
+     "from": "Yumcax",
+     "id": 28577
+    },
+    {
+     "en": "Ocachi Gorget",
+     "ja": "オカチゴルゲット",
+     "tier": 0,
+     "from": "Yumcax",
+     "id": 28400
+    },
+    {
+     "en": "Pahtli Cape",
+     "ja": "パートリケープ",
+     "tier": 0,
+     "from": "Yumcax",
+     "id": 28640
+    },
+    {
+     "en": "Quanpur Necklace",
+     "ja": "クアンプネックレス",
+     "tier": 0,
+     "from": "Yumcax",
+     "id": 28387
+    },
+    {
+     "en": "Tamaxchi",
+     "ja": "タマシチ",
+     "tier": 0,
+     "from": "Yumcax",
+     "id": 21125
+    }
+   ]
+  },
+  {
+   "id": "vagary",
+   "label_ja": "ベガリーインスペクター",
+   "source": [
+    "https://www.bg-wiki.com/ffxi/Category:Vagary"
+   ],
+   "items": [
+    {
+     "en": "Supay Weskit",
+     "ja": "スペイウエスキット",
+     "tier": 0,
+     "from": "Blightslither",
+     "id": 26874
+    },
+    {
+     "en": "Umbra Strap",
+     "ja": "アンブラストラップ",
+     "tier": 0,
+     "from": "Blightslither",
+     "id": 18826
+    },
+    {
+     "en": "Deviant Necklace",
+     "ja": "デビアントネクラス",
+     "tier": 0,
+     "from": "Brimboil",
+     "id": 27507
+    },
+    {
+     "en": "Meekculler",
+     "ja": "ミークカラーサイズ",
+     "tier": 0,
+     "from": "Brimboil",
+     "id": 20900
+    },
+    {
+     "en": "Avatara Slops",
+     "ja": "アバタラスロップス",
+     "tier": 0,
+     "from": "Insidivo",
+     "id": 27221
+    },
+    {
+     "en": "Vengeful Ring",
+     "ja": "ヴェンジフルリング",
+     "tier": 0,
+     "from": "Insidivo",
+     "id": 27592
+    },
+    {
+     "en": "Brahmastra",
+     "ja": "ブラマストラ",
+     "tier": 0,
+     "from": "Murkcrawler",
+     "id": 21221
+    },
+    {
+     "en": "Rabid Visor",
+     "ja": "ラビッドバイザー",
+     "tier": 0,
+     "from": "Murkcrawler",
+     "id": 26721
+    },
+    {
+     "en": "Achiuchikapu",
+     "ja": "アチウチカプ",
+     "tier": 0,
+     "from": "Palloritus",
+     "id": 20986
+    },
+    {
+     "en": "Defiant Collar",
+     "ja": "テファイアンカラー",
+     "tier": 0,
+     "from": "Palloritus",
+     "id": 27506
+    },
+    {
+     "en": "Punchinellos",
+     "ja": "パンチネロ",
+     "tier": 0,
+     "from": "Palloritus",
+     "id": 28323
+    },
+    {
+     "en": "Rhadamanthus",
+     "ja": "ラダマントゥス",
+     "tier": 0,
+     "from": "Palloritus",
+     "id": 20610
+    },
+    {
+     "en": "Famine Sash",
+     "ja": "ファーミンサッシュ",
+     "tier": 0,
+     "from": "Palloritus gate Wave 2",
+     "id": 28422
+    },
+    {
+     "en": "Feast Hose",
+     "ja": "フィーストホーズ",
+     "tier": 0,
+     "from": "Palloritus gate Wave 2",
+     "id": 27223
+    },
+    {
+     "en": "Focal Orb",
+     "ja": "フォーカルオーブ",
+     "tier": 0,
+     "from": "Palloritus gate Wave 3",
+     "id": 21345
+    },
+    {
+     "en": "Limbo Trousers",
+     "ja": "リンボトラウザ",
+     "tier": 0,
+     "from": "Palloritus gate Wave 3",
+     "id": 27222
+    },
+    {
+     "en": "Count's Cuffs",
+     "ja": "カウントカフス",
+     "tier": 0,
+     "from": "Perfidien",
+     "id": 27096
+    },
+    {
+     "en": "Count's Garb",
+     "ja": "カウントガーブ",
+     "tier": 0,
+     "from": "Perfidien",
+     "id": 26945
+    },
+    {
+     "en": "Enervating Earring",
+     "ja": "エナベートピアス",
+     "tier": 0,
+     "from": "Perfidien",
+     "id": 28479
+    },
+    {
+     "en": "Etiolation Earring",
+     "ja": "エテオレートピアス",
+     "tier": 0,
+     "from": "Perfidien",
+     "id": 28478
+    },
+    {
+     "en": "Befouled Crown",
+     "ja": "ビファウルクラウン",
+     "tier": 0,
+     "from": "Plouton",
+     "id": 26790
+    },
+    {
+     "en": "Incarnation Sash",
+     "ja": "インカーネトサッシュ",
+     "tier": 0,
+     "from": "Plouton",
+     "id": 28418
+    },
+    {
+     "en": "Odium",
+     "ja": "オーディアム",
+     "tier": 0,
+     "from": "Plouton",
+     "id": 20605
+    },
+    {
+     "en": "Tartarus Platemail",
+     "ja": "タルタロスプレート",
+     "tier": 0,
+     "from": "Plouton",
+     "id": 26944
+    },
+    {
+     "en": "Acclimator",
+     "ja": "アクリメーター",
+     "tier": 0,
+     "from": "Putraxia",
+     "id": 20715
+    },
+    {
+     "en": "Crusher Gauntlets",
+     "ja": "クラッシュガントレ",
+     "tier": 0,
+     "from": "Putraxia",
+     "id": 27044
+    },
+    {
+     "en": "Rumination Sash",
+     "ja": "ルミネートサッシュ",
+     "tier": 0,
+     "from": "Putraxia",
+     "id": 28421
+    },
+    {
+     "en": "Soulcleaver",
+     "ja": "ソウルクリーバー",
+     "tier": 0,
+     "from": "Putraxia",
+     "id": 20756
+    },
+    {
+     "en": "Cryptic Earring",
+     "ja": "クリプティクピアス",
+     "tier": 0,
+     "from": "Rancibus",
+     "id": 28483
+    },
+    {
+     "en": "Devivifier",
+     "ja": "デヴィヴィファイア",
+     "tier": 0,
+     "from": "Rancibus",
+     "id": 20855
+    },
+    {
+     "en": "Miasmic Pants",
+     "ja": "マイアズミクパンツ",
+     "tier": 0,
+     "from": "Rancibus",
+     "id": 27220
+    },
+    {
+     "en": "Mindmelter",
+     "ja": "マインドメルター",
+     "tier": 0,
+     "from": "Rancibus",
+     "id": 21161
+    }
+   ]
+  },
+  {
+   "id": "sinister_reign",
+   "label_ja": "シニスターレイン",
+   "source": [
+    "https://www.bg-wiki.com/ffxi/Sinister_Reign"
+   ],
+   "items": [
+    {
+     "en": "Enticer's Pants",
+     "ja": "エンタイサーパンツ",
+     "tier": 0,
+     "from": "Arciela",
+     "id": 27323
+    },
+    {
+     "en": "Ochu",
+     "ja": "烏秋",
+     "tier": 0,
+     "from": "Arciela",
+     "id": 20978
+    },
+    {
+     "en": "Taming Sari",
+     "ja": "タミングサリ",
+     "tier": 0,
+     "from": "Arciela",
+     "id": 20596
+    },
+    {
+     "en": "Witching Robe",
+     "ja": "ウィッチングローブ",
+     "tier": 0,
+     "from": "Arciela",
+     "id": 25705
+    },
+    {
+     "en": "Himetsuruichimonji",
+     "ja": "姫鶴一文字",
+     "tier": 0,
+     "from": "Arciela & Ygnas",
+     "id": 21026
+    },
+    {
+     "en": "Humility",
+     "ja": "ヒュミリティー",
+     "tier": 0,
+     "from": "Arciela & Ygnas",
+     "id": 21697
+    },
+    {
+     "en": "Lengo Pants",
+     "ja": "レンゴパンツ",
+     "tier": 0,
+     "from": "Arciela & Ygnas",
+     "id": 27321
+    },
+    {
+     "en": "Leyline Gloves",
+     "ja": "レイライングローブ",
+     "tier": 0,
+     "from": "Arciela & Ygnas",
+     "id": 27135
+    },
+    {
+     "en": "Found. Breastplate",
+     "ja": "ファウンダブレスト",
+     "tier": 0,
+     "from": "August",
+     "id": 27910
+    },
+    {
+     "en": "Founder's Corona",
+     "ja": "ファウンダコロナ",
+     "tier": 0,
+     "from": "August",
+     "id": 27764
+    },
+    {
+     "en": "Founder's Gauntlets",
+     "ja": "ファウンダガントレ",
+     "tier": 0,
+     "from": "August",
+     "id": 28049
+    },
+    {
+     "en": "Founder's Greaves",
+     "ja": "ファウンダグリーヴ",
+     "tier": 0,
+     "from": "August",
+     "id": 28330
+    },
+    {
+     "en": "Founder's Hose",
+     "ja": "ファウンダホーズ",
+     "tier": 0,
+     "from": "August",
+     "id": 28191
+    },
+    {
+     "en": "Amm Greaves",
+     "ja": "アムグリーヴ",
+     "tier": 0,
+     "from": "Darrcuiln",
+     "id": 27491
+    },
+    {
+     "en": "Fleshcarvers",
+     "ja": "フレシュカーバー",
+     "tier": 0,
+     "from": "Darrcuiln",
+     "id": 20517
+    },
+    {
+     "en": "Koresuke",
+     "ja": "是介",
+     "tier": 0,
+     "from": "Darrcuiln",
+     "id": 20936
+    },
+    {
+     "en": "Ta'lab Trousers",
+     "ja": "タラーブトラウザ",
+     "tier": 0,
+     "from": "Darrcuiln",
+     "id": 27322
+    },
+    {
+     "en": "Dampening Tam",
+     "ja": "ダンペニングタム",
+     "tier": 0,
+     "from": "Ingrid",
+     "id": 25630
+    },
+    {
+     "en": "Fanatic Gloves",
+     "ja": "ファナチクグローブ",
+     "tier": 0,
+     "from": "Ingrid",
+     "id": 27136
+    },
+    {
+     "en": "Malevolence",
+     "ja": "マレヴォレンス",
+     "tier": 0,
+     "from": "Ingrid",
+     "id": 20595
+    },
+    {
+     "en": "Purgation",
+     "ja": "パーゲーション",
+     "tier": 0,
+     "from": "Ingrid",
+     "id": 20796
+    },
+    {
+     "en": "Brutality",
+     "ja": "ブルタリティー",
+     "tier": 0,
+     "from": "Morimar",
+     "id": 20891
+    },
+    {
+     "en": "Ferocity",
+     "ja": "フェロシティー",
+     "tier": 0,
+     "from": "Morimar",
+     "id": 20844
+    },
+    {
+     "en": "Lilitu Headpiece",
+     "ja": "リリトゥヘッド",
+     "tier": 0,
+     "from": "Morimar",
+     "id": 25631
+    },
+    {
+     "en": "Loyalist Sabatons",
+     "ja": "ロヤリストサバトン",
+     "tier": 0,
+     "from": "Morimar",
+     "id": 27492
+    },
+    {
+     "en": "Floral Gauntlets",
+     "ja": "フローラルガントレ",
+     "tier": 0,
+     "from": "Rosulatia",
+     "id": 27137
+    },
+    {
+     "en": "Medium's Sabots",
+     "ja": "ミディアムサボ",
+     "tier": 0,
+     "from": "Rosulatia",
+     "id": 27493
+    },
+    {
+     "en": "Nobility",
+     "ja": "ノビリティー",
+     "tier": 0,
+     "from": "Rosulatia",
+     "id": 21214
+    },
+    {
+     "en": "Serenity",
+     "ja": "セレニティー",
+     "tier": 0,
+     "from": "Rosulatia",
+     "id": 21148
+    },
+    {
+     "en": "Brilliance",
+     "ja": "ブリリアンス",
+     "tier": 0,
+     "from": "Sajj'aka",
+     "id": 20705
+    },
+    {
+     "en": "Divinity",
+     "ja": "ディヴィニティー",
+     "tier": 0,
+     "from": "Sajj'aka",
+     "id": 21088
+    },
+    {
+     "en": "Jumalik Helm",
+     "ja": "ジュマリックヘルム",
+     "tier": 0,
+     "from": "Sajj'aka",
+     "id": 25603
+    },
+    {
+     "en": "Jumalik Mail",
+     "ja": "ジュマリックメイル",
+     "tier": 0,
+     "from": "Sajj'aka",
+     "id": 26972
+    },
+    {
+     "en": "Rubicundity",
+     "ja": "ルビカンディティー",
+     "tier": 0,
+     "from": "Teodor",
+     "id": 21089
+    },
+    {
+     "en": "Samnuha Coat",
+     "ja": "サムヌーハコート",
+     "tier": 0,
+     "from": "Teodor",
+     "id": 26973
+    },
+    {
+     "en": "Samnuha Tights",
+     "ja": "サムヌータイツ",
+     "tier": 0,
+     "from": "Teodor",
+     "id": 27295
+    },
+    {
+     "en": "Vampirism",
+     "ja": "ヴァンピリズム",
+     "tier": 0,
+     "from": "Teodor",
+     "id": 20706
+    }
+   ]
+  },
+  {
+   "id": "incursion",
+   "label_ja": "インカージョン",
+   "source": [
+    "https://www.bg-wiki.com/ffxi/Category:Incursion",
+    "https://www.bg-wiki.com/ffxi/JSE_Capes"
+   ],
+   "items": [
+    {
+     "en": "Anchoret's Mantle",
+     "ja": "アンコレットマント",
+     "tier": 0,
+     "from": "Boss coffer JSE cape (also from Reives)",
+     "id": 28618
+    },
+    {
+     "en": "Bane Cape",
+     "ja": "ベーンケープ",
+     "tier": 0,
+     "from": "Boss coffer JSE cape (also from Reives)",
+     "id": 28620
+    },
+    {
+     "en": "Bookworm's Cape",
+     "ja": "ブックワームケープ",
+     "tier": 0,
+     "from": "Boss coffer JSE cape (also from Reives)",
+     "id": 28636
+    },
+    {
+     "en": "Canny Cape",
+     "ja": "ケッニケープ",
+     "tier": 0,
+     "from": "Boss coffer JSE cape (also from Reives)",
+     "id": 28622
+    },
+    {
+     "en": "Conveyance Cape",
+     "ja": "コンベイケープ",
+     "tier": 0,
+     "from": "Boss coffer JSE cape (also from Reives)",
+     "id": 28631
+    },
+    {
+     "en": "Cornflower Cape",
+     "ja": "コンフラワーケープ",
+     "tier": 0,
+     "from": "Boss coffer JSE cape (also from Reives)",
+     "id": 28632
+    },
+    {
+     "en": "Dispersal Mantle",
+     "ja": "デスパースマント",
+     "tier": 0,
+     "from": "Boss coffer JSE cape (also from Reives)",
+     "id": 28634
+    },
+    {
+     "en": "Evasionist's Cape",
+     "ja": "ディバートケープ",
+     "tier": 0,
+     "from": "Boss coffer JSE cape (also from Reives)",
+     "id": 28638
+    },
+    {
+     "en": "Ghostfyre Cape",
+     "ja": "ゴストファイケープ",
+     "tier": 0,
+     "from": "Boss coffer JSE cape (also from Reives)",
+     "id": 28621
+    },
+    {
+     "en": "Gunslinger's Cape",
+     "ja": "ガンスリンガマント",
+     "tier": 0,
+     "from": "Boss coffer JSE cape (also from Reives)",
+     "id": 28633
+    },
+    {
+     "en": "Lifestream Cape",
+     "ja": "龍脈の外套",
+     "tier": 0,
+     "from": "Boss coffer JSE cape (also from Reives)",
+     "id": 28637
+    },
+    {
+     "en": "Lutian Cape",
+     "ja": "ルシャンケープ",
+     "tier": 0,
+     "from": "Boss coffer JSE cape (also from Reives)",
+     "id": 28627
+    },
+    {
+     "en": "Mauler's Mantle",
+     "ja": "マウラーマント",
+     "tier": 0,
+     "from": "Boss coffer JSE cape (also from Reives)",
+     "id": 28617
+    },
+    {
+     "en": "Mending Cape",
+     "ja": "メンディングケープ",
+     "tier": 0,
+     "from": "Boss coffer JSE cape (also from Reives)",
+     "id": 28619
+    },
+    {
+     "en": "Niht Mantle",
+     "ja": "デオルクネスマント",
+     "tier": 0,
+     "from": "Boss coffer JSE cape (also from Reives)",
+     "id": 28624
+    },
+    {
+     "en": "Pastoralist's Mantle",
+     "ja": "パストラルマント",
+     "tier": 0,
+     "from": "Boss coffer JSE cape (also from Reives)",
+     "id": 28625
+    },
+    {
+     "en": "Rhapsode's Cape",
+     "ja": "ラプソドスケープ",
+     "tier": 0,
+     "from": "Boss coffer JSE cape (also from Reives)",
+     "id": 28626
+    },
+    {
+     "en": "Takaha Mantle",
+     "ja": "タカハマント",
+     "tier": 0,
+     "from": "Boss coffer JSE cape (also from Reives)",
+     "id": 28628
+    },
+    {
+     "en": "Toetapper Mantle",
+     "ja": "トータッパーマント",
+     "tier": 0,
+     "from": "Boss coffer JSE cape (also from Reives)",
+     "id": 28635
+    },
+    {
+     "en": "Updraft Mantle",
+     "ja": "アプドラフトマント",
+     "tier": 0,
+     "from": "Boss coffer JSE cape (also from Reives)",
+     "id": 28630
+    },
+    {
+     "en": "Weard Mantle",
+     "ja": "ウェルドマント",
+     "tier": 0,
+     "from": "Boss coffer JSE cape (also from Reives)",
+     "id": 28623
+    },
+    {
+     "en": "Yokaze Mantle",
+     "ja": "ヨカゼマント",
+     "tier": 0,
+     "from": "Boss coffer JSE cape (also from Reives)",
+     "id": 28629
+    },
+    {
+     "en": "Gaudryi Necklace",
+     "ja": "ガウドリネックレス",
+     "tier": 0,
+     "from": "Durs-Vike",
+     "id": 28366
+    },
+    {
+     "en": "Ungeri Staff",
+     "ja": "ウンゲリスタッフ",
+     "tier": 0,
+     "from": "Durs-Vike",
+     "id": 21168
+    },
+    {
+     "en": "Gavialis Helm",
+     "ja": "ガビアリスヘルム",
+     "tier": 0,
+     "from": "Gramk-Droog",
+     "id": 26702
+    },
+    {
+     "en": "Globidonta Ring",
+     "ja": "グロビドンタリング",
+     "tier": 0,
+     "from": "Gramk-Droog",
+     "id": 28539
+    },
+    {
+     "en": "Mekosu. Harness",
+     "ja": "メコスチネハーネス",
+     "tier": 0,
+     "from": "Gramk-Droog",
+     "id": 27856
+    },
+    {
+     "en": "Tsoa. Crossbow",
+     "ja": "ツァビチクロスボウ",
+     "tier": 0,
+     "from": "Gramk-Droog",
+     "id": 21479
+    },
+    {
+     "en": "Arendsi Fleuret",
+     "ja": "アレンドシフルーレ",
+     "tier": 0,
+     "from": "Ignor-Mnt",
+     "id": 20717
+    },
+    {
+     "en": "Olseni Belt",
+     "ja": "オルセニベルト",
+     "tier": 0,
+     "from": "Ignor-Mnt",
+     "id": 28442
+    },
+    {
+     "en": "Nativus Halberd",
+     "ja": "ナチヴスハルバード",
+     "tier": 0,
+     "from": "Liij-Vok",
+     "id": 20945
+    },
+    {
+     "en": "Yamabuki-no-Obi",
+     "ja": "山吹の帯",
+     "tier": 0,
+     "from": "Liij-Vok",
+     "id": 28443
+    },
+    {
+     "en": "Eosuchus Club",
+     "ja": "エオスカスクラブ",
+     "tier": 0,
+     "from": "Tryl-Wuj",
+     "id": 21104
+    },
+    {
+     "en": "Zennaroi Earring",
+     "ja": "ゼンナロイヤリング",
+     "tier": 0,
+     "from": "Tryl-Wuj",
+     "id": 28496
+    },
+    {
+     "en": "Mecisto. Mantle",
+     "ja": "メシストピンマント",
+     "tier": 0,
+     "from": "Velkk Coffer",
+     "id": 27596
+    },
+    {
+     "en": "Argocham. Mantle",
+     "ja": "アゴチャンサマント",
+     "tier": 0,
+     "from": "Ymmr-Ulvid",
+     "id": 27595
+    },
+    {
+     "en": "Mekosuchus Blade",
+     "ja": "メコスカスブレード",
+     "tier": 0,
+     "from": "Ymmr-Ulvid",
+     "id": 20758
+    }
+   ]
+  }
+ ],
+ "unmatched": [
+  {
+   "content": "escha_ruaun",
+   "name": "Bewegt Gloves",
+   "why": "wiki table typo; resolved to items.lua \"Bewegt Cuffs\" (item page confirms Warder of Fortitude drop) - included"
+  },
+  {
+   "content": "escha_ruaun",
+   "name": "Shukuyukama",
+   "why": "wiki uses romanized name; resolved to items.lua \"Shukuyu's Scythe\" (item page confirms Suzaku drop) - included"
+  },
+  {
+   "content": "reisenjima",
+   "name": "Condemner",
+   "why": "wiki table singular; resolved to items.lua \"Condemners\" - included"
+  },
+  {
+   "content": "delve",
+   "name": "Translucent Broth",
+   "why": "not found in items.lua under this name (pet broth; not gear) - excluded"
+  }
+ ]
+}

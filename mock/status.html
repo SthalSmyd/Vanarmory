@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vanarmory — ステータス表示モック</title>
+<style>
+:root {
+  --bg: #f4f3ef; --panel: #ffffff; --sunken: #efeee9; --text: #20242b; --muted: #6d7480; --line: #dedbd2;
+  --accent: #9a5b13; --accent-bg: #fbecd3; --ok: #2e7d4f; --ok-bg: #e2f3e8; --fixed: #3b6ea8; --fixed-bg: #e3edf8;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14161b; --panel: #1d2027; --sunken: #262a33; --text: #e5e7eb; --muted: #969dab; --line: #333844;
+    --accent: #f0b35e; --accent-bg: #40311a; --ok: #7fd3a0; --ok-bg: #1d3a2a; --fixed: #8fbcf0; --fixed-bg: #1e2f45;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; padding: 20px; background: var(--bg); color: var(--text); font: 14px/1.5 "Segoe UI", "Hiragino Sans", "Yu Gothic UI", "Meiryo", sans-serif; }
+.mock-note { font-size: 12px; color: var(--muted); border: 1px dashed var(--line); border-radius: 6px; padding: 4px 10px; display: inline-block; margin-bottom: 12px; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px; max-width: 900px; }
+.card-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 8px; }
+.card-head h3 { margin: 0; font-size: 15px; }
+.card-head .used { color: var(--muted); font-size: 12px; }
+.card-head button { border: 1px solid var(--line); background: none; border-radius: 6px; font-size: 12px; padding: 1px 8px; }
+.card-head .on { margin-left: auto; background: var(--accent-bg); border-color: var(--accent); color: var(--accent); font-weight: 600; }
+.meters { display: grid; gap: 4px; margin-bottom: 10px; }
+.meter { display: grid; grid-template-columns: 110px minmax(0, 1fr) 110px; gap: 8px; align-items: center; font-size: 12px; }
+.meter .bar { height: 8px; background: var(--ok); border-radius: 4px; }
+.meter .val { text-align: right; font-variant-numeric: tabular-nums; }
+.meter .val b { color: var(--ok); }
+
+/* 上段: 左に基本ステータス、右に装備欄 */
+.top { display: grid; grid-template-columns: 236px minmax(0, 1fr); gap: 12px; align-items: stretch; }
+.sheet { background: var(--sunken); border-radius: 10px; padding: 10px 14px; }
+.sheet .who { font-weight: 700; }
+.sheet .who span { display: block; font-weight: 400; color: var(--muted); font-size: 12px; }
+.sheet table { border-collapse: collapse; width: 100%; margin-top: 6px; font-variant-numeric: tabular-nums; }
+.sheet td { padding: 2.5px 0; }
+.sheet td.k { color: var(--muted); width: 48px; }
+.sheet td.base { text-align: right; font-weight: 700; width: 58px; }
+.sheet td.plus { padding-left: 8px; color: var(--ok); font-weight: 700; }
+.sheet td.total { color: var(--muted); font-size: 12px; text-align: right; }
+.sheet tr.gap td { padding-top: 9px; }
+.grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; }
+.cell { background: var(--sunken); border-radius: 6px; padding: 4px 6px; min-height: 58px; }
+.cell .slot { font-size: 10px; color: var(--muted); display: flex; justify-content: space-between; }
+.cell .name { font-size: 12px; font-weight: 600; line-height: 1.25; }
+.cell .gain { font-size: 11px; color: var(--accent); }
+.cell.free .name, .cell.off .name { color: var(--muted); font-weight: 400; }
+.cell.off { background: none; border: 1px dashed var(--line); }
+.cell.fixed { background: var(--fixed-bg); }
+.cell.fixed .slot::after { content: "固定"; color: var(--fixed); font-weight: 700; }
+
+/* 下段: 攻撃まわりの基本 4 つを大きく、そのほかを分類ごとに */
+.attack { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-top: 12px; }
+.tile { background: var(--sunken); border-radius: 10px; padding: 8px 12px; }
+.tile .k { font-size: 12px; color: var(--muted); }
+.tile .v { font-weight: 700; font-variant-numeric: tabular-nums; display: flex; align-items: baseline; gap: 8px; }
+.tile .v .base { font-size: 16px; }
+.tile .v .plus { font-size: 16px; color: var(--ok); }
+.tile .v .sum { font-size: 22px; margin-left: auto; }
+.tile .k .w { font-size: 11px; background: var(--panel); border-radius: 999px; padding: 0 7px; margin-left: 4px; }
+.tile.off .v .plus { font-size: 18px; }
+.tile .d { font-size: 11px; color: var(--muted); }
+.others { display: grid; gap: 7px; margin-top: 12px; }
+.group { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 8px; align-items: start; }
+.group .title { font-size: 12px; font-weight: 700; color: var(--accent); padding-top: 2px; }
+.list { display: flex; flex-wrap: wrap; gap: 4px 6px; }
+.stat { background: var(--sunken); border-radius: 6px; padding: 1px 8px; font-size: 13px; white-space: nowrap; }
+.stat.over { outline: 1px solid var(--accent); }
+.stat small { color: var(--accent); }
+.stat.quiet { color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="mock-note">画面モック — 「ステータス」を開いたときの見え方。数値は仮です</div>
+<div class="card">
+  <div class="card-head">
+    <h3>候補 1</h3><span class="used">5 部位を自動で選択・自由枠 8</span>
+    <button class="on">ステータスを閉じる</button><button>テキストでコピー</button>
+  </div>
+  <div class="meters">
+    <div class="meter"><div>ストアTP</div><div class="bar"></div><div class="val"><b>+98</b> / +90</div></div>
+    <div class="meter"><div>ヘイスト</div><div class="bar"></div><div class="val"><b>+28%</b> / +26%</div></div>
+    <div class="meter"><div>被ダメージ</div><div class="bar"></div><div class="val"><b>-46%</b> / -45%</div></div>
+  </div>
+
+  <!-- 上段: 装備欄の左に基本ステータス -->
+  <div class="top">
+    <div class="sheet">
+      <div class="who">侍 99 / 戦士 55<span>ヒューム・マスターレベル 30</span></div>
+      <table>
+        <tr><td class="k">HP</td><td class="base">1,957</td><td class="plus">+555</td><td class="total">2,512</td></tr>
+        <tr><td class="k">MP</td><td class="base">0</td><td class="plus">+248</td><td class="total">248</td></tr>
+        <tr class="gap"><td class="k">STR</td><td class="base">108</td><td class="plus">+166</td><td class="total">274</td></tr>
+        <tr><td class="k">DEX</td><td class="base">104</td><td class="plus">+167</td><td class="total">271</td></tr>
+        <tr><td class="k">VIT</td><td class="base">103</td><td class="plus">+167</td><td class="total">270</td></tr>
+        <tr><td class="k">AGI</td><td class="base">98</td><td class="plus">+116</td><td class="total">214</td></tr>
+        <tr><td class="k">INT</td><td class="base">90</td><td class="plus">+136</td><td class="total">226</td></tr>
+        <tr><td class="k">MND</td><td class="base">97</td><td class="plus">+133</td><td class="total">230</td></tr>
+        <tr><td class="k">CHR</td><td class="base">95</td><td class="plus">+126</td><td class="total">221</td></tr>
+      </table>
+    </div>
+    <div class="grid" id="grid"></div>
+  </div>
+
+  <!-- 下段: 攻撃まわり。基本の 4 つを先に -->
+  <div class="attack">
+    <div class="tile"><div class="k">攻撃 <span class="w">両手刀</span></div><div class="v"><span class="base">1,204</span><span class="plus">+298</span><span class="sum">1,502</span></div></div>
+    <div class="tile"><div class="k">命中 <span class="w">両手刀</span></div><div class="v"><span class="base">1,010</span><span class="plus">+389</span><span class="sum">1,399</span></div></div>
+    <div class="tile off"><div class="k">飛攻</div><div class="v"><span class="plus">+110</span></div><div class="d">レンジの武器を固定すると、合計を計算します</div></div>
+    <div class="tile off"><div class="k">飛命</div><div class="v"><span class="plus">+211</span></div><div class="d">レンジの武器を固定すると、合計を計算します</div></div>
+  </div>
+  <div class="others">
+    <div class="group"><div class="title">物理攻撃</div><div class="list"><span class="stat">ダブルアタック <b>+12%</b></span><span class="stat">物理ダメージ上限 <b>+5%</b></span><span class="stat">残心 <b>+81</b></span></div></div>
+    <div class="group"><div class="title">TP・攻撃間隔</div><div class="list"><span class="stat">ストアTP <b>+98</b></span><span class="stat over">ヘイスト <b>+28%</b> <small>上限 +26%</small></span></div></div>
+    <div class="group"><div class="title">ウェポンスキル</div><div class="list"><span class="stat">連携ボーナス <b>+32</b></span></div></div>
+    <div class="group"><div class="title">魔法攻撃</div><div class="list"><span class="stat">魔攻 <b>+30</b></span><span class="stat">魔命 <b>+310</b></span><span class="stat">マジックバーストダメージ <b>+5</b></span></div></div>
+    <div class="group"><div class="title">防御・カット</div><div class="list"><span class="stat">被ダメージ <b>-46%</b></span><span class="stat">防 <b>+682</b></span><span class="stat">回避 <b>+438</b></span><span class="stat">魔回避 <b>+561</b></span><span class="stat">魔防 <b>+37</b></span></div></div>
+    <div class="group"><div class="title">スキル</div><div class="list"><span class="stat">両手刀スキル <b>+16</b></span><span class="stat quiet">ほか 32 種 (装備以外の分のみ)</span></div></div>
+    <div class="group"><div class="title">条件つき</div><div class="list"><span class="stat">星眼:カウンター発動率 <b>+18</b></span><span class="stat">八双:ヘイスト <b>+3%</b></span></div></div>
+    <div class="group"><div class="title">特殊効果</div><div class="list"><span class="stat quiet">コンビネーション:残心性能アップ</span></div></div>
+  </div>
+</div>
+<script>
+const CELLS = [['メイン', '童子切安綱', 'STP+10', 'fixed'], ['サブ', '未設定', '', 'off'], ['レンジ', '未設定', '', 'off'], ['矢弾', '自由', '', 'free'],
+  ['頭', '極春日烏帽子形兜', 'STP+12 ヘイスト+7 被ダメ-10'], ['首', '自由', '', 'free'], ['耳1', '自由', '', 'free'], ['耳2', '自由', '', 'free'],
+  ['胴', '極春日胴丸', 'STP+14 ヘイスト+3 被ダメ-14'], ['両手', 'ニャメガントレ [RP30 A]', 'STP+14 ヘイスト+3 被ダメ-7'], ['指1', '自由', '', 'free'], ['指2', '自由', '', 'free'],
+  ['背', 'スメルトリオマント [オグメ最大]', 'ヘイスト+10 被ダメ-5'], ['腰', '自由', '', 'free'], ['両脚', '真春日板佩楯', 'STP+10 ヘイスト+5 被ダメ-10'], ['両足', '自由', '', 'free']];
+for (const [slot, name, gain, cls] of CELLS) {
+  const c = document.createElement('div'); c.className = 'cell ' + (cls || '');
+  c.innerHTML = '<div class="slot"></div><div class="name"></div><div class="gain"></div>';
+  c.children[0].textContent = slot; c.children[1].textContent = name; c.children[2].textContent = gain;
+  document.getElementById('grid').append(c);
+}
+</script>
+</body>
+</html>

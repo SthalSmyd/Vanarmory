@@ -1,0 +1,214 @@
+{
+ "note": "設定画面の「コンテンツごとの装備」の行。source は data/sources/*.json のコンテンツの id、from はその中の入手元 (from) を絞る正規表現。tiers は段階の名前 (装備の tier の値の順)。picks が true の行は、入手元 (バトルフィールドなど) ごとに選べる。nm が true の行は、NM の強さの段階 (nm_tier) を段階として使う。武器と盾は固定したものだけを使うので、ここには入れない。 ignore は行を作らないコンテンツ (ヴァナ・バウトは戦闘用の装備が無い)。 url は、その行から開く FF11用語辞典のページ。links は、行以外 (マント、オデシー、ジョブ専用装束) から開くページ。",
+ "rows": [
+  {
+   "id": "ambuscade",
+   "group": "継続コンテンツ",
+   "label": "アンバス装備",
+   "note": "フラマ、スレビア、ムンム など 10 系統と、その指輪",
+   "source": "ambuscade",
+   "from": "set$|Hallmark",
+   "tiers": [
+    "無印まで",
+    "+1 まで",
+    "+2 まで"
+   ],
+   "url": "https://wiki.ffo.jp/html/35476.html"
+  },
+  {
+   "id": "omen",
+   "group": "継続コンテンツ",
+   "label": "オーメン",
+   "note": "王将の指輪・耳飾り、各ボスのドロップ",
+   "source": "omen",
+   "url": "https://wiki.ffo.jp/html/35829.html"
+  },
+  {
+   "id": "dynamis_neck",
+   "group": "継続コンテンツ",
+   "label": "デュナミス〔D〕 首装備",
+   "note": "ジョブ専用の首装備",
+   "source": "dynamis_d",
+   "from": "neck",
+   "tiers": [
+    "無印まで",
+    "+1 まで",
+    "+2 まで"
+   ],
+   "url": "https://wiki.ffo.jp/html/36771.html"
+  },
+  {
+   "id": "volte",
+   "group": "継続コンテンツ",
+   "label": "デュナミス〔D〕 ヴォルト装備",
+   "note": "3 ウェーブ目とボスのドロップ",
+   "source": "dynamis_d",
+   "from": "Volte",
+   "url": "https://wiki.ffo.jp/html/36771.html"
+  },
+  {
+   "id": "sortie",
+   "group": "高難度",
+   "label": "ソーティ",
+   "source": "sortie",
+   "note": "ジョブ専用の耳装備",
+   "tiers": [
+    "無印まで",
+    "+1 まで",
+    "+2 まで"
+   ],
+   "url": "https://wiki.ffo.jp/html/38599.html"
+  },
+  {
+   "id": "limbus",
+   "group": "高難度",
+   "label": "リンバス",
+   "source": "limbus",
+   "note": "テメナス・アポリオンの報酬 (防具 5 系統)",
+   "tiers": [
+    "NQ まで",
+    "+1 まで",
+    "+2 まで"
+   ],
+   "url": "https://wiki.ffo.jp/html/526.html"
+  },
+  {
+   "id": "hightier",
+   "group": "高難度",
+   "label": "上位ミッションBF (メリポBF)",
+   "note": "行っているバトルフィールドだけ入れる",
+   "source": "hightier",
+   "picks": true,
+   "url": "https://wiki.ffo.jp/html/30383.html"
+  },
+  {
+   "id": "escha_zitah",
+   "group": "エスカ・醴泉島",
+   "label": "エスカ-ジ・タ",
+   "note": "ギアスフェットの NM。倒せる強さまでを選ぶ (最上位は HELM)",
+   "source": "escha_zitah",
+   "nm": true,
+   "tiers": [
+    "T1 まで",
+    "T2 まで",
+    "T3 まで",
+    "最上位まで"
+   ],
+   "url": "https://wiki.ffo.jp/html/33509.html"
+  },
+  {
+   "id": "escha_ruaun",
+   "group": "エスカ・醴泉島",
+   "label": "エスカ-ル・オン",
+   "note": "ギアスフェットの NM。倒せる強さまでを選ぶ (最上位はアークエンジェル・四神・麒麟・ナザル)。抽選で湧くワーダーは T1 として扱う",
+   "source": "escha_ruaun",
+   "nm": true,
+   "tiers": [
+    "T1 まで",
+    "T2 まで",
+    "T3 まで",
+    "最上位まで"
+   ],
+   "url": "https://wiki.ffo.jp/html/34042.html"
+  },
+  {
+   "id": "reisenjima",
+   "group": "エスカ・醴泉島",
+   "label": "醴泉島",
+   "note": "ギアスフェットの NM。倒せる強さまでを選ぶ (最上位は HELM)",
+   "source": "reisenjima",
+   "nm": true,
+   "tiers": [
+    "T1 まで",
+    "T2 まで",
+    "T3 まで",
+    "最上位まで"
+   ],
+   "url": "https://wiki.ffo.jp/html/33805.html"
+  },
+  {
+   "id": "abjuration",
+   "group": "エスカ・醴泉島",
+   "label": "エスカッション装備",
+   "note": "龍王、アデマ、スヴレン など",
+   "source": "abjuration",
+   "tiers": [
+    "NQ まで",
+    "+1 まで"
+   ],
+   "url": "https://wiki.ffo.jp/html/2976.html"
+  },
+  {
+   "id": "unity",
+   "group": "そのほか",
+   "label": "ユニティ",
+   "note": "ユニティ・ウォンテッドの装備",
+   "source": "unity",
+   "tiers": [
+    "NQ まで",
+    "+1 まで"
+   ],
+   "url": "https://wiki.ffo.jp/html/32285.html"
+  },
+  {
+   "id": "delve",
+   "group": "そのほか",
+   "label": "メナスインスペクター",
+   "note": "NM とボスのドロップ (メナスプラズムでの交換を含む)",
+   "source": "delve",
+   "url": "https://wiki.ffo.jp/html/28708.html"
+  },
+  {
+   "id": "skirmish",
+   "group": "そのほか",
+   "label": "スカーム",
+   "note": "スカームの防具",
+   "source": "skirmish",
+   "tiers": [
+    "NQ まで",
+    "+1 まで"
+   ],
+   "url": "https://wiki.ffo.jp/html/28296.html"
+  },
+  {
+   "id": "wildskeeper",
+   "group": "そのほか",
+   "label": "ワイルドキーパー・レイヴ",
+   "note": "七支公のドロップ",
+   "source": "wildskeeper",
+   "url": "https://wiki.ffo.jp/html/28107.html"
+  },
+  {
+   "id": "vagary",
+   "group": "そのほか",
+   "label": "ベガリーインスペクター",
+   "source": "vagary",
+   "url": "https://wiki.ffo.jp/html/32908.html"
+  },
+  {
+   "id": "sinister_reign",
+   "group": "そのほか",
+   "label": "シニスターレイン",
+   "source": "sinister_reign",
+   "url": "https://wiki.ffo.jp/html/34043.html"
+  },
+  {
+   "id": "incursion",
+   "group": "そのほか",
+   "label": "インカージョン",
+   "note": "アドゥリンのジョブ専用マントを含む",
+   "source": "incursion",
+   "url": "https://wiki.ffo.jp/html/31752.html"
+  }
+ ],
+ "ignore": [
+  "vanabout"
+ ],
+ "links": {
+  "cape": "https://wiki.ffo.jp/html/35476.html",
+  "odyssey": "https://wiki.ffo.jp/html/37953.html",
+  "af": "https://wiki.ffo.jp/html/30527.html",
+  "relic": "https://wiki.ffo.jp/html/30648.html",
+  "empy": "https://wiki.ffo.jp/html/32941.html"
+ }
+}

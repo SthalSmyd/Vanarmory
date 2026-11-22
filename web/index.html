@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Vanarmory — セットを組む</title>
+<link rel="stylesheet" href="theme.css">
+<link rel="stylesheet" href="builder.css">
+</head>
+<body>
+<header>
+  <h1>Vanarmory</h1>
+  <nav><a href="index.html" class="here">セットを組む</a><a href="search.html">装備を探す</a><a href="settings.html">設定</a></nav>
+  <p class="meta" id="meta"></p>
+</header>
+
+<!-- 上段: 何を探すか。上から順に読めば条件が分かる -->
+<section class="conditions">
+  <div class="row">
+    <span class="label">ジョブ</span>
+    <div class="body">
+      <select id="job"><option value="0">選んでください</option></select>
+      <label class="field">サポ <select id="sub"><option value="0">なし</option></select>
+        <input id="sub-level" class="input narrow" type="number" min="1" max="99" step="1"></label>
+      <span class="sep"></span>
+      <label class="field">キャラ <select id="chara" title="キャラクター。ジョブの育成と、装備の範囲の設定を持っています"></select></label>
+      <label class="field">使う装備 <select id="profile" title="使う装備の範囲を決めた設定。内容は「設定」の画面で変えられます"></select></label>
+      <a class="link" href="settings.html">設定を開く</a>
+    </div>
+  </div>
+  <div class="row">
+    <span class="label">装備以外</span>
+    <div class="body">
+      <span id="innate" class="toggles"></span>
+      <label class="field">食事 <select id="food"><option value="">なし</option></select></label>
+    </div>
+  </div>
+  <div class="row">
+    <span class="label">目標</span>
+    <div class="body start" id="goals">
+      <span class="adder" id="goal-adder">
+        <button type="button" class="add" id="add">＋ ステータスを追加</button>
+      </span>
+    </div>
+  </div>
+  <div class="row" title="得TP と振り数の計算に使います。WS を撃った直後の TP を、近接と遠隔で別々に入れます">
+    <span class="label">WS後TP</span>
+    <div class="body" id="tp-row"></div>
+  </div>
+  <div class="row">
+    <span class="label">選び方</span>
+    <div class="body start" id="objective-row">
+      <span class="seg" id="objective">
+        <button type="button" data-value="min" title="目標を満たす最小の部位数で組み、残りは自由枠にします">少ない部位で満たす</button>
+        <button type="button" data-value="max" title="目標を満たしたうえで、選んだステータスの「値 × 重み」の合計が最大になるように組みます">満たしたうえで伸ばす</button>
+      </span>
+      <span class="adder" id="maximize-adder" hidden>
+        <button type="button" class="add" id="maximize">伸ばすステータスを選ぶ</button>
+      </span>
+      <label class="avoid" title="命中-10 のように、普通は増える性能がマイナスになっている装備を、自動の候補から外します (被ダメージや敵対心のように小さいほど良いものは対象外)"><input type="checkbox" id="avoid-minus"> マイナスのある装備を使わない</label>
+    </div>
+  </div>
+  <div class="actions">
+    <span class="status" id="status"></span>
+    <button type="button" class="ghost" id="share" title="今の条件を開ける URL をコピーする">条件の URL をコピー</button>
+    <button type="button" class="primary" id="solve">セットを探す</button>
+  </div>
+</section>
+
+<div class="work">
+  <aside class="side">
+    <div class="panel">
+      <h2>固定する装備 <button type="button" id="fixed-clear">すべて解除</button></h2>
+      <div class="grid" id="mine"></div>
+      <div class="editor" id="editor" hidden></div>
+      <p class="legend"><span><i class="f"></i>固定</span><span><i></i>空 = 自動で選ぶ</span><span>武器は固定したものだけ使う</span></p>
+    </div>
+    <div class="panel">
+      <h2>保存したセット <button type="button" id="save-fixed" title="いま「固定する装備」に入れている一式を、名前を付けて保存する">固定中の装備を保存</button></h2>
+      <div id="saved" class="saved"></div>
+      <p class="hint">候補の「保存」で増えます。チェックを入れると比較に並びます (候補と合わせて 3 つまで)。</p>
+    </div>
+    <div class="panel" id="excluded-box" hidden>
+      <h2><span id="excluded-title"></span> <button type="button" id="excluded-clear">すべて戻す</button></h2>
+      <div class="chips" id="excluded"></div>
+      <p class="hint">除外は、いま選んでいる設定に保存されます。</p>
+    </div>
+  </aside>
+
+  <main>
+    <div class="results-head">
+      <h2 id="results-title">候補</h2>
+      <span class="hint" id="results-hint"></span>
+    </div>
+    <div id="compare" hidden></div>
+    <div id="notice"></div>
+    <div id="overview" hidden></div>
+    <div class="cards" id="cards"></div>
+  </main>
+</div>
+
+<!-- ステータスを選ぶメニュー (目標の追加と、伸ばすステータスで共用) -->
+<div class="menu" id="menu" hidden>
+  <input class="find" id="menu-find" type="search" autocomplete="off" placeholder="名前や略称で探す (STP、DA、カット など)">
+  <div class="cols">
+    <div><div class="step">① 分類</div><div class="cats" id="cats"></div></div>
+    <div><div class="step" id="menu-step">② ステータス</div><div class="stats" id="stats"></div></div>
+  </div>
+</div>
+
+<script src="data.js"></script>
+<script src="search.js"></script>
+<script src="solver.js"></script>
+<script src="parse.js"></script>
+<script src="profiles.js"></script>
+<script src="augment.js"></script>
+<script src="basestats.js"></script>
+<script src="tp.js"></script>
+<script src="builder.js"></script>
+</body>
+</html>

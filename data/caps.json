@@ -1,0 +1,155 @@
+{
+ "note": "装備で積んでも、これ以上は効果が無くなる値。cap は合計の上限 (小さいほど良い向きは負の値)。同じステータスに正と負の両方の上限があるときは 2 つ書く。jobs は、ジョブによって上限が違うときの値。目標値がこれを超えていたら上限に合わせ、「伸ばす」ステータスに選んだときは上限で止める。入れていないもの: モクシャII (出典で上限が食い違う。モクシャとの合計は 75 が上限)、移動速度 (装備どうしは重ならず最も高い 1 つだけが効くので、合計では扱えない)、二刀流・マーシャルアーツ (単独の上限は無く、ヘイストと合わせた攻撃間隔の短縮 80% が上限)。",
+ "caps": [
+  {
+   "key": "ヘイスト",
+   "cap": 26,
+   "note": "装備によるヘイストの上限。実際の上限は 256/1024 (25%) だが、装備の値は表示より少し低いことが多く、表示の合計で 26% 積むと届く",
+   "source": [
+    "https://wiki.ffo.jp/html/644.html",
+    "https://www.bg-wiki.com/ffxi/Attack_Speed"
+   ]
+  },
+  {
+   "key": "被ダメージ",
+   "cap": -50,
+   "note": "被ダメージ・被物理ダメージ・被魔法ダメージを合わせた上限。「II」の付くものは別枠",
+   "source": "https://wiki.ffo.jp/html/10199.html"
+  },
+  {
+   "key": "被物理ダメージ(被ダメージ込み)",
+   "cap": -50,
+   "note": "被ダメージと被物理ダメージを合わせた上限。「II」の付くものは別枠",
+   "source": "https://wiki.ffo.jp/html/10199.html"
+  },
+  {
+   "key": "被魔法ダメージ(被ダメージ込み)",
+   "cap": -50,
+   "note": "被ダメージと被魔法ダメージを合わせた上限。「II」の付くものは別枠",
+   "source": "https://wiki.ffo.jp/html/10199.html"
+  },
+  {
+   "key": "マジックバーストダメージ",
+   "cap": 40,
+   "note": "装備枠の上限。「II」やジョブ特性は別枠",
+   "source": "https://wiki.ffo.jp/html/20225.html"
+  },
+  {
+   "key": "連携ボーナス",
+   "cap": 50,
+   "note": "連携ボーナスの上限",
+   "source": "https://wiki.ffo.jp/html/20337.html"
+  },
+  {
+   "key": "ファストキャスト",
+   "cap": 80,
+   "note": "詠唱時間の短縮の上限 (特性と装備の合計)",
+   "source": "https://wiki.ffo.jp/html/1717.html"
+  },
+  {
+   "key": "モクシャ",
+   "cap": 50,
+   "note": "モクシャの上限 (モクシャIIとの合計は 75 まで)",
+   "source": "https://wiki.ffo.jp/html/3066.html"
+  },
+  {
+   "key": "ケアル回復量",
+   "cap": 50,
+   "note": "装備枠の上限。ケアル回復量IIは別枠",
+   "source": "https://wiki.ffo.jp/html/20511.html"
+  },
+  {
+   "key": "ケアル回復量II",
+   "cap": 30,
+   "note": "ケアル回復量IIの上限",
+   "source": "https://wiki.ffo.jp/html/20511.html"
+  },
+  {
+   "key": "被ケアル回復量",
+   "cap": 30,
+   "note": "被ケアル回復量の上限",
+   "source": "https://wiki.ffo.jp/html/26166.html"
+  },
+  {
+   "key": "スナップショット",
+   "cap": 70,
+   "note": "魔法・アビリティ・装備を合わせた上限",
+   "source": "https://wiki.ffo.jp/html/3001.html"
+  },
+  {
+   "key": "クイックマジック",
+   "cap": 10,
+   "note": "クイックマジックの上限",
+   "source": "https://wiki.ffo.jp/html/22355.html"
+  },
+  {
+   "key": "クリティカルヒット",
+   "cap": 100,
+   "note": "クリティカルヒット率アップの上限",
+   "source": "https://wiki.ffo.jp/html/1710.html"
+  },
+  {
+   "key": "クリティカルヒットダメージ",
+   "cap": 100,
+   "note": "クリティカルヒットダメージアップの上限",
+   "source": "https://wiki.ffo.jp/html/23989.html"
+  },
+  {
+   "key": "ダブルアタック",
+   "cap": 100,
+   "note": "発動率の上限",
+   "source": "https://wiki.ffo.jp/html/1904.html"
+  },
+  {
+   "key": "カウンター",
+   "cap": 80,
+   "note": "発動率の上限 (約 80%)",
+   "source": "https://wiki.ffo.jp/html/567.html"
+  },
+  {
+   "key": "蹴撃",
+   "cap": 100,
+   "note": "発動率の上限",
+   "source": "https://wiki.ffo.jp/html/3265.html"
+  },
+  {
+   "key": "残心",
+   "cap": 100,
+   "note": "発動率の上限",
+   "source": "https://wiki.ffo.jp/html/3390.html"
+  },
+  {
+   "key": "コンサーブMP",
+   "cap": 100,
+   "note": "発動率の上限",
+   "source": "https://www.bg-wiki.com/ffxi/Conserve_MP"
+  },
+  {
+   "key": "敵対心",
+   "cap": 200,
+   "note": "装備品枠の上限",
+   "source": "https://wiki.ffo.jp/html/2394.html"
+  },
+  {
+   "key": "敵対心",
+   "cap": -50,
+   "note": "装備品枠の下限",
+   "source": "https://wiki.ffo.jp/html/2394.html"
+  },
+  {
+   "key": "詠唱中断率",
+   "cap": -103,
+   "note": "中断を確実に防ぐのに必要な値 (用語辞典は 103%、BG Wiki は 102%)",
+   "source": "https://wiki.ffo.jp/html/16294.html"
+  },
+  {
+   "key": "トレジャーハンター",
+   "cap": 4,
+   "jobs": {
+    "6": 8
+   },
+   "note": "特性と装備を合わせた上限 (シーフは 8、ほかのジョブは 4)",
+   "source": "https://wiki.ffo.jp/html/1678.html"
+  }
+ ]
+}

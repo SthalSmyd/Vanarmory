@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vanarmory — 得TP・振り数モック</title>
+<style>
+:root {
+  --bg: #f4f3ef; --panel: #ffffff; --sunken: #efeee9; --text: #20242b; --muted: #6d7480; --line: #dedbd2;
+  --accent: #9a5b13; --accent-bg: #fbecd3; --ok: #2e7d4f; --ok-bg: #e2f3e8; --fixed: #3b6ea8; --fixed-bg: #e3edf8; --warn: #a8442f;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14161b; --panel: #1d2027; --sunken: #262a33; --text: #e5e7eb; --muted: #969dab; --line: #333844;
+    --accent: #f0b35e; --accent-bg: #40311a; --ok: #7fd3a0; --ok-bg: #1d3a2a; --fixed: #8fbcf0; --fixed-bg: #1e2f45; --warn: #f09a85;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; padding: 20px; background: var(--bg); color: var(--text); font: 14px/1.5 "Segoe UI", "Hiragino Sans", "Yu Gothic UI", "Meiryo", sans-serif; }
+h2 { font-size: 13px; color: var(--muted); margin: 22px 0 6px; font-weight: 600; }
+.mock-note { font-size: 12px; color: var(--muted); border: 1px dashed var(--line); border-radius: 6px; padding: 4px 10px; display: inline-block; }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px; max-width: 760px; }
+.num { font-variant-numeric: tabular-nums; }
+input[type=number], select { font: inherit; padding: 2px 6px; border: 1px solid var(--line); border-radius: 6px; background: var(--panel); color: var(--text); }
+input[type=number] { width: 64px; text-align: right; }
+
+/* 1. WS後TP の入力 */
+.tp-rows { display: grid; gap: 6px; }
+.tp-row { display: grid; grid-template-columns: 44px auto minmax(0, 1fr); gap: 10px; align-items: center; }
+.tp-row .kind { font-weight: 700; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; font-size: 12px; }
+.seg span { padding: 2px 10px; cursor: pointer; }
+.seg .on { background: var(--accent-bg); color: var(--accent); font-weight: 700; }
+.tp-row .entry { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; font-size: 13px; }
+.tp-row .entry .hint { color: var(--muted); font-size: 12px; }
+
+/* 2. 目標 */
+.goal { display: grid; grid-template-columns: 130px auto minmax(0, 1fr) 24px; gap: 10px; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--line); }
+.goal:last-child { border-bottom: 0; }
+.goal .name { font-weight: 600; }
+.goal .derived { font-size: 12px; color: var(--muted); }
+.goal .derived b { color: var(--accent); }
+.goal .x { color: var(--muted); text-align: center; }
+.menu { display: grid; grid-template-columns: 150px 220px; gap: 0; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; width: max-content; font-size: 13px; }
+.menu div { padding: 4px 10px; }
+.menu .col { padding: 4px 0; }
+.menu .col + .col { border-left: 1px solid var(--line); }
+.menu .on { background: var(--accent-bg); color: var(--accent); font-weight: 700; }
+
+/* 3. 候補のカードに出す分 */
+.tp { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.tpbox { background: var(--sunken); border-radius: 10px; padding: 8px 12px; }
+.tpbox .head { display: flex; align-items: baseline; gap: 8px; }
+.tpbox .head .k { font-weight: 700; }
+.tpbox .head .sub { font-size: 12px; color: var(--muted); }
+.tpbox .big { display: flex; align-items: baseline; gap: 14px; margin: 2px 0 4px; }
+.tpbox .big .swings { font-size: 20px; font-weight: 700; }
+.tpbox .big .swings small { font-size: 12px; font-weight: 600; }
+.tpbox .big .avg { font-size: 12px; color: var(--muted); }
+.tpbox table { border-collapse: collapse; width: 100%; font-size: 12px; }
+.tpbox td { padding: 1.5px 0; }
+.tpbox td.k { color: var(--muted); }
+.tpbox td.v { text-align: right; font-weight: 600; }
+.tpbox .steps { margin-top: 6px; display: flex; gap: 3px; flex-wrap: wrap; font-size: 11px; }
+.tpbox .steps span { background: var(--panel); border-radius: 4px; padding: 0 5px; }
+.tpbox .steps .hit { background: var(--ok-bg); color: var(--ok); font-weight: 700; }
+.tpbox.none { color: var(--muted); font-size: 12px; display: flex; align-items: center; }
+.ok { color: var(--ok); }
+</style>
+</head>
+<body>
+<span class="mock-note">モック (見た目だけ。数値は見本で、押しても動きません)</span>
+
+<h2>1. 条件の欄に足す「WS後TP」 — 近接と遠隔で別々。数値で入れるか、WS の段数から計算するかを切り替える</h2>
+<div class="panel">
+  <div class="tp-rows">
+    <div class="tp-row">
+      <span class="kind">近接</span>
+      <span class="seg"><span class="on">数値で入れる</span><span>WS の段数から</span></span>
+      <span class="entry">WS後TP <input type="number" value="250"> <span class="hint">WS を撃った直後の TP</span></span>
+    </div>
+    <div class="tp-row">
+      <span class="kind">遠隔</span>
+      <span class="seg"><span>数値で入れる</span><span class="on">WS の段数から</span></span>
+      <span class="entry">WS の段数 <input type="number" value="1"> 段 <span class="hint">全段命中として、候補ごとのストアTP から計算</span></span>
+    </div>
+  </div>
+</div>
+
+<h2>2. 目標に「振り数」を選べる — 「＋ ステータスを追加」に分類「TP・振り数」を足す</h2>
+<div class="panel">
+  <div class="menu">
+    <div class="col"><div>よく使う</div><div>攻撃</div><div class="on">TP・振り数</div><div>防御</div><div>魔法</div></div>
+    <div class="col"><div class="on">近接の振り数</div><div>遠隔の振り数</div><div>ストアTP</div><div>ダブルアタック</div></div>
+  </div>
+  <div style="height:10px"></div>
+  <div class="goal">
+    <span class="name">近接の振り数</span>
+    <span><input type="number" value="5"> 振り以内</span>
+    <span class="derived">間隔 482・WS後TP 250 → 1 ヒット <b class="num">150</b> 以上 → <b>ストアTP +12 以上</b> として探す</span>
+    <span class="x">×</span>
+  </div>
+  <div class="goal">
+    <span class="name">ヘイスト</span>
+    <span><input type="number" value="26"> % 以上</span>
+    <span class="derived">上限 26%</span>
+    <span class="x">×</span>
+  </div>
+  <div class="goal">
+    <span class="name">遠隔の振り数</span>
+    <span><input type="number" value="4"> 振り以内</span>
+    <span class="derived" style="color:var(--warn)">レンジ (と矢弾) を固定すると計算できます</span>
+    <span class="x">×</span>
+  </div>
+</div>
+
+<h2>3. 候補のカードに出す分 — 攻撃・命中の並びの下。武器を固定している側だけ出す</h2>
+<div class="panel">
+  <div class="tp">
+    <div class="tpbox">
+      <div class="head"><span class="k">近接の TP</span><span class="sub">ウコンバサラ・間隔 482</span></div>
+      <div class="big">
+        <span class="swings num">5<small> 振り</small></span>
+        <span class="avg">平均 <b class="num">3.4</b> ラウンド (DA 40%・TA 5%)</span>
+      </div>
+      <table>
+        <tr><td class="k">ストアTP</td><td class="v num">+25</td></tr>
+        <tr><td class="k">1 ヒットの得TP</td><td class="v num">167</td></tr>
+        <tr><td class="k">WS後TP</td><td class="v num">250 <span style="font-weight:400;color:var(--muted)">(入力)</span></td></tr>
+        <tr><td class="k">4 振りにするには</td><td class="v num">ストアTP +41 (あと +16)</td></tr>
+      </table>
+      <div class="steps num"><span>250</span><span>417</span><span>584</span><span>751</span><span>918</span><span class="hit">1085</span></div>
+    </div>
+    <div class="tpbox">
+      <div class="head"><span class="k">遠隔の TP</span><span class="sub">ガストラフェテス+クロノブレット・間隔 528</span></div>
+      <div class="big">
+        <span class="swings num">5<small> 振り</small></span>
+        <span class="avg">遠隔は 1 回 1 発で数える</span>
+      </div>
+      <table>
+        <tr><td class="k">ストアTP</td><td class="v num">+25</td></tr>
+        <tr><td class="k">1 発の得TP</td><td class="v num">182</td></tr>
+        <tr><td class="k">WS後TP</td><td class="v num">182 <span style="font-weight:400;color:var(--muted)">(1 段の WS)</span></td></tr>
+        <tr><td class="k">4 振りにするには</td><td class="v num">ストアTP +37 (あと +12)</td></tr>
+      </table>
+      <div class="steps num"><span>182</span><span>364</span><span>546</span><span>728</span><span>910</span><span class="hit">1092</span></div>
+    </div>
+  </div>
+  <div style="height:8px"></div>
+  <div class="tp">
+    <div class="tpbox none">近接の TP: メイン武器を固定すると出ます</div>
+    <div class="tpbox none">遠隔の TP: レンジ (と矢弾) を固定すると出ます</div>
+  </div>
+</div>
+
+<h2>補足</h2>
+<div class="panel" style="font-size:13px">
+  <ul style="margin:0;padding-left:18px">
+    <li>「n 振り」は、WS後TP から n 回当てて TP1000 に届く回数 (ダブルアタックなどは入れない)。「平均ラウンド」は、ダブルアタック・トリプルアタック・クワッドアタックを入れた平均の攻撃回数 (命中 100% として)</li>
+    <li>二刀流は、メインとサブを固定したとき。二刀流の特性・装備の分を入れた間隔で計算し、1 ラウンド 2 発として数える</li>
+    <li>格闘は、素手の間隔とマーシャルアーツの分を入れて計算する</li>
+    <li>WS の段数から計算するときは、初段が通常の 1 ヒット分、2 段目以降は 1 段につき 10 として数える</li>
+    <li>振り数を目標にしたときは、必要なストアTP に直して探す (武器の間隔が要るので、武器を固定しているときだけ)</li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+/* 3 つの画面で共通の色とヘッダー。OS の設定に合わせて、明るい画面と暗い画面を切り替える。
+   色の役割: accent = 押す場所と「いま選んでいるもの」 / ok = 届いた・増えた / bad = 届かない・減った / fixed = 固定した装備 */
+
+/* 明るい画面: 白い地に、クリスタルの青。固定は金 */
+:root {
+  --bg: #edf0f6; --panel: #ffffff; --sunken: #e7ebf3; --text: #18213a; --muted: #636e8a; --line: #d2d8e6;
+  --accent: #2a4f9c; --accent-bg: #dde6f8; --on-accent: #ffffff;
+  --ok: #1f7a58; --ok-bg: #dbf0e6; --bad: #b3382a; --bad-bg: #fbe6e2; --fixed: #9a6c0c; --fixed-bg: #f8edcf;
+  --chip: #e7ebf3; --mark: #ffe08a;
+  --page-bg: var(--bg);
+  --panel-bg: var(--panel); --panel-border: #c9d1e3; --panel-shadow: 0 1px 2px rgb(24 33 58 / .06);
+  --head-bg: linear-gradient(180deg, #1f2c63, #141c44); --head-text: #b9c3e6; --head-accent: #f0d48a;
+}
+/* 暗い画面: ゲーム内のウィンドウのような濃紺。枠は青みのある線、強調は金、固定は水色 */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #080d20; --panel: #131b3b; --sunken: #1e2850; --text: #eef0f7; --muted: #9ba7cb; --line: #34437a;
+    --accent: #f0d48a; --accent-bg: #3b3520; --on-accent: #1a1608;
+    --ok: #8fe39a; --ok-bg: #173b33; --bad: #ff9c8c; --bad-bg: #4a2033; --fixed: #7fd4ff; --fixed-bg: #12365c;
+    --chip: #1e2850; --mark: #6b5310;
+    --page-bg: radial-gradient(1200px 600px at 50% -100px, #16204a, #080d20) fixed;
+    --panel-bg: linear-gradient(180deg, #171f45, #10173a); --panel-border: #5568ad;
+    --panel-shadow: inset 0 0 0 1px rgb(255 255 255 / .05), 0 2px 8px rgb(0 0 0 / .35);
+    --head-bg: linear-gradient(180deg, #1b2657, #0e1533); --head-text: #b9c3e6; --head-accent: #f0d48a;
+    color-scheme: dark;
+  }
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; background: var(--page-bg); background-color: var(--bg); color: var(--text); font: 14px/1.5 "Segoe UI", "Hiragino Sans", "Yu Gothic UI", "Meiryo", sans-serif; }
+button, select, input { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+/* ヘッダー: 濃い帯に金のロゴ (明るい画面でも同じ) */
+header { display: flex; align-items: center; gap: 14px; padding: 6px 12px; background: var(--head-bg); border-bottom: 1px solid var(--panel-border); flex-wrap: wrap; }
+h1 { margin: 0; font-size: 16px; color: var(--head-accent); letter-spacing: .04em; }
+nav { display: flex; gap: 4px; }
+nav a { color: var(--head-text); text-decoration: none; padding: 3px 12px; border-radius: 999px; font-size: 13px; }
+nav a:hover { color: var(--head-accent); }
+nav a.here { background: rgb(255 255 255 / .12); color: var(--head-accent); font-weight: 600; }
+.meta { margin: 0 0 0 auto; color: var(--head-text); font-size: 12px; }
