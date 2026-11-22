@@ -519,6 +519,11 @@
       });
     }
     P.save(localStorage, store); // 引き継いだ内容を保存しておく
+    // 数値を打った直後 (欄から出る前) にページを離れても、打った値を保存する
+    window.addEventListener('pagehide', () => {
+      const field = document.activeElement;
+      if (field && field.matches('input, select')) field.dispatchEvent(new Event('change', { bubbles: true }));
+    });
     render();
   }
 

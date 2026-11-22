@@ -151,12 +151,16 @@
     }
   }
 
-  function changed() {
+  // いまの条件を保存する (次に開いたときのため)
+  function persist() {
     try {
       localStorage.setItem(STORAGE, JSON.stringify(state));
     } catch {
       // 保存できなくても動作には影響しない
     }
+  }
+  function changed() {
+    persist();
     P.save(localStorage, store);
     version++;
     render();
@@ -1647,7 +1651,19 @@
 
     render();
     $('cards').append(el('p', { className: 'empty', textContent: 'ジョブと目標を選んで「セットを探す」を押すと、目標を満たす装備セットの候補を並べます。' }));
+    // 数値を打った直後 (欄から出る前) にページを更新したり閉じたりしても、打った値を保存する。
+    // 欄の値は、欄から出たときの change で条件に入るので、ページを離れる前にそれを起こす
+    const flush = () => {
+      const field = document.activeElement;
+      if (field && field.matches('.conditions input, .conditions select')) field.dispatchEvent(new Event('change', { bubbles: true }));
+    };
+    window.addEventListener('pagehide', flush);
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'hidden') flush();
+    });
     if (fromUrl) {
+      // 「条件の URL」で開いた条件も保存する (保存しないと、ページを更新したときに前の条件に戻ってしまう)
+      persist();
       history.replaceState(null, '', ' ');
       run();
     }
