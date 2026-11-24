@@ -312,3 +312,6 @@ table.cmp { border-collapse: collapse; font-size: 13px; font-variant-numeric: ta
 .bare-row button { white-space: nowrap; }
 .editor li .sub.plus { color: var(--ok); }
 .set-view .stat { white-space: normal; }
+
+/* 持っている装備を読み込んであるときの、持っていない装備の印 */
+.cell .unowned { display: inline-block; margin-top: 2px; padding: 0 6px; border: 1px solid var(--line); border-radius: 8px; font-size: 10px; color: var(--muted); }

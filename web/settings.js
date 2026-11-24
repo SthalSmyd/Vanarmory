@@ -211,11 +211,105 @@
     if (!contents.length) box.append(el('p', { className: 'hint', textContent: 'コンテンツごとの一覧はまだありません。' }));
   }
 
+  // ---- 持っている装備 (Moglist の書き出しを読み込む) ----
+  let ownedError = '';
+  let ownedBuilt = null; // いまのキャラクターの分を、候補にしたもの (個数を数えるのと、除外の名前を出すのに使う)
+  let ownedOf = null;
+  function ownedNow() {
+    if (ownedOf !== chara().owned) {
+      ownedOf = chara().owned;
+      ownedBuilt = ownedOf ? window.VanaOwned.build(db, ownedOf, chara().ownedFix) : null;
+    }
+    return ownedBuilt;
+  }
+  function renderOwned() {
+    const mine = ownedNow();
+    const at = mine && chara().owned.at ? new Date(chara().owned.at) : null;
+    $('owned-state').textContent = !mine ? 'まだ読み込んでいません'
+      : `読み込み済み: 装備 ${mine.total - mine.skipped} 個 (オーグメント付き ${mine.withAug} 個)` + (at && !isNaN(at) ? ` ・ ${at.toLocaleString('ja-JP', { dateStyle: 'short', timeStyle: 'short' })} の書き出し` : '');
+    $('owned-clear').hidden = !mine;
+    $('owned-switches').hidden = !mine;
+    const notes = [];
+    if (mine && mine.skipped) notes.push(`このツールのデータに無い装備 ${mine.skipped} 個は、読み飛ばしました。`);
+    // アビリティの効果アップ (「○○効果アップ」と、その英語の名前の切れ端) は、もともと数値にならないので出さない
+    const unknown = mine ? [...mine.unknown].filter((k) => !/効果アップ$/.test(k) && !/^[A-Za-z' ]+$/.test(k)) : [];
+    if (unknown.length) notes.push(`オーグメントのうち、計算に入れられない項目: ${unknown.join('、')}`);
+    $('owned-note').hidden = !ownedError && !notes.length;
+    $('owned-note').className = 'owned-note' + (ownedError ? ' bad' : '');
+    $('owned-note').textContent = ownedError || notes.join(' ');
+    renderOwnedFix(mine);
+    $('owned-augs').checked = profile().ownedAugs !== false;
+    $('owned-only').checked = !!profile().ownedOnly;
+    // 持っている装備だけを使うあいだは、コンテンツとジョブ専用装束の範囲は使われない。
+    // 実物のオーグメントで計算するなら、オデシーのランクも実物で決まる
+    const only = !!mine && !!profile().ownedOnly;
+    $('job-sets').closest('.panel').classList.toggle('unused', only);
+    $('contents').closest('.panel').classList.toggle('unused', only);
+    $('odyssey').closest('.panel').classList.toggle('unused', only && profile().ownedAugs !== false);
+  }
+  // 強化の値を読めなかった装備を、本人が直す。強化の状態を選ぶか、オーグメントを入れる
+  function renderOwnedFix(mine) {
+    const needs = mine ? mine.needs : [];
+    $('owned-fix').hidden = !needs.length;
+    $('owned-fix-count').textContent = `${needs.length} 個 ・ うち補正済み ${needs.filter((n) => n.fix).length} 個`;
+    const setFix = (key, patch) => {
+      const next = Object.assign({ variant: '', text: '' }, chara().ownedFix[key], patch);
+      if (next.variant || next.text) chara().ownedFix[key] = next;
+      else delete chara().ownedFix[key];
+      ownedOf = null; // 候補を作り直す
+      changed();
+    };
+    $('owned-fix-rows').replaceChildren(...needs.map((need) => {
+      const pick = select([['', 'そのまま']].concat(need.options.map((v) => [v.id, `${v.rank} の値で計算`])), need.fix ? need.fix.variant : '', (value) => setFix(need.key, { variant: value }));
+      pick.disabled = !need.options.length;
+      if (!need.options.length) pick.title = 'このツールに、この装備の強化した状態がありません。オーグメントを入れてください';
+      const input = el('input', { className: 'input', type: 'text', spellcheck: false, placeholder: '例: STR+8 DEX+8 命中+12', value: need.fix ? need.fix.text : '' });
+      input.addEventListener('change', () => setFix(need.key, { text: input.value.trim() }));
+      const state = need.unknown.length ? el('span', { className: 'bad', textContent: `読めない項目: ${need.unknown.join('、')}` })
+        : need.fix ? el('span', { className: 'done', textContent: '補正済み' })
+        : el('span', { className: 'hint', textContent: '補正なし' });
+      return el('div', { className: 'fix-row' },
+        el('span', null, need.item.ja + (need.label ? ` [${need.label}]` : ''), window.VanaSearch.wikiLink ? window.VanaSearch.wikiLink(need.item) : null),
+        el('span', { className: 'why', textContent: need.why }), pick, input, state);
+    }));
+  }
+  function initOwned() {
+    $('owned-pick').addEventListener('click', () => $('owned-file').click());
+    $('owned-file').addEventListener('change', async () => {
+      const file = $('owned-file').files[0];
+      $('owned-file').value = ''; // 同じファイルを選び直しても、読み込めるようにする
+      if (!file) return;
+      try {
+        chara().owned = window.VanaOwned.read(await file.text());
+        ownedError = '';
+      } catch (error) {
+        ownedError = `読み込めませんでした: ${error.message}`;
+      }
+      changed();
+    });
+    $('owned-clear').addEventListener('click', () => {
+      if (!confirm(`${chara().name} の、持っている装備の読み込みを消しますか?`)) return;
+      chara().owned = null; // 補正 (ownedFix) は残す。読み込み直したときに、また使う
+      ownedError = '';
+      changed();
+    });
+    $('owned-augs').addEventListener('change', () => {
+      profile().ownedAugs = $('owned-augs').checked;
+      changed();
+    });
+    $('owned-only').addEventListener('change', () => {
+      profile().ownedOnly = $('owned-only').checked;
+      changed();
+    });
+  }
+
   function renderExcluded() {
-    const list = profile().excluded.filter((id) => itemById.has(id) || String(id).startsWith('cape:'));
+    const mine = ownedNow();
+    const ownedItem = (id) => (mine && mine.byId.get(id)) || null;
+    const list = profile().excluded.filter((id) => itemById.has(id) || String(id).startsWith('cape:') || ownedItem(id));
     $('excluded-count').textContent = `${list.length} 点`;
     $('excluded').replaceChildren(...list.map((id) => {
-      const item = itemById.get(id);
+      const item = itemById.get(id) || ownedItem(id);
       const chip = el('button', { type: 'button', className: 'chip', textContent: (item ? nameOf(item) : 'アンバスマント (構成指定)') + ' ×', title: '候補に戻す' });
       chip.addEventListener('click', () => {
         profile().excluded = profile().excluded.filter((x) => x !== id);
@@ -590,6 +684,7 @@
     renderCharacters();
     renderJobs();
     renderProfiles();
+    renderOwned();
     renderJobSets();
     renderContents();
     renderExcluded();
@@ -598,6 +693,7 @@
 
   function init() {
     $('meta').textContent = `装備 ${data.items.length} 件 / データ ${data.generated}`;
+    initOwned();
     $('odyssey-title').append(wiki((data.links || {}).odyssey, 'オデシー') || '');
     $('char-new').addEventListener('click', () => {
       const name = (prompt('新しいキャラクターの名前', '') || '').trim();

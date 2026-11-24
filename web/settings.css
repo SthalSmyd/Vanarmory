@@ -176,3 +176,22 @@ a { color: var(--accent); }
 .weight-adder .input { width: 220px; }
 .weight-found { display: inline-flex; flex-wrap: wrap; gap: 4px; }
 .types > .profile.new { justify-self: start; }
+
+/* 持っている装備 (Moglist から読み込む) */
+.owned { margin-bottom: 14px; }
+.owned-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 8px 0; }
+.owned-note { margin: 0 0 8px; font-size: 12px; color: var(--fixed); }
+.owned-note.bad { color: var(--bad); }
+.owned-sw { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; margin: 6px 0; cursor: pointer; }
+/* 「持っている装備だけを使う」のあいだ、使われない設定 */
+.panel.unused { opacity: .45; }
+/* 強化の値を読めなかった装備の補正 */
+.fix { margin: 12px 0; border-top: 1px solid var(--line); padding-top: 10px; }
+.fix h3 { margin: 0 0 4px; font-size: 13px; }
+.fix-row { display: grid; grid-template-columns: 220px 150px 170px minmax(0, 1fr) 110px; gap: 8px; align-items: center; padding: 5px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+.fix-row.head { color: var(--muted); font-size: 11px; }
+.fix-row .why { color: var(--fixed); font-size: 12px; }
+.fix-row .done { color: var(--ok); font-size: 12px; }
+.fix-row .bad { color: var(--bad); font-size: 12px; }
+.fix-row input, .fix-row select { width: 100%; min-width: 0; }
+@media (max-width: 900px) { .fix-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .fix-row.head { display: none; } }

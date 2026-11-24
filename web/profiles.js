@@ -24,7 +24,10 @@
 //     cape:     true / false                 アンバスマント (オグメ最大) を使うか
 //     contents: { コンテンツの id: { on, tier, picks } }
 //               tier は段階の上限、picks は選んだもの (バトルフィールド名など)。null はすべて
-//     excluded: [装備の id] }
+//     excluded: [装備の id]
+//     ownedAugs: true / false               持っている装備を、実物のオーグメントで計算するか
+//     ownedOnly: true / false               持っている装備だけを使うか }
+//   (下の 2 つは、キャラクターに持っている装備 owned を読み込んであるときだけ効く。形は owned.js)
 //
 // 保存内容: { activeChar, chars: [{ id, name, jobs, merits, active, list }] }
 (function (root) {
@@ -100,6 +103,8 @@
       cape: true,
       contents: {},
       excluded: [],
+      ownedAugs: true,
+      ownedOnly: false,
     };
   }
 
@@ -142,13 +147,15 @@
       boosts: Object.assign(base.boosts, profile.boosts),
       contents: Object.assign({}, profile.contents),
       excluded: (profile.excluded || []).slice(),
+      ownedAugs: profile.ownedAugs !== false,
+      ownedOnly: !!profile.ownedOnly,
     });
   }
 
   // 最初の装備の範囲の設定を 1 つ持ったキャラクター
   function createCharacter(name) {
     const first = create('メイン');
-    return { id: newId(), name, race: 'hume', jobs: {}, merits: {}, augments: {}, sets: [], capes: [], searches: [], weights: defaultWeights(), active: first.id, list: [first] };
+    return { id: newId(), name, race: 'hume', jobs: {}, merits: {}, augments: {}, sets: [], capes: [], owned: null, ownedFix: {}, searches: [], weights: defaultWeights(), active: first.id, list: [first] };
   }
 
   function normalizeCharacter(character) {
@@ -160,6 +167,10 @@
       augments: Object.assign({}, character.augments),
       sets: JSON.parse(JSON.stringify(character.sets || [])),
       capes: JSON.parse(JSON.stringify(character.capes || [])),
+      // 持っている装備 (Moglist から読み込んだもの)。無ければ null
+      owned: character.owned && Array.isArray(character.owned.items) ? JSON.parse(JSON.stringify(character.owned)) : null,
+      // 強化の値を読めなかった装備の補正 (形は owned.js)
+      ownedFix: JSON.parse(JSON.stringify(character.ownedFix || {})),
       weights: normalizeWeights(character.weights),
       searches: JSON.parse(JSON.stringify(character.searches || [])),
       jobs: JSON.parse(JSON.stringify(character.jobs || {})),

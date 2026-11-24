@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="../web/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../web/favicon.png">
+<title>モック: 読めなかった装備の補正</title>
+<link rel="stylesheet" href="../web/theme.css">
+<link rel="stylesheet" href="../web/settings.css">
+<style>
+/* モック用。本番では settings.css へ移す */
+.fix { margin-top: 12px; border-top: 1px solid var(--line); padding-top: 10px; }
+.fix h3 { margin: 0 0 4px; font-size: 13px; }
+.fix-row { display: grid; grid-template-columns: 220px 150px 170px minmax(0, 1fr) 90px; gap: 8px; align-items: center; padding: 5px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+.fix-row.head { color: var(--muted); font-size: 11px; border-bottom: 1px solid var(--line); }
+.fix-row .why { color: var(--fixed); font-size: 12px; }
+.fix-row .done { color: var(--ok); font-size: 12px; }
+.fix-row input { width: 100%; }
+.fix details { margin-top: 8px; }
+.fix summary { cursor: pointer; font-size: 13px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Vanarmory</h1>
+  <nav><a href="index.html">セットを組む</a><a href="search.html">装備を探す</a><a href="settings.html" class="here">設定</a></nav>
+  <p class="meta" id="meta"></p>
+</header>
+
+<!-- 1 段目: キャラクター。育成と装備の範囲の設定は、キャラクターごとに持つ -->
+<section class="profiles">
+  <span class="label">キャラクター</span>
+  <span id="chars"></span>
+  <button type="button" class="profile new" id="char-new">＋ 新しいキャラクター</button>
+  <span class="saved" id="saved"></span>
+  <span class="acts">
+    <button type="button" class="ghost" id="char-rename">名前を変える</button>
+    <button type="button" class="ghost" id="char-copy">複製する</button>
+    <button type="button" class="ghost danger" id="char-delete">削除する</button>
+  </span>
+</section>
+
+<div class="tabs">
+  <button type="button" class="tab" data-tab="gear">装備の範囲</button>
+  <button type="button" class="tab" data-tab="jobs">ジョブの育成 (ギフト・マスターレベル)</button>
+  <button type="button" class="tab" data-tab="capes">ジョブマント</button>
+  <button type="button" class="tab" data-tab="weights">同じ良さのときの重み</button>
+  <button type="button" class="tab" data-tab="manual">オーグメントの手入力</button>
+</div>
+
+<div class="page" id="tab-jobs" hidden>
+  <p class="hint" style="margin:0">「セットを組む」でジョブを選ぶと、ここに入れたそのジョブの値が使われます。育成はキャラクターごとで、装備の範囲の設定を切り替えても変わりません。サポートジョブのレベルは、メインジョブのマスターレベルから決まります (49 + マスターレベル ÷ 5、最大 59)。</p>
+  <div class="panel">
+    <h2>種族</h2>
+    <select id="race" class="input" style="margin-top:6px"></select>
+    <span class="hint" style="margin-left:8px">素のステータス (HP・MP・STR〜CHR) の計算に使います</span>
+  </div>
+  <div class="panel">
+    <h2>共通のメリポ <span class="hint">全ジョブに効きます。項目ごとに、振った段階を入れます。初期値は最大で、合計に上限のある「その他」だけ 0 から入れます</span></h2>
+    <div id="shared" class="shared-groups"></div>
+  </div>
+  <div class="panel">
+    <h2>ジョブごとの育成 <span class="hint">ギフトとマスターレベルは、ジョブごとに入れる</span>
+</h2>
+    <table class="jobs">
+      <thead><tr><th>ジョブ</th><th title="使ったジョブポイントの合計 (0〜2100)。そこまでに覚えるギフトを数えます。ジョブマスター済みなら「マスター」にチェック">ジョブポイント</th><th>マスターレベル</th><th title="このジョブをメインにしたときの、サポートジョブのレベル">サポ Lv</th><th title="ジョブ別のメリットポイントを最大まで振っているか">メリポ</th><th>ギフトとメリポで得る値</th></tr></thead>
+      <tbody id="jobs"></tbody>
+    </table>
+  </div>
+</div>
+
+<div class="page" id="tab-capes" hidden>
+  <p class="hint" style="margin:0">持っているジョブマント (アンバスケードのマント) を登録します。アイテム 5 種 (糸・金粉・染料・水油・樹脂) につき 1 項目ずつ選び、名前を付けます。値は最大まで強化したものです。「セットを組む」で自動で選ぶときは、そのジョブに登録したマントの中から選び、それでは目標に届かないときだけ、目標に合う構成を作ります。登録はキャラクターごとです。</p>
+  <div class="panel">
+    <h2>マントを登録する</h2>
+    <div class="cape-form" id="cape-form"></div>
+  </div>
+  <div class="panel">
+    <h2>登録したマント <span class="hint" id="cape-count"></span></h2>
+    <div id="cape-list" class="cape-list"></div>
+  </div>
+</div>
+
+<div class="page" id="tab-weights" hidden>
+  <p class="hint" style="margin:0">「セットを組む」では、まず目標を満たし、「伸ばす」に選んだステータスを最大にします。それでも同じ良さの組み合わせがいくつもあるときに、ここで決めた重みの合計 (値 × 重み) が大きいものを選びます。目標や「伸ばす」の結果を下げることはありません。「少ない部位で満たす」のときは、部位の数が同じ組み合わせの中で比べます。型は「セットを組む」の画面でも選び直せます。</p>
+  <div class="panel">
+    <h2>ジョブごとの型 <span class="hint">そのジョブで探すときに、初めに使う型</span>
+      <span class="right"><button type="button" class="ghost" id="weights-reset-jobs">初めの状態に戻す</button></span></h2>
+    <div class="job-types" id="job-types"></div>
+  </div>
+  <div class="panel">
+    <h2>型ごとの重み <span class="hint">ステータスと重み。大きいほど優先する</span>
+      <span class="right"><button type="button" class="ghost" id="weights-reset-all">すべて初めの状態に戻す</button></span></h2>
+    <div class="types" id="weight-types"></div>
+    <p class="hint" style="margin:10px 0 0">被ダメージのように小さいほど良いステータスは、減る向きを良いものとして数えます。上限のあるステータス (ヘイストなど) は、上限までで数えます。</p>
+  </div>
+</div>
+
+<div class="page" id="tab-manual" hidden>
+  <p class="hint" style="margin:0">ランダムで付くオーグメント (ソーティの耳装備など) は人によって値が違うので、ここに入力します。ゲーム内の表記で「STR+8 DEX+8 命中+12」のように、空白で区切って書きます。入力はキャラクターごとに保存され、その装備の性能に上乗せされます。「セットを組む」で候補のマスを押したところからも入力できます。</p>
+  <div class="panel">
+    <h2>入力したオーグメント <span class="hint" id="manual-count"></span></h2>
+    <div id="manual-list" class="manual-list"></div>
+    <div class="finder">
+      <input class="input" id="manual-find" type="search" autocomplete="off" placeholder="装備の名前で探して追加 (例: ボイイピアス)">
+      <ul id="manual-found"></ul>
+    </div>
+  </div>
+</div>
+
+<div id="tab-gear">
+<!-- 2 段目: このキャラクターの、装備の範囲の設定 -->
+<section class="profiles in-tab">
+  <span class="label">装備の範囲の設定</span>
+  <span id="profiles"></span>
+  <button type="button" class="profile new" id="profile-new">＋ 新しい設定</button>
+  <span class="acts">
+    <span id="copy-box" class="copy-box" hidden>この設定を <select id="copy-target"></select> <button type="button" class="ghost" id="copy-go">へコピー</button></span>
+    <button type="button" class="ghost" id="profile-rename">名前を変える</button>
+    <button type="button" class="ghost" id="profile-copy">複製する</button>
+    <button type="button" class="ghost danger" id="profile-delete">削除する</button>
+  </span>
+</section>
+
+<div class="page">
+  <div class="panel owned">
+    <h2>持っている装備 <span class="hint">Moglist から読み込む (キャラクターごと)</span></h2>
+    <div class="owned-row">
+      <button type="button" class="ghost" id="owned-pick">ファイルを選ぶ…</button>
+      <input type="file" id="owned-file" accept=".json,application/json" hidden>
+      <span id="owned-state">読み込み済み: 装備 610 個 (オーグメント付き 160 個) ・ 2026/11/24 21:59 の書き出し</span>
+      <button type="button" class="ghost danger" id="owned-clear">読み込みを消す</button>
+    </div>
+    <p class="hint">Moglist の「Vanarmory へ書き出す」で作ったファイル (Moglist のフォルダの data/vanarmory/キャラクター名.json) を選びます。収納を整頓し直しただけなら、読み込み直す必要はありません。</p>
+    <p class="owned-note" id="owned-note" hidden></p>
+    <div class="fix">
+      <h3>補正が要る装備 <span class="hint">9 個 ・ うち補正済み 2 個</span></h3>
+      <p class="hint">強化の値を読めなかった装備です。そのままだと強化なしで計算します。「強化の状態」から近いものを選ぶか、オーグメントをゲーム内の表記で入れてください。補正はキャラクターごとに保存し、読み込み直しても残ります。</p>
+      <div class="fix-row head"><span>装備</span><span>読めなかった理由</span><span>強化の状態を選ぶ</span><span>または、オーグメントを入れる</span><span></span></div>
+<div class="fix-row"><span>戦士の数珠+1 [R13 A]</span><span class="why">R13 の値が無い</span><select><option>強化なし</option><option selected>R20 の値で計算</option></select><input class="input" type="text" placeholder="例: STR+8 DEX+8 命中+12" value=""><span class="done">補正済み</span></div><div class="fix-row"><span>ロクソテクメイス+1 [R13 A]</span><span class="why">R13 の値が無い</span><select><option selected>強化なし</option><option>R15 の値で計算</option></select><input class="input" type="text" placeholder="例: STR+8 DEX+8 命中+12" value="Ｄ+28 命中+35 魔命+35"><span class="done">補正済み</span></div><div class="fix-row"><span>バグアチャーム+2 [R18 A]</span><span class="why">R18 の値が無い</span><select><option selected>強化なし</option><option>R25 の値で計算</option></select><input class="input" type="text" placeholder="例: STR+8 DEX+8 命中+12" value=""><span class="hint">強化なしで計算</span></div><div class="fix-row"><span>モンクの喉輪+1 [R3 A]</span><span class="why">R3 の値が無い</span><select><option selected>強化なし</option><option>R20 の値で計算</option></select><input class="input" type="text" placeholder="例: STR+8 DEX+8 命中+12" value=""><span class="hint">強化なしで計算</span></div>      <p class="hint" style="margin:6px 0 0">… ほか 5 個</p>
+      <details>
+        <summary>強化の情報が無かった装備 <span class="hint">41 個 ・ 無強化として計算しています。実際は強化してあるものだけ直してください</span></summary>
+<div class="fix-row"><span>サクパタヘルム</span><span class="why">強化の情報なし</span><select><option selected>無強化</option><option>RP5 A</option><option>RP10 A</option><option>RP15 A</option><option>RP20 A</option><option>RP25 A</option><option>RP30 A</option><option>RP30 B</option></select><input class="input" type="text" placeholder="例: STR+8 DEX+8 命中+12" value=""><span class="hint">強化なしで計算</span></div><div class="fix-row"><span>シェレピアス</span><span class="why">強化の情報なし</span><select><option selected>無強化</option><option>R30</option></select><input class="input" type="text" placeholder="例: STR+8 DEX+8 命中+12" value=""><span class="hint">強化なしで計算</span></div>      </details>
+    </div>
+    <div id="owned-switches">
+      <label class="owned-sw"><input type="checkbox" id="owned-augs" checked> <b>持っている装備は、実物のオーグメントで計算する</b>
+        <span class="hint">同じ装備でオーグメント違いを持っていれば、別々の候補になります。手入力のオーグメントより優先します</span></label>
+      <label class="owned-sw"><input type="checkbox" id="owned-only"> <b>持っている装備だけを使う</b>
+        <span class="hint">入れると、下のジョブ専用装束とコンテンツの範囲は使いません。この 2 つは、装備の範囲の設定ごとに持ちます</span></label>
+    </div>
+  </div>
+  <p class="hint" style="margin:0">選んだ設定は「セットを組む」の画面でも使われます。変更はすぐ保存されます。メイン・頭・胴・両手・両脚・両足は IL119 の装備だけを扱い、武器は固定したものだけを使うので、ここでは防具とアクセサリの範囲を決めます。</p>
+  <div class="cols">
+    <div class="stack">
+      <div class="panel">
+        <h2>ジョブ専用装束</h2>
+        <p class="hint">どの段階まで持っているか</p>
+        <div id="job-sets"></div>
+      </div>
+      <div class="panel">
+        <h2><span id="odyssey-title">オデシー装備</span> <span class="hint">RP のランク</span></h2>
+        <div id="odyssey"></div>
+      </div>
+      <div class="panel">
+        <h2>個別に除外した装備 <span class="hint" id="excluded-count"></span></h2>
+        <p class="hint">候補の「除外」で外した装備。この設定に保存されます</p>
+        <div class="chips" id="excluded"></div>
+        <div class="finder">
+          <input class="input" id="exclude-find" type="search" autocomplete="off" placeholder="名前で探して除外に追加">
+          <ul id="exclude-list"></ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>コンテンツごとの装備 <span class="hint">行っていないコンテンツは切る</span>
+        <span class="right"><button type="button" class="ghost" id="all-on">すべて使う</button><button type="button" class="ghost" id="all-off">すべて切る</button></span></h2>
+      <div class="col-head"><span>使う</span><span></span><span>どこまで</span><span>強化</span><span></span></div>
+      <div id="contents"></div>
+      <p class="hint" style="margin:12px 0 0">ここに無い装備 (店売り・競売・クエスト報酬など) は、常に使います。</p>
+    </div>
+  </div>
+</div>
+</div>
+
+</body>
+</html>

@@ -94,7 +94,7 @@
     }
     // 登録してある構成なら、その名前を出す
     const rank = capeName(job, picks) || (texts.length ? 'オグメ最大' : '');
-    return Object.assign({}, plain, { id: capeId(job, picks), m, rank, aug: texts.join(' '), group: 'cape', plain: '', picks: picks.slice(), capeJob: job });
+    return Object.assign({}, plain, { id: capeId(job, picks), m, rank, aug: texts.join(' '), group: 'cape', plain: '', picks: picks.slice(), capeJob: job, capePlain: plain.id });
   }
 
   // 目標や伸ばすステータスに効く項目だけを組み合わせる。効く項目が無いアイテムは付けない
@@ -132,9 +132,34 @@
   function getItem(id) {
     if (id === 'bare') return BARE;
     if (itemById.has(id)) return itemById.get(id);
+    if (String(id).startsWith('own:')) {
+      // 持っている装備の候補。読み込み直して無くなっていたら、元の装備として扱う
+      const mine = ownedNow();
+      return (mine && mine.byId.get(id)) || itemById.get(Number(String(id).split(':')[1]));
+    }
     const m = /^cape:(\d+):([-\d,]+)$/.exec(id);
     return m ? makeCape(Number(m[1]), m[2].split(',').map(Number)) : undefined;
   }
+  // ---- 持っている装備 (設定で、Moglist の書き出しを読み込んだもの) ----
+  // 候補は、手入力のオーグメントを写して作るので、手入力やキャラクターが変わったら作り直す (ownedReset)
+  let ownedCache = null;
+  const ownedReset = () => { ownedCache = null; };
+  function ownedNow() {
+    const c = store && P.character(store);
+    if (!c || !c.owned) return null;
+    if (!ownedCache) ownedCache = window.VanaOwned.build(db, c.owned, c.ownedFix);
+    return ownedCache;
+  }
+  // いまの設定での使い方。読み込んでいなければ null。
+  //   augs: 持っている装備を、実物のオーグメントの候補に置き換える  only: 持っている装備だけを使う
+  const ownedMode = () => {
+    const mine = ownedNow();
+    return mine ? { mine, augs: profile().ownedAugs !== false, only: !!profile().ownedOnly } : null;
+  };
+  // 装備の、元になるアイテム番号 (マントは、何も付けていないマントの番号)
+  const baseOf = (item) => (item.group === 'cape' && item.capePlain != null ? item.capePlain : window.VanaOwned.baseOf(item));
+  const isOwned = (item) => { const mine = ownedNow(); return !!mine && (item.owned || mine.baseIds.has(baseOf(item))); };
+
   const nameOf = (item) => item.ja + (item.rank || item.tag ? ` [${item.rank || item.tag}]` : '') + (item.manual ? ' ✎' : '');
 
   // ---- 状態 ----
@@ -715,10 +740,13 @@
 
   function findItems(slot, query) {
     const q = fold(query.trim());
-    const found = data.items.filter((i) => i.slots & slot.mask && usable(i) && (!IL119_ONLY.has(slot.id) || i.il === 119) && i.names.includes(q));
+    // 持っている装備を実物のオーグメントで計算するときは、その候補も探す (持っているものを先に出す)
+    const own = ownedMode();
+    const all = own && own.augs ? own.mine.items.concat(data.items) : data.items;
+    const found = all.filter((i) => i.slots & slot.mask && usable(i) && (!IL119_ONLY.has(slot.id) || i.il === 119) && i.names.includes(q));
     // 同じ名前の段階違いは、強いほう (Ｄ の大きいほう) を先に出す
     const damage = (item) => Number(/Ｄ(\d+)/.exec(item.desc)?.[1] ?? 0);
-    found.sort((a, b) => b.il - a.il || b.lv - a.lv || a.ja.localeCompare(b.ja, 'ja') || damage(b) - damage(a) || (b.rp || 0) - (a.rp || 0));
+    found.sort((a, b) => (b.owned ? 1 : 0) - (a.owned ? 1 : 0) || b.il - a.il || b.lv - a.lv || a.ja.localeCompare(b.ja, 'ja') || damage(b) - damage(a) || (b.rp || 0) - (a.rp || 0));
     return found.slice(0, 40);
   }
 
@@ -819,6 +847,8 @@
     if (item || options.empty) c.append(el('div', { className: 'name', textContent: item ? nameOf(item) : options.empty }));
     else c.classList.add('blank');
     if (item && options.gain) c.append(el('div', { className: 'gain', textContent: options.gain }));
+    // 持っている装備を読み込んであるときは、持っていない装備に印を付ける (素手と、固定しただけの武器にも付く)
+    if (item && item.id !== 'bare' && ownedNow() && !isOwned(item)) c.append(el('div', { className: 'unowned', textContent: '未所持' }));
     if (item) c.title = item.desc + (item.aug ? '\nオーグメント: ' + item.aug : '') + (item.manual ? '\n手入力のオーグメント: ' + item.manual : '');
     return c;
   }
@@ -994,7 +1024,28 @@
       for (const [i, v] of item.m) if (typeof v === 'number' && v < 0 && !data.stats[i].neg && !data.stats[i].scoped) return true;
       return false;
     };
-    const allow = (item) => (item.group === 'cape' || eligible(item)) && P.allow(profile(), item, data.contents) && !(state.avoidMinus && hasMinus(item));
+    // 持っている装備の使い方 (設定で Moglist の書き出しを読み込んであるとき):
+    //   実物のオーグメントで計算する … 持っている装備は、実物から作った候補 (item.owned) だけを使い、元の装備は使わない
+    //   持っている装備だけを使う     … 持っていない装備は使わない。コンテンツとジョブ専用装束の範囲は見ない
+    const own = ownedMode();
+    const range = own && own.only
+      ? Object.assign({}, profile(), { contents: {}, tiers: Object.fromEntries(P.JOB_SETS.map(([id, , max]) => [id, max])) })
+      : profile();
+    const inRange = (item) => {
+      if (!own) return P.allow(range, item, data.contents);
+      if (item.owned) return own.augs;
+      const mine = own.mine.baseIds.has(baseOf(item));
+      if (mine && own.augs) return false;
+      if (own.only && !mine) return false;
+      return P.allow(range, item, data.contents);
+    };
+    const allow = (item) => (item.group === 'cape' || eligible(item)) && inRange(item) && !(state.avoidMinus && hasMinus(item));
+    // 背: 持っているジョブマントを実物で計算するとき、または持っている装備だけのときは、マントの構成を作らない
+    const capePlain = data.items.find((i) => i.ja === data.capes.names[state.job] && !i.rank);
+    const realCape = !!own && (own.only || (own.augs && !!capePlain && own.mine.baseIds.has(capePlain.id)));
+    const back = !profile().cape || (realCape && own.augs) ? [] : fitting.length && !generate ? fitting : fitting.concat(capeVariants(state.job, wanted));
+    const extra = back.length ? { back } : {};
+    if (own && own.augs) for (const slot of SLOT_LIST) extra[slot.id] = (extra[slot.id] || []).concat(own.mine.items);
     return {
       job: state.job,
       level: 'all', // 部位ごとの条件は allow で見ている
@@ -1016,11 +1067,11 @@
       base: outside().base,
       // 登録したマントのうち、この目標に合うものがあれば、まずその中から選ぶ。合うものが無いときと、
       // 合うマントでは目標に届かないとき (run が generate を付けて呼び直す) は、目標に合う構成を作る
-      extra: profile().cape ? { back: fitting.length && !generate ? fitting : fitting.concat(capeVariants(state.job, wanted)) } : {},
-      ownCapes: fitting.length > 0 && !generate,
+      extra,
+      ownCapes: !realCape && fitting.length > 0 && !generate,
       // 同じ良さの組み合わせの中から選ぶための重み
       tie: tieWeights(),
-      noFit: registered.length > 0 && !fitting.length, // 登録はあるが、合うものが無かった
+      noFit: !realCape && registered.length > 0 && !fitting.length, // 登録はあるが、合うものが無かった
       allow,
       sets: data.sets,
     };
@@ -1487,7 +1538,10 @@
   // 手入力のオーグメント。ランダムで付くもの (ソーティの耳装備など) を、ゲーム内の表記で入力する
   function manualField(item) {
     if (String(item.id).startsWith('cape:')) return null; // マントは構成を自動で選ぶ
-    const input = el('input', { type: 'text', className: 'manual-input', placeholder: '例: STR+8 DEX+8 命中+12', value: P.character(store).augments[item.id] || '', spellcheck: false });
+    // 持っている装備の候補: 実物のオーグメントが分かっていれば入力させない。分からなければ、元の装備に入力する
+    const key = item.owned ? item.manualKey : item.id;
+    if (key == null) return null;
+    const input = el('input', { type: 'text', className: 'manual-input', placeholder: '例: STR+8 DEX+8 命中+12', value: P.character(store).augments[key] || '', spellcheck: false });
     const note = el('span', { className: 'manual-note' });
     const check = () => {
       const { unknown } = window.VanaAugment.read(db, input.value);
@@ -1496,9 +1550,10 @@
     input.addEventListener('input', check);
     input.addEventListener('change', () => {
       const text = input.value.trim();
-      if (text) P.character(store).augments[item.id] = text;
-      else delete P.character(store).augments[item.id];
+      if (text) P.character(store).augments[key] = text;
+      else delete P.character(store).augments[key];
       window.VanaAugment.apply(db, P.character(store).augments);
+      ownedReset();
       changed();
     });
     check();
@@ -2050,8 +2105,9 @@
     $('chara').addEventListener('change', () => {
       store.activeChar = $('chara').value;
       activePreset = ''; // 保存した条件は、キャラクターごと
-      // キャラクターごとに、手入力のオーグメントが違う
+      // キャラクターごとに、手入力のオーグメントと、持っている装備が違う
       window.VanaAugment.apply(db, P.character(store).augments);
+      ownedReset();
       compare = compare.filter((k) => k.startsWith('c'));
       changed();
       renderCompare();
