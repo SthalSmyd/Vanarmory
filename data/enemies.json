@@ -1,13 +1,976 @@
 {
  "source": [
-  "https://www.bg-wiki.com/ffxi/Category:Apex_Monsters (各モンスターのページの DEF・EVA と Notes 欄)"
+  "https://vanafratello.com/level-accuracy (モンスターの内部ジョブ別必要命中一覧。回避 = 必要命中 − 40)",
+  "https://wiki.ffo.jp/html/223.html (命中: 必要命中 = 敵の回避 + 40)",
+  "https://www.bg-wiki.com/ffxi/Category:Apex_Monsters と各ボスのページ (防御力・回避・VIT・AGI の検証値)",
+  "https://wiki.ffo.jp/html/38599.html (ソーティの敵のレベル)、https://www.bg-wiki.com/ffxi/Category:Odyssey (シェオルの階ごとのレベル)"
  ],
- "note": "ダメージの画面の敵の一覧。検証値が wiki に載っている敵だけ。値は、レベルの幅のうちいちばん高いレベルのもの。載っていない項目 (VIT・AGI など) は入れず、画面の値をそのままにする。日本語名は確かめられていないので英語名で載せる。",
+ "note": "ダメージの画面の敵の一覧。values は、資料に値が載っている項目だけ (回避は、検証値か、必要命中からの換算)。載っていない項目は tools/enemies.mjs が埋める: 回避は、レベルと型 (type) から必要命中の表を引いて 40 を引く。防御力・VIT・AGI は、Apex モンスターの検証値をレベルで直線に当てはめた目安 (防御力 = 1142 + (Lv − 129) × 36、VIT = 254 + (Lv − 129) × 8、AGI = VIT + 20)。日本語名が確かめられていない敵は英語名。",
+ "accuracy": {
+  "note": "命中率 95% に要る命中 (片手武器の 99% は +8)。列は内部ジョブの型: thf シーフ、dnc 踊り子、nin 忍者、mnk モンク・侍・竜騎士・魔導剣士、war 戦士・ナイト・暗黒騎士・獣使い・青魔道士 (標準)、rdm 赤魔道士・吟遊詩人・コルセア・風水士、whm 白魔道士・黒魔道士・狩人・学者・召喚士",
+  "types": [
+   "thf",
+   "dnc",
+   "nin",
+   "mnk",
+   "war",
+   "rdm",
+   "whm"
+  ],
+  "rows": [
+   [
+    119,
+    922,
+    876,
+    843,
+    828,
+    813,
+    806,
+    799
+   ],
+   [
+    120,
+    950,
+    903,
+    871,
+    855,
+    839,
+    831,
+    825
+   ],
+   [
+    121,
+    978,
+    930,
+    899,
+    882,
+    866,
+    858,
+    851
+   ],
+   [
+    122,
+    1007,
+    958,
+    927,
+    910,
+    893,
+    885,
+    878
+   ],
+   [
+    123,
+    1035,
+    985,
+    955,
+    937,
+    920,
+    912,
+    904
+   ],
+   [
+    124,
+    1063,
+    1013,
+    983,
+    965,
+    947,
+    939,
+    931
+   ],
+   [
+    125,
+    1093,
+    1041,
+    null,
+    993,
+    975,
+    966,
+    958
+   ],
+   [
+    126,
+    1121,
+    1069,
+    null,
+    1021,
+    1002,
+    993,
+    984
+   ],
+   [
+    127,
+    1150,
+    1097,
+    null,
+    1049,
+    1029,
+    1020,
+    1011
+   ],
+   [
+    128,
+    null,
+    1124,
+    null,
+    1076,
+    1056,
+    1046,
+    1037
+   ],
+   [
+    129,
+    null,
+    1152,
+    1125,
+    1104,
+    1083,
+    1073,
+    1064
+   ],
+   [
+    130,
+    null,
+    1182,
+    null,
+    1134,
+    1113,
+    1103,
+    1093
+   ],
+   [
+    131,
+    null,
+    1213,
+    null,
+    1165,
+    1143,
+    1133,
+    1123
+   ],
+   [
+    132,
+    null,
+    1244,
+    null,
+    1196,
+    1173,
+    1162,
+    1152
+   ],
+   [
+    133,
+    null,
+    1274,
+    null,
+    1226,
+    1203,
+    1192,
+    1182
+   ],
+   [
+    134,
+    null,
+    1305,
+    1282,
+    1257,
+    1233,
+    1222,
+    1211
+   ],
+   [
+    135,
+    null,
+    1337,
+    null,
+    1289,
+    1264,
+    1252,
+    1242
+   ],
+   [
+    136,
+    null,
+    1368,
+    null,
+    1320,
+    1294,
+    1282,
+    1271
+   ],
+   [
+    137,
+    1461,
+    1398,
+    null,
+    1350,
+    1324,
+    1312,
+    1300
+   ],
+   [
+    138,
+    1492,
+    1429,
+    null,
+    1381,
+    1354,
+    1342,
+    1330
+   ],
+   [
+    139,
+    1524,
+    1460,
+    1439,
+    1412,
+    1384,
+    1372,
+    1359
+   ],
+   [
+    140,
+    null,
+    1499,
+    null,
+    1451,
+    1423,
+    1410,
+    1398
+   ],
+   [
+    141,
+    null,
+    null,
+    null,
+    null,
+    1462,
+    1449,
+    1436
+   ],
+   [
+    142,
+    null,
+    null,
+    null,
+    null,
+    1502,
+    1488,
+    1475
+   ],
+   [
+    143,
+    null,
+    null,
+    null,
+    null,
+    1541,
+    null,
+    null
+   ],
+   [
+    145,
+    null,
+    null,
+    null,
+    null,
+    1621,
+    null,
+    null
+   ]
+  ]
+ },
  "enemies": [
   {
+   "id": "e1",
+   "group": "ソーティ",
+   "ja": "区画A 雑魚",
+   "lv": 121,
+   "type": "war",
+   "page": "https://wiki.ffo.jp/html/38599.html",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e2",
+   "group": "ソーティ",
+   "ja": "区画A NM",
+   "lv": 122,
+   "type": "war",
+   "page": "https://wiki.ffo.jp/html/38599.html",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e3",
+   "group": "ソーティ",
+   "ja": "区画B 雑魚",
+   "lv": 125,
+   "type": "war",
+   "page": "https://wiki.ffo.jp/html/38599.html",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e4",
+   "group": "ソーティ",
+   "ja": "区画B NM",
+   "lv": 126,
+   "type": "war",
+   "page": "https://wiki.ffo.jp/html/38599.html",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e5",
+   "group": "ソーティ",
+   "ja": "区画C 雑魚",
+   "lv": 129,
+   "type": "war",
+   "page": "https://wiki.ffo.jp/html/38599.html",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e6",
+   "group": "ソーティ",
+   "ja": "区画C NM",
+   "lv": 130,
+   "type": "war",
+   "page": "https://wiki.ffo.jp/html/38599.html",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e7",
+   "group": "ソーティ",
+   "ja": "区画D 雑魚",
+   "lv": 133,
+   "type": "war",
+   "page": "https://wiki.ffo.jp/html/38599.html",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e8",
+   "group": "ソーティ",
+   "ja": "区画D NM",
+   "lv": 134,
+   "type": "war",
+   "page": "https://wiki.ffo.jp/html/38599.html",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e9",
+   "group": "ソーティ",
+   "ja": "区画E 雑魚",
+   "lv": 136,
+   "type": "war",
+   "page": "https://wiki.ffo.jp/html/38599.html",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e10",
+   "group": "ソーティ",
+   "ja": "区画F 雑魚",
+   "lv": 137,
+   "type": "war",
+   "page": "https://wiki.ffo.jp/html/38599.html",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e11",
+   "group": "ソーティ",
+   "ja": "区画G 雑魚",
+   "lv": 138,
+   "type": "war",
+   "page": "https://wiki.ffo.jp/html/38599.html",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e12",
+   "group": "ソーティ",
+   "ja": "区画H 雑魚",
+   "lv": 139,
+   "type": "war",
+   "page": "https://wiki.ffo.jp/html/38599.html",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e13",
+   "group": "ソーティ",
+   "ja": "ボスA Ghatjot",
+   "lv": 135,
+   "type": "war",
+   "page": "https://www.bg-wiki.com/ffxi/Ghatjot",
+   "note": "",
+   "values": {
+    "eva": 1224
+   }
+  },
+  {
+   "id": "e14",
+   "group": "ソーティ",
+   "ja": "ボスB Leshonn",
+   "lv": 135,
+   "type": "war",
+   "page": "https://www.bg-wiki.com/ffxi/Leshonn",
+   "note": "",
+   "values": {
+    "eva": 1249
+   }
+  },
+  {
+   "id": "e15",
+   "group": "ソーティ",
+   "ja": "ボスC Skomora",
+   "lv": 135,
+   "type": "war",
+   "page": "https://www.bg-wiki.com/ffxi/Skomora",
+   "note": "",
+   "values": {
+    "eva": 1224
+   }
+  },
+  {
+   "id": "e16",
+   "group": "ソーティ",
+   "ja": "ボスD Degei",
+   "lv": 135,
+   "type": "war",
+   "page": "https://www.bg-wiki.com/ffxi/Degei",
+   "note": "",
+   "values": {
+    "eva": 1249
+   }
+  },
+  {
+   "id": "e17",
+   "group": "ソーティ",
+   "ja": "ボスE Dhartok",
+   "lv": 145,
+   "type": "war",
+   "page": "https://www.bg-wiki.com/ffxi/Dhartok",
+   "note": "",
+   "values": {
+    "eva": 1581
+   }
+  },
+  {
+   "id": "e18",
+   "group": "ソーティ",
+   "ja": "ボスF Gartell",
+   "lv": 145,
+   "type": "war",
+   "page": "https://www.bg-wiki.com/ffxi/Gartell",
+   "note": "",
+   "values": {
+    "eva": 1613
+   }
+  },
+  {
+   "id": "e19",
+   "group": "ソーティ",
+   "ja": "ボスG Triboulex",
+   "lv": 145,
+   "type": "war",
+   "page": "https://www.bg-wiki.com/ffxi/Triboulex",
+   "note": "",
+   "values": {
+    "eva": 1581
+   }
+  },
+  {
+   "id": "e20",
+   "group": "ソーティ",
+   "ja": "ボスH Aita",
+   "lv": 145,
+   "type": "war",
+   "page": "https://www.bg-wiki.com/ffxi/Aita",
+   "note": "",
+   "values": {
+    "eva": 1613
+   }
+  },
+  {
+   "id": "e21",
+   "group": "ソーティ",
+   "ja": "七支公",
+   "lv": 140,
+   "type": "war",
+   "page": "https://wiki.ffo.jp/html/38599.html",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e22",
+   "group": "ソーティ",
+   "ja": "アミノン (Aminon)",
+   "lv": 149,
+   "type": "war",
+   "page": "https://www.bg-wiki.com/ffxi/Aminon",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e23",
+   "group": "オデシー",
+   "ja": "シェオル A 1 層",
+   "lv": 119,
+   "type": "war",
+   "page": "https://www.bg-wiki.com/ffxi/Category:Odyssey",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e24",
+   "group": "オデシー",
+   "ja": "シェオル A 2 層",
+   "lv": 121,
+   "type": "war",
+   "page": "https://www.bg-wiki.com/ffxi/Category:Odyssey",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e25",
+   "group": "オデシー",
+   "ja": "シェオル A 3 層",
+   "lv": 123,
+   "type": "war",
+   "page": "https://www.bg-wiki.com/ffxi/Category:Odyssey",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e26",
+   "group": "オデシー",
+   "ja": "シェオル A 4 層",
+   "lv": 125,
+   "type": "war",
+   "page": "https://www.bg-wiki.com/ffxi/Category:Odyssey",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e27",
+   "group": "オデシー",
+   "ja": "シェオル A 5 層",
+   "lv": 127,
+   "type": "war",
+   "page": "https://www.bg-wiki.com/ffxi/Category:Odyssey",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e28",
+   "group": "オデシー",
+   "ja": "シェオル A 6 層",
+   "lv": 129,
+   "type": "war",
+   "page": "https://www.bg-wiki.com/ffxi/Category:Odyssey",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e29",
+   "group": "オデシー",
+   "ja": "シェオル A 7 層",
+   "lv": 131,
+   "type": "war",
+   "page": "https://www.bg-wiki.com/ffxi/Category:Odyssey",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e30",
+   "group": "オデシー",
+   "ja": "シェオル B 1 層",
+   "lv": 124,
+   "type": "war",
+   "page": "https://www.bg-wiki.com/ffxi/Category:Odyssey",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e31",
+   "group": "オデシー",
+   "ja": "シェオル B 2 層",
+   "lv": 126,
+   "type": "war",
+   "page": "https://www.bg-wiki.com/ffxi/Category:Odyssey",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e32",
+   "group": "オデシー",
+   "ja": "シェオル B 3 層",
+   "lv": 128,
+   "type": "war",
+   "page": "https://www.bg-wiki.com/ffxi/Category:Odyssey",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e33",
+   "group": "オデシー",
+   "ja": "シェオル B 4 層",
+   "lv": 130,
+   "type": "war",
+   "page": "https://www.bg-wiki.com/ffxi/Category:Odyssey",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e34",
+   "group": "オデシー",
+   "ja": "シェオル B 5 層",
+   "lv": 132,
+   "type": "war",
+   "page": "https://www.bg-wiki.com/ffxi/Category:Odyssey",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e35",
+   "group": "オデシー",
+   "ja": "シェオル B 6 層",
+   "lv": 134,
+   "type": "war",
+   "page": "https://www.bg-wiki.com/ffxi/Category:Odyssey",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e36",
+   "group": "オデシー",
+   "ja": "シェオル C 1 層",
+   "lv": 129,
+   "type": "war",
+   "page": "https://www.bg-wiki.com/ffxi/Category:Odyssey",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e37",
+   "group": "オデシー",
+   "ja": "シェオル C 2 層",
+   "lv": 131,
+   "type": "war",
+   "page": "https://www.bg-wiki.com/ffxi/Category:Odyssey",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e38",
+   "group": "オデシー",
+   "ja": "シェオル C 3 層",
+   "lv": 133,
+   "type": "war",
+   "page": "https://www.bg-wiki.com/ffxi/Category:Odyssey",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e39",
+   "group": "オデシー",
+   "ja": "シェオル C 4 層",
+   "lv": 135,
+   "type": "war",
+   "page": "https://www.bg-wiki.com/ffxi/Category:Odyssey",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e40",
+   "group": "オデシー",
+   "ja": "シェオル C 4 層 シーフ型 (チゴー・ドラウガー)",
+   "lv": 135,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "",
+   "values": {
+    "eva": 1359
+   }
+  },
+  {
+   "id": "e41",
+   "group": "オデシー",
+   "ja": "シェオル C 4 層 NM",
+   "lv": 138,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e42",
+   "group": "オデシー",
+   "ja": "シェオル C 4 層 ミミック",
+   "lv": 140,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e43",
+   "group": "オデシー",
+   "ja": "ジェール アトーンメント 1",
+   "lv": 124,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "難易度 (V) を上げた分は入っていない",
+   "values": {}
+  },
+  {
+   "id": "e44",
+   "group": "オデシー",
+   "ja": "ジェール アトーンメント 2",
+   "lv": 129,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "難易度 (V) を上げた分は入っていない",
+   "values": {}
+  },
+  {
+   "id": "e45",
+   "group": "オデシー",
+   "ja": "ジェール アトーンメント 3",
+   "lv": 134,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "難易度 (V) を上げた分は入っていない",
+   "values": {}
+  },
+  {
+   "id": "e46",
+   "group": "オデシー",
+   "ja": "ジェール アトーンメント 3 Xevioso (シーフ型)",
+   "lv": 134,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "難易度 (V) を上げた分は入っていない",
+   "values": {
+    "eva": 1327
+   }
+  },
+  {
+   "id": "e47",
+   "group": "オデシー",
+   "ja": "ジェール アトーンメント 4 Bumba",
+   "lv": 139,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "難易度 (V) を上げた分は入っていない",
+   "values": {}
+  },
+  {
+   "id": "e48",
+   "group": "アンバスケード (エキスパート)",
+   "ja": "とてもやさしい",
+   "lv": 119,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "仕組みで回避が増減する月がある",
+   "values": {}
+  },
+  {
+   "id": "e49",
+   "group": "アンバスケード (エキスパート)",
+   "ja": "やさしい",
+   "lv": 124,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "仕組みで回避が増減する月がある",
+   "values": {}
+  },
+  {
+   "id": "e50",
+   "group": "アンバスケード (エキスパート)",
+   "ja": "ふつう",
+   "lv": 129,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "仕組みで回避が増減する月がある",
+   "values": {}
+  },
+  {
+   "id": "e51",
+   "group": "アンバスケード (エキスパート)",
+   "ja": "むずかしい",
+   "lv": 134,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "仕組みで回避が増減する月がある",
+   "values": {}
+  },
+  {
+   "id": "e52",
+   "group": "アンバスケード (エキスパート)",
+   "ja": "とてもむずかしい",
+   "lv": 139,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "仕組みで回避が増減する月がある",
+   "values": {}
+  },
+  {
+   "id": "e53",
+   "group": "ダイバージェンス",
+   "ja": "ウェーブ 1 雑魚",
+   "lv": 127,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e54",
+   "group": "ダイバージェンス",
+   "ja": "ウェーブ 1 NM",
+   "lv": 129,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e55",
+   "group": "ダイバージェンス",
+   "ja": "ウェーブ 2 雑魚",
+   "lv": 134,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e56",
+   "group": "ダイバージェンス",
+   "ja": "ウェーブ 2 雑魚 (シーフ型)",
+   "lv": 134,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "",
+   "values": {
+    "eva": 1327
+   }
+  },
+  {
+   "id": "e57",
+   "group": "ダイバージェンス",
+   "ja": "ウェーブ 2 NM",
+   "lv": 137,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e58",
+   "group": "ダイバージェンス",
+   "ja": "ウェーブ 2 NM (シーフ型)",
+   "lv": 137,
+   "type": "thf",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e59",
+   "group": "オーメン",
+   "ja": "雑魚 Sweetwater",
+   "lv": 127,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e60",
+   "group": "オーメン",
+   "ja": "雑魚 Transcended",
+   "lv": 129,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e61",
+   "group": "オーメン",
+   "ja": "雑魚 Transcended Ladybug (シーフ型)",
+   "lv": 129,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "",
+   "values": {
+    "eva": 1169
+   }
+  },
+  {
+   "id": "e62",
+   "group": "オーメン",
+   "ja": "ボス Kin (金将)",
+   "lv": 139,
+   "type": "war",
+   "page": "https://www.bg-wiki.com/ffxi/Kin",
+   "note": "",
+   "values": {
+    "eva": 1319
+   }
+  },
+  {
+   "id": "e63",
+   "group": "オーメン",
+   "ja": "ボス Gin (銀将)",
+   "lv": 139,
+   "type": "war",
+   "page": "https://www.bg-wiki.com/ffxi/Gin",
+   "note": "",
+   "values": {
+    "eva": 1484
+   }
+  },
+  {
+   "id": "e64",
+   "group": "オーメン",
+   "ja": "ボス Kei (桂馬)",
+   "lv": 139,
+   "type": "war",
+   "page": "https://www.bg-wiki.com/ffxi/Kei",
+   "note": "",
+   "values": {
+    "eva": 1344
+   }
+  },
+  {
+   "id": "e65",
+   "group": "オーメン",
+   "ja": "ボス Fu (歩兵)",
+   "lv": 139,
+   "type": "war",
+   "page": "https://www.bg-wiki.com/ffxi/Fu",
+   "note": "",
+   "values": {
+    "eva": 1344
+   }
+  },
+  {
    "id": "apex-bats",
-   "ja": "Apex Bats Lv130 (ドーの門)",
+   "group": "Apex モンスター",
+   "ja": "Apex Bats (ドーの門)",
+   "lv": 130,
+   "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Bats",
+   "note": "",
    "values": {
     "eva": 1073,
     "def": 1173
@@ -15,8 +978,12 @@
   },
   {
    "id": "apex-toad",
-   "ja": "Apex Toad Lv133 (ウォーの門)",
+   "group": "Apex モンスター",
+   "ja": "Apex Toad (ウォーの門)",
+   "lv": 133,
+   "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Toad",
+   "note": "",
    "values": {
     "eva": 1163,
     "def": 1272
@@ -24,8 +991,12 @@
   },
   {
    "id": "apex-bat",
-   "ja": "Apex Bat Lv136 (ラ・カザナル宮外郭)",
+   "group": "Apex モンスター",
+   "ja": "Apex Bat (ラ・カザナル宮外郭)",
+   "lv": 136,
+   "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Bat",
+   "note": "",
    "values": {
     "eva": 1254,
     "def": 1371
@@ -33,8 +1004,12 @@
   },
   {
    "id": "apex-lugcrawler",
-   "ja": "Apex Lugcrawler Hunter Lv139 (クロウラーの巣〔S〕)",
+   "group": "Apex モンスター",
+   "ja": "Apex Lugcrawler Hunter (クロウラーの巣〔S〕)",
+   "lv": 139,
+   "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Lugcrawler_Hunter",
+   "note": "",
    "values": {
     "eva": 1344,
     "def": 1479
@@ -42,8 +1017,12 @@
   },
   {
    "id": "apex-knight",
-   "ja": "Apex Knight Lugcrawler Lv140 (クロウラーの巣〔S〕)",
+   "group": "Apex モンスター",
+   "ja": "Apex Knight Lugcrawler (クロウラーの巣〔S〕)",
+   "lv": 140,
+   "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Knight_Lugcrawler",
+   "note": "",
    "values": {
     "eva": 1383,
     "def": 1530
@@ -51,8 +1030,12 @@
   },
   {
    "id": "apex-drifter",
-   "ja": "Apex Idle Drifter Lv142 (プロミヴォン)",
+   "group": "Apex モンスター",
+   "ja": "Apex Idle Drifter (プロミヴォン)",
+   "lv": 142,
+   "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Idle_Drifter",
+   "note": "",
    "values": {
     "eva": 1502,
     "vit": 348,
@@ -62,8 +1045,12 @@
   },
   {
    "id": "apex-cog",
-   "ja": "Apex Archaic Cog Lv145 (アルザダール海底遺跡群)",
+   "group": "Apex モンスター",
+   "ja": "Apex Archaic Cog (アルザダール海底遺跡群)",
+   "lv": 145,
+   "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Archaic_Cog",
+   "note": "",
    "values": {
     "eva": 1551,
     "vit": 381,
@@ -72,13 +1059,337 @@
   },
   {
    "id": "apex-cogs",
-   "ja": "Apex Archaic Cogs Lv147 (アルザダール海底遺跡群)",
+   "group": "Apex モンスター",
+   "ja": "Apex Archaic Cogs (アルザダール海底遺跡群)",
+   "lv": 147,
+   "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Archaic_Cogs",
+   "note": "",
    "values": {
     "eva": 1628,
     "vit": 399,
     "def": 1791
    }
+  },
+  {
+   "id": "e74",
+   "group": "レベルから選ぶ",
+   "ja": "標準の敵",
+   "lv": 119,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e75",
+   "group": "レベルから選ぶ",
+   "ja": "標準の敵",
+   "lv": 120,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e76",
+   "group": "レベルから選ぶ",
+   "ja": "標準の敵",
+   "lv": 121,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e77",
+   "group": "レベルから選ぶ",
+   "ja": "標準の敵",
+   "lv": 122,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e78",
+   "group": "レベルから選ぶ",
+   "ja": "標準の敵",
+   "lv": 123,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e79",
+   "group": "レベルから選ぶ",
+   "ja": "標準の敵",
+   "lv": 124,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e80",
+   "group": "レベルから選ぶ",
+   "ja": "標準の敵",
+   "lv": 125,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e81",
+   "group": "レベルから選ぶ",
+   "ja": "標準の敵",
+   "lv": 126,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e82",
+   "group": "レベルから選ぶ",
+   "ja": "標準の敵",
+   "lv": 127,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e83",
+   "group": "レベルから選ぶ",
+   "ja": "標準の敵",
+   "lv": 128,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e84",
+   "group": "レベルから選ぶ",
+   "ja": "標準の敵",
+   "lv": 129,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e85",
+   "group": "レベルから選ぶ",
+   "ja": "標準の敵",
+   "lv": 130,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e86",
+   "group": "レベルから選ぶ",
+   "ja": "標準の敵",
+   "lv": 131,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e87",
+   "group": "レベルから選ぶ",
+   "ja": "標準の敵",
+   "lv": 132,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e88",
+   "group": "レベルから選ぶ",
+   "ja": "標準の敵",
+   "lv": 133,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e89",
+   "group": "レベルから選ぶ",
+   "ja": "標準の敵",
+   "lv": 134,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e90",
+   "group": "レベルから選ぶ",
+   "ja": "標準の敵",
+   "lv": 135,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e91",
+   "group": "レベルから選ぶ",
+   "ja": "標準の敵",
+   "lv": 136,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e92",
+   "group": "レベルから選ぶ",
+   "ja": "標準の敵",
+   "lv": 137,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e93",
+   "group": "レベルから選ぶ",
+   "ja": "標準の敵",
+   "lv": 138,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e94",
+   "group": "レベルから選ぶ",
+   "ja": "標準の敵",
+   "lv": 139,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e95",
+   "group": "レベルから選ぶ",
+   "ja": "標準の敵",
+   "lv": 140,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e96",
+   "group": "レベルから選ぶ",
+   "ja": "標準の敵",
+   "lv": 141,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e97",
+   "group": "レベルから選ぶ",
+   "ja": "標準の敵",
+   "lv": 142,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e98",
+   "group": "レベルから選ぶ",
+   "ja": "標準の敵",
+   "lv": 143,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e99",
+   "group": "レベルから選ぶ",
+   "ja": "標準の敵",
+   "lv": 144,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e100",
+   "group": "レベルから選ぶ",
+   "ja": "標準の敵",
+   "lv": 145,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e101",
+   "group": "レベルから選ぶ",
+   "ja": "標準の敵",
+   "lv": 146,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e102",
+   "group": "レベルから選ぶ",
+   "ja": "標準の敵",
+   "lv": 147,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e103",
+   "group": "レベルから選ぶ",
+   "ja": "標準の敵",
+   "lv": 148,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e104",
+   "group": "レベルから選ぶ",
+   "ja": "標準の敵",
+   "lv": 149,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e105",
+   "group": "レベルから選ぶ",
+   "ja": "標準の敵",
+   "lv": 150,
+   "type": "war",
+   "page": "https://vanafratello.com/level-accuracy",
+   "note": "",
+   "values": {}
   }
  ]
 }

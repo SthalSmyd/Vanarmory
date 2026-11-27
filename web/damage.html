@@ -49,6 +49,7 @@
   <div class="row">
     <span class="label">敵</span>
     <div class="body start">
+      <select id="enemy-range" title="敵の一覧を、レベルの幅で絞る"></select>
       <select id="enemy"></select>
       <div class="enemy-values" id="enemy-values"></div>
       <span class="field" id="enemy-note"></span>
@@ -76,6 +77,10 @@
   <div class="row">
     <span class="label">アビ</span>
     <div class="body start"><div class="buff-groups" id="abilities"></div><button type="button" class="q" data-help="基準のセットのジョブ・サポで使えるものが並びます。比較のセットのジョブが違うときは、そのジョブで使えるものだけが効きます。">?</button></div>
+  </div>
+  <div class="row">
+    <span class="label"></span>
+    <div class="body"><span class="buff-sum" id="buff-sum"></span></div>
   </div>
 </section>
 

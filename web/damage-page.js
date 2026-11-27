@@ -40,6 +40,15 @@
   ];
   // 支援・弱体・アビリティ (data/buffs.json)
   const BUFFS = data.buffs || [];
+  // 段階をまとめて選ぶもの。歌の楽器、ロールの出目、風水魔法+ は、ふつう全部に同じものが掛かる
+  const LEVELS = {
+    歌: ['歌+0', '歌+4', '歌+7'],
+    ロール: ['ラッキー', '11', 'ラッキー + ジョブボーナス', '11 + ジョブボーナス'],
+    風水: ['風水魔法+0', '風水魔法+5', '風水魔法+10 (イドリス)'],
+  };
+  // いま効く段階の効果
+  const optionOf = (buff) => buff.options[Math.min(buff.by ? state.levels[buff.by] || 0 : state.buffs[buff.id] || 0, buff.options.length - 1)];
+
   // 選んだものの効果をまとめる。who を渡すと、そのジョブ・サポで使えるアビリティも入れる
   function buffsFor(who) {
     const out = { flat: new Map(), atk: 0, ratk: 0, mh: 0, jh: 0, vel: 0, shots: 0, def: 0, eva: 0, names: [] };
@@ -49,7 +58,7 @@
       let e;
       if (buff.group === 'アビリティ') {
         e = !who ? null : who.job === buff.job ? buff.options[0] : who.sub === buff.job ? buff.sub : null;
-      } else e = buff.options[Math.min(state.buffs[buff.id], buff.options.length - 1)];
+      } else e = optionOf(buff);
       if (!e) continue;
       out.names.push(buff.ja);
       for (const [key, value] of Object.entries(e.s || {})) {
@@ -71,6 +80,8 @@
     return out;
   }
 
+  // 敵の一覧を絞る、レベルの幅
+  const RANGES = [[0, 119, 'Lv119 まで'], [120, 129, 'Lv120〜129'], [130, 134, 'Lv130〜134'], [135, 139, 'Lv135〜139'], [140, 144, 'Lv140〜144'], [145, 149, 'Lv145〜149'], [150, 999, 'Lv150 以上']];
   const PAIR_NAMES = ['基準', '比較 1', '比較 2'];
   const PAIR_CLASSES = ['a', 'b', 'c'];
 
@@ -84,12 +95,14 @@
     mode: 'melee', // 'melee' = 近接、'ranged' = 遠隔
     sc: { level: 0, every: 1 }, // 連携: 段階 (0 = 入れない、1〜3、4 = 極光・黒闇) と、WS 何回に 1 回 連携になるか
     buffs: {}, // 選んだ支援・弱体・アビリティ: { id: 選んだ段階の番号 }
+    levels: { 歌: 2, ロール: 0, 風水: 1 }, // 歌・ロール・風水は、段階をまとめて選ぶ (LEVELS の番号)
+    range: '', // 敵の一覧を絞るレベルの幅
   });
   let state = initial();
   function load() {
     try {
       const saved = JSON.parse(localStorage.getItem(STORAGE) || 'null');
-      if (saved) Object.assign(state, saved, { values: Object.assign(state.values, saved.values), haste: Object.assign(state.haste, saved.haste), sc: Object.assign(state.sc, saved.sc) });
+      if (saved) Object.assign(state, saved, { values: Object.assign(state.values, saved.values), haste: Object.assign(state.haste, saved.haste), sc: Object.assign(state.sc, saved.sc), levels: Object.assign(state.levels, saved.levels) });
       if (!Array.isArray(state.pairs) || !state.pairs.length) state.pairs = initial().pairs;
       state.pairs = state.pairs.slice(0, 3);
       state.manual = (state.manual || []).filter((m) => db.statByKey.has(m.k));
@@ -462,14 +475,26 @@
 
   function renderEnemy() {
     const select = $('enemy');
-    select.replaceChildren(el('option', { value: '', textContent: '自分で入れる' }), ...ENEMIES.map((e) => el('option', { value: e.id, textContent: e.ja })));
+    const [low, high] = state.range ? state.range.split('-').map(Number) : [0, 999];
+    const shown = ENEMIES.filter((e) => e.lv >= low && e.lv <= high).sort((a, b) => a.lv - b.lv);
+    // コンテンツごとにまとめて並べる
+    const groups = [...new Set(shown.map((e) => e.group))];
+    select.replaceChildren(el('option', { value: '', textContent: `自分で入れる${shown.length ? ` (一覧 ${shown.length} 件)` : ''}` }),
+      ...groups.map((g) => el('optgroup', { label: g }, ...shown.filter((e) => e.group === g).map((e) => el('option', { value: e.id, textContent: `Lv${e.lv} ${e.ja}` })))));
+    $('enemy-range').replaceChildren(el('option', { value: '', textContent: 'すべてのレベル' }), ...RANGES.filter(([a, b]) => ENEMIES.some((e) => e.lv >= a && e.lv <= b)).map(([a, b, label]) => el('option', { value: `${a}-${b}`, textContent: label })));
+    $('enemy-range').value = state.range || '';
     select.value = ENEMIES.some((e) => e.id === state.enemy) ? state.enemy : '';
     $('enemy-values').replaceChildren(...ENEMY_FIELDS.map((f) => {
       const input = el('input', { className: 'input narrow', type: 'number', value: state.values[f.id], title: f.title || '' });
       input.addEventListener('change', () => { state.values[f.id] = Number(input.value) || 0; state.enemy = ''; changed(); });
       return el('label', { className: 'field', title: f.title || '' }, f.label + ' ', input, f.unit ? ' ' + f.unit : null);
     }));
-    $('enemy-note').replaceChildren(help('一覧から選ぶと、検証値のある項目だけが入ります。あとから手で直せます。\nレベル差は、レベル差の補正がある場所のときだけ入れます (新しいコンテンツの多くは補正が無いので 0)。'));
+    const picked = ENEMIES.find((e) => e.id === state.enemy);
+    const LABEL = { def: '防御力', vit: 'VIT', agi: 'AGI' };
+    const about = !picked ? '' : `選んだ敵: 回避は${picked.table ? '、レベルから必要命中の表を引いた値 (必要命中 − 40)' : '検証値'}。`
+      + (picked.est.length ? `${picked.est.map((k) => LABEL[k]).join('・')}は、検証値が無いので、Apex モンスターの値をレベルに当てはめた目安です。` : '防御力なども検証値です。')
+      + (picked.note ? picked.note + '。' : '') + '\n';
+    $('enemy-note').replaceChildren(picked && picked.est.length ? el('span', { textContent: '目安の値あり' }) : '', help(about + '一覧から選ぶと値が入り、あとから手で直せます。\nレベル差は、レベル差の補正がある場所のときだけ入れます (新しいコンテンツの多くは補正が無いので 0)。'));
   }
 
   // 支援・弱体・アビリティの札。押すと入・切、入のときは段階を選べる
@@ -478,22 +503,48 @@
       const on = buff.id in state.buffs;
       const values = (e) => [e.atk && `攻 +${e.atk}%`, e.ratk && `飛攻 +${e.ratk}%`, e.mh && `魔法のヘイスト ${e.mh}%`, e.jh && `アビリティのヘイスト ${e.jh}%`, e.def && `敵の防御力 −${e.def}%`, e.eva && `敵の回避 −${e.eva}`, e.vel && `狙う時間 −${e.vel}%`, e.shots && `発数 +${e.shots}`,
         ...Object.entries(e.s || {}).map(([k, v]) => `${k} +${v}`)].filter(Boolean).join('、');
-      const e = buff.group === 'アビリティ' ? usable : buff.options[Math.min(state.buffs[buff.id] || 0, buff.options.length - 1)];
-      const button = el('button', { type: 'button', className: 'toggle' + (on ? ' on' : ''), title: [values(e), buff.note].filter(Boolean).join('\n') }, buff.ja, on && el('small', { textContent: values(e) }));
-      button.addEventListener('click', () => { if (on) delete state.buffs[buff.id]; else state.buffs[buff.id] = buff.options.length - 1; changed(); });
-      if (!on || buff.options.length < 2) return [button];
+      const e = buff.group === 'アビリティ' ? usable : optionOf(buff);
+      const button = el('button', { type: 'button', className: 'toggle' + (on ? ' on' : ''), title: [values(e), buff.note].filter(Boolean).join('\n') }, buff.ja);
+      button.addEventListener('click', () => {
+        if (on) delete state.buffs[buff.id];
+        else {
+          // 同じ種類 (ディアとディアII など) は、どれか 1 つだけ
+          if (buff.x) for (const other of BUFFS) if (other.x === buff.x) delete state.buffs[other.id];
+          state.buffs[buff.id] = 0;
+        }
+        changed();
+      });
+      if (!on || buff.by || buff.options.length < 2) return [button];
       const select = el('select', { title: '段階' }, ...buff.options.map((o, i) => el('option', { value: i, textContent: o.label })));
       select.value = String(Math.min(state.buffs[buff.id], buff.options.length - 1));
       select.addEventListener('change', () => { state.buffs[buff.id] = Number(select.value); changed(); });
       return [button, select];
     };
-    const group = (name, bare) => el('div', { className: 'group' }, bare ? null : el('b', { textContent: name }), ...BUFFS.filter((b) => b.group === name).flatMap((b) => chip(b)));
-    $('buffs').replaceChildren(...['歌', 'ロール', '風水', '魔法'].map(group));
+    // 段階をまとめて選ぶ欄 (歌の楽器、ロールの出目、風水魔法+)
+    const level = (name) => {
+      if (!LEVELS[name]) return null;
+      const select = el('select', { title: `${name}の段階 (${name}のすべてに効く)` }, ...LEVELS[name].map((label, i) => el('option', { value: i, textContent: label })));
+      select.value = String(state.levels[name] || 0);
+      select.addEventListener('change', () => { state.levels[name] = Number(select.value); changed(); });
+      return select;
+    };
+    const group = (name, bare) => el('div', { className: 'group' }, bare ? null : el('b', { textContent: name }), bare ? null : level(name), ...BUFFS.filter((b) => b.group === name).flatMap((b) => chip(b)));
+    $('buffs').replaceChildren(...['歌', 'ロール', '風水', '魔法'].map((name) => group(name)));
     $('debuffs').replaceChildren(group('弱体', true));
     // アビリティは、基準のセットのジョブ・サポで使えるものだけ並べる
     const source = sourceOf(state.pairs[0].auto);
     const who = source && source.who;
     const usable = BUFFS.filter((b) => b.group === 'アビリティ').map((b) => [b, !who ? null : who.job === b.job ? b.options[0] : who.sub === b.job ? b.sub : null]).filter(([, e]) => e);
+    // 入れたものの効果の合計 (基準のセットのジョブ・サポで)
+    const sum = buffsFor(who);
+    const pct = (v) => Math.round(v * 100) / 100;
+    const parts = [
+      ...[...sum.flat].map(([i, v]) => `${data.stats[i].k} +${pct(v)}`),
+      sum.atk && `攻 +${pct(sum.atk)}%`, sum.ratk !== sum.atk && sum.ratk && `飛攻 +${pct(sum.ratk)}%`,
+      sum.mh && `魔法のヘイスト ${pct(Math.min(43.75, sum.mh + (Number(state.haste.magic) || 0)))}%`, sum.jh && `アビリティのヘイスト ${pct(Math.min(25, sum.jh + (Number(state.haste.ability) || 0)))}%`,
+      sum.def && `敵の防御力 −${pct(sum.def)}%`, sum.eva && `敵の回避 −${sum.eva}`, sum.vel && `狙う時間 −${sum.vel}%`, sum.shots && `発数 +${sum.shots}`,
+    ].filter(Boolean);
+    $('buff-sum').textContent = parts.length ? '効果の合計: ' + parts.join('、') : '';
     $('abilities').replaceChildren(...(usable.length ? [el('div', { className: 'group' }, ...usable.flatMap(([b, e]) => chip(b, e)))] : [el('span', { className: 'field', textContent: who ? 'このジョブ・サポで選べるアビリティはありません' : '' })]));
   }
 
@@ -530,7 +581,7 @@
 
   // 表を作る。columns: 組ごとの計算結果、rows: [{ label, cls, value(c) → 表示, number(c) → 差を出す値, unit }]
   function table(columns, rows, extraHead) {
-    const head = el('tr', null, el('th'), ...columns.map((c, i) => el('th', { className: PAIR_CLASSES[i], textContent: `${PAIR_NAMES[i]}` })), extraHead ? el('th', { style: 'text-align:left;width:34%', textContent: extraHead }) : null);
+    const head = el('tr', null, el('th'), ...columns.map((c, i) => el('th', { className: PAIR_CLASSES[i], textContent: `${PAIR_NAMES[i]}` })), extraHead ? el('th', { className: 'why', textContent: extraHead }) : null);
     const body = rows.filter(Boolean).map((row) => {
       if (row.head) return el('tr', { className: 'head' }, el('td', { colSpan: columns.length + (extraHead ? 2 : 1), textContent: row.head }));
       const base = row.number && columns[0] ? row.number(columns[0]) : null;
@@ -617,6 +668,8 @@
       out.push(autoPanel(calc));
       out.push(stepsPanel(calc, ws));
     }
+    // 枠の幅の目安: 項目名 + 組の数ぶんの列
+    $('out').style.setProperty('--col', `${230 + 200 * state.pairs.length}px`);
     $('out').replaceChildren(...out);
   }
 
@@ -716,7 +769,7 @@
       { label: '攻撃力の %', value: (c) => `+${Math.round(a(c).h.main.pct * 1000) / 10}%`, why: 'スマイト・バーサク・カオスロール・フューリーなど。足し合わせてから 1 回だけ掛ける' },
       { label: '入っている支援・アビリティ', value: (c) => c.c.autoBuilt.buffs.names.join('、') || 'なし', why: 'アビリティは、そのセットのジョブ・サポで使えるものだけが入る' },
       { label: '武器の効果', value: (c) => a(c).fx.notes.join(' / ') || 'なし', why: 'アフターマスの段階は、上の「アフターマス」で選ぶ' });
-    const details = el('details', { className: 'steps', open: true }, el('summary', { textContent: '計算の途中の値' }), table(calc, rows, 'どう出したか'));
+    const details = el('details', { className: 'steps', open: true }, el('summary', { textContent: '計算の途中の値' }), table(calc, rows, '計算のしかた'));
     return el('div', { className: 'panel' }, details);
   }
 
@@ -740,6 +793,7 @@
     $('mode').addEventListener('change', () => { state.mode = $('mode').value; changed(); });
     $('aftermath').addEventListener('change', () => { state.aftermath = Number($('aftermath').value); changed(); });
     $('tp').addEventListener('change', () => { state.tp = Math.min(3000, Math.max(1000, Number($('tp').value) || 1000)); changed(); });
+    $('enemy-range').addEventListener('change', () => { state.range = $('enemy-range').value; changed(); });
     $('enemy').addEventListener('change', () => {
       state.enemy = $('enemy').value;
       const found = ENEMIES.find((e) => e.id === state.enemy);

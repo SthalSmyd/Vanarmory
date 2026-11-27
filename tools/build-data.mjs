@@ -9,6 +9,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseDescription } from './parse.mjs';
 import { buildWs } from './ws.mjs';
+import { buildEnemies } from './enemies.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const CACHE = path.join(ROOT, 'data', 'cache');
@@ -573,7 +574,7 @@ function build() {
     // 攻撃・命中の計算に使う表 (武器の種類、ジョブごとのスキル上限)
     combat: combatTables,
     buffs: JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'buffs.json'), 'utf8')).buffs, // ダメージの画面の支援・弱体・アビリティ
-    enemies: JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'enemies.json'), 'utf8')).enemies, // ダメージの画面の敵の一覧
+    enemies: buildEnemies(ROOT), // ダメージの画面の敵の一覧
     ws: buildWs(ROOT), // ウェポンスキル (段数・修正項目・TP による倍率)
     skills: Object.fromEntries([...skills.values()].filter((s) => s.ja).map((s) => [s.id, s.ja])),
     stats: stats.map((s) => ({

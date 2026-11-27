@@ -4,7 +4,7 @@
   "攻撃力の % の重なり方: https://www.ffxiah.com/forum (有志の検証。% は足し合わせてから 1 回だけ掛ける)",
   "敵の防御ダウンの重なり方: https://www.bg-wiki.com/ffxi/Defense_Down (ディア・ステップ・防御力ダウン・フレイルを足す)"
  ],
- "note": "ダメージの画面で選べる支援・弱体・アビリティ。options は選べる段階。効果は、s = ステータスに足す値、atk = 攻・飛攻の % (ratk は飛攻だけ)、mh = 魔法のヘイスト %、jh = アビリティのヘイスト %、def = 敵の防御力を下げる %、eva = 敵の回避を下げる値、vel = 狙う時間の短縮 %、shots = 1 回の射撃で増える発数の平均。slot が同じ弱体は、大きいほうだけが効く。アビリティの job は使えるジョブの番号で、sub はサポートジョブで使ったときの効果 (無ければサポでは使えない)。",
+ "note": "ダメージの画面で選べる支援・弱体・アビリティ。options は選べる段階。効果は、s = ステータスに足す値、atk = 攻・飛攻の % (ratk は飛攻だけ)、mh = 魔法のヘイスト %、jh = アビリティのヘイスト %、def = 敵の防御力を下げる %、eva = 敵の回避を下げる値、vel = 狙う時間の短縮 %、shots = 1 回の射撃で増える発数の平均。slot が同じ弱体は、大きいほうだけが効く。アビリティの job は使えるジョブの番号で、sub はサポートジョブで使ったときの効果 (無ければサポでは使えない)。 by があるものは、段階を「歌」「ロール」「風水」の欄でまとめて選ぶ (options の並びが、その段階の順)。x が同じものは、どれか 1 つだけ入れられる。",
  "buffs": [
   {
    "id": "minuet5",
@@ -33,7 +33,8 @@
      }
     }
    ],
-   "url": "https://wiki.ffo.jp/html/4263.html"
+   "url": "https://wiki.ffo.jp/html/4263.html",
+   "by": "歌"
   },
   {
    "id": "minuet4",
@@ -62,7 +63,8 @@
      }
     }
    ],
-   "url": "https://wiki.ffo.jp/html/4263.html"
+   "url": "https://wiki.ffo.jp/html/4263.html",
+   "by": "歌"
   },
   {
    "id": "madrigal",
@@ -88,7 +90,8 @@
      }
     }
    ],
-   "url": "https://www.bg-wiki.com/ffxi/Blade_Madrigal"
+   "url": "https://www.bg-wiki.com/ffxi/Blade_Madrigal",
+   "by": "歌"
   },
   {
    "id": "prelude",
@@ -114,7 +117,8 @@
      }
     }
    ],
-   "url": "https://www.bg-wiki.com/ffxi/Archer's_Prelude"
+   "url": "https://www.bg-wiki.com/ffxi/Archer's_Prelude",
+   "by": "歌"
   },
   {
    "id": "march-v",
@@ -132,13 +136,10 @@
     {
      "label": "歌+7",
      "mh": 27.05
-    },
-    {
-     "label": "歌+8",
-     "mh": 28.61
     }
    ],
-   "url": "https://wiki.ffo.jp/html/4797.html"
+   "url": "https://wiki.ffo.jp/html/4797.html",
+   "by": "歌"
   },
   {
    "id": "march-a",
@@ -156,13 +157,10 @@
     {
      "label": "歌+7",
      "mh": 17.87
-    },
-    {
-     "label": "歌+8",
-     "mh": 18.95
     }
    ],
-   "url": "https://wiki.ffo.jp/html/4796.html"
+   "url": "https://wiki.ffo.jp/html/4796.html",
+   "by": "歌"
   },
   {
    "id": "march-h",
@@ -200,7 +198,8 @@
      }
     }
    ],
-   "url": "https://www.bg-wiki.com/ffxi/Honor_March"
+   "url": "https://www.bg-wiki.com/ffxi/Honor_March",
+   "by": "歌"
   },
   {
    "id": "aria",
@@ -226,7 +225,8 @@
      }
     }
    ],
-   "url": "https://wiki.ffo.jp/html/39073.html"
+   "url": "https://wiki.ffo.jp/html/39073.html",
+   "by": "歌"
   },
   {
    "id": "etude-str",
@@ -252,7 +252,8 @@
      }
     }
    ],
-   "url": "https://www.bg-wiki.com/ffxi/Herculean_Etude"
+   "url": "https://www.bg-wiki.com/ffxi/Herculean_Etude",
+   "by": "歌"
   },
   {
    "id": "etude-dex",
@@ -278,7 +279,8 @@
      }
     }
    ],
-   "url": "https://www.bg-wiki.com/ffxi/Uncanny_Etude"
+   "url": "https://www.bg-wiki.com/ffxi/Uncanny_Etude",
+   "by": "歌"
   },
   {
    "id": "chaos",
@@ -303,7 +305,8 @@
     }
    ],
    "url": "https://www.bg-wiki.com/ffxi/Chaos_Roll",
-   "note": "攻・飛攻が % で上がる。暗黒騎士がパーティにいると +9.76%"
+   "note": "攻・飛攻が % で上がる。暗黒騎士がパーティにいると +9.76%",
+   "by": "ロール"
   },
   {
    "id": "samurai",
@@ -335,7 +338,8 @@
      }
     }
    ],
-   "url": "https://www.bg-wiki.com/ffxi/Samurai_Roll"
+   "url": "https://www.bg-wiki.com/ffxi/Samurai_Roll",
+   "by": "ロール"
   },
   {
    "id": "fighter",
@@ -368,7 +372,8 @@
     }
    ],
    "url": "https://www.bg-wiki.com/ffxi/Fighter's_Roll",
-   "note": "出目ごとの値は、用語辞典と BG-wiki で表が違う。BG-wiki の値"
+   "note": "出目ごとの値は、用語辞典と BG-wiki で表が違う。BG-wiki の値",
+   "by": "ロール"
   },
   {
    "id": "hunter",
@@ -404,7 +409,8 @@
      }
     }
    ],
-   "url": "https://www.bg-wiki.com/ffxi/Hunter's_Roll"
+   "url": "https://www.bg-wiki.com/ffxi/Hunter's_Roll",
+   "by": "ロール"
   },
   {
    "id": "rogue",
@@ -437,7 +443,8 @@
     }
    ],
    "url": "https://www.bg-wiki.com/ffxi/Rogue's_Roll",
-   "note": "出目ごとの値は、用語辞典と BG-wiki で表が違う。BG-wiki の値"
+   "note": "出目ごとの値は、用語辞典と BG-wiki で表が違う。BG-wiki の値",
+   "by": "ロール"
   },
   {
    "id": "fury",
@@ -458,7 +465,8 @@
     }
    ],
    "url": "https://www.bg-wiki.com/ffxi/Geo-Fury",
-   "note": "攻・飛攻が % で上がる"
+   "note": "攻・飛攻が % で上がる",
+   "by": "風水"
   },
   {
    "id": "precision",
@@ -487,7 +495,8 @@
      }
     }
    ],
-   "url": "https://www.bg-wiki.com/ffxi/Geo-Precision"
+   "url": "https://www.bg-wiki.com/ffxi/Geo-Precision",
+   "by": "風水"
   },
   {
    "id": "geo-haste",
@@ -507,7 +516,8 @@
      "mh": 40.9
     }
    ],
-   "url": "https://wiki.ffo.jp/html/644.html"
+   "url": "https://wiki.ffo.jp/html/644.html",
+   "by": "風水"
   },
   {
    "id": "geo-str",
@@ -533,7 +543,8 @@
      }
     }
    ],
-   "url": "https://www.bg-wiki.com/ffxi/Geo-STR"
+   "url": "https://www.bg-wiki.com/ffxi/Geo-STR",
+   "by": "風水"
   },
   {
    "id": "geo-dex",
@@ -559,7 +570,8 @@
      }
     }
    ],
-   "url": "https://www.bg-wiki.com/ffxi/Geo-DEX"
+   "url": "https://www.bg-wiki.com/ffxi/Geo-DEX",
+   "by": "風水"
   },
   {
    "id": "haste",
@@ -567,15 +579,25 @@
    "ja": "ヘイスト",
    "options": [
     {
-     "label": "ヘイスト",
+     "label": "",
      "mh": 14.65
-    },
+    }
+   ],
+   "url": "https://wiki.ffo.jp/html/644.html",
+   "x": "haste"
+  },
+  {
+   "id": "haste2",
+   "group": "魔法",
+   "ja": "ヘイストII",
+   "options": [
     {
-     "label": "ヘイストII",
+     "label": "",
      "mh": 29.98
     }
    ],
-   "url": "https://wiki.ffo.jp/html/644.html"
+   "url": "https://wiki.ffo.jp/html/644.html",
+   "x": "haste"
   },
   {
    "id": "gain-str",
@@ -613,20 +635,41 @@
    "ja": "ディア",
    "options": [
     {
-     "label": "ディア",
+     "label": "",
      "def": 10.16
-    },
+    }
+   ],
+   "slot": "dia",
+   "url": "https://www.bg-wiki.com/ffxi/Dia",
+   "x": "dia"
+  },
+  {
+   "id": "dia2",
+   "group": "弱体",
+   "ja": "ディアII",
+   "options": [
     {
-     "label": "ディアII",
+     "label": "",
      "def": 15.23
-    },
+    }
+   ],
+   "slot": "dia",
+   "url": "https://www.bg-wiki.com/ffxi/Dia",
+   "x": "dia"
+  },
+  {
+   "id": "dia3",
+   "group": "弱体",
+   "ja": "ディアIII",
+   "options": [
     {
-     "label": "ディアIII",
+     "label": "",
      "def": 20.31
     }
    ],
    "slot": "dia",
-   "url": "https://www.bg-wiki.com/ffxi/Dia"
+   "url": "https://www.bg-wiki.com/ffxi/Dia",
+   "x": "dia"
   },
   {
    "id": "frailty",
@@ -647,7 +690,8 @@
     }
    ],
    "url": "https://www.bg-wiki.com/ffxi/Geo-Frailty",
-   "slot": "frailty"
+   "slot": "frailty",
+   "by": "風水"
   },
   {
    "id": "angon",
@@ -718,7 +762,8 @@
      "eva": 100
     }
    ],
-   "url": "https://www.bg-wiki.com/ffxi/Geo-Torpor"
+   "url": "https://www.bg-wiki.com/ffxi/Geo-Torpor",
+   "by": "風水"
   },
   {
    "id": "feint",

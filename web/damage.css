@@ -29,7 +29,6 @@
 .cmp { table-layout: fixed; width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
 .cmp th, .cmp td { padding: 4px 8px; border-top: 1px solid var(--line); text-align: right; white-space: nowrap; }
 .cmp th:first-child, .cmp td:first-child { text-align: left; color: var(--muted); font-weight: 400; font-size: 12px; white-space: normal; }
-.cmp th:first-child { width: 22%; }
 .cmp thead th { border-top: 0; font-size: 12px; color: var(--muted); font-weight: 600; }
 .cmp thead th.a { color: var(--accent); }
 .cmp thead th.b { color: var(--fixed); }
@@ -71,3 +70,37 @@ body { padding: 0 0 40px; }
 .buff-groups { display: flex; flex-wrap: wrap; gap: 4px 14px; width: 100%; }
 .buff-groups select { font-size: 12px; padding: 0 2px; }
 .toggle { cursor: pointer; }
+
+/* 表は横いっぱいに広げず、項目名のすぐ右に数字を置く (項目名と数字が離れると、行を目で追いにくい) */
+.out .panel { overflow-x: auto; }
+.cmp { table-layout: auto; width: auto; min-width: min(100%, 420px); }
+.cmp th:first-child, .cmp td:first-child { width: auto; padding-right: 28px; white-space: nowrap; }
+.cmp th:not(:first-child):not(.why), .cmp td:not(:first-child):not(.why) { min-width: 150px; padding-left: 24px; }
+.cmp tbody tr:nth-child(even):not(.head) td { background: color-mix(in srgb, var(--sunken) 55%, transparent); }
+.cmp tbody tr:not(.head):hover td { background: var(--accent-bg); }
+.cmp .bar { margin-left: auto; width: 160px; }
+/* 3 つの表で、列の幅をそろえる */
+.cmp th:first-child, .cmp td:first-child { min-width: 190px; }
+.cmp th:not(:first-child):not(.why), .cmp td:not(:first-child):not(.why) { min-width: 190px; }
+/* 途中の値: 項目名・値・計算のしかた を、決まった幅で並べる */
+.steps .cmp { table-layout: fixed; width: 100%; max-width: 1150px; min-width: 0; }
+.steps .cmp th:first-child { width: 230px; }
+.steps .cmp th:not(:first-child):not(.why) { width: 130px; }
+.steps .cmp th:not(:first-child):not(.why), .steps .cmp td:not(:first-child):not(.why) { min-width: 0; padding-left: 8px; white-space: normal; }
+.steps .cmp th:first-child, .steps .cmp td:first-child { min-width: 0; white-space: normal; padding-right: 8px; }
+.steps .cmp th.why { text-align: left; }
+.steps .cmp .why { padding-left: 24px; }
+.cmp .d { background: none; }
+.out { grid-template-columns: minmax(0, 1fr); }
+
+/* 結果の枠は、横に並べて画面の幅を使う (入りきらなければ折り返す)。途中の値の枠だけ、1 行を使う。
+   枠の幅の目安 (--col) は、比べる組の数から damage-page.js が決める */
+.out { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--col, 430px)), 1fr)); align-items: start; }
+.out > .panel:has(.steps), .out > .problem { grid-column: 1 / -1; }
+.out > .panel > .cmp { width: 100%; }
+.cmp th:first-child, .cmp td:first-child { min-width: 0; }
+.cmp th:not(:first-child):not(.why), .cmp td:not(:first-child):not(.why) { min-width: 0; }
+
+/* 入れた支援などの効果の合計。札の幅を変えないように、効果はここにまとめて出す */
+.buff-sum { font-size: 12px; color: var(--muted); min-height: 18px; }
+.conditions .row:has(#buff-sum) > .body { min-height: 0; }
