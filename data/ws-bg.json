@@ -1,0 +1,3869 @@
+{
+ "source": [
+  "https://www.bg-wiki.com/ffxi/Category:Weapon_Skills (WS ごとのページ)"
+ ],
+ "note": "BG-wiki の WS ごとのページから読み取った値。atk は攻撃力の倍率、crit・acc・def は TP 1000/2000/3000 での値。null は記載なし。",
+ "ws": [
+  {
+   "en": "Combo",
+   "url": "https://www.bg-wiki.com/ffxi/Combo",
+   "hits": 3,
+   "wsc": {
+    "STR": 30,
+    "DEX": 30
+   },
+   "ftp": [
+    1.0,
+    3.75,
+    5.5
+   ],
+   "rep": true,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "fTP複製WS。注記: 所持TP2000以上でTPボーナス増加(詳細なし)",
+   "unverified": []
+  },
+  {
+   "en": "Shoulder Tackle",
+   "url": "https://www.bg-wiki.com/ffxi/Shoulder_Tackle",
+   "hits": null,
+   "wsc": {
+    "VIT": 100
+   },
+   "ftp": [
+    1,
+    1,
+    1
+   ],
+   "rep": true,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "段数の記載なし(説明文は「スタン」のみ)。スタン確率はTPで変わる(値は空欄)",
+   "unverified": [
+    "hits",
+    "stun率"
+   ]
+  },
+  {
+   "en": "One Inch Punch",
+   "url": "https://www.bg-wiki.com/ffxi/One_Inch_Punch",
+   "hits": null,
+   "wsc": {
+    "VIT": 100
+   },
+   "ftp": [
+    1,
+    1,
+    1
+   ],
+   "rep": true,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": [
+    0,
+    25,
+    50
+   ],
+   "note": "防御無視 0/25/50%。ページに「情報が古い」警告あり。段数の記載なし",
+   "unverified": [
+    "def(ページ全体が古い警告)",
+    "hits"
+   ]
+  },
+  {
+   "en": "Backhand Blow",
+   "url": "https://www.bg-wiki.com/ffxi/Backhand_Blow",
+   "hits": null,
+   "wsc": {
+    "STR": 50,
+    "DEX": 50
+   },
+   "ftp": [
+    1,
+    1,
+    1
+   ],
+   "rep": true,
+   "atk": null,
+   "crit": [
+    40,
+    null,
+    null
+   ],
+   "acc": null,
+   "def": null,
+   "note": "クリティカル率: 1000TPのみ+40%、2000/3000は空欄。段数の記載なし",
+   "unverified": [
+    "crit(2000/3000TP空欄)",
+    "hits"
+   ]
+  },
+  {
+   "en": "Raging Fists",
+   "url": "https://www.bg-wiki.com/ffxi/Raging_Fists",
+   "hits": 5,
+   "wsc": {
+    "STR": 30,
+    "DEX": 30
+   },
+   "ftp": [
+    1.0,
+    2.1875,
+    3.75
+   ],
+   "rep": true,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Spinning Attack",
+   "url": "https://www.bg-wiki.com/ffxi/Spinning_Attack",
+   "hits": 2,
+   "wsc": {
+    "STR": 100
+   },
+   "ftp": [
+    1,
+    1,
+    1
+   ],
+   "rep": true,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "範囲WS。半径4y/4y/5y",
+   "unverified": []
+  },
+  {
+   "en": "Howling Fist",
+   "url": "https://www.bg-wiki.com/ffxi/Howling_Fist",
+   "hits": 2,
+   "wsc": {
+    "VIT": 50,
+    "STR": 20
+   },
+   "ftp": [
+    2.05,
+    3.55,
+    5.75
+   ],
+   "rep": true,
+   "atk": [
+    1.5,
+    1.5,
+    1.5
+   ],
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "Attack Modifier 1.5(一定)",
+   "unverified": []
+  },
+  {
+   "en": "Dragon Kick",
+   "url": "https://www.bg-wiki.com/ffxi/Dragon_Kick",
+   "hits": 2,
+   "wsc": {
+    "STR": 50,
+    "VIT": 50
+   },
+   "ftp": [
+    1.7,
+    3,
+    5
+   ],
+   "rep": true,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "3000TPのみ実測(5.0)、1000/2000は記載データなしの旨。フットワーク中はFoot基礎ダメージ",
+   "unverified": []
+  },
+  {
+   "en": "Asuran Fists",
+   "url": "https://www.bg-wiki.com/ffxi/Asuran_Fists",
+   "hits": 8,
+   "wsc": {
+    "STR": 15,
+    "VIT": 15
+   },
+   "ftp": [
+    1.25,
+    1.25,
+    1.25
+   ],
+   "rep": true,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "命中率がTPで変わるが値は空欄",
+   "unverified": [
+    "acc"
+   ]
+  },
+  {
+   "en": "Final Heaven",
+   "url": "https://www.bg-wiki.com/ffxi/Final_Heaven",
+   "hits": null,
+   "wsc": {
+    "VIT": 80
+   },
+   "ftp": [
+    3,
+    3,
+    3
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "段数の記載なし。追加効果はSubtle Blow強化(アフターマス)",
+   "unverified": [
+    "hits"
+   ]
+  },
+  {
+   "en": "Ascetic's Fury",
+   "url": "https://www.bg-wiki.com/ffxi/Ascetic's_Fury",
+   "hits": 2,
+   "wsc": {
+    "STR": 50,
+    "VIT": 50
+   },
+   "ftp": [
+    1,
+    1,
+    1
+   ],
+   "rep": true,
+   "atk": [
+    2.0,
+    2.0,
+    2.0
+   ],
+   "crit": [
+    20,
+    30,
+    50
+   ],
+   "acc": null,
+   "def": null,
+   "note": "Attack Modifier >2.0(2.0超、正確な値は不明)",
+   "unverified": [
+    "atk(>2.0 正確値不明)"
+   ]
+  },
+  {
+   "en": "Stringing Pummel",
+   "url": "https://www.bg-wiki.com/ffxi/Stringing_Pummel",
+   "hits": 6,
+   "wsc": {
+    "STR": 32,
+    "VIT": 32
+   },
+   "ftp": [
+    1,
+    1,
+    1
+   ],
+   "rep": true,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "クリティカル率表が不完全: 1000TP '+<15%'、2000TP 空欄、3000TP '+<45%'(上限の目安のみ)",
+   "unverified": [
+    "crit(表が不完全: <15 / 空欄 / <45)"
+   ]
+  },
+  {
+   "en": "Tornado Kick",
+   "url": "https://www.bg-wiki.com/ffxi/Tornado_Kick",
+   "hits": 3,
+   "wsc": {
+    "STR": 40,
+    "VIT": 40
+   },
+   "ftp": [
+    1.7,
+    2.8,
+    4.5
+   ],
+   "rep": true,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "フットワーク中はFoot基礎ダメージ。Kick Attacks+装備も有効",
+   "unverified": []
+  },
+  {
+   "en": "Victory Smite",
+   "url": "https://www.bg-wiki.com/ffxi/Victory_Smite",
+   "hits": 4,
+   "wsc": {
+    "STR": 80
+   },
+   "ftp": [
+    1.5,
+    1.5,
+    1.5
+   ],
+   "rep": true,
+   "atk": null,
+   "crit": [
+    10,
+    25,
+    45
+   ],
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Shijin Spiral",
+   "url": "https://www.bg-wiki.com/ffxi/Shijin_Spiral",
+   "hits": 5,
+   "wsc": {
+    "DEX": 85
+   },
+   "ftp": [
+    1.5,
+    1.5,
+    1.5
+   ],
+   "rep": true,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "メリットWS DEX73%(1段)〜85%(5段)。参照値のmod値が不正との注記あり",
+   "unverified": [
+    "ftp(メリットmod不正の注記あり)"
+   ]
+  },
+  {
+   "en": "Wasp Sting",
+   "url": "https://www.bg-wiki.com/ffxi/Wasp_Sting",
+   "hits": null,
+   "wsc": {
+    "DEX": 100
+   },
+   "ftp": [
+    1,
+    1,
+    1
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "段数の記載なし。毒",
+   "unverified": [
+    "hits"
+   ]
+  },
+  {
+   "en": "Viper Bite",
+   "url": "https://www.bg-wiki.com/ffxi/Viper_Bite",
+   "hits": null,
+   "wsc": {
+    "DEX": 100
+   },
+   "ftp": [
+    1,
+    1,
+    1
+   ],
+   "rep": false,
+   "atk": [
+    2.0,
+    2.0,
+    2.0
+   ],
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "Attack Modifier 2.0(攻撃力2倍)。段数の記載なし",
+   "unverified": [
+    "hits"
+   ]
+  },
+  {
+   "en": "Shadowstitch",
+   "url": "https://www.bg-wiki.com/ffxi/Shadowstitch",
+   "hits": null,
+   "wsc": {
+    "CHR": 100
+   },
+   "ftp": [
+    1,
+    1,
+    1
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "段数の記載なし。バインド",
+   "unverified": []
+  },
+  {
+   "en": "Dancing Edge",
+   "url": "https://www.bg-wiki.com/ffxi/Dancing_Edge",
+   "hits": 5,
+   "wsc": {
+    "DEX": 40,
+    "CHR": 40
+   },
+   "ftp": [
+    1.1875,
+    1.1875,
+    1.1875
+   ],
+   "rep": true,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "命中率がTPで変わるが値は空欄",
+   "unverified": [
+    "acc"
+   ]
+  },
+  {
+   "en": "Shark Bite",
+   "url": "https://www.bg-wiki.com/ffxi/Shark_Bite",
+   "hits": 2,
+   "wsc": {
+    "DEX": 40,
+    "AGI": 40
+   },
+   "ftp": [
+    4.5,
+    6.8,
+    8.5
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Evisceration",
+   "url": "https://www.bg-wiki.com/ffxi/Evisceration",
+   "hits": 5,
+   "wsc": {
+    "DEX": 50
+   },
+   "ftp": [
+    1.25,
+    1.25,
+    1.25
+   ],
+   "rep": true,
+   "atk": null,
+   "crit": [
+    10,
+    25,
+    50
+   ],
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Mercy Stroke",
+   "url": "https://www.bg-wiki.com/ffxi/Mercy_Stroke",
+   "hits": null,
+   "wsc": {
+    "STR": 80
+   },
+   "ftp": [
+    5,
+    5,
+    5
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "段数の記載なし",
+   "unverified": [
+    "hits"
+   ]
+  },
+  {
+   "en": "Mandalic Stab",
+   "url": "https://www.bg-wiki.com/ffxi/Mandalic_Stab",
+   "hits": null,
+   "wsc": {
+    "DEX": 60
+   },
+   "ftp": [
+    4.0,
+    6.09,
+    8.5
+   ],
+   "rep": false,
+   "atk": [
+    1.75,
+    1.75,
+    1.75
+   ],
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "Attack Modifier 1.75。段数の記載なし",
+   "unverified": [
+    "hits"
+   ]
+  },
+  {
+   "en": "Mordant Rime",
+   "url": "https://www.bg-wiki.com/ffxi/Mordant_Rime",
+   "hits": 2,
+   "wsc": {
+    "CHR": 70,
+    "DEX": 30
+   },
+   "ftp": [
+    5,
+    5,
+    5
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Pyrrhic Kleos",
+   "url": "https://www.bg-wiki.com/ffxi/Pyrrhic_Kleos",
+   "hits": 4,
+   "wsc": {
+    "STR": 40,
+    "DEX": 40
+   },
+   "ftp": [
+    1.75,
+    1.75,
+    1.75
+   ],
+   "rep": true,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Rudra's Storm",
+   "url": "https://www.bg-wiki.com/ffxi/Rudra's_Storm",
+   "hits": null,
+   "wsc": {
+    "DEX": 80
+   },
+   "ftp": [
+    5.0,
+    10.19,
+    13
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "説明文は「quintuple damage」(段数表記なし)",
+   "unverified": [
+    "hits"
+   ]
+  },
+  {
+   "en": "Fast Blade",
+   "url": "https://www.bg-wiki.com/ffxi/Fast_Blade",
+   "hits": 2,
+   "wsc": {
+    "STR": 40,
+    "DEX": 40
+   },
+   "ftp": [
+    1,
+    3,
+    5
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Flat Blade",
+   "url": "https://www.bg-wiki.com/ffxi/Flat_Blade",
+   "hits": null,
+   "wsc": {
+    "STR": 100
+   },
+   "ftp": [
+    1,
+    1,
+    1
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "段数の記載なし。スタン",
+   "unverified": []
+  },
+  {
+   "en": "Circle Blade",
+   "url": "https://www.bg-wiki.com/ffxi/Circle_Blade",
+   "hits": null,
+   "wsc": {
+    "STR": 100
+   },
+   "ftp": [
+    1,
+    1,
+    1
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "段数の記載なし。範囲WS",
+   "unverified": []
+  },
+  {
+   "en": "Vorpal Blade",
+   "url": "https://www.bg-wiki.com/ffxi/Vorpal_Blade",
+   "hits": 4,
+   "wsc": {
+    "STR": 60
+   },
+   "ftp": [
+    1.375,
+    1.375,
+    1.375
+   ],
+   "rep": true,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "クリティカル率はTPで変わるが値は空欄",
+   "unverified": [
+    "crit"
+   ]
+  },
+  {
+   "en": "Swift Blade",
+   "url": "https://www.bg-wiki.com/ffxi/Swift_Blade",
+   "hits": 3,
+   "wsc": {
+    "STR": 50,
+    "MND": 50
+   },
+   "ftp": [
+    1.5,
+    1.5,
+    1.5
+   ],
+   "rep": true,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "命中率がTPで変わるが値は空欄",
+   "unverified": [
+    "acc"
+   ]
+  },
+  {
+   "en": "Savage Blade",
+   "url": "https://www.bg-wiki.com/ffxi/Savage_Blade",
+   "hits": 2,
+   "wsc": {
+    "STR": 50,
+    "MND": 50
+   },
+   "ftp": [
+    4.0,
+    10.25,
+    13.75
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Knights of Round",
+   "url": "https://www.bg-wiki.com/ffxi/Knights_of_Round",
+   "hits": null,
+   "wsc": {
+    "STR": 40,
+    "MND": 40
+   },
+   "ftp": [
+    5,
+    5,
+    5
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "段数の記載なし",
+   "unverified": [
+    "hits"
+   ]
+  },
+  {
+   "en": "Death Blossom",
+   "url": "https://www.bg-wiki.com/ffxi/Death_Blossom",
+   "hits": 3,
+   "wsc": {
+    "MND": 50,
+    "STR": 30
+   },
+   "ftp": [
+    4,
+    4,
+    4
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Expiacion",
+   "url": "https://www.bg-wiki.com/ffxi/Expiacion",
+   "hits": 2,
+   "wsc": {
+    "STR": 30,
+    "DEX": 20,
+    "INT": 30
+   },
+   "ftp": [
+    3.796875,
+    9.390625,
+    12.1875
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Hard Slash",
+   "url": "https://www.bg-wiki.com/ffxi/Hard_Slash",
+   "hits": 1,
+   "wsc": {
+    "STR": 100
+   },
+   "ftp": [
+    1.5,
+    2.5,
+    3.5
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Power Slash",
+   "url": "https://www.bg-wiki.com/ffxi/Power_Slash",
+   "hits": 1,
+   "wsc": {
+    "STR": 60,
+    "VIT": 60
+   },
+   "ftp": [
+    1,
+    1,
+    1
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "クリティカル率は空欄。「加算ではなく固定値かも」(Blade: Rinからの類推)との注記",
+   "unverified": [
+    "crit"
+   ]
+  },
+  {
+   "en": "Shockwave",
+   "url": "https://www.bg-wiki.com/ffxi/Shockwave",
+   "hits": null,
+   "wsc": {
+    "STR": 30,
+    "MND": 30
+   },
+   "ftp": [
+    1,
+    1,
+    1
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "段数の記載なし。範囲WS・スリプル",
+   "unverified": []
+  },
+  {
+   "en": "Crescent Moon",
+   "url": "https://www.bg-wiki.com/ffxi/Crescent_Moon",
+   "hits": 1,
+   "wsc": {
+    "STR": 80
+   },
+   "ftp": [
+    1,
+    2.25,
+    4
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Sickle Moon",
+   "url": "https://www.bg-wiki.com/ffxi/Sickle_Moon",
+   "hits": 2,
+   "wsc": {
+    "STR": 40,
+    "AGI": 40
+   },
+   "ftp": [
+    1.5,
+    3.5,
+    6.5
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Spinning Slash",
+   "url": "https://www.bg-wiki.com/ffxi/Spinning_Slash",
+   "hits": null,
+   "wsc": {
+    "STR": 30,
+    "INT": 30
+   },
+   "ftp": [
+    2.5,
+    5,
+    7.5
+   ],
+   "rep": false,
+   "atk": [
+    1.5,
+    1.5,
+    1.5
+   ],
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "Attack Modifier 1.5。段数の記載なし。2025/4 fTP検証の参照あり",
+   "unverified": [
+    "hits"
+   ]
+  },
+  {
+   "en": "Ground Strike",
+   "url": "https://www.bg-wiki.com/ffxi/Ground_Strike",
+   "hits": 1,
+   "wsc": {
+    "STR": 50,
+    "INT": 50
+   },
+   "ftp": [
+    1.5,
+    3,
+    5
+   ],
+   "rep": false,
+   "atk": [
+    1.75,
+    1.75,
+    1.75
+   ],
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "Attack Modifier 1.75。2025/4 fTP検証の参照あり",
+   "unverified": []
+  },
+  {
+   "en": "Scourge",
+   "url": "https://www.bg-wiki.com/ffxi/Scourge",
+   "hits": null,
+   "wsc": {
+    "STR": 40,
+    "VIT": 40
+   },
+   "ftp": [
+    3,
+    3,
+    3
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "段数の記載なし",
+   "unverified": [
+    "hits"
+   ]
+  },
+  {
+   "en": "Torcleaver",
+   "url": "https://www.bg-wiki.com/ffxi/Torcleaver",
+   "hits": null,
+   "wsc": {
+    "VIT": 80
+   },
+   "ftp": [
+    4.75,
+    7.5,
+    9.75
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "説明文は「triple damage」(段数表記なし)。参照に2026/10の3000TP検証あり",
+   "unverified": [
+    "hits"
+   ]
+  },
+  {
+   "en": "Resolution",
+   "url": "https://www.bg-wiki.com/ffxi/Resolution",
+   "hits": 5,
+   "wsc": {
+    "STR": 85
+   },
+   "ftp": [
+    0.71875,
+    1.5,
+    2.25
+   ],
+   "rep": true,
+   "atk": [
+    0.85,
+    0.85,
+    0.85
+   ],
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "メリットWS STR73%(1段)〜85%(5段)。Attack Modifier 0.85(攻撃力ペナルティ)",
+   "unverified": []
+  },
+  {
+   "en": "Dimidiation",
+   "url": "https://www.bg-wiki.com/ffxi/Dimidiation",
+   "hits": 2,
+   "wsc": {
+    "DEX": 80
+   },
+   "ftp": [
+    2.25,
+    4.5,
+    6.75
+   ],
+   "rep": false,
+   "atk": [
+    1.25,
+    1.25,
+    1.25
+   ],
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "Attack Modifier 1.25",
+   "unverified": []
+  },
+  {
+   "en": "Fimbulvetr",
+   "url": "https://www.bg-wiki.com/ffxi/Fimbulvetr",
+   "hits": null,
+   "wsc": {
+    "STR": 60,
+    "VIT": 60
+   },
+   "ftp": [
+    3.3,
+    6.6,
+    9.9
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "段数の記載なし",
+   "unverified": [
+    "hits"
+   ]
+  },
+  {
+   "en": "Raging Axe",
+   "url": "https://www.bg-wiki.com/ffxi/Raging_Axe",
+   "hits": 2,
+   "wsc": {
+    "STR": 60
+   },
+   "ftp": [
+    1,
+    3,
+    6
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Smash Axe",
+   "url": "https://www.bg-wiki.com/ffxi/Smash_Axe",
+   "hits": null,
+   "wsc": {
+    "STR": 100
+   },
+   "ftp": [
+    1,
+    1,
+    1
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "段数の記載なし。スタン",
+   "unverified": []
+  },
+  {
+   "en": "Gale Axe",
+   "url": "https://www.bg-wiki.com/ffxi/Gale_Axe",
+   "hits": null,
+   "wsc": {
+    "STR": 100
+   },
+   "ftp": [
+    1,
+    1,
+    1
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "段数の記載なし。窒息",
+   "unverified": []
+  },
+  {
+   "en": "Avalanche Axe",
+   "url": "https://www.bg-wiki.com/ffxi/Avalanche_Axe",
+   "hits": 1,
+   "wsc": {
+    "STR": 60
+   },
+   "ftp": [
+    1.5,
+    3.0,
+    5.5
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Spinning Axe",
+   "url": "https://www.bg-wiki.com/ffxi/Spinning_Axe",
+   "hits": 1,
+   "wsc": {
+    "STR": 60
+   },
+   "ftp": [
+    2.0,
+    4.0,
+    6.5
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Rampage",
+   "url": "https://www.bg-wiki.com/ffxi/Rampage",
+   "hits": 5,
+   "wsc": {
+    "STR": 50
+   },
+   "ftp": [
+    1,
+    1,
+    1
+   ],
+   "rep": true,
+   "atk": null,
+   "crit": [
+    0,
+    20,
+    40
+   ],
+   "acc": null,
+   "def": null,
+   "note": "クリティカル率はN<30の試験値",
+   "unverified": []
+  },
+  {
+   "en": "Calamity",
+   "url": "https://www.bg-wiki.com/ffxi/Calamity",
+   "hits": 1,
+   "wsc": {
+    "STR": 50,
+    "VIT": 50
+   },
+   "ftp": [
+    2.5,
+    6.5,
+    10.375
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Mistral Axe",
+   "url": "https://www.bg-wiki.com/ffxi/Mistral_Axe",
+   "hits": 1,
+   "wsc": {
+    "STR": 50
+   },
+   "ftp": [
+    4.0,
+    10.5,
+    13.625
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "遠隔WS(15'から使用可)",
+   "unverified": []
+  },
+  {
+   "en": "Decimation",
+   "url": "https://www.bg-wiki.com/ffxi/Decimation",
+   "hits": 3,
+   "wsc": {
+    "STR": 50
+   },
+   "ftp": [
+    1.75,
+    1.75,
+    1.75
+   ],
+   "rep": true,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "命中率がTPで変わるが値は空欄",
+   "unverified": [
+    "acc"
+   ]
+  },
+  {
+   "en": "Onslaught",
+   "url": "https://www.bg-wiki.com/ffxi/Onslaught",
+   "hits": null,
+   "wsc": {
+    "DEX": 80
+   },
+   "ftp": [
+    4.275,
+    4.275,
+    4.275
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "fTPは '4.275~4.37' と範囲表記(TP別の内訳なし)。命中-30。段数の記載なし",
+   "unverified": [
+    "ftp(範囲表記 4.275~4.37)",
+    "hits"
+   ]
+  },
+  {
+   "en": "Bora Axe",
+   "url": "https://www.bg-wiki.com/ffxi/Bora_Axe",
+   "hits": null,
+   "wsc": {
+    "DEX": 100
+   },
+   "ftp": [
+    4.5,
+    4.5,
+    4.5
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "遠隔WS。段数の記載なし",
+   "unverified": [
+    "hits"
+   ]
+  },
+  {
+   "en": "Ruinator",
+   "url": "https://www.bg-wiki.com/ffxi/Ruinator",
+   "hits": 4,
+   "wsc": {
+    "STR": 85
+   },
+   "ftp": [
+    1.08,
+    1.08,
+    1.08
+   ],
+   "rep": true,
+   "atk": [
+    1.1,
+    1.1,
+    1.1
+   ],
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "メリットWS STR73%(1段)〜85%(5段)。Attack Modifier 1.1(+10%)。命中がTPで変わるが値は空欄",
+   "unverified": [
+    "acc"
+   ]
+  },
+  {
+   "en": "Shield Break",
+   "url": "https://www.bg-wiki.com/ffxi/Shield_Break",
+   "hits": null,
+   "wsc": {
+    "STR": 60,
+    "VIT": 60
+   },
+   "ftp": [
+    1,
+    1,
+    1
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "段数の記載なし",
+   "unverified": []
+  },
+  {
+   "en": "Iron Tempest",
+   "url": "https://www.bg-wiki.com/ffxi/Iron_Tempest",
+   "hits": 1,
+   "wsc": {
+    "STR": 60
+   },
+   "ftp": [
+    1,
+    1,
+    1
+   ],
+   "rep": false,
+   "atk": [
+    1.0,
+    2.0,
+    3.5
+   ],
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "攻撃力 +0%/+100%/+250%",
+   "unverified": []
+  },
+  {
+   "en": "Sturmwind",
+   "url": "https://www.bg-wiki.com/ffxi/Sturmwind",
+   "hits": 2,
+   "wsc": {
+    "STR": 60
+   },
+   "ftp": [
+    1,
+    1,
+    1
+   ],
+   "rep": false,
+   "atk": [
+    1.0,
+    2.0,
+    3.5
+   ],
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "攻撃力 +0%/+100%/+250%。ステルス(Sneak Attack)併用で両段命中",
+   "unverified": []
+  },
+  {
+   "en": "Armor Break",
+   "url": "https://www.bg-wiki.com/ffxi/Armor_Break",
+   "hits": null,
+   "wsc": {
+    "STR": 60,
+    "VIT": 60
+   },
+   "ftp": [
+    1,
+    1,
+    1
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "段数の記載なし。防御ダウン-25%",
+   "unverified": []
+  },
+  {
+   "en": "Keen Edge",
+   "url": "https://www.bg-wiki.com/ffxi/Keen_Edge",
+   "hits": 1,
+   "wsc": {
+    "STR": 100
+   },
+   "ftp": [
+    1,
+    1,
+    1
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "クリティカル率はTPで変わるが値は空欄",
+   "unverified": [
+    "crit"
+   ]
+  },
+  {
+   "en": "Weapon Break",
+   "url": "https://www.bg-wiki.com/ffxi/Weapon_Break",
+   "hits": null,
+   "wsc": {
+    "STR": 60,
+    "VIT": 60
+   },
+   "ftp": [
+    1,
+    1,
+    1
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "段数の記載なし。攻撃ダウン-25%",
+   "unverified": []
+  },
+  {
+   "en": "Raging Rush",
+   "url": "https://www.bg-wiki.com/ffxi/Raging_Rush",
+   "hits": 3,
+   "wsc": {
+    "STR": 50
+   },
+   "ftp": [
+    1,
+    1,
+    1
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": [
+    15,
+    30,
+    50
+   ],
+   "acc": null,
+   "def": null,
+   "note": "ページに「情報が古い」警告あり",
+   "unverified": [
+    "crit(ページが古い警告)"
+   ]
+  },
+  {
+   "en": "Full Break",
+   "url": "https://www.bg-wiki.com/ffxi/Full_Break",
+   "hits": null,
+   "wsc": {
+    "STR": 50,
+    "VIT": 50
+   },
+   "ftp": [
+    1,
+    1,
+    1
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "段数の記載なし",
+   "unverified": []
+  },
+  {
+   "en": "Steel Cyclone",
+   "url": "https://www.bg-wiki.com/ffxi/Steel_Cyclone",
+   "hits": 1,
+   "wsc": {
+    "STR": 60,
+    "VIT": 60
+   },
+   "ftp": [
+    1.5,
+    2.5,
+    4.0
+   ],
+   "rep": false,
+   "atk": [
+    1.5,
+    1.5,
+    1.5
+   ],
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "Attack Modifier 1.5",
+   "unverified": []
+  },
+  {
+   "en": "Metatron Torment",
+   "url": "https://www.bg-wiki.com/ffxi/Metatron_Torment",
+   "hits": 1,
+   "wsc": {
+    "STR": 80
+   },
+   "ftp": [
+    2.75,
+    2.75,
+    2.75
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "1段(見た目は2段)",
+   "unverified": []
+  },
+  {
+   "en": "King's Justice",
+   "url": "https://www.bg-wiki.com/ffxi/King's_Justice",
+   "hits": 3,
+   "wsc": {
+    "STR": 50
+   },
+   "ftp": [
+    1,
+    3,
+    5
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Fell Cleave",
+   "url": "https://www.bg-wiki.com/ffxi/Fell_Cleave",
+   "hits": null,
+   "wsc": {
+    "STR": 60
+   },
+   "ftp": [
+    2.75,
+    2.75,
+    2.75
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "範囲WS。段数の記載なし",
+   "unverified": [
+    "hits"
+   ]
+  },
+  {
+   "en": "Ukko's Fury",
+   "url": "https://www.bg-wiki.com/ffxi/Ukko's_Fury",
+   "hits": 2,
+   "wsc": {
+    "STR": 80
+   },
+   "ftp": [
+    2,
+    2,
+    2
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": [
+    20,
+    35,
+    65
+   ],
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Upheaval",
+   "url": "https://www.bg-wiki.com/ffxi/Upheaval",
+   "hits": 4,
+   "wsc": {
+    "VIT": 85
+   },
+   "ftp": [
+    1,
+    3.5,
+    6.5
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "メリットWS VIT73%(1段)〜85%(5段)",
+   "unverified": []
+  },
+  {
+   "en": "Disaster",
+   "url": "https://www.bg-wiki.com/ffxi/Disaster",
+   "hits": null,
+   "wsc": {
+    "STR": 60,
+    "VIT": 60
+   },
+   "ftp": [
+    3.05,
+    null,
+    9.15
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "2000TPのfTPが空欄。段数の記載なし",
+   "unverified": [
+    "ftp(2000TP空欄)",
+    "hits"
+   ]
+  },
+  {
+   "en": "Exenterator",
+   "url": "https://www.bg-wiki.com/ffxi/Exenterator",
+   "hits": 4,
+   "wsc": {
+    "AGI": 85
+   },
+   "ftp": [
+    1.1875,
+    1.1875,
+    1.1875
+   ],
+   "rep": true,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "メリットWS AGI73%(1段)〜85%(5段)。命中ダウン-20(効果時間90/180/270秒)",
+   "unverified": []
+  },
+  {
+   "en": "Chant du Cygne",
+   "url": "https://www.bg-wiki.com/ffxi/Chant_du_Cygne",
+   "hits": 3,
+   "wsc": {
+    "DEX": 80
+   },
+   "ftp": [
+    1.6328125,
+    1.6328125,
+    1.6328125
+   ],
+   "rep": true,
+   "atk": null,
+   "crit": [
+    15,
+    25,
+    40
+   ],
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Requiescat",
+   "url": "https://www.bg-wiki.com/ffxi/Requiescat",
+   "hits": 5,
+   "wsc": {
+    "MND": 85
+   },
+   "ftp": [
+    1,
+    1,
+    1
+   ],
+   "rep": true,
+   "atk": [
+    0.8,
+    0.9,
+    1.0
+   ],
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "メリットWS MND73%(1段)〜85%(5段)。攻撃力ペナルティ -20%/-10%/-0%。無属性(魔法でも物理でもない)ダメージだが通常の物理ダメージ式を使う。2024/6の検証でも3000TPのペナルティは0%",
+   "unverified": []
+  },
+  {
+   "en": "Fast Blade II",
+   "url": "https://www.bg-wiki.com/ffxi/Fast_Blade_II",
+   "hits": 2,
+   "wsc": {
+    "DEX": 80
+   },
+   "ftp": [
+    1.8,
+    3.5,
+    5.0
+   ],
+   "rep": true,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "JP Wikiの値を転記したとの注記あり",
+   "unverified": []
+  },
+  {
+   "en": "Maru Kala",
+   "url": "https://www.bg-wiki.com/ffxi/Maru_Kala",
+   "hits": 2,
+   "wsc": {
+    "STR": 41.75,
+    "DEX": 41.75
+   },
+   "ftp": [
+    3.128,
+    7.273,
+    11.414
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Ruthless Stroke",
+   "url": "https://www.bg-wiki.com/ffxi/Ruthless_Stroke",
+   "hits": 4,
+   "wsc": {
+    "DEX": 25,
+    "AGI": 25
+   },
+   "ftp": [
+    5.375,
+    14,
+    23
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "2024/3の更新でDEX/VIT補正から修正されたとの注記",
+   "unverified": []
+  },
+  {
+   "en": "Slice",
+   "url": "https://www.bg-wiki.com/ffxi/Slice",
+   "hits": null,
+   "wsc": {
+    "STR": 100
+   },
+   "ftp": [
+    1,
+    2.5,
+    4.125
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Nightmare Scythe",
+   "url": "https://www.bg-wiki.com/ffxi/Nightmare_Scythe",
+   "hits": null,
+   "wsc": {
+    "STR": 60,
+    "MND": 60
+   },
+   "ftp": [
+    1,
+    1,
+    1
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "追加効果 (暗闇) のみ。",
+   "unverified": []
+  },
+  {
+   "en": "Spinning Scythe",
+   "url": "https://www.bg-wiki.com/ffxi/Spinning_Scythe",
+   "hits": null,
+   "wsc": {
+    "STR": 100
+   },
+   "ftp": [
+    1,
+    1,
+    1
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "範囲攻撃。",
+   "unverified": []
+  },
+  {
+   "en": "Vorpal Scythe",
+   "url": "https://www.bg-wiki.com/ffxi/Vorpal_Scythe",
+   "hits": 1,
+   "wsc": {
+    "STR": 100
+   },
+   "ftp": [
+    1,
+    1,
+    1
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "クリティカル率の加算は TP で変わるが値は未記載 (要確認)",
+   "unverified": [
+    "Critical hit rate"
+   ]
+  },
+  {
+   "en": "Guillotine",
+   "url": "https://www.bg-wiki.com/ffxi/Guillotine",
+   "hits": 4,
+   "wsc": {
+    "STR": 30,
+    "MND": 50
+   },
+   "ftp": [
+    0.875,
+    0.875,
+    0.875
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Cross Reaper",
+   "url": "https://www.bg-wiki.com/ffxi/Cross_Reaper",
+   "hits": 2,
+   "wsc": {
+    "STR": 60,
+    "MND": 60
+   },
+   "ftp": [
+    2,
+    4,
+    7
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Spiral Hell",
+   "url": "https://www.bg-wiki.com/ffxi/Spiral_Hell",
+   "hits": 1,
+   "wsc": {
+    "STR": 50,
+    "INT": 50
+   },
+   "ftp": [
+    1.375,
+    2.75,
+    4.75
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Catastrophe",
+   "url": "https://www.bg-wiki.com/ffxi/Catastrophe",
+   "hits": null,
+   "wsc": {
+    "STR": 40,
+    "INT": 40
+   },
+   "ftp": [
+    2.75,
+    2.75,
+    2.75
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "HP吸収。ユーティセマ貫通、サードアイは貫通しない。",
+   "unverified": []
+  },
+  {
+   "en": "Insurgency",
+   "url": "https://www.bg-wiki.com/ffxi/Insurgency",
+   "hits": 4,
+   "wsc": {
+    "STR": 20,
+    "INT": 20
+   },
+   "ftp": [
+    0.5,
+    3.25,
+    6
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Quietus",
+   "url": "https://www.bg-wiki.com/ffxi/Quietus",
+   "hits": null,
+   "wsc": {
+    "STR": 60,
+    "MND": 60
+   },
+   "ftp": [
+    3,
+    3,
+    3
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": [
+    12.5,
+    37.5,
+    62.5
+   ],
+   "note": "説明文は「3倍ダメージ」。fTP 3.0 が 1 回分。防御無視は 12.5/37.5/62.5%。",
+   "unverified": []
+  },
+  {
+   "en": "Entropy",
+   "url": "https://www.bg-wiki.com/ffxi/Entropy",
+   "hits": 4,
+   "wsc": {
+    "INT": 85
+   },
+   "ftp": [
+    0.75,
+    1.25,
+    2.0
+   ],
+   "rep": true,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "WSC は 73~85%。fTP は全段に掛かる。ダメージの一部を MP に変換。",
+   "unverified": []
+  },
+  {
+   "en": "Origin",
+   "url": "https://www.bg-wiki.com/ffxi/Origin",
+   "hits": null,
+   "wsc": {
+    "STR": 60,
+    "INT": 60
+   },
+   "ftp": [
+    3,
+    6,
+    9
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "HP/MP 吸収 (アンデッドには効かない)。",
+   "unverified": []
+  },
+  {
+   "en": "Double Thrust",
+   "url": "https://www.bg-wiki.com/ffxi/Double_Thrust",
+   "hits": 2,
+   "wsc": {
+    "STR": 30,
+    "DEX": 30
+   },
+   "ftp": [
+    1,
+    2.5,
+    4
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Leg Sweep",
+   "url": "https://www.bg-wiki.com/ffxi/Leg_Sweep",
+   "hits": null,
+   "wsc": {
+    "STR": 100
+   },
+   "ftp": [
+    1,
+    1,
+    1
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "スタンの追加効果のみ。",
+   "unverified": [
+    "Effect accuracy"
+   ]
+  },
+  {
+   "en": "Penta Thrust",
+   "url": "https://www.bg-wiki.com/ffxi/Penta_Thrust",
+   "hits": 5,
+   "wsc": {
+    "STR": 20,
+    "DEX": 20
+   },
+   "ftp": [
+    1,
+    1,
+    1
+   ],
+   "rep": false,
+   "atk": [
+    0.875,
+    0.875,
+    0.875
+   ],
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "攻撃力補正 (Attack Modifier) 0.875 で一定。命中は TP で変わるが値は未記載 (要確認)。",
+   "unverified": [
+    "Accuracy"
+   ]
+  },
+  {
+   "en": "Vorpal Thrust",
+   "url": "https://www.bg-wiki.com/ffxi/Vorpal_Thrust",
+   "hits": null,
+   "wsc": {
+    "STR": 50,
+    "AGI": 50
+   },
+   "ftp": [
+    1,
+    1,
+    1
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "説明文は「クリティカルダメージ」。クリティカル率の加算は未記載 (要確認)。",
+   "unverified": [
+    "Critical Hit Rate"
+   ]
+  },
+  {
+   "en": "Skewer",
+   "url": "https://www.bg-wiki.com/ffxi/Skewer",
+   "hits": 3,
+   "wsc": {
+    "STR": 50
+   },
+   "ftp": [
+    1,
+    1,
+    1
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "クリティカル率の加算は未記載 (要確認)。",
+   "unverified": [
+    "Critical Hit Rate"
+   ]
+  },
+  {
+   "en": "Wheeling Thrust",
+   "url": "https://www.bg-wiki.com/ffxi/Wheeling_Thrust",
+   "hits": null,
+   "wsc": {
+    "STR": 80
+   },
+   "ftp": [
+    1.75,
+    1.75,
+    1.75
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": [
+    50,
+    62.5,
+    75
+   ],
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Impulse Drive",
+   "url": "https://www.bg-wiki.com/ffxi/Impulse_Drive",
+   "hits": 2,
+   "wsc": {
+    "STR": 100
+   },
+   "ftp": [
+    1,
+    3,
+    5.5
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "カジャランスの強化は全段に乗る。",
+   "unverified": []
+  },
+  {
+   "en": "Drakesbane",
+   "url": "https://www.bg-wiki.com/ffxi/Drakesbane",
+   "hits": 4,
+   "wsc": {
+    "STR": 50
+   },
+   "ftp": [
+    1,
+    1,
+    1
+   ],
+   "rep": false,
+   "atk": [
+    0.8125,
+    0.8125,
+    0.8125
+   ],
+   "crit": [
+    10,
+    25,
+    40
+   ],
+   "acc": null,
+   "def": null,
+   "note": "攻撃力補正 0.8125 で一定。",
+   "unverified": []
+  },
+  {
+   "en": "Sonic Thrust",
+   "url": "https://www.bg-wiki.com/ffxi/Sonic_Thrust",
+   "hits": null,
+   "wsc": {
+    "STR": 40,
+    "DEX": 40
+   },
+   "ftp": [
+    3,
+    3.7,
+    4.5
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "範囲攻撃。",
+   "unverified": []
+  },
+  {
+   "en": "Camlann's Torment",
+   "url": "https://www.bg-wiki.com/ffxi/Camlann's_Torment",
+   "hits": null,
+   "wsc": {
+    "STR": 60,
+    "VIT": 60
+   },
+   "ftp": [
+    3,
+    3,
+    3
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": [
+    12.5,
+    37.5,
+    62.5
+   ],
+   "note": "説明文は「3倍ダメージ」。",
+   "unverified": []
+  },
+  {
+   "en": "Stardiver",
+   "url": "https://www.bg-wiki.com/ffxi/Stardiver",
+   "hits": 4,
+   "wsc": {
+    "STR": 85
+   },
+   "ftp": [
+    0.75,
+    1.25,
+    1.75
+   ],
+   "rep": true,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "WSC は 73~85%。",
+   "unverified": []
+  },
+  {
+   "en": "Diarmuid",
+   "url": "https://www.bg-wiki.com/ffxi/Diarmuid",
+   "hits": 2,
+   "wsc": {
+    "STR": 55,
+    "VIT": 55
+   },
+   "ftp": [
+    2.17,
+    5.36,
+    8.55
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": [
+    "Prime Aftermath の効果"
+   ]
+  },
+  {
+   "en": "Blade: Rin",
+   "url": "https://www.bg-wiki.com/ffxi/Blade:_Rin",
+   "hits": null,
+   "wsc": {
+    "STR": 60,
+    "DEX": 60
+   },
+   "ftp": [
+    1,
+    1,
+    1
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": [
+    25,
+    null,
+    null
+   ],
+   "acc": null,
+   "def": null,
+   "note": "1000TP のクリティカル率は ~25% と記載、2000/3000TP は未記載。dDEX・装備のクリティカル率は考慮されない。",
+   "unverified": [
+    "Critical Hit Rate"
+   ]
+  },
+  {
+   "en": "Blade: Retsu",
+   "url": "https://www.bg-wiki.com/ffxi/Blade:_Retsu",
+   "hits": 2,
+   "wsc": {
+    "STR": 20,
+    "DEX": 60
+   },
+   "ftp": [
+    1,
+    1,
+    1
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Blade: Teki",
+   "url": "https://www.bg-wiki.com/ffxi/Blade:_Teki",
+   "hits": null,
+   "wsc": {
+    "STR": 30,
+    "INT": 30
+   },
+   "ftp": [
+    0.5,
+    1.375,
+    2.25
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "fTP は +0.5/+1.375/+2.25 と加算表記 (水属性の魔法ダメージ分を物理に足す形)。",
+   "unverified": []
+  },
+  {
+   "en": "Blade: To",
+   "url": "https://www.bg-wiki.com/ffxi/Blade:_To",
+   "hits": null,
+   "wsc": {
+    "STR": 40,
+    "INT": 40
+   },
+   "ftp": [
+    0.5,
+    1.5,
+    2.5
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "fTP は +0.5/+1.5/+2.5 と加算表記。",
+   "unverified": []
+  },
+  {
+   "en": "Blade: Chi",
+   "url": "https://www.bg-wiki.com/ffxi/Blade:_Chi",
+   "hits": 2,
+   "wsc": {
+    "STR": 30,
+    "INT": 30
+   },
+   "ftp": [
+    0.5,
+    1.375,
+    2.25
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "fTP は +0.5/+1.375/+2.25 と加算表記。",
+   "unverified": []
+  },
+  {
+   "en": "Blade: Jin",
+   "url": "https://www.bg-wiki.com/ffxi/Blade:_Jin",
+   "hits": 3,
+   "wsc": {
+    "STR": 30,
+    "DEX": 30
+   },
+   "ftp": [
+    1.375,
+    1.375,
+    1.375
+   ],
+   "rep": true,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "クリティカル率の加算は未記載 (要確認)。",
+   "unverified": [
+    "Critical Hit Rate"
+   ]
+  },
+  {
+   "en": "Blade: Ten",
+   "url": "https://www.bg-wiki.com/ffxi/Blade:_Ten",
+   "hits": null,
+   "wsc": {
+    "STR": 30,
+    "DEX": 30
+   },
+   "ftp": [
+    4.5,
+    11.5,
+    15.5
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Blade: Ku",
+   "url": "https://www.bg-wiki.com/ffxi/Blade:_Ku",
+   "hits": 5,
+   "wsc": {
+    "STR": 30,
+    "DEX": 30
+   },
+   "ftp": [
+    1.25,
+    1.25,
+    1.25
+   ],
+   "rep": true,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "命中は TP で変わるが値は未記載。カジャカタナ等の強化は全段に乗る。",
+   "unverified": [
+    "Accuracy"
+   ]
+  },
+  {
+   "en": "Blade: Metsu",
+   "url": "https://www.bg-wiki.com/ffxi/Blade:_Metsu",
+   "hits": null,
+   "wsc": {
+    "DEX": 80
+   },
+   "ftp": [
+    5,
+    5,
+    5
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "アフターマス (サブトルブロー) のみ。",
+   "unverified": []
+  },
+  {
+   "en": "Blade: Kamu",
+   "url": "https://www.bg-wiki.com/ffxi/Blade:_Kamu",
+   "hits": null,
+   "wsc": {
+    "STR": 60,
+    "INT": 60
+   },
+   "ftp": [
+    1,
+    1,
+    1
+   ],
+   "rep": false,
+   "atk": [
+    3.0,
+    3.0,
+    3.0
+   ],
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "攻撃力補正は約 3.0 ('~3.0 (see notes)')。JP Wiki では攻撃+125%・防御-25% の補正とのこと。",
+   "unverified": []
+  },
+  {
+   "en": "Blade: Hi",
+   "url": "https://www.bg-wiki.com/ffxi/Blade:_Hi",
+   "hits": null,
+   "wsc": {
+    "AGI": 80
+   },
+   "ftp": [
+    5,
+    5,
+    5
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": [
+    15,
+    20,
+    25
+   ],
+   "acc": null,
+   "def": null,
+   "note": "説明文は「4倍ダメージ」。",
+   "unverified": []
+  },
+  {
+   "en": "Blade: Shun",
+   "url": "https://www.bg-wiki.com/ffxi/Blade:_Shun",
+   "hits": 5,
+   "wsc": {
+    "DEX": 85
+   },
+   "ftp": [
+    1,
+    1,
+    1
+   ],
+   "rep": true,
+   "atk": [
+    1,
+    2,
+    3
+   ],
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "WSC は 73~85%。攻撃力 +0%/+100%/+200%。",
+   "unverified": []
+  },
+  {
+   "en": "Zesho Meppo",
+   "url": "https://www.bg-wiki.com/ffxi/Zesho_Meppo",
+   "hits": 4,
+   "wsc": {
+    "DEX": 25,
+    "AGI": 25
+   },
+   "ftp": [
+    4,
+    null,
+    18.715
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "fTP の 2000TP が未記載。",
+   "unverified": [
+    "fTP"
+   ]
+  },
+  {
+   "en": "Tachi: Enpi",
+   "url": "https://www.bg-wiki.com/ffxi/Tachi:_Enpi",
+   "hits": 2,
+   "wsc": {
+    "STR": 60
+   },
+   "ftp": [
+    1,
+    2,
+    4
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Tachi: Hobaku",
+   "url": "https://www.bg-wiki.com/ffxi/Tachi:_Hobaku",
+   "hits": null,
+   "wsc": {
+    "STR": 60
+   },
+   "ftp": [
+    1,
+    1,
+    1
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": [
+    "Effect accuracy"
+   ]
+  },
+  {
+   "en": "Tachi: Goten",
+   "url": "https://www.bg-wiki.com/ffxi/Tachi:_Goten",
+   "hits": null,
+   "wsc": {
+    "STR": 60
+   },
+   "ftp": [
+    0.5,
+    1.5,
+    2.5
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "fTP は +0.5/+1.5/+2.5 と加算表記。",
+   "unverified": []
+  },
+  {
+   "en": "Tachi: Kagero",
+   "url": "https://www.bg-wiki.com/ffxi/Tachi:_Kagero",
+   "hits": null,
+   "wsc": {
+    "STR": 75
+   },
+   "ftp": [
+    0.5,
+    1.5,
+    2.5
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "fTP は +0.5/+1.5/+2.5 と加算表記。",
+   "unverified": []
+  },
+  {
+   "en": "Tachi: Jinpu",
+   "url": "https://www.bg-wiki.com/ffxi/Tachi:_Jinpu",
+   "hits": 2,
+   "wsc": {
+    "STR": 30
+   },
+   "ftp": [
+    0.5,
+    1.5,
+    2.5
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "fTP は +0.5/+1.5/+2.5 と加算表記。",
+   "unverified": []
+  },
+  {
+   "en": "Tachi: Koki",
+   "url": "https://www.bg-wiki.com/ffxi/Tachi:_Koki",
+   "hits": null,
+   "wsc": {
+    "STR": 50,
+    "MND": 30
+   },
+   "ftp": [
+    0.5,
+    1.5,
+    2.5
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "fTP は +0.5/+1.5/+2.5 と加算表記。",
+   "unverified": []
+  },
+  {
+   "en": "Tachi: Yukikaze",
+   "url": "https://www.bg-wiki.com/ffxi/Tachi:_Yukikaze",
+   "hits": null,
+   "wsc": {
+    "STR": 75
+   },
+   "ftp": [
+    1.5625,
+    2.6875,
+    4.125
+   ],
+   "rep": false,
+   "atk": [
+    1.5,
+    1.5,
+    1.5
+   ],
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Tachi: Gekko",
+   "url": "https://www.bg-wiki.com/ffxi/Tachi:_Gekko",
+   "hits": null,
+   "wsc": {
+    "STR": 75
+   },
+   "ftp": [
+    1.5625,
+    2.6875,
+    4.125
+   ],
+   "rep": false,
+   "atk": [
+    2.0,
+    2.0,
+    2.0
+   ],
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Tachi: Kasha",
+   "url": "https://www.bg-wiki.com/ffxi/Tachi:_Kasha",
+   "hits": null,
+   "wsc": {
+    "STR": 75
+   },
+   "ftp": [
+    1.5625,
+    2.6875,
+    4.125
+   ],
+   "rep": false,
+   "atk": [
+    1.65,
+    1.65,
+    1.65
+   ],
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Tachi: Kaiten",
+   "url": "https://www.bg-wiki.com/ffxi/Tachi:_Kaiten",
+   "hits": null,
+   "wsc": {
+    "STR": 80
+   },
+   "ftp": [
+    3,
+    3,
+    3
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Tachi: Rana",
+   "url": "https://www.bg-wiki.com/ffxi/Tachi:_Rana",
+   "hits": 3,
+   "wsc": {
+    "STR": 50
+   },
+   "ftp": [
+    1,
+    1,
+    1
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "命中は TP で変わるが値は未記載 (+ のみ)。",
+   "unverified": [
+    "Accuracy"
+   ]
+  },
+  {
+   "en": "Tachi: Ageha",
+   "url": "https://www.bg-wiki.com/ffxi/Tachi:_Ageha",
+   "hits": null,
+   "wsc": {
+    "STR": 40,
+    "CHR": 60
+   },
+   "ftp": [
+    2.625,
+    2.625,
+    2.625
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "防御ダウンの追加効果のみ。",
+   "unverified": [
+    "Effect accuracy"
+   ]
+  },
+  {
+   "en": "Tachi: Fudo",
+   "url": "https://www.bg-wiki.com/ffxi/Tachi:_Fudo",
+   "hits": null,
+   "wsc": {
+    "STR": 80
+   },
+   "ftp": [
+    3.75,
+    5.75,
+    8
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "説明文は「2倍ダメージ」。Gekko/Kasha/Yukikaze と違い攻撃力/防御力比の補正が無い。",
+   "unverified": []
+  },
+  {
+   "en": "Tachi: Shoha",
+   "url": "https://www.bg-wiki.com/ffxi/Tachi:_Shoha",
+   "hits": 2,
+   "wsc": {
+    "STR": 85
+   },
+   "ftp": [
+    1.375,
+    3.25,
+    4.625
+   ],
+   "rep": false,
+   "atk": [
+    1.375,
+    1.375,
+    1.375
+   ],
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "WSC は 73~85%。攻撃力補正 '1.35~1.45 (1.375)'。",
+   "unverified": []
+  },
+  {
+   "en": "Tachi: Mumei",
+   "url": "https://www.bg-wiki.com/ffxi/Tachi:_Mumei",
+   "hits": null,
+   "wsc": {
+    "STR": 50,
+    "DEX": 50
+   },
+   "ftp": [
+    3.66,
+    7.33,
+    11
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": [
+    "Prime Aftermath の効果"
+   ]
+  },
+  {
+   "en": "Brainshaker",
+   "url": "https://www.bg-wiki.com/ffxi/Brainshaker",
+   "hits": null,
+   "wsc": {
+    "STR": 100
+   },
+   "ftp": [
+    1,
+    1,
+    1
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": [
+    "Effect accuracy"
+   ]
+  },
+  {
+   "en": "Skullbreaker",
+   "url": "https://www.bg-wiki.com/ffxi/Skullbreaker",
+   "hits": null,
+   "wsc": {
+    "STR": 100
+   },
+   "ftp": [
+    1,
+    1,
+    1
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": [
+    "Effect accuracy"
+   ]
+  },
+  {
+   "en": "True Strike",
+   "url": "https://www.bg-wiki.com/ffxi/True_Strike",
+   "hits": null,
+   "wsc": {
+    "STR": 100
+   },
+   "ftp": [
+    1,
+    1,
+    1
+   ],
+   "rep": false,
+   "atk": [
+    2.0,
+    2.0,
+    2.0
+   ],
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "クリティカル率 100%。命中は 1000TP で大きなペナルティ (数値なし)。",
+   "unverified": [
+    "Accuracy"
+   ]
+  },
+  {
+   "en": "Judgment",
+   "url": "https://www.bg-wiki.com/ffxi/Judgment",
+   "hits": null,
+   "wsc": {
+    "STR": 50,
+    "MND": 50
+   },
+   "ftp": [
+    3.5,
+    8.75,
+    12.0
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Hexa Strike",
+   "url": "https://www.bg-wiki.com/ffxi/Hexa_Strike",
+   "hits": 6,
+   "wsc": {
+    "STR": 30,
+    "MND": 30
+   },
+   "ftp": [
+    1.125,
+    1.125,
+    1.125
+   ],
+   "rep": true,
+   "atk": null,
+   "crit": [
+    10,
+    null,
+    25
+   ],
+   "acc": null,
+   "def": null,
+   "note": "クリティカル率は 1000TP +10%、2000TP 未記載、3000TP +≥25%。",
+   "unverified": [
+    "Critical Hit Rate"
+   ]
+  },
+  {
+   "en": "Black Halo",
+   "url": "https://www.bg-wiki.com/ffxi/Black_Halo",
+   "hits": 2,
+   "wsc": {
+    "STR": 30,
+    "MND": 70
+   },
+   "ftp": [
+    3,
+    7.25,
+    9.75
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "カジャロッド等の強化は全段に乗る。",
+   "unverified": []
+  },
+  {
+   "en": "Randgrith",
+   "url": "https://www.bg-wiki.com/ffxi/Randgrith",
+   "hits": null,
+   "wsc": {
+    "STR": 40,
+    "MND": 40
+   },
+   "ftp": [
+    4.25,
+    4.25,
+    4.25
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Mystic Boon",
+   "url": "https://www.bg-wiki.com/ffxi/Mystic_Boon",
+   "hits": null,
+   "wsc": {
+    "STR": 30,
+    "MND": 70
+   },
+   "ftp": [
+    2.5,
+    4,
+    7
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Realmrazer",
+   "url": "https://www.bg-wiki.com/ffxi/Realmrazer",
+   "hits": 7,
+   "wsc": {
+    "MND": 85
+   },
+   "ftp": [
+    0.9,
+    0.9,
+    0.9
+   ],
+   "rep": true,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "WSC は 73~85%。命中は TP で変わるが値は未記載。",
+   "unverified": [
+    "Accuracy"
+   ]
+  },
+  {
+   "en": "Exudation",
+   "url": "https://www.bg-wiki.com/ffxi/Exudation",
+   "hits": null,
+   "wsc": {
+    "INT": 50,
+    "MND": 50
+   },
+   "ftp": [
+    2.8,
+    2.8,
+    2.8
+   ],
+   "rep": false,
+   "atk": [
+    1.5,
+    3.625,
+    4.75
+   ],
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "攻撃力 +50%/+262.5%/+375%。",
+   "unverified": []
+  },
+  {
+   "en": "Heavy Swing",
+   "url": "https://www.bg-wiki.com/ffxi/Heavy_Swing",
+   "hits": null,
+   "wsc": {
+    "STR": 100
+   },
+   "ftp": [
+    1,
+    2,
+    3
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Shell Crusher",
+   "url": "https://www.bg-wiki.com/ffxi/Shell_Crusher",
+   "hits": null,
+   "wsc": {
+    "STR": 100
+   },
+   "ftp": [
+    1,
+    1,
+    1
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Full Swing",
+   "url": "https://www.bg-wiki.com/ffxi/Full_Swing",
+   "hits": null,
+   "wsc": {
+    "STR": 50
+   },
+   "ftp": [
+    1,
+    3,
+    9
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Spirit Taker",
+   "url": "https://www.bg-wiki.com/ffxi/Spirit_Taker",
+   "hits": null,
+   "wsc": {
+    "INT": 50,
+    "MND": 50
+   },
+   "ftp": [
+    1,
+    2,
+    3
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "ダメージを MP に変換。",
+   "unverified": []
+  },
+  {
+   "en": "Retribution",
+   "url": "https://www.bg-wiki.com/ffxi/Retribution",
+   "hits": null,
+   "wsc": {
+    "STR": 30,
+    "MND": 50
+   },
+   "ftp": [
+    2,
+    3,
+    5
+   ],
+   "rep": false,
+   "atk": [
+    1.5,
+    1.5,
+    1.5
+   ],
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Gate of Tartarus",
+   "url": "https://www.bg-wiki.com/ffxi/Gate_of_Tartarus",
+   "hits": null,
+   "wsc": {
+    "INT": 80
+   },
+   "ftp": [
+    3,
+    3,
+    3
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Shattersoul",
+   "url": "https://www.bg-wiki.com/ffxi/Shattersoul",
+   "hits": 3,
+   "wsc": {
+    "INT": 85
+   },
+   "ftp": [
+    1.375,
+    1.375,
+    1.375
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "WSC は 73~85%。説明文は三連 (threefold)。fTP の全段適用 (replicating) の記載なし。",
+   "unverified": []
+  },
+  {
+   "en": "Flaming Arrow",
+   "url": "https://www.bg-wiki.com/ffxi/Flaming_Arrow",
+   "hits": null,
+   "wsc": {
+    "STR": 20,
+    "AGI": 50
+   },
+   "ftp": [
+    0.5,
+    1.55,
+    2.1
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Piercing Arrow",
+   "url": "https://www.bg-wiki.com/ffxi/Piercing_Arrow",
+   "hits": null,
+   "wsc": {
+    "STR": 20,
+    "AGI": 50
+   },
+   "ftp": [
+    1,
+    1,
+    1
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": [
+    0,
+    35,
+    50
+   ],
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Dulling Arrow",
+   "url": "https://www.bg-wiki.com/ffxi/Dulling_Arrow",
+   "hits": null,
+   "wsc": {
+    "STR": 20,
+    "AGI": 50
+   },
+   "ftp": [
+    1,
+    1,
+    1
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "クリティカル率の加算は未記載 (要確認)。",
+   "unverified": [
+    "Critical Hit Rate"
+   ]
+  },
+  {
+   "en": "Sidewinder",
+   "url": "https://www.bg-wiki.com/ffxi/Sidewinder",
+   "hits": null,
+   "wsc": {
+    "STR": 20,
+    "AGI": 50
+   },
+   "ftp": [
+    5,
+    5,
+    5
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": [
+    -50,
+    0,
+    null
+   ],
+   "def": null,
+   "note": "遠隔命中 -50/±0/(3000TP 未記載)。",
+   "unverified": [
+    "Ranged Accuracy"
+   ]
+  },
+  {
+   "en": "Blast Arrow",
+   "url": "https://www.bg-wiki.com/ffxi/Blast_Arrow",
+   "hits": null,
+   "wsc": {
+    "STR": 20,
+    "AGI": 50
+   },
+   "ftp": [
+    2,
+    2,
+    2
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "遠隔命中は TP で変わるが値は未記載。",
+   "unverified": [
+    "Ranged Accuracy"
+   ]
+  },
+  {
+   "en": "Arching Arrow",
+   "url": "https://www.bg-wiki.com/ffxi/Arching_Arrow",
+   "hits": null,
+   "wsc": {
+    "STR": 20,
+    "AGI": 50
+   },
+   "ftp": [
+    3.5,
+    3.5,
+    3.5
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "クリティカル率の加算は未記載 (要確認)。",
+   "unverified": [
+    "Critical Hit Rate"
+   ]
+  },
+  {
+   "en": "Empyreal Arrow",
+   "url": "https://www.bg-wiki.com/ffxi/Empyreal_Arrow",
+   "hits": null,
+   "wsc": {
+    "STR": 20,
+    "AGI": 50
+   },
+   "ftp": [
+    1.5,
+    2.5,
+    5
+   ],
+   "rep": false,
+   "atk": [
+    2.0,
+    2.0,
+    2.0
+   ],
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Namas Arrow",
+   "url": "https://www.bg-wiki.com/ffxi/Namas_Arrow",
+   "hits": null,
+   "wsc": {
+    "STR": 40,
+    "AGI": 40
+   },
+   "ftp": [
+    2.75,
+    2.75,
+    2.75
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Refulgent Arrow",
+   "url": "https://www.bg-wiki.com/ffxi/Refulgent_Arrow",
+   "hits": null,
+   "wsc": {
+    "STR": 60
+   },
+   "ftp": [
+    3,
+    4.25,
+    7
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "説明文は二連 (twofold) だが、BG-wiki の注記では 1 段のみに見える。",
+   "unverified": []
+  },
+  {
+   "en": "Jishnu's Radiance",
+   "url": "https://www.bg-wiki.com/ffxi/Jishnu's_Radiance",
+   "hits": 3,
+   "wsc": {
+    "DEX": 80
+   },
+   "ftp": [
+    1.75,
+    1.75,
+    1.75
+   ],
+   "rep": true,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "説明文は三連 (弾があれば)。クリティカル率の加算は未記載 (要確認)。",
+   "unverified": [
+    "Critical Hit Rate"
+   ]
+  },
+  {
+   "en": "Apex Arrow",
+   "url": "https://www.bg-wiki.com/ffxi/Apex_Arrow",
+   "hits": null,
+   "wsc": {
+    "AGI": 85
+   },
+   "ftp": [
+    3,
+    3,
+    3
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": [
+    15,
+    null,
+    null
+   ],
+   "note": "WSC は 73~85%。防御無視は 1000TP 15%、2000/3000TP 未記載。説明文は 4x だが 1 段に見える (BG 注記)。",
+   "unverified": [
+    "Defense ignored"
+   ]
+  },
+  {
+   "en": "Sarv",
+   "url": "https://www.bg-wiki.com/ffxi/Sarv",
+   "hits": null,
+   "wsc": {
+    "STR": 65,
+    "AGI": 65
+   },
+   "ftp": [
+    2.75,
+    5.5,
+    8.25
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": [
+    "Prime Aftermath の効果"
+   ]
+  },
+  {
+   "en": "Hot Shot",
+   "url": "https://www.bg-wiki.com/ffxi/Hot_Shot",
+   "hits": null,
+   "wsc": {
+    "AGI": 70
+   },
+   "ftp": [
+    0.5,
+    1.55,
+    2.1
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Split Shot",
+   "url": "https://www.bg-wiki.com/ffxi/Split_Shot",
+   "hits": null,
+   "wsc": {
+    "AGI": 70
+   },
+   "ftp": [
+    1,
+    1,
+    1
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": [
+    0,
+    35,
+    50
+   ],
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Sniper Shot",
+   "url": "https://www.bg-wiki.com/ffxi/Sniper_Shot",
+   "hits": null,
+   "wsc": {
+    "AGI": 70
+   },
+   "ftp": [
+    1,
+    1,
+    1
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "クリティカル率の加算は未記載 (要確認)。",
+   "unverified": [
+    "Critical Hit Rate"
+   ]
+  },
+  {
+   "en": "Slug Shot",
+   "url": "https://www.bg-wiki.com/ffxi/Slug_Shot",
+   "hits": null,
+   "wsc": {
+    "AGI": 70
+   },
+   "ftp": [
+    5,
+    5,
+    5
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": [
+    -50,
+    0,
+    null
+   ],
+   "def": null,
+   "note": "遠隔命中 -50/±0/(3000TP 未記載)。",
+   "unverified": [
+    "Ranged Accuracy"
+   ]
+  },
+  {
+   "en": "Blast Shot",
+   "url": "https://www.bg-wiki.com/ffxi/Blast_Shot",
+   "hits": null,
+   "wsc": {
+    "AGI": 70
+   },
+   "ftp": [
+    2,
+    2,
+    2
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "遠隔命中は TP で変わるが値は未記載。",
+   "unverified": [
+    "Ranged Accuracy"
+   ]
+  },
+  {
+   "en": "Heavy Shot",
+   "url": "https://www.bg-wiki.com/ffxi/Heavy_Shot",
+   "hits": null,
+   "wsc": {
+    "AGI": 70
+   },
+   "ftp": [
+    3.5,
+    3.5,
+    3.5
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "クリティカル率の加算は未記載 (要確認)。",
+   "unverified": [
+    "Critical Hit Rate"
+   ]
+  },
+  {
+   "en": "Detonator",
+   "url": "https://www.bg-wiki.com/ffxi/Detonator",
+   "hits": null,
+   "wsc": {
+    "AGI": 70
+   },
+   "ftp": [
+    1.5,
+    2.5,
+    5
+   ],
+   "rep": false,
+   "atk": [
+    2.0,
+    2.0,
+    2.0
+   ],
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Coronach",
+   "url": "https://www.bg-wiki.com/ffxi/Coronach",
+   "hits": null,
+   "wsc": {
+    "DEX": 40,
+    "AGI": 40
+   },
+   "ftp": [
+    3,
+    3,
+    3
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": []
+  },
+  {
+   "en": "Numbing Shot",
+   "url": "https://www.bg-wiki.com/ffxi/Numbing_Shot",
+   "hits": null,
+   "wsc": {
+    "AGI": 80
+   },
+   "ftp": [
+    3,
+    3,
+    3
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "説明文は「3倍ダメージ」。",
+   "unverified": []
+  },
+  {
+   "en": "Last Stand",
+   "url": "https://www.bg-wiki.com/ffxi/Last_Stand",
+   "hits": 2,
+   "wsc": {
+    "AGI": 85
+   },
+   "ftp": [
+    2,
+    3,
+    4
+   ],
+   "rep": true,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "WSC は 73~85%。説明文は二連 (弾があれば)。",
+   "unverified": []
+  },
+  {
+   "en": "Terminus",
+   "url": "https://www.bg-wiki.com/ffxi/Terminus",
+   "hits": null,
+   "wsc": {
+    "DEX": 70,
+    "AGI": 70
+   },
+   "ftp": [
+    2.5,
+    5,
+    7.5
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "",
+   "unverified": [
+    "Prime Aftermath の効果"
+   ]
+  },
+  {
+   "en": "Oshala",
+   "url": "https://www.bg-wiki.com/ffxi/Oshala",
+   "hits": null,
+   "wsc": {
+    "INT": 45,
+    "MND": 45
+   },
+   "ftp": [
+    3.95,
+    7.89,
+    11.84
+   ],
+   "rep": false,
+   "atk": null,
+   "crit": null,
+   "acc": null,
+   "def": null,
+   "note": "WSC と fTP は BG-wiki 自身が要確認としている。",
+   "unverified": [
+    "Stat Modifier",
+    "fTP"
+   ]
+  }
+ ]
+}

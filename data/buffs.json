@@ -1,0 +1,1022 @@
+{
+ "source": [
+  "FF11用語辞典と BG-wiki の、それぞれの歌・ロール・魔法・アビリティのページ (項目ごとの url)",
+  "攻撃力の % の重なり方: https://www.ffxiah.com/forum (有志の検証。% は足し合わせてから 1 回だけ掛ける)",
+  "敵の防御ダウンの重なり方: https://www.bg-wiki.com/ffxi/Defense_Down (ディア・ステップ・防御力ダウン・フレイルを足す)"
+ ],
+ "note": "ダメージの画面で選べる支援・弱体・アビリティ。options は選べる段階。効果は、s = ステータスに足す値、atk = 攻・飛攻の % (ratk は飛攻だけ)、mh = 魔法のヘイスト %、jh = アビリティのヘイスト %、def = 敵の防御力を下げる %、eva = 敵の回避を下げる値、vel = 狙う時間の短縮 %、shots = 1 回の射撃で増える発数の平均。slot が同じ弱体は、大きいほうだけが効く。アビリティの job は使えるジョブの番号で、sub はサポートジョブで使ったときの効果 (無ければサポでは使えない)。",
+ "buffs": [
+  {
+   "id": "minuet5",
+   "group": "歌",
+   "ja": "猛者のメヌエットV",
+   "options": [
+    {
+     "label": "歌+0",
+     "s": {
+      "攻": 124,
+      "飛攻": 124
+     }
+    },
+    {
+     "label": "歌+4",
+     "s": {
+      "攻": 173,
+      "飛攻": 173
+     }
+    },
+    {
+     "label": "歌+7",
+     "s": {
+      "攻": 210,
+      "飛攻": 210
+     }
+    }
+   ],
+   "url": "https://wiki.ffo.jp/html/4263.html"
+  },
+  {
+   "id": "minuet4",
+   "group": "歌",
+   "ja": "猛者のメヌエットIV",
+   "options": [
+    {
+     "label": "歌+0",
+     "s": {
+      "攻": 112,
+      "飛攻": 112
+     }
+    },
+    {
+     "label": "歌+4",
+     "s": {
+      "攻": 156,
+      "飛攻": 156
+     }
+    },
+    {
+     "label": "歌+7",
+     "s": {
+      "攻": 190,
+      "飛攻": 190
+     }
+    }
+   ],
+   "url": "https://wiki.ffo.jp/html/4263.html"
+  },
+  {
+   "id": "madrigal",
+   "group": "歌",
+   "ja": "剣豪のマドリガル",
+   "options": [
+    {
+     "label": "歌+0",
+     "s": {
+      "命中": 60
+     }
+    },
+    {
+     "label": "歌+4",
+     "s": {
+      "命中": 84
+     }
+    },
+    {
+     "label": "歌+7",
+     "s": {
+      "命中": 102
+     }
+    }
+   ],
+   "url": "https://www.bg-wiki.com/ffxi/Blade_Madrigal"
+  },
+  {
+   "id": "prelude",
+   "group": "歌",
+   "ja": "弓師のプレリュード",
+   "options": [
+    {
+     "label": "歌+0",
+     "s": {
+      "飛命": 60
+     }
+    },
+    {
+     "label": "歌+4",
+     "s": {
+      "飛命": 84
+     }
+    },
+    {
+     "label": "歌+7",
+     "s": {
+      "飛命": 102
+     }
+    }
+   ],
+   "url": "https://www.bg-wiki.com/ffxi/Archer's_Prelude"
+  },
+  {
+   "id": "march-v",
+   "group": "歌",
+   "ja": "栄光の凱旋マーチ",
+   "options": [
+    {
+     "label": "歌+0",
+     "mh": 15.92
+    },
+    {
+     "label": "歌+4",
+     "mh": 22.27
+    },
+    {
+     "label": "歌+7",
+     "mh": 27.05
+    },
+    {
+     "label": "歌+8",
+     "mh": 28.61
+    }
+   ],
+   "url": "https://wiki.ffo.jp/html/4797.html"
+  },
+  {
+   "id": "march-a",
+   "group": "歌",
+   "ja": "無敵の進撃マーチ",
+   "options": [
+    {
+     "label": "歌+0",
+     "mh": 10.55
+    },
+    {
+     "label": "歌+4",
+     "mh": 14.75
+    },
+    {
+     "label": "歌+7",
+     "mh": 17.87
+    },
+    {
+     "label": "歌+8",
+     "mh": 18.95
+    }
+   ],
+   "url": "https://wiki.ffo.jp/html/4796.html"
+  },
+  {
+   "id": "march-h",
+   "group": "歌",
+   "ja": "栄典の戴冠マーチ",
+   "options": [
+    {
+     "label": "歌+0",
+     "mh": 12.3,
+     "s": {
+      "攻": 168,
+      "飛攻": 168,
+      "命中": 42,
+      "飛命": 42
+     }
+    },
+    {
+     "label": "歌+3",
+     "mh": 15.82,
+     "s": {
+      "攻": 216,
+      "飛攻": 216,
+      "命中": 54,
+      "飛命": 54
+     }
+    },
+    {
+     "label": "歌+4",
+     "mh": 16.99,
+     "s": {
+      "攻": 232,
+      "飛攻": 232,
+      "命中": 58,
+      "飛命": 58
+     }
+    }
+   ],
+   "url": "https://www.bg-wiki.com/ffxi/Honor_March"
+  },
+  {
+   "id": "aria",
+   "group": "歌",
+   "ja": "冷静と情熱のアリア",
+   "options": [
+    {
+     "label": "歌+0",
+     "s": {
+      "物理ダメージ上限": 13
+     }
+    },
+    {
+     "label": "歌+4",
+     "s": {
+      "物理ダメージ上限": 18.2
+     }
+    },
+    {
+     "label": "歌+7",
+     "s": {
+      "物理ダメージ上限": 22.1
+     }
+    }
+   ],
+   "url": "https://wiki.ffo.jp/html/39073.html"
+  },
+  {
+   "id": "etude-str",
+   "group": "歌",
+   "ja": "怪力のエチュード",
+   "options": [
+    {
+     "label": "+0",
+     "s": {
+      "STR": 15
+     }
+    },
+    {
+     "label": "+4",
+     "s": {
+      "STR": 19
+     }
+    },
+    {
+     "label": "+7",
+     "s": {
+      "STR": 22
+     }
+    }
+   ],
+   "url": "https://www.bg-wiki.com/ffxi/Herculean_Etude"
+  },
+  {
+   "id": "etude-dex",
+   "group": "歌",
+   "ja": "妙技のエチュード",
+   "options": [
+    {
+     "label": "+0",
+     "s": {
+      "DEX": 15
+     }
+    },
+    {
+     "label": "+4",
+     "s": {
+      "DEX": 19
+     }
+    },
+    {
+     "label": "+7",
+     "s": {
+      "DEX": 22
+     }
+    }
+   ],
+   "url": "https://www.bg-wiki.com/ffxi/Uncanny_Etude"
+  },
+  {
+   "id": "chaos",
+   "group": "ロール",
+   "ja": "カオスロール",
+   "options": [
+    {
+     "label": "ラッキー (4)",
+     "atk": 25
+    },
+    {
+     "label": "11",
+     "atk": 31.25
+    },
+    {
+     "label": "ラッキー + 暗黒騎士",
+     "atk": 34.76
+    },
+    {
+     "label": "11 + 暗黒騎士",
+     "atk": 41.01
+    }
+   ],
+   "url": "https://www.bg-wiki.com/ffxi/Chaos_Roll",
+   "note": "攻・飛攻が % で上がる。暗黒騎士がパーティにいると +9.76%"
+  },
+  {
+   "id": "samurai",
+   "group": "ロール",
+   "ja": "サムライロール",
+   "options": [
+    {
+     "label": "ラッキー (2)",
+     "s": {
+      "ストアTP": 32
+     }
+    },
+    {
+     "label": "11",
+     "s": {
+      "ストアTP": 40
+     }
+    },
+    {
+     "label": "ラッキー + 侍",
+     "s": {
+      "ストアTP": 42
+     }
+    },
+    {
+     "label": "11 + 侍",
+     "s": {
+      "ストアTP": 50
+     }
+    }
+   ],
+   "url": "https://www.bg-wiki.com/ffxi/Samurai_Roll"
+  },
+  {
+   "id": "fighter",
+   "group": "ロール",
+   "ja": "ファイターズロール",
+   "options": [
+    {
+     "label": "ラッキー (5)",
+     "s": {
+      "ダブルアタック": 10
+     }
+    },
+    {
+     "label": "11",
+     "s": {
+      "ダブルアタック": 15
+     }
+    },
+    {
+     "label": "ラッキー + 戦士",
+     "s": {
+      "ダブルアタック": 15
+     }
+    },
+    {
+     "label": "11 + 戦士",
+     "s": {
+      "ダブルアタック": 20
+     }
+    }
+   ],
+   "url": "https://www.bg-wiki.com/ffxi/Fighter's_Roll",
+   "note": "出目ごとの値は、用語辞典と BG-wiki で表が違う。BG-wiki の値"
+  },
+  {
+   "id": "hunter",
+   "group": "ロール",
+   "ja": "ハンターズロール",
+   "options": [
+    {
+     "label": "ラッキー (4)",
+     "s": {
+      "命中": 40,
+      "飛命": 40
+     }
+    },
+    {
+     "label": "11",
+     "s": {
+      "命中": 50,
+      "飛命": 50
+     }
+    },
+    {
+     "label": "ラッキー + 狩人",
+     "s": {
+      "命中": 55,
+      "飛命": 55
+     }
+    },
+    {
+     "label": "11 + 狩人",
+     "s": {
+      "命中": 65,
+      "飛命": 65
+     }
+    }
+   ],
+   "url": "https://www.bg-wiki.com/ffxi/Hunter's_Roll"
+  },
+  {
+   "id": "rogue",
+   "group": "ロール",
+   "ja": "ローグズロール",
+   "options": [
+    {
+     "label": "ラッキー (5)",
+     "s": {
+      "クリティカルヒット": 10
+     }
+    },
+    {
+     "label": "11",
+     "s": {
+      "クリティカルヒット": 14
+     }
+    },
+    {
+     "label": "ラッキー + シーフ",
+     "s": {
+      "クリティカルヒット": 15
+     }
+    },
+    {
+     "label": "11 + シーフ",
+     "s": {
+      "クリティカルヒット": 19
+     }
+    }
+   ],
+   "url": "https://www.bg-wiki.com/ffxi/Rogue's_Roll",
+   "note": "出目ごとの値は、用語辞典と BG-wiki で表が違う。BG-wiki の値"
+  },
+  {
+   "id": "fury",
+   "group": "風水",
+   "ja": "フューリー",
+   "options": [
+    {
+     "label": "風水魔法+0",
+     "atk": 34.7
+    },
+    {
+     "label": "風水魔法+5",
+     "atk": 48.2
+    },
+    {
+     "label": "風水魔法+10 (イドリス)",
+     "atk": 61.7
+    }
+   ],
+   "url": "https://www.bg-wiki.com/ffxi/Geo-Fury",
+   "note": "攻・飛攻が % で上がる"
+  },
+  {
+   "id": "precision",
+   "group": "風水",
+   "ja": "プレサイス",
+   "options": [
+    {
+     "label": "風水魔法+0",
+     "s": {
+      "命中": 50,
+      "飛命": 50
+     }
+    },
+    {
+     "label": "風水魔法+5",
+     "s": {
+      "命中": 75,
+      "飛命": 75
+     }
+    },
+    {
+     "label": "風水魔法+10 (イドリス)",
+     "s": {
+      "命中": 100,
+      "飛命": 100
+     }
+    }
+   ],
+   "url": "https://www.bg-wiki.com/ffxi/Geo-Precision"
+  },
+  {
+   "id": "geo-haste",
+   "group": "風水",
+   "ja": "ヘイスト (風水)",
+   "options": [
+    {
+     "label": "風水魔法+0",
+     "mh": 29.9
+    },
+    {
+     "label": "風水魔法+5",
+     "mh": 35.4
+    },
+    {
+     "label": "風水魔法+10 (イドリス)",
+     "mh": 40.9
+    }
+   ],
+   "url": "https://wiki.ffo.jp/html/644.html"
+  },
+  {
+   "id": "geo-str",
+   "group": "風水",
+   "ja": "STR (風水)",
+   "options": [
+    {
+     "label": "風水魔法+0",
+     "s": {
+      "STR": 25
+     }
+    },
+    {
+     "label": "風水魔法+5",
+     "s": {
+      "STR": 35
+     }
+    },
+    {
+     "label": "風水魔法+10 (イドリス)",
+     "s": {
+      "STR": 45
+     }
+    }
+   ],
+   "url": "https://www.bg-wiki.com/ffxi/Geo-STR"
+  },
+  {
+   "id": "geo-dex",
+   "group": "風水",
+   "ja": "DEX (風水)",
+   "options": [
+    {
+     "label": "風水魔法+0",
+     "s": {
+      "DEX": 25
+     }
+    },
+    {
+     "label": "風水魔法+5",
+     "s": {
+      "DEX": 35
+     }
+    },
+    {
+     "label": "風水魔法+10 (イドリス)",
+     "s": {
+      "DEX": 45
+     }
+    }
+   ],
+   "url": "https://www.bg-wiki.com/ffxi/Geo-DEX"
+  },
+  {
+   "id": "haste",
+   "group": "魔法",
+   "ja": "ヘイスト",
+   "options": [
+    {
+     "label": "ヘイスト",
+     "mh": 14.65
+    },
+    {
+     "label": "ヘイストII",
+     "mh": 29.98
+    }
+   ],
+   "url": "https://wiki.ffo.jp/html/644.html"
+  },
+  {
+   "id": "gain-str",
+   "group": "魔法",
+   "ja": "ゲインSTR",
+   "options": [
+    {
+     "label": "強化魔法スキル 500",
+     "s": {
+      "STR": 25
+     }
+    }
+   ],
+   "url": "https://wiki.ffo.jp/html/21286.html",
+   "note": "掛けた本人だけ"
+  },
+  {
+   "id": "gain-dex",
+   "group": "魔法",
+   "ja": "ゲインDEX",
+   "options": [
+    {
+     "label": "強化魔法スキル 500",
+     "s": {
+      "DEX": 25
+     }
+    }
+   ],
+   "url": "https://wiki.ffo.jp/html/21286.html",
+   "note": "掛けた本人だけ"
+  },
+  {
+   "id": "dia",
+   "group": "弱体",
+   "ja": "ディア",
+   "options": [
+    {
+     "label": "ディア",
+     "def": 10.16
+    },
+    {
+     "label": "ディアII",
+     "def": 15.23
+    },
+    {
+     "label": "ディアIII",
+     "def": 20.31
+    }
+   ],
+   "slot": "dia",
+   "url": "https://www.bg-wiki.com/ffxi/Dia"
+  },
+  {
+   "id": "frailty",
+   "group": "弱体",
+   "ja": "フレイル",
+   "options": [
+    {
+     "label": "風水魔法+0",
+     "def": 14.8
+    },
+    {
+     "label": "風水魔法+5",
+     "def": 28.3
+    },
+    {
+     "label": "風水魔法+10 (イドリス)",
+     "def": 41.8
+    }
+   ],
+   "url": "https://www.bg-wiki.com/ffxi/Geo-Frailty",
+   "slot": "frailty"
+  },
+  {
+   "id": "angon",
+   "group": "弱体",
+   "ja": "アンゴン",
+   "options": [
+    {
+     "label": "-20%",
+     "def": 20
+    },
+    {
+     "label": "-25% (装備)",
+     "def": 25
+    }
+   ],
+   "slot": "down",
+   "url": "https://wiki.ffo.jp/html/1900.html"
+  },
+  {
+   "id": "armor-break",
+   "group": "弱体",
+   "ja": "アーマーブレイク",
+   "options": [
+    {
+     "label": "-25%",
+     "def": 25
+    }
+   ],
+   "slot": "down",
+   "url": "https://wiki.ffo.jp/html/861.html"
+  },
+  {
+   "id": "box-step",
+   "group": "弱体",
+   "ja": "ボックスステップ",
+   "options": [
+    {
+     "label": "1 段階",
+     "def": 5
+    },
+    {
+     "label": "5 段階",
+     "def": 13
+    },
+    {
+     "label": "10 段階",
+     "def": 23
+    }
+   ],
+   "slot": "step",
+   "url": "https://www.bg-wiki.com/ffxi/Box_Step"
+  },
+  {
+   "id": "torpor",
+   "group": "弱体",
+   "ja": "トーパー",
+   "options": [
+    {
+     "label": "風水魔法+0",
+     "eva": 50
+    },
+    {
+     "label": "風水魔法+5",
+     "eva": 75
+    },
+    {
+     "label": "風水魔法+10 (イドリス)",
+     "eva": 100
+    }
+   ],
+   "url": "https://www.bg-wiki.com/ffxi/Geo-Torpor"
+  },
+  {
+   "id": "feint",
+   "group": "弱体",
+   "ja": "フェイント",
+   "options": [
+    {
+     "label": "掛けた直後 (-150)",
+     "eva": 150
+    },
+    {
+     "label": "切れる前 (-50)",
+     "eva": 50
+    }
+   ],
+   "url": "https://www.bg-wiki.com/ffxi/Feint"
+  },
+  {
+   "id": "berserk",
+   "group": "アビリティ",
+   "ja": "バーサク",
+   "job": 1,
+   "options": [
+    {
+     "label": "",
+     "atk": 34.77
+    }
+   ],
+   "sub": {
+    "atk": 25
+   },
+   "url": "https://www.bg-wiki.com/ffxi/Berserk"
+  },
+  {
+   "id": "warcry",
+   "group": "アビリティ",
+   "ja": "ウォークライ",
+   "job": 1,
+   "options": [
+    {
+     "label": "",
+     "atk": 11.33
+    }
+   ],
+   "sub": {
+    "atk": 6.64
+   },
+   "url": "https://www.bg-wiki.com/ffxi/Warcry",
+   "note": "サポの値は、サポ Lv49 のとき"
+  },
+  {
+   "id": "aggressor",
+   "group": "アビリティ",
+   "ja": "アグレッサー",
+   "job": 1,
+   "options": [
+    {
+     "label": "",
+     "s": {
+      "命中": 25
+     }
+    }
+   ],
+   "sub": {
+    "s": {
+     "命中": 25
+    }
+   },
+   "url": "https://www.bg-wiki.com/ffxi/Aggressor"
+  },
+  {
+   "id": "blood-rage",
+   "group": "アビリティ",
+   "ja": "ブラッドレイジ",
+   "job": 1,
+   "options": [
+    {
+     "label": "",
+     "s": {
+      "クリティカルヒット": 20
+     }
+    }
+   ],
+   "sub": null,
+   "url": "https://www.bg-wiki.com/ffxi/Blood_Rage"
+  },
+  {
+   "id": "mighty",
+   "group": "アビリティ",
+   "ja": "マイティストライク",
+   "job": 1,
+   "options": [
+    {
+     "label": "",
+     "s": {
+      "クリティカルヒット": 100
+     }
+    }
+   ],
+   "sub": null,
+   "url": "https://wiki.ffo.jp/html/922.html"
+  },
+  {
+   "id": "last-resort",
+   "group": "アビリティ",
+   "ja": "ラストリゾート",
+   "job": 8,
+   "options": [
+    {
+     "label": "",
+     "atk": 34.77,
+     "jh": 25
+    }
+   ],
+   "sub": {
+    "atk": 25,
+    "jh": 15
+   },
+   "url": "https://www.bg-wiki.com/ffxi/Last_Resort",
+   "note": "ヘイストはデスペレートブローの分で、両手武器のときだけ。メインはメリポを 5 段階まで上げた値"
+  },
+  {
+   "id": "hasso",
+   "group": "アビリティ",
+   "ja": "八双",
+   "job": 12,
+   "options": [
+    {
+     "label": "",
+     "s": {
+      "STR": 14,
+      "命中": 10
+     },
+     "jh": 10
+    }
+   ],
+   "sub": {
+    "s": {
+     "STR": 7,
+     "命中": 10
+    },
+    "jh": 10
+   },
+   "url": "https://wiki.ffo.jp/html/3250.html",
+   "note": "両手武器のときだけ"
+  },
+  {
+   "id": "impetus",
+   "group": "アビリティ",
+   "ja": "インピタス",
+   "job": 2,
+   "options": [
+    {
+     "label": "",
+     "s": {
+      "攻": 100,
+      "クリティカルヒット": 50
+     }
+    }
+   ],
+   "sub": null,
+   "url": "https://www.bg-wiki.com/ffxi/Impetus",
+   "note": "50 回当て続けて、効果が最大になったときの値"
+  },
+  {
+   "id": "focus",
+   "group": "アビリティ",
+   "ja": "フォーカス",
+   "job": 2,
+   "options": [
+    {
+     "label": "",
+     "s": {
+      "命中": 100
+     }
+    }
+   ],
+   "sub": null,
+   "url": "https://www.bg-wiki.com/ffxi/Focus"
+  },
+  {
+   "id": "saber",
+   "group": "アビリティ",
+   "ja": "セイバーダンス",
+   "job": 19,
+   "options": [
+    {
+     "label": "",
+     "s": {
+      "ダブルアタック": 20
+     }
+    }
+   ],
+   "sub": null,
+   "url": "https://www.bg-wiki.com/ffxi/Saber_Dance",
+   "note": "使った直後は 50% で、30 秒かけて 20% まで下がる。20% の値"
+  },
+  {
+   "id": "samba",
+   "group": "アビリティ",
+   "ja": "ヘイストサンバ",
+   "job": 19,
+   "options": [
+    {
+     "label": "",
+     "jh": 9.86
+    }
+   ],
+   "sub": {
+    "jh": 4.98
+   },
+   "url": "https://www.bg-wiki.com/ffxi/Haste_Samba",
+   "note": "メインはメリポを 5 段階まで上げた値"
+  },
+  {
+   "id": "surge",
+   "group": "アビリティ",
+   "ja": "竜剣",
+   "job": 14,
+   "options": [
+    {
+     "label": "",
+     "atk": 25,
+     "jh": 24.41,
+     "s": {
+      "STR": 20,
+      "命中": 50
+     }
+    }
+   ],
+   "sub": null,
+   "url": "https://wiki.ffo.jp/html/644.html"
+  },
+  {
+   "id": "sharpshot",
+   "group": "アビリティ",
+   "ja": "狙い撃ち",
+   "job": 11,
+   "options": [
+    {
+     "label": "",
+     "s": {
+      "飛命": 40
+     }
+    }
+   ],
+   "sub": {
+    "s": {
+     "飛命": 40
+    }
+   },
+   "url": "https://wiki.ffo.jp/html/2983.html"
+  },
+  {
+   "id": "velocity",
+   "group": "アビリティ",
+   "ja": "ベロシティショット",
+   "job": 11,
+   "options": [
+    {
+     "label": "",
+     "ratk": 15,
+     "vel": 15
+    }
+   ],
+   "sub": null,
+   "url": "https://www.bg-wiki.com/ffxi/Velocity_Shot",
+   "note": "飛攻 +15% と、狙う時間の短縮 15% (ギフトと装備の分は入れていない)"
+  },
+  {
+   "id": "double-shot",
+   "group": "アビリティ",
+   "ja": "ダブルショット",
+   "job": 11,
+   "options": [
+    {
+     "label": "",
+     "shots": 0.4
+    }
+   ],
+   "sub": null,
+   "url": "https://www.bg-wiki.com/ffxi/Double_Shot",
+   "note": "40% で 2 発撃つ (ジョブポイントと装備の分は入れていない)。WS には乗らない"
+  },
+  {
+   "id": "triple-shot",
+   "group": "アビリティ",
+   "ja": "トリプルショット",
+   "job": 17,
+   "options": [
+    {
+     "label": "",
+     "shots": 0.8
+    }
+   ],
+   "sub": null,
+   "url": "https://www.bg-wiki.com/ffxi/Triple_Shot",
+   "note": "40% で 3 発撃つ (ジョブポイントと装備の分は入れていない)。WS には乗らない"
+  }
+ ]
+}

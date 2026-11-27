@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="favicon.png">
+<title>Vanarmory — ダメージ</title>
+<link rel="stylesheet" href="theme.css">
+<link rel="stylesheet" href="builder.css">
+<link rel="stylesheet" href="damage.css">
+</head>
+<body>
+<header>
+  <h1>Vanarmory</h1>
+  <nav><a href="index.html">セットを組む</a><a href="search.html">装備を探す</a><a href="damage.html" class="here">ダメージ</a><a href="settings.html">設定</a></nav>
+  <p class="meta" id="meta"></p>
+</header>
+
+<section class="conditions">
+  <div class="row">
+    <span class="label">キャラ</span>
+    <div class="body">
+      <label class="field">キャラ <select id="chara"></select></label>
+      <button type="button" class="q" data-help="ジョブ・サポ・食事は、通常攻撃用のセットが持っているものを使います。育成 (マスターレベル・ジョブポイント・メリポ) は「設定」の値です。">?</button>
+    </div>
+  </div>
+  <div class="row">
+    <span class="label">セット</span>
+    <div class="body start">
+      <div class="pairs" id="pairs"></div>
+      <span class="field">比較は 2 つまで</span><button type="button" class="q" data-help="保存したセットか、「セットを組む」で固定中の装備から選びます。通常攻撃で TP をため、WS のときだけ WS 用のセットに着替えるものとして計算します。">?</button>
+    </div>
+  </div>
+  <div class="row">
+    <span class="label">WS</span>
+    <div class="body">
+<label class="field">攻撃 <select id="mode"><option value="melee">近接</option><option value="ranged">遠隔</option></select></label>
+      <select id="ws"></select>
+      <span class="sep"></span>
+      <label class="field">撃つ TP <input id="tp" class="input narrow" type="number" min="1000" max="3000" step="50"></label>
+      <span class="sep"></span>
+      <label class="field">連携 <select id="sc-level"><option value="0">入れない</option><option value="1">Lv1 (溶解・切断など)</option><option value="2">Lv2 (核熱・重力など)</option><option value="3">Lv3 (光・闇)</option><option value="4">極光・黒闇</option></select>
+        <select id="sc-every"><option value="1">WS のたびに連携になる</option><option value="2">2 回に 1 回</option><option value="3">3 回に 1 回</option></select></label>
+      <span class="field" id="ws-note"></span>
+    </div>
+  </div>
+  <div class="row">
+    <span class="label">敵</span>
+    <div class="body start">
+      <select id="enemy"></select>
+      <div class="enemy-values" id="enemy-values"></div>
+      <span class="field" id="enemy-note"></span>
+    </div>
+  </div>
+  <div class="row">
+    <span class="label">武器</span>
+    <div class="body">
+      <label class="field">アフターマス <select id="aftermath"><option value="0">なし</option><option value="1">Lv1 (TP 1000〜)</option><option value="2">Lv2 (TP 2000〜)</option><option value="3">Lv3 (TP 3000)</option></select></label>
+      <button type="button" class="q" data-help="レリック・ミシック・エンピリアン・イオニック・プライムウェポンを持つときに効きます。種類は武器から見分けます。レリックは、どの段階でも同じ効果です。">?</button>
+    </div>
+  </div>
+  <div class="row">
+    <span class="label">支援</span>
+    <div class="body start">
+      <div class="buff-groups" id="buffs"></div>
+      <div class="manual-list" id="manual"></div>
+      <button type="button" class="q" data-help="名前を押すと入・切します。入のときは、段階 (歌+4、出目など) を選べます。一覧に無いものは、増える分をステータスの数値で足します (例: 攻 +300、ダブルアタック +10)。">?</button>
+    </div>
+  </div>
+  <div class="row">
+    <span class="label">弱体</span>
+    <div class="body start"><div class="buff-groups" id="debuffs"></div></div>
+  </div>
+  <div class="row">
+    <span class="label">アビ</span>
+    <div class="body start"><div class="buff-groups" id="abilities"></div><button type="button" class="q" data-help="基準のセットのジョブ・サポで使えるものが並びます。比較のセットのジョブが違うときは、そのジョブで使えるものだけが効きます。">?</button></div>
+  </div>
+</section>
+
+<div class="out" id="out"></div>
+
+<script src="help.js"></script>
+<script src="data.js"></script>
+<script src="search.js"></script>
+<script src="solver.js"></script>
+<script src="parse.js"></script>
+<script src="profiles.js"></script>
+<script src="augment.js"></script>
+<script src="owned.js"></script>
+<script src="basestats.js"></script>
+<script src="tp.js"></script>
+<script src="sets.js"></script>
+<script src="damage.js"></script>
+<script src="damage-page.js"></script>
+</body>
+</html>

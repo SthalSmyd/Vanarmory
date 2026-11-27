@@ -8,6 +8,8 @@
   const db = prepare(window.VANARMORY_DATA);
   const data = db.data;
   const itemById = new Map(data.items.map((i) => [i.id, i]));
+  // 装備の引き方や、装備以外の値・攻撃・命中の計算は sets.js (ダメージの画面と共通)
+  const { capeId, NO_PICKS, myCapes, capeName, isCapeName, makeCape, BARE, withBare, getItem, ownedReset, ownedNow, supportTraits, addTraits, outsideFor, contextFor, WHITE_SOURCES, innateOf, sheetValues, combatValues, totalOf, delayOf, skillKind, tpSetup } = window.VanaSets.create(db, P, () => store);
 
   // 合計値の目標 (命中 1400 以上 など)。ゲーム内のステータス画面に出る値で、スキルや DEX の分を含む。
   // 装備のステータスではないので、この画面でだけ、目標に選べるステータスとして足す (武器を固定すると使える)
@@ -66,37 +68,6 @@
   // ---- アンバスケードのマント ----
   // 付与は 5 種類のアイテムにつき 1 項目ずつ。選んだ項目の番号を id に入れておき、
   // 固定や除外を保存したあとでも同じマントを作り直せるようにする (-1 は「付けない」)
-  const capeId = (job, picks) => `cape:${job}:${picks.join(',')}`;
-
-  // 登録したジョブマント (キャラクターごと)。自動で選ぶときは、登録があればその中から選び、無ければ構成を作る
-  const NO_PICKS = () => data.capes.augments.map(() => -1);
-  const myCapes = (job) => (store ? P.character(store).capes || [] : []).filter((c) => c.job === job);
-  const capeName = (job, picks) => (myCapes(job).find((c) => c.picks.join() === picks.join()) || {}).name || '';
-  const isCapeName = (item) => !!item && !item.rank && Object.values(data.capes.names).includes(item.ja);
-
-  function makeCape(job, picks) {
-    const plain = data.items.find((i) => i.ja === data.capes.names[job] && !i.rank);
-    if (!plain) return null;
-    const m = new Map(plain.m);
-    const texts = [];
-    picks.forEach((pick, g) => {
-      const option = data.capes.augments[g].options[pick];
-      if (!option) return;
-      texts.push(option.text);
-      for (let k = 0; k < option.s.length; k += 2) {
-        if (option.s[k] >= 0) m.set(option.s[k], (m.get(option.s[k]) || 0) + option.s[k + 1]);
-      }
-    });
-    // 「被物理ダメージ(被ダメージ込み)」のような合算を作り直す
-    for (const d of data.derived) {
-      const parts = d.parts.map((p) => m.get(db.statByKey.get(p).i)).filter((v) => typeof v === 'number');
-      if (parts.length) m.set(db.statByKey.get(d.k).i, parts.reduce((a, b) => a + b, 0));
-    }
-    // 登録してある構成なら、その名前を出す
-    const rank = capeName(job, picks) || (texts.length ? 'オグメ最大' : '');
-    return Object.assign({}, plain, { id: capeId(job, picks), m, rank, aug: texts.join(' '), group: 'cape', plain: '', picks: picks.slice(), capeJob: job, capePlain: plain.id });
-  }
-
   // 目標や伸ばすステータスに効く項目だけを組み合わせる。効く項目が無いアイテムは付けない
   function capeVariants(job, wanted) {
     let combos = [[]];
@@ -116,40 +87,6 @@
   }
 
   // メインに武器を持たない「素手」。固定する装備のメインに入れられる (格闘の武器として扱う)
-  const BARE = { id: 'bare', ja: '素手', en: 'Barehanded', lv: 1, il: 0, slots: 1, jobs: 2 ** 23 - 2, skill: 1, desc: '武器を持たない。「素手:」の効果は、サブも空のときに効く', aug: '', s: [], m: new Map(), hands: true };
-  // 素手 (メインが素手で、サブも空) のとき、「素手:」の分を元のステータスに足した装備に差し替える
-  function withBare(equip) {
-    if (!equip.main || !equip.main.hands || equip.sub) return equip;
-    const out = {};
-    for (const [slot, item] of Object.entries(equip)) {
-      if (!item || !item.bare || item.bareOn) { out[slot] = item; continue; }
-      const m = new Map(item.m);
-      for (const [i, v] of item.bare) m.set(i, (m.get(i) || 0) + v);
-      out[slot] = Object.assign({}, item, { m, bareOn: true });
-    }
-    return out;
-  }
-  function getItem(id) {
-    if (id === 'bare') return BARE;
-    if (itemById.has(id)) return itemById.get(id);
-    if (String(id).startsWith('own:')) {
-      // 持っている装備の候補。読み込み直して無くなっていたら、元の装備として扱う
-      const mine = ownedNow();
-      return (mine && mine.byId.get(id)) || itemById.get(Number(String(id).split(':')[1]));
-    }
-    const m = /^cape:(\d+):([-\d,]+)$/.exec(id);
-    return m ? makeCape(Number(m[1]), m[2].split(',').map(Number)) : undefined;
-  }
-  // ---- 持っている装備 (設定で、Moglist の書き出しを読み込んだもの) ----
-  // 候補は、手入力のオーグメントを写して作るので、手入力やキャラクターが変わったら作り直す (ownedReset)
-  let ownedCache = null;
-  const ownedReset = () => { ownedCache = null; };
-  function ownedNow() {
-    const c = store && P.character(store);
-    if (!c || !c.owned) return null;
-    if (!ownedCache) ownedCache = window.VanaOwned.build(db, c.owned, c.ownedFix);
-    return ownedCache;
-  }
   // いまの設定での使い方。読み込んでいなければ null。
   //   augs: 持っている装備を、実物のオーグメントの候補に置き換える  only: 持っている装備だけを使う
   const ownedMode = () => {
@@ -241,30 +178,6 @@
   const autoSubLevel = () => P.supportLevel(P.jobSetting(P.character(store), state.job).ml, data.innate.support);
   const subLevel = () => (state.subLevel != null ? state.subLevel : autoSubLevel());
 
-  function supportTraits(who) {
-    const tiers = (data.innate.tiers || {})[who.sub];
-    const out = new Map();
-    if (!tiers || who.sub === who.job) return out;
-    for (const [i, steps] of Object.entries(tiers)) {
-      let value = 0;
-      for (const [level, v] of steps) if (level <= who.subLevel) value = v;
-      if (value) out.set(Number(i), value);
-    }
-    return out;
-  }
-  function addTraits(add, job, who) {
-    const main = new Map();
-    const pairs = job ? job.trait : [];
-    for (let k = 0; k < pairs.length; k += 2) main.set(pairs[k], pairs[k + 1]);
-    const sub = supportTraits(who);
-    for (const i of new Set([...main.keys(), ...sub.keys()])) {
-      const m = main.get(i) || 0;
-      const s = sub.get(i) || 0;
-      if (s > m) add('サポ特性', [i, s]);
-      else add('特性', [i, m]);
-    }
-  }
-
   // いまの画面の条件 (ジョブ・サポ・食事・装備以外の入・切)。保存したセットは、保存したときのこれを持っている
   const currentWho = () => ({
     job: state.job, sub: state.sub === state.job ? 0 : state.sub, subLevel: subLevel(), food: state.food,
@@ -275,45 +188,6 @@
 
   // 装備以外で得ている値。base は合計 (ステータスの番号 -> 値)、parts は内訳 (表示用)
   const outside = () => outsideFor(currentWho());
-  function outsideFor(who) {
-    const base = {};
-    const parts = [];
-    const add = (label, pairs) => {
-      for (let k = 0; k < pairs.length; k += 2) {
-        base[pairs[k]] = (base[pairs[k]] || 0) + pairs[k + 1];
-        parts.push({ label, i: pairs[k], value: pairs[k + 1] });
-      }
-    };
-    const job = data.innate.jobs[who.job];
-    const grown = P.jobSetting(P.character(store), who.job); // 設定の「ジョブの育成」に入れた値
-    if (who.innate.trait) addTraits(add, job, who);
-    if (who.innate.gift && job) {
-      // ギフトは、使ったジョブポイントの合計がその段階に届いている分だけ
-      const pairs = [];
-      for (const [i, steps] of Object.entries(job.gift)) {
-        const value = steps.reduce((sum, [jp, v]) => (jp <= grown.jp ? sum + v : sum), 0);
-        if (value) pairs.push(Number(i), value);
-      }
-      add('ギフト', pairs);
-      // ジョブポイントの項目は、すべて使い切ったときだけ数える
-      if (grown.jp >= P.MAX_JP) add('ギフト', job.jp);
-    }
-    if (who.innate.merit) {
-      if (job && grown.merit) add('メリポ', job.merit);
-      // 共通のメリポは、入れた段階の分だけ
-      for (const group of data.innate.shared) {
-        for (const item of group.items) {
-          const level = P.sharedLevel(P.character(store), group, item);
-          if (level && item.i >= 0) add('メリポ', [item.i, level * item.per]);
-        }
-      }
-    }
-    const food = data.foods.find((f) => f.ja === who.food);
-    if (food) add('食事', food.s);
-    for (const pair of who.manual || []) add('支援など', pair);
-    return { base, parts };
-  }
-
   // ---- 上限 ----
   // そのステータスの、向き (sign: 1 = 大きいほど良い、-1 = 小さいほど良い) に当たる上限。無ければ null。
   // 敵対心のように正負の両方に上限があるものや、ジョブで値が変わるもの (トレジャーハンター) がある
@@ -524,7 +398,7 @@
         changed();
       }),
     ] : [];
-    const empty = list.length ? [] : [el('span', { className: 'hint', textContent: 'まだありません。よく使う条件を保存しておくと、ここから 1 回で呼び出せます。' })];
+    const empty = list.length ? [] : [el('span', { className: 'hint', textContent: 'まだありません' })];
     $('presets').replaceChildren(...chips, ...empty, el('span', { className: 'preset-tools' }, ...tools.filter(Boolean), save));
   }
 
@@ -750,6 +624,42 @@
     return found.slice(0, 40);
   }
 
+  // ---- いつもの装備 (ジョブごとに、いつも固定する装備) ----
+  // state.fixed には、いつもの装備も今回だけの固定も入っている。いつもの装備かどうかは、キャラクターの pins と一致するかで見分ける。
+  // いつもの装備は、ジョブを変えると入れ替わり、「解除」やセットの読み込みでは消えない
+  const pinsOf = (job) => {
+    const c = P.character(store);
+    if (!c.pins) c.pins = {};
+    if (!job) return {};
+    if (!c.pins[job]) c.pins[job] = {};
+    return c.pins[job];
+  };
+  const isPinned = (slotId) => !!state.job && state.fixed[slotId] != null && pinsOf(state.job)[slotId] === state.fixed[slotId];
+  // いまのジョブのいつもの装備を、固定に入れる
+  function applyPins() {
+    if (!state.job) return;
+    for (const [slot, id] of Object.entries(pinsOf(state.job))) {
+      if (getItem(id) && usable(getItem(id))) state.fixed[slot] = id;
+      else delete pinsOf(state.job)[slot];
+    }
+  }
+  // いまのジョブのいつもの装備を、固定から抜く (ジョブを変える前に呼ぶ)
+  function dropPins() {
+    for (const slot of Object.keys(pinsOf(state.job))) if (isPinned(slot)) delete state.fixed[slot];
+  }
+  // 固定を入れ替える・外す。いつもの装備だった部位は、いつもの装備のまま中身を入れ替える (id が無ければ外す)
+  function setFixed(slotId, id, pin) {
+    const pinned = pin != null ? pin : isPinned(slotId);
+    if (id == null) delete state.fixed[slotId];
+    else state.fixed[slotId] = id;
+    if (pinned && id != null && state.job) pinsOf(state.job)[slotId] = id;
+    else if (state.job) delete pinsOf(state.job)[slotId];
+  }
+  const ARMOR = ['head', 'body', 'hands', 'legs', 'feet'];
+  const ACCESSORIES = ['neck', 'ear1', 'ear2', 'ring1', 'ring2', 'back', 'waist'];
+  const WEAPONS = ['main', 'sub', 'range', 'ammo'];
+  let pinMode = false; // 装備を選ぶ欄で、「いつも固定」を選んでいるか
+
   function fix(slotId, picked) {
     // ジョブマントを名前で選んだときは、何も付けていない構成として固定する (あとで項目を選べる)
     const chosen = getItem(picked);
@@ -757,13 +667,13 @@
     const id = capeJob ? capeId(capeJob, NO_PICKS()) : picked;
     const keepOpen = !!capeJob;
     // 耳・指で、同じ装備をもう片方に固定しているときは付け替える
-    for (const [other, otherId] of Object.entries(state.fixed)) if (otherId === id) delete state.fixed[other];
+    for (const [other, otherId] of Object.entries(state.fixed)) if (otherId === id) setFixed(other, null);
     // 同時に持てない装備 (報酬リングなど) を固定していたら、そちらを外す
     const only = getItem(id)?.only;
     if (only != null) {
-      for (const [other, otherId] of Object.entries(state.fixed)) if (other !== slotId && getItem(otherId)?.only === only) delete state.fixed[other];
+      for (const [other, otherId] of Object.entries(state.fixed)) if (other !== slotId && getItem(otherId)?.only === only) setFixed(other, null);
     }
-    state.fixed[slotId] = id;
+    setFixed(slotId, id, pinMode);
     editing = keepOpen ? slotId : null;
     changed();
   }
@@ -859,9 +769,12 @@
     for (const slot of SLOTS) {
       const item = getItem(state.fixed[slot.id]);
       const c = cell(slot, item, { fixed: !!item, selected: editing === slot.id, empty: slot.weapon ? '未設定' : '' });
-      if (!item && !slot.weapon) c.title = '空のマスは自動で選びます。押すと装備を固定できます';
+      if (isPinned(slot.id)) { c.classList.remove('fixed'); c.classList.add('pinned'); c.title = `いつもの装備 (${data.jobs.find((j) => j.id === state.job).ja})`; }
+      if (!item && !slot.weapon) c.title = '空 = 自動で選ぶ。押すと固定できる';
+      c.dataset.slot = slot.id;
       c.addEventListener('click', () => {
         editing = editing === slot.id ? null : slot.id;
+        pinMode = isPinned(slot.id);
         renderSide();
         $('editor').querySelector('input')?.focus();
       });
@@ -878,12 +791,15 @@
       if (item) {
         const clear = el('button', { type: 'button', className: 'ghost', textContent: '固定を解除' });
         clear.addEventListener('click', () => {
-          delete state.fixed[slot.id];
+          setFixed(slot.id, null);
           editing = null;
           changed();
         });
         title.append(clear);
       }
+      const close = el('button', { type: 'button', className: 'ghost', textContent: '閉じる' });
+      close.addEventListener('click', () => { editing = null; renderSide(); });
+      title.append(close);
       const input = el('input', { type: 'search', autocomplete: 'off', placeholder: '装備の名前 (日本語・英語)' });
       const list = el('ul');
       const draw = () => {
@@ -909,15 +825,27 @@
           renderSide();
         }
       });
-      editor.append(title, input, list);
+      // 固定のしかた: 今回だけ / いつも (このジョブ)。固定してある装備は、選び直すとその場で切り替わる
+      const jobName = state.job ? data.jobs.find((j) => j.id === state.job).ja : '';
+      const how = (pin, label, note) => {
+        const radio = el('input', { type: 'radio', name: 'pin-mode', checked: pinMode === pin, disabled: pin && !state.job });
+        radio.addEventListener('change', () => {
+          pinMode = pin;
+          if (item) { setFixed(slot.id, state.fixed[slot.id], pin); changed(); }
+        });
+        return el('label', null, radio, label, el('small', { textContent: note }));
+      };
+      editor.append(title, input, list, el('div', { className: 'how' },
+        how(false, '今回だけ固定', 'ジョブを変えても、装備できれば残る'),
+        how(true, `いつも固定${jobName ? ` (${jobName})` : ''}`, 'ジョブごとに覚える。解除や読み込みで消えない')));
       if (slot.id === 'main' && !(item && item.hands)) {
         // 武器を持たない。サブも空にする (「素手:」の効果は、メインもサブも空のときに効く扱い)
         const bare = el('button', { type: 'button', className: 'copy', textContent: '素手にする' });
         bare.addEventListener('click', () => {
-          delete state.fixed.sub;
+          setFixed('sub', null);
           fix('main', 'bare');
         });
-        editor.append(el('div', { className: 'bare-row' }, bare, el('span', { textContent: '武器を持たない。サブも空にします (「素手:」の効果が付く)' })));
+        editor.append(el('div', { className: 'bare-row' }, bare, el('span', { textContent: 'サブも空になる' })));
       }
       if (slot.id === 'sub' && getItem(state.fixed.main) === BARE) {
         editor.append(el('p', { className: 'hint', textContent: 'メインが素手のときにサブを固定すると、「素手:」の効果は付きません。' }));
@@ -926,7 +854,7 @@
         // 固定してあるマントの構成を選び直す
         if (item && item.group === 'cape') {
           editor.append(capeEditor(item, (picks) => {
-            state.fixed.back = capeId(item.capeJob, picks);
+            setFixed('back', capeId(item.capeJob, picks));
             changed();
           }), capeRegister(item, changed));
         }
@@ -938,7 +866,7 @@
             const id = capeId(c.job, c.picks);
             const b = el('button', { type: 'button', className: 'chip' + (state.fixed.back === id ? ' on' : ''), textContent: c.name, title: makeCape(c.job, c.picks)?.aug || '' });
             b.addEventListener('click', () => {
-              state.fixed.back = id;
+              setFixed('back', id, pinMode);
               changed();
             });
             return b;
@@ -946,6 +874,8 @@
         }
       }
     }
+
+    placeEditor();
 
     const excluded = profile().excluded.filter((id) => getItem(id));
     $('excluded-box').hidden = !excluded.length;
@@ -958,6 +888,23 @@
       });
       return chip;
     }));
+  }
+
+  // 装備を選ぶ欄は、押した部位の右隣に重ねて出す (左の欄の高さを変えない)。狭い画面では、画面の幅に合わせる
+  function placeEditor() {
+    const editor = $('editor');
+    if (!editing) return;
+    const target = $('mine').querySelector(`[data-slot="${editing}"]`);
+    if (!target) return;
+    const grid = $('mine').getBoundingClientRect();
+    const at = target.getBoundingClientRect();
+    const width = Math.min(360, window.innerWidth - 16);
+    const beside = grid.right + 14 + width <= window.innerWidth;
+    editor.style.width = width + 'px';
+    editor.style.left = (beside ? grid.right + 14 : Math.max(8, window.innerWidth - width - 8)) + 'px';
+    const height = editor.offsetHeight;
+    const top = beside ? at.top - 40 : at.bottom + 6;
+    editor.style.top = Math.max(8, Math.min(top, window.innerHeight - height - 8)) + 'px';
   }
 
   function render() {
@@ -1109,6 +1056,15 @@
       : state.objective === 'max' && !state.maximize.some((m) => m.weight > 0) ? '伸ばすステータスを選んでください。'
       : state.targets.filter((t) => t.goal && db.statByKey.get(t.k).total).map((t) => totalTarget(db.statByKey.get(t.k), t.goal).error).find(Boolean) || '';
     if (problem) {
+      // 目標が無くても、固定した装備があれば、そのままカードで出す
+      if (state.job && Object.keys(fixedEquip()).length && /目標のステータス/.test(problem)) {
+        viewing = 'fixed';
+        renderFixedView();
+        renderSaved();
+        $('status').textContent = '目標が無いので、固定中の装備をそのまま出しました。';
+        $('viewing').scrollIntoView({ block: 'nearest' });
+        return;
+      }
       $('status').textContent = problem;
       return;
     }
@@ -1167,48 +1123,14 @@
     return SLOTS.filter((s) => set.equip[s.id]).map((s) => `${s.ja}: ${nameOf(set.equip[s.id])}`).join('\n');
   }
 
-  // ステータスの計算に使う条件 (ジョブ・サポ・種族・マスターレベルと、装備以外の分の内訳)
-  function contextFor(who) {
-    return {
-      job: who.job, sub: who.sub, subLevel: who.subLevel,
-      race: P.character(store).race, ml: P.jobSetting(P.character(store), who.job).ml,
-      parts: outsideFor(who).parts,
-      traits: who.innate.trait, // ジョブ特性を数えるか (スマイトにも効く)
-      gifts: who.innate.gift, jp: P.jobSetting(P.character(store), who.job).jp, // マーシャルアーツのギフトに使う
-    };
-  }
-
   // ---- セットのステータス ----
   // ゲーム内のステータス画面のように、素の値 (白) と、装備などで増える分 (緑) を分けて出す。
   // 素の値は、種族・ジョブ・サポートジョブ・マスターレベルで決まる分に、ジョブ特性とメリポの分を足したもの
   // (ゲーム内でも、メリポや HPmax アップは白い数字に入る)。緑は装備・食事・手入力の分
-  const SHEET_KEYS = ['HP', 'MP', 'STR', 'DEX', 'VIT', 'AGI', 'INT', 'MND', 'CHR'];
+  const { SHEET_KEYS } = window.VanaSets;
   const ATTACK_KEYS = ['攻', '命中', '飛攻', '飛命'];
-  const WHITE_SOURCES = new Set(['特性', 'サポ特性', 'ギフト', 'メリポ']);
   const number = (v) => v.toLocaleString('ja-JP');
   const plus = (v, unit) => (v < 0 ? '' : '+') + number(v) + (unit || '');
-
-  // 装備以外の分のうち、白い数字に入る分 (ステータスの番号 -> 値)
-  function innateOf(context) {
-    const out = new Map();
-    for (const part of context.parts) if (WHITE_SOURCES.has(part.label)) out.set(part.i, (out.get(part.i) || 0) + part.value);
-    return out;
-  }
-
-  // HP・MP・STR〜CHR の、素の値 (white) と増える分 (green)。base は種族・ジョブ・サポ・マスターレベルで決まる分
-  function sheetValues(set, context) {
-    const job = data.jobs.find((j) => j.id === context.job);
-    const sub = data.jobs.find((j) => j.id === context.sub);
-    const base = window.VanaBase.baseStats(data.base, context.race, job.en, sub ? sub.en : null, context.subLevel, context.ml) || {};
-    const innate = innateOf(context);
-    const values = {};
-    for (const key of SHEET_KEYS) {
-      const stat = db.statByKey.get(key);
-      const extra = innate.get(stat.i) || 0;
-      values[key] = { base: base[key] || 0, extra, white: (base[key] || 0) + extra, green: (set.totals.get(stat.i) || 0) - extra };
-    }
-    return { job, sub, innate, values };
-  }
 
   // 左の枠: HP・MP・STR〜CHR を「素の値 +増える分 合計」で並べる
   function statSheet(set, context) {
@@ -1230,60 +1152,6 @@
 
   // 攻撃・命中 (メインの武器) と、飛攻・飛命 (レンジの武器、無ければ矢弾) の計算。
   // 武器が決まっていないと計算できないので null を返す。white は装備なしの値、total は装備込みの値
-  function combatValues(set, context, ranged) {
-    const B = window.VanaBase;
-    const weapon = ranged
-      ? [set.equip.range, set.equip.ammo].find((item) => item && data.combat.skills.some((k) => k.id === item.skill && k.kind === 'ranged'))
-      : set.equip.main;
-    const kind = weapon && data.combat.skills.find((k) => k.id === weapon.skill);
-    if (!kind || (ranged ? kind.kind !== 'ranged' : kind.kind === 'ranged')) return null;
-    const { job, innate, values } = sheetValues(set, context);
-    // スキル: ジョブの上限 + マスターレベル (そのジョブが元々持つスキルだけ) + メリポ + 装備や武器のスキル
-    const rating = (data.combat.ratings[job.en] || {})[kind.ja];
-    const native = rating ? data.combat.caps[rating] + context.ml : 0;
-    const skillStat = db.statByKey.get(kind.ja + 'スキル');
-    const innateSkill = skillStat ? innate.get(skillStat.i) || 0 : 0;
-    let gearSkill = skillStat ? (set.totals.get(skillStat.i) || 0) - innateSkill : 0;
-    // 武器に付いているスキルは、その武器を持つ手にしか効かない。もう片方の手の武器の分は除く
-    for (const other of ranged ? [] : [set.equip.sub]) {
-      if (other && other !== weapon && skillStat) gearSkill -= other.m.get(skillStat.i) || 0;
-    }
-    const flatOf = (key) => {
-      const stat = db.statByKey.get(key);
-      const white = innate.get(stat.i) || 0;
-      return { white, total: set.totals.get(stat.i) || 0 };
-    };
-    const total = (key) => values[key].white + values[key].green;
-    const skillWhite = native + innateSkill;
-    const skillTotal = skillWhite + gearSkill;
-    // スマイト: 両手武器か格闘武器をメインに持っていると、攻撃力が n/256 上がる。
-    // メインジョブは Lv99、サポートジョブはサポのレベルで覚えている段階までで、高いほうが効く
-    const smiteOf = (jobId, level) => ((data.innate.smite || {})[jobId] || []).reduce((n, [at, value]) => (at <= level ? value : n), 0);
-    const smite = !ranged && (kind.kind === 'two' || kind.kind === 'h2h') && context.traits
-      ? Math.max(smiteOf(context.job, 99), context.sub ? smiteOf(context.sub, context.subLevel) : 0) : 0;
-    const boost = (value) => Math.floor((value * (256 + smite)) / 256);
-    const pair = (white, all) => ({ white, total: all });
-    if (ranged) {
-      const acc = flatOf('飛命');
-      const atk = flatOf('飛攻');
-      return {
-        kind, skill: skillTotal,
-        accuracy: pair(B.rangedAccuracy({ skill: skillWhite, agi: values.AGI.white, flat: acc.white }), B.rangedAccuracy({ skill: skillTotal, agi: total('AGI'), flat: acc.total })),
-        attack: pair(B.rangedAttack({ skill: skillWhite, str: values.STR.white, flat: atk.white }), B.rangedAttack({ skill: skillTotal, str: total('STR'), flat: atk.total })),
-        rawAttack: B.rangedAttack({ skill: skillTotal, str: total('STR'), flat: atk.total }),
-      };
-    }
-    const acc = flatOf('命中');
-    const atk = flatOf('攻');
-    return {
-      kind, skill: skillTotal,
-      accuracy: pair(B.accuracy({ skill: skillWhite, dex: values.DEX.white, flat: acc.white }), B.accuracy({ skill: skillTotal, dex: total('DEX'), flat: acc.total })),
-      attack: pair(boost(B.attack({ skill: skillWhite, str: values.STR.white, flat: atk.white, hands: kind.kind })), boost(B.attack({ skill: skillTotal, str: total('STR'), flat: atk.total, hands: kind.kind }))),
-      rawAttack: B.attack({ skill: skillTotal, str: total('STR'), flat: atk.total, hands: kind.kind }), // スマイトを掛ける前
-      smite,
-    };
-  }
-
   // セットの中での、ステータスの値。合計値 (命中 (合計) など) は、武器から計算した値 (武器が無ければ 0)
   function valueAt(set, stat, context) {
     if (!stat.total) return set.totals.get(stat.i) || 0;
@@ -1353,39 +1221,6 @@
 
   // ---- 得TP・振り数 ----
   const TP = window.VanaTP;
-  const totalOf = (totals, key) => {
-    const stat = db.statByKey.get(key);
-    return stat ? totals.get(stat.i) || 0 : 0;
-  };
-  const delayOf = (item) => (item ? totalOf(item.m, '隔') : 0);
-  const skillKind = (item) => (item && data.combat.skills.find((k) => k.id === item.skill) || {}).kind;
-
-  // 1 発ぶんの隔と手数。武器が決まっていないと計算できないので null
-  function tpSetup(kindId, equip, totals, context) {
-    if (kindId === 'ranged') {
-      const range = skillKind(equip.range) === 'ranged' ? equip.range : null;
-      const ammo = equip.ammo && delayOf(equip.ammo) ? equip.ammo : null;
-      // レンジの武器 + 矢弾。投てきなど、矢弾だけで撃つものは矢弾の隔
-      const thrown = !equip.range && ammo && skillKind(ammo) === 'ranged';
-      if (!range && !thrown) return null;
-      const delay = delayOf(range) + delayOf(ammo);
-      const names = [range, ammo].filter(Boolean).map((item) => item.ja).join('+');
-      return { mode: 'ranged', delay, hands: 1, total: delay, label: `${names}・隔 ${delay}` };
-    }
-    const kind = skillKind(equip.main);
-    if (!kind || kind === 'ranged') return null;
-    const sub = equip.sub && equip.sub.skill > 0 && skillKind(equip.sub) !== 'ranged' ? delayOf(equip.sub) : 0;
-    const dualWield = totalOf(totals, '二刀流') + totalOf(totals, '二刀流効果アップ');
-    const martialArts = TP.martialArts({ job: context.job, sub: context.sub, subLevel: context.subLevel, jp: context.jp, maxJp: P.MAX_JP, trait: context.traits, gift: context.gifts })
-      + totalOf(totals, 'マーシャルアーツ') + totalOf(totals, 'マーシャルアーツ効果アップ');
-    const setup = TP.melee({ kind, main: delayOf(equip.main), sub, dualWield, martialArts });
-    const round = (v) => Math.round(v * 10) / 10;
-    setup.label = setup.mode === 'dual' ? `二刀流 ${round(setup.dualWield)}%・1 発の隔 ${round(setup.delay)}`
-      : setup.mode === 'h2h' ? `格闘 (マーシャルアーツ −${martialArts})・1 発の隔 ${round(setup.delay)}`
-      : `${equip.main.ja}・隔 ${setup.delay}`;
-    return setup;
-  }
-
   // セットの得TP と振り数。計算できなければ null
   function tpValues(kindId, set, context) {
     const setup = tpSetup(kindId, set.equip, set.totals, context);
@@ -1777,20 +1612,61 @@
   }
 
   // 固定中の装備のステータス (固定する装備の枠の下に開く)
+  // 「見る」: 固定中の装備や保存したセットを、右の候補の欄のいちばん上に、カードで出す
   function renderFixedView() {
     const equip = fixedEquip();
-    const any = Object.keys(equip).length > 0;
-    const open = viewing === 'fixed' && any && !!state.job;
-    $('fixed-view').hidden = !any || !state.job;
-    $('fixed-view').classList.toggle('on', open);
-    $('fixed-view').textContent = open ? '固定中の装備のステータスを閉じる' : '固定中の装備のステータスを見る';
-    $('fixed-stats').hidden = !open;
-    $('fixed-stats').replaceChildren();
-    if (!open) return;
-    const who = currentWho();
-    const base = outsideFor(who).base;
-    const set = Object.assign({ equip }, window.VanaSolver.totalsOf(equip, base, data.sets));
-    $('fixed-stats').append(setView({ set, context: contextFor(who), base }));
+    const any = Object.keys(equip).length > 0 && !!state.job;
+    $('fixed-view').hidden = !any;
+    if (viewing === 'fixed' && !any) viewing = null;
+    $('fixed-view').classList.toggle('on', viewing === 'fixed');
+    $('fixed-view').textContent = viewing === 'fixed' ? 'ステータスを閉じる' : 'ステータスを見る';
+    const box = $('viewing');
+    box.replaceChildren();
+    let entry = null;
+    let name = '';
+    let meta = '';
+    if (viewing === 'fixed') {
+      const who = currentWho();
+      const base = outsideFor(who).base;
+      entry = { set: Object.assign({ equip }, window.VanaSolver.totalsOf(equip, base, data.sets)), context: contextFor(who), base };
+      name = '固定中の装備';
+      meta = whoText(who);
+    } else if (viewing) {
+      entry = entryOf(viewing);
+      if (entry) { name = entry.label; meta = whoText(entry.who) + '・保存したセット'; }
+    }
+    if (!entry) return;
+    const close = el('button', { type: 'button', className: 'copy', textContent: '閉じる' });
+    close.addEventListener('click', () => { viewing = null; renderFixedView(); renderSaved(); });
+    box.append(el('div', { className: 'card view-card' },
+      el('div', { className: 'card-head' }, el('h3', { textContent: name }), el('span', { className: 'used', textContent: meta }), close),
+      setView(entry)));
+  }
+
+  // 保存したセットの「読み込む」: どこまで固定するかを選ぶ。ジョブ・サポ・食事は、どれを選んでも合わせる。
+  // いつもの装備は消えず、読み込んだセットより優先する
+  let loading = null;
+  function loadMenu(saved) {
+    const choices = [
+      ['すべて固定する', null, ''],
+      ['武器だけ固定する', WEAPONS, 'メイン・サブ・レンジ・矢弾'],
+      ['武器とアクセを固定する', [...WEAPONS, ...ACCESSORIES], '防具だけ探し直す'],
+      ['固定しない', [], 'ジョブ・サポ・食事だけ合わせる'],
+    ];
+    return el('div', { className: 'load-menu' }, ...choices.map(([label, slots, note]) => {
+      const button = el('button', { type: 'button' }, label, note ? el('small', { textContent: note }) : null);
+      button.addEventListener('click', () => {
+        dropPins();
+        const fixed = {};
+        for (const [slot, id] of Object.entries(saved.equip)) if ((!slots || slots.includes(slot)) && getItem(id)) fixed[slot] = id;
+        Object.assign(state, { job: saved.who.job, sub: saved.who.sub, subLevel: saved.who.subLevel, food: saved.who.food, innate: Object.assign({}, saved.who.innate), fixed });
+        applyPins();
+        editing = null;
+        loading = null;
+        changed();
+      });
+      return button;
+    }));
   }
 
   // 左の欄: 保存したセットの一覧
@@ -1810,10 +1686,8 @@
       });
       const load = el('button', { type: 'button', className: 'small', textContent: '読み込む', title: 'このセットを「固定する装備」に入れる (ジョブ・サポ・食事も合わせる)' });
       load.addEventListener('click', () => {
-        Object.assign(state, { job: saved.who.job, sub: saved.who.sub, subLevel: saved.who.subLevel, food: saved.who.food, innate: Object.assign({}, saved.who.innate), fixed: Object.assign({}, saved.equip) });
-        for (const [slot, id] of Object.entries(state.fixed)) if (!getItem(id)) delete state.fixed[slot];
-        editing = null;
-        changed();
+        loading = loading === saved.id ? null : saved.id;
+        renderSaved();
       });
       const rename = el('button', { type: 'button', className: 'small', textContent: '名前' });
       rename.addEventListener('click', () => {
@@ -1836,7 +1710,7 @@
         el('div', { className: 'saved-meta', textContent: whoText(saved.who) }),
         el('div', { className: 'saved-gear', textContent: names, title: names.replace(/ \/ /g, '\n') }),
         el('div', { className: 'saved-acts' }, view, load, rename, remove),
-        open && entryOf(saved.id) ? setView(entryOf(saved.id)) : null));
+        loading === saved.id ? loadMenu(saved) : null));
     }
     if (!savedSets().length) box.append(el('p', { className: 'hint', textContent: 'まだありません。' }));
   }
@@ -1850,7 +1724,7 @@
     $('overview').hidden = true;
     renderCompare();
     $('results-title').textContent = `候補 ${result.sets.length} 件`;
-    $('results-hint').textContent = result.sets.length ? 'マスを押すと、その装備の説明と「固定」「除外」が出ます' : '';
+    $('results-hint').textContent = result.sets.length ? 'マスを押すと、説明と「固定」「除外」' : '';
     if (!result.sets.length) {
       cards.append(el('p', { className: 'empty', textContent: '候補を作れませんでした。' }));
       return;
@@ -2081,10 +1955,12 @@
     initMenu();
 
     $('job').addEventListener('change', () => {
+      // いつもの装備は、ジョブごとに入れ替える。今回だけの固定は、装備できるものを残す
+      dropPins();
       state.job = Number($('job').value);
       state.tieType = ''; // 重みの型は、そのジョブの設定に戻す
-      // ジョブを変えたら、装備できなくなった固定は外す
       for (const [slot, id] of Object.entries(state.fixed)) if (!usable(getItem(id))) delete state.fixed[slot];
+      applyPins();
       changed();
     });
     $('food').addEventListener('change', () => {
@@ -2103,11 +1979,13 @@
     });
     $('sub-level').title = 'サポートジョブのレベル。空にすると、設定の「ジョブの育成」に入れたマスターレベルから決まる値 (49 + マスターレベル ÷ 5、最大 59) を使います';
     $('chara').addEventListener('change', () => {
+      dropPins(); // いつもの装備は、キャラクターごと
       store.activeChar = $('chara').value;
       activePreset = ''; // 保存した条件は、キャラクターごと
       // キャラクターごとに、手入力のオーグメントと、持っている装備が違う
       window.VanaAugment.apply(db, P.character(store).augments);
       ownedReset();
+      applyPins();
       compare = compare.filter((k) => k.startsWith('c'));
       changed();
       renderCompare();
@@ -2137,11 +2015,28 @@
         changed();
       });
     }
-    $('fixed-clear').addEventListener('click', () => {
-      state.fixed = {};
+    // 外す: いつもの装備は残す
+    const unfix = (slots) => {
+      for (const slot of Object.keys(state.fixed)) if ((!slots || slots.includes(slot)) && !isPinned(slot)) delete state.fixed[slot];
       editing = null;
       changed();
+    };
+    $('fixed-clear').addEventListener('click', () => unfix(null));
+    $('unfix-armor').addEventListener('click', () => unfix(ARMOR));
+    $('unfix-acc').addEventListener('click', () => unfix(ACCESSORIES));
+    // 装備を選ぶ欄: 外を押すか Esc で閉じる。画面を動かしたら、位置を合わせ直す
+    document.addEventListener('mousedown', (event) => {
+      if (!editing || $('editor').contains(event.target) || $('mine').contains(event.target)) return;
+      editing = null;
+      renderSide();
     });
+    document.addEventListener('keydown', (event) => {
+      if (event.key !== 'Escape' || !editing || event.isComposing) return;
+      editing = null;
+      renderSide();
+    });
+    window.addEventListener('scroll', placeEditor, true);
+    window.addEventListener('resize', placeEditor);
     $('excluded-clear').addEventListener('click', () => {
       profile().excluded = [];
       changed();

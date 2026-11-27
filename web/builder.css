@@ -315,3 +315,28 @@ table.cmp { border-collapse: collapse; font-size: 13px; font-variant-numeric: ta
 
 /* 持っている装備を読み込んであるときの、持っていない装備の印 */
 .cell .unowned { display: inline-block; margin-top: 2px; padding: 0 6px; border: 1px solid var(--line); border-radius: 8px; font-size: 10px; color: var(--muted); }
+
+/* いつもの装備 (ジョブごと): 金の枠。今回だけの固定は、いままでどおり */
+.cell.pinned { background: var(--fixed-bg); box-shadow: inset 0 0 0 1px var(--fixed); }
+.cell.pinned .slot { color: var(--fixed); font-weight: 700; }
+.cell.pinned .slot::before { content: "📌 "; font-size: 9px; }
+.legend i.p { background: var(--fixed-bg); box-shadow: inset 0 0 0 1px var(--fixed); outline: 1px solid var(--fixed); }
+.unfix { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; margin-top: 6px; font-size: 12px; color: var(--muted); }
+.unfix > button:not(.copy) { border: 1px solid var(--line); background: var(--panel); border-radius: 999px; padding: 0 9px; font-size: 12px; cursor: pointer; }
+.unfix .view-toggle { width: auto; margin: 0 0 0 auto; padding: 1px 10px; font-size: 12px; }
+/* 装備を選ぶ欄: 押した部位の右隣に重ねて出す (位置は builder.js の placeEditor が決める) */
+.editor.float { position: fixed; z-index: 30; margin: 0; padding: 10px; background: var(--panel); border: 1px solid var(--accent); border-radius: 10px; box-shadow: 0 8px 28px rgb(0 0 0 / .28); max-height: calc(100vh - 16px); overflow-y: auto; }
+.editor .title .ghost { border: 0; background: none; color: var(--muted); font-size: 12px; cursor: pointer; white-space: nowrap; }
+.editor .how { display: grid; gap: 3px; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--line); font-size: 12px; }
+.editor .how label { display: flex; gap: 6px; align-items: baseline; flex-wrap: wrap; cursor: pointer; }
+.editor .how input { width: auto; }
+.editor .how small { color: var(--muted); }
+/* 保存したセットの「読み込む」: どこまで固定するか */
+.load-menu { display: grid; gap: 3px; margin-top: 6px; }
+.load-menu button { text-align: left; border: 1px solid var(--line); background: var(--panel); border-radius: 6px; padding: 3px 8px; font-size: 12px; cursor: pointer; }
+.load-menu button:hover { border-color: var(--accent); }
+.load-menu button small { color: var(--muted); margin-left: 6px; }
+/* 「見る」のカード: 右の候補の欄のいちばん上 */
+#viewing { margin-bottom: 10px; }
+.view-card { border-color: var(--accent); }
+.view-card .set-view { margin-top: 0; padding-top: 0; border-top: 0; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); align-items: start; gap: 12px; font-size: 13px; }

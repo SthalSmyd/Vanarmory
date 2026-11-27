@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vanarmory — ダメージ計算のモック</title>
+<link rel="stylesheet" href="../web/theme.css">
+<link rel="stylesheet" href="../web/builder.css">
+<style>
+body { padding: 0 0 40px; }
+.mock-note { margin: 0; padding: 6px 12px; font-size: 12px; color: var(--muted); background: var(--sunken); border-bottom: 1px dashed var(--line); }
+.nb { display: inline-block; min-width: 16px; height: 16px; line-height: 16px; text-align: center; border-radius: 8px; background: var(--accent); color: var(--on-accent); font-size: 11px; font-weight: 700; margin-right: 4px; vertical-align: 1px; }
+.later { font-size: 10px; border: 1px dashed var(--line); border-radius: 4px; padding: 0 4px; color: var(--muted); margin-left: 4px; white-space: nowrap; }
+.notes { margin: 10px 12px; font-size: 12px; color: var(--muted); max-width: 1100px; }
+.notes li { margin: 2px 0; }
+
+/* ここから下が、この画面の見た目 */
+.pairs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; width: 100%; }
+.pair { border: 1px solid var(--line); border-radius: 8px; padding: 6px 8px; display: grid; gap: 4px; background: var(--panel); }
+.pair.a { border-left: 4px solid var(--accent); }
+.pair.b { border-left: 4px solid var(--fixed); }
+.pair.c { border-left: 4px solid #8a5cc2; }
+.pair.empty { border-style: dashed; background: none; place-items: center; color: var(--accent); font-size: 12px; min-height: 96px; }
+.pair .field { flex-wrap: wrap; }
+.pair .who { font-size: 12px; color: var(--muted); }
+.pair .who b { color: var(--text); }
+.pair .who.warn { color: var(--bad); }
+.pair-head .nb { padding: 0 7px; white-space: nowrap; }
+.pair-head { display: flex; align-items: center; gap: 6px; font-weight: 700; font-size: 13px; }
+.pair-head button { margin-left: auto; border: 0; background: none; color: var(--muted); font-size: 12px; }
+.pair .field { justify-content: space-between; }
+.pair select { min-width: 0; flex: 1; max-width: 300px; }
+.add-pair { border: 1px dashed var(--line); background: none; border-radius: 8px; color: var(--accent); padding: 4px 12px; font-size: 12px; }
+.toggle { border: 1px solid var(--line); background: var(--panel); border-radius: 999px; padding: 1px 10px; font-size: 12px; }
+.toggle.on { background: var(--accent-bg); border-color: var(--accent); color: var(--accent); font-weight: 600; }
+.toggle small { color: var(--muted); font-weight: 400; margin-left: 4px; }
+.group { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+.group > b { font-size: 11px; color: var(--muted); font-weight: 600; margin-right: 2px; }
+.enemy-values { display: flex; flex-wrap: wrap; gap: 4px 10px; }
+
+.out { padding: 12px; display: grid; gap: 12px; }
+.sec-title { margin: 0; font-size: 14px; display: flex; align-items: baseline; gap: 8px; }
+.sec-title small { font-weight: 400; color: var(--muted); font-size: 12px; }
+.conditions .input.narrow { width: 72px; }
+.cmp { table-layout: fixed; width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.cmp th, .cmp td { padding: 4px 8px; border-top: 1px solid var(--line); text-align: right; white-space: nowrap; }
+.cmp th:first-child, .cmp td:first-child { text-align: left; color: var(--muted); font-weight: 400; font-size: 12px; white-space: normal; }
+.cmp th:first-child { width: 22%; }
+.cmp thead th { border-top: 0; font-size: 12px; color: var(--muted); font-weight: 600; }
+.cmp thead th.a { color: var(--accent); }
+.cmp thead th.b { color: var(--fixed); }
+.cmp thead th.c { color: #8a5cc2; }
+.cmp .d { display: block; font-size: 11px; font-weight: 600; }
+.cmp .big .d { font-size: 12px; }
+.cmp .d.same { color: var(--muted); font-weight: 400; }
+.cmp .big td { font-size: 18px; font-weight: 700; }
+.cmp .big td:first-child { font-size: 13px; color: var(--text); font-weight: 600; }
+.cmp .range { font-size: 12px; color: var(--muted); }
+.cmp .sub td:first-child { padding-left: 20px; }
+.cmp .up { color: var(--ok); font-weight: 600; }
+.cmp .down { color: var(--bad); font-weight: 600; }
+.cmp .cap { font-size: 10px; background: var(--fixed-bg); color: var(--fixed); border-radius: 4px; padding: 0 4px; margin-left: 4px; }
+.bar { display: flex; height: 10px; border-radius: 5px; overflow: hidden; background: var(--sunken); min-width: 160px; }
+.bar i { display: block; height: 100%; }
+.bar .auto { background: var(--accent); opacity: .55; }
+.bar .ws { background: var(--accent); }
+.bar .sc { background: var(--ok); }
+.keys { display: flex; gap: 12px; font-size: 11px; color: var(--muted); margin-top: 4px; }
+.keys i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; vertical-align: -1px; margin-right: 3px; background: var(--accent); }
+.keys .auto { opacity: .55; } .keys .sc { background: var(--ok); }
+details.steps { display: block; }
+details.steps summary { margin-bottom: 6px; cursor: pointer; font-weight: 600; font-size: 13px; }
+.steps .cmp td, .steps .cmp th { font-size: 12px; padding: 3px 8px; }
+.steps .cmp .head td { background: var(--sunken); color: var(--text); font-weight: 600; }
+.steps .why { color: var(--muted); font-size: 11px; text-align: left !important; white-space: normal !important; }
+@media (max-width: 900px) { .pairs { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Vanarmory</h1>
+  <nav><a href="#">セットを組む</a><a href="#">装備を探す</a><a href="#" class="here">ダメージ</a><a href="#">設定</a></nav>
+</header>
+<p class="mock-note">モック (見た目だけ。押しても動きません)。数字はすべて仮のもので、実際の計算結果ではありません。<span class="later">2 段階目</span> などの印は、その段階で足す部分です</p>
+
+<section class="conditions">
+  <div class="row">
+    <span class="label">キャラ</span>
+    <div class="body">
+      <label class="field">キャラ <select><option>メイン</option></select></label>
+      <span class="field">ジョブ・サポ・食事は、選んだセットが持っているものを使います。ジョブの育成 (マスターレベル、ジョブポイント、メリポ) は「設定」の値です</span>
+    </div>
+  </div>
+
+  <div class="row">
+    <span class="label">セット</span>
+    <div class="body start">
+      <div class="pairs">
+        <div class="pair a">
+          <div class="pair-head"><span class="nb">基準</span>いまの装備</div>
+          <label class="field">通常攻撃用 <select><option>固定中の装備 (セットを組む)</option><option>暗 TP (アポカリプス)</option></select></label>
+          <label class="field">WS 用 <select><option>暗 カタストロフィ</option><option>通常攻撃用と同じ</option><option>固定中の装備 (セットを組む)</option></select></label>
+          <div class="who"><b>暗黒騎士 / 侍 59</b>・食事なし</div>
+        </div>
+        <div class="pair b">
+          <div class="pair-head"><span class="nb">比較 1</span>WS の装備を変える<button type="button">外す</button></div>
+          <label class="field">通常攻撃用 <select><option>暗 TP (アポカリプス)</option></select></label>
+          <label class="field">WS 用 <select><option>暗 カタストロフィ 案2</option></select></label>
+          <div class="who"><b>暗黒騎士 / 侍 59</b>・食事なし</div>
+        </div>
+        <div class="pair c">
+          <div class="pair-head"><span class="nb">比較 2</span>TP の装備も変える<button type="button">外す</button></div>
+          <label class="field">通常攻撃用 <select><option>暗 TP 案2 (サポ戦)</option></select></label>
+          <label class="field">WS 用 <select><option>暗 カタストロフィ 案2</option></select></label>
+          <div class="who"><b>暗黒騎士 / 戦士 59</b>・グレープ大福</div>
+          <div class="who warn">WS 用のセットはサポが侍です。通常攻撃用のサポ (戦士) で計算します</div>
+        </div>
+      </div>
+      <span class="field">保存したセットか、「セットを組む」で固定中の装備から選びます。比較は無し〜2 つまで。外すと「＋ 比較を足す」の枠になり、比較が無いときは基準の列だけ出ます</span>
+    </div>
+  </div>
+
+  <div class="row">
+    <span class="label">WS</span>
+    <div class="body">
+      <select><option>カタストロフィ</option><option>クロスリーパー</option><option>エントロピー</option><option>インサージェンシー</option></select>
+      <span class="field">メインの武器で撃てるものが並びます</span>
+      <span class="sep"></span>
+      <label class="field">撃つ TP <input class="input narrow" type="number" value="1000"> 以上になったら</label>
+      <label class="field"><input type="checkbox"> 連携のダメージを入れる<span class="later">4 段階目</span></label>
+    </div>
+  </div>
+
+  <div class="row">
+    <span class="label">敵</span>
+    <div class="body start">
+      <select><option>オデシー ジェール: ブンバ (V20)</option><option>ソーティ: ボス (アミナフ)</option><option>アンバスケード とてもむずかしい</option><option>自分で入れる</option></select>
+      <div class="enemy-values">
+        <label class="field">Lv <input class="input narrow" type="number" value="145"></label>
+        <label class="field">防御力 <input class="input narrow" type="number" value="1630"></label>
+        <label class="field">回避 <input class="input narrow" type="number" value="1340"></label>
+        <label class="field">VIT <input class="input narrow" type="number" value="336"></label>
+        <label class="field">AGI <input class="input narrow" type="number" value="349"></label>
+        <label class="field">被物理ダメージ <input class="input narrow" type="number" value="0"> %</label>
+      </div>
+      <span class="field">一覧から選ぶと値が入り、あとから手で直せます。出典の確かな敵だけ載せます</span>
+    </div>
+  </div>
+
+  <div class="row">
+    <span class="label">支援</span>
+    <div class="body start">
+      <div class="group"><b>歌</b><button class="toggle on">栄光の凱旋マーチ<small>ヘイスト</small></button><button class="toggle on">猛者のメヌエットV<small>攻+</small></button><button class="toggle">剣豪のマドリガル</button></div>
+      <div class="group"><b>ロール</b><button class="toggle on">カオスロール<small>XI 攻+%</small></button><button class="toggle">サムライロール</button></div>
+      <div class="group"><b>風水</b><button class="toggle">インデフューリー</button><button class="toggle on">ジオフレイル<small>敵の防御−</small></button></div>
+      <div class="group"><b>弱体</b><button class="toggle on">ディアIII</button><button class="toggle">アンゴン</button></div>
+      <div class="group"><b>食事</b><select><option>ソーティの食事なし</option><option>グレープ大福</option></select></div>
+      <button type="button" class="add-pair">＋ 数値で足す</button>
+      <span class="later">2 段階目 (1 段階目は「＋ 数値で足す」だけ)</span>
+    </div>
+  </div>
+
+  <div class="row">
+    <span class="label">アビ</span>
+    <div class="body">
+      <div class="group"><button class="toggle on">ラストリゾート</button><button class="toggle">ブラッドウェポン</button><button class="toggle on">八双<small>サポ侍</small></button><button class="toggle on">アフターマス<small>アポカリプス</small></button></div>
+      <span class="field">ジョブとサポ、持っている武器で使えるものが並びます</span><span class="later">2 段階目</span>
+    </div>
+  </div>
+</section>
+
+<div class="out">
+  <div class="panel">
+    <h3 class="sec-title"><span class="nb">1</span>時間あたりのダメージ <small>通常攻撃で TP をため、撃つ TP に届いたら WS 用に着替えて撃つ、を繰り返したときの平均</small><span class="later">2 段階目</span></h3>
+    <table class="cmp">
+      <thead><tr><th></th><th class="a">基準</th><th class="b">比較 1</th><th class="c">比較 2</th></tr></thead>
+      <tbody>
+        <tr class="big"><td>1 分あたり</td><td>412,300</td><td>431,900<span class="d up">+19,600 (+4.8%)</span></td><td>431,900<span class="d up">+19,600 (+4.8%)</span></td></tr>
+        <tr><td>内訳</td>
+          <td><div class="bar"><i class="auto" style="width:38%"></i><i class="ws" style="width:62%"></i></div></td>
+          <td><div class="bar"><i class="auto" style="width:36%"></i><i class="ws" style="width:64%"></i></div></td><td><div class="bar"><i class="auto" style="width:36%"></i><i class="ws" style="width:64%"></i></div></td></tr>
+        <tr class="sub"><td>通常攻撃</td><td>156,700</td><td>156,700<span class="d same">±0</span></td><td>156,700<span class="d same">±0</span></td></tr>
+        <tr class="sub"><td>WS</td><td>255,600</td><td>275,200<span class="d up">+19,600</span></td><td>275,200<span class="d up">+19,600</span></td></tr>
+        <tr><td>WS の間隔</td><td>8.9 秒 (4.6 ラウンド)</td><td>8.9 秒 (4.6 ラウンド)<span class="d same">±0</span></td><td>8.9 秒 (4.6 ラウンド)<span class="d same">±0</span></td></tr>
+        <tr><td>撃つときの TP (平均)</td><td>1,118</td><td>1,118<span class="d same">±0</span></td><td>1,118<span class="d same">±0</span></td></tr>
+      </tbody>
+    </table>
+    <div class="keys"><span><i class="auto"></i>通常攻撃</span><span><i></i>WS</span><span><i class="sc"></i>連携</span></div>
+  </div>
+
+  <div class="panel">
+    <h3 class="sec-title"><span class="nb">2</span>WS: カタストロフィ <small>WS 用のセットで、撃つときの TP (平均) で計算</small></h3>
+    <table class="cmp">
+      <thead><tr><th></th><th class="a">基準</th><th class="b">比較 1</th><th class="c">比較 2</th></tr></thead>
+      <tbody>
+        <tr class="big"><td>平均</td><td>37,920</td><td>40,830<span class="d up">+2,910 (+7.7%)</span></td><td>40,830<span class="d up">+2,910 (+7.7%)</span></td></tr>
+        <tr><td>最小〜最大</td><td class="range">29,410 〜 46,880</td><td class="range">31,650 〜 50,470</td><td class="range">31,650 〜 50,470</td></tr>
+        <tr><td>命中率 (1 段目)</td><td>99%<span class="cap">上限</span></td><td>97%<span class="d down">−2</span></td><td>97%<span class="d down">−2</span></td></tr>
+        <tr class="sub"><td>1 段目</td><td>35,100</td><td>37,980<span class="d up">+2,880</span></td><td>37,980<span class="d up">+2,880</span></td></tr>
+        <tr class="sub"><td>複数回攻撃の分</td><td>2,820</td><td>2,850<span class="d up">+30</span></td><td>2,850<span class="d up">+30</span></td></tr>
+        <tr><td>WS 後の TP</td><td>187</td><td>187<span class="d same">±0</span></td><td>187<span class="d same">±0</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="panel">
+    <h3 class="sec-title"><span class="nb">3</span>通常攻撃 <small>通常攻撃用のセットで計算</small></h3>
+    <table class="cmp">
+      <thead><tr><th></th><th class="a">基準</th><th class="b">比較 1</th><th class="c">比較 2</th></tr></thead>
+      <tbody>
+        <tr class="big"><td>1 ラウンドの平均</td><td>4,480</td><td>4,480<span class="d same">±0</span></td><td>4,480<span class="d same">±0</span></td></tr>
+        <tr><td>1 発 (当たったとき)</td><td>2,610 <span class="range">1,790 〜 3,950</span></td><td>2,610 <span class="range">1,790 〜 3,950</span></td><td>2,610 <span class="range">1,790 〜 3,950</span></td></tr>
+        <tr class="sub"><td>クリティカルでないとき</td><td>2,390 <span class="range">1,790 〜 2,880</span></td><td>2,390 <span class="range">1,790 〜 2,880</span></td><td>2,390 <span class="range">1,790 〜 2,880</span></td></tr>
+        <tr class="sub"><td>クリティカルのとき</td><td>3,460 <span class="range">2,790 〜 3,950</span></td><td>3,460 <span class="range">2,790 〜 3,950</span></td><td>3,460 <span class="range">2,790 〜 3,950</span></td></tr>
+        <tr><td>命中率</td><td>99%<span class="cap">上限</span></td><td>99%<span class="cap">上限</span><span class="d same">±0</span></td><td>99%<span class="cap">上限</span><span class="d same">±0</span></td></tr>
+        <tr><td>クリティカル率</td><td>21%</td><td>21%<span class="d same">±0</span></td><td>21%<span class="d same">±0</span></td></tr>
+        <tr><td>1 ラウンドの攻撃回数</td><td>1.74</td><td>1.74<span class="d same">±0</span></td><td>1.74<span class="d same">±0</span></td></tr>
+        <tr><td>1 ラウンドの時間</td><td>1.93 秒 <span class="range">ヘイスト 80%<span class="cap">上限</span></span></td><td>1.93 秒<span class="d same">±0</span></td><td>1.93 秒<span class="d same">±0</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="panel">
+    <details class="steps" open>
+      <summary><span class="nb">4</span>計算の途中の値 (ゲームの数字と合わないときに、どこで違うかを見る)</summary>
+      <table class="cmp">
+        <thead><tr><th></th><th class="a">基準</th><th class="b">比較 1</th><th class="c">比較 2</th><th style="text-align:left;width:34%">どう出したか</th></tr></thead>
+        <tbody>
+          <tr class="head"><td colspan="5">WS (WS 用のセット)</td></tr>
+          <tr><td>攻撃力</td><td>2,214</td><td>2,371</td><td>2,371</td><td class="why">素の値 1,640 に、支援と WS の補正を掛けたもの</td></tr>
+          <tr><td>攻防比</td><td>1.58</td><td>1.69</td><td>1.69</td><td class="why">攻撃力 ÷ 敵の防御力 (弱体のあと 1,402)</td></tr>
+          <tr><td>ダメージの倍率</td><td>1.52 〜 1.98</td><td>1.63 〜 2.11</td><td>1.63 〜 2.11</td><td class="why">攻防比とレベル差から。クリティカルで +1.0</td></tr>
+          <tr><td>武器のＤ</td><td>362</td><td>362</td><td>362</td><td class="why">アポカリプス [R15]</td></tr>
+          <tr><td>STR の補正</td><td>+32</td><td>+35</td><td>+35</td><td class="why">自分の STR − 敵の VIT から</td></tr>
+          <tr><td>ステータス修正</td><td>+141</td><td>+158</td><td>+158</td><td class="why">INT 40% + STR 40%</td></tr>
+          <tr><td>TP による倍率</td><td>2.93</td><td>2.93</td><td>2.93</td><td class="why">TP 1,118 (TP ボーナス込み)</td></tr>
+          <tr><td>WS のダメージ +%</td><td>+38%</td><td>+46%</td><td>+46%</td><td class="why">装備 28% + 特性とギフト 10%。1 段目だけ</td></tr>
+          <tr class="head"><td colspan="5">通常攻撃 (通常攻撃用のセット)</td></tr>
+          <tr><td>攻撃力</td><td>1,902</td><td>1,902</td><td>1,902</td><td class="why">素の値 1,468 に、支援を掛けたもの</td></tr>
+          <tr><td>命中</td><td>1,412</td><td>1,412</td><td>1,412</td><td class="why">敵の回避 1,340 との差 +72</td></tr>
+          <tr><td>ダブル / トリプル / クワッド</td><td>31% / 6% / 3%</td><td>31% / 6% / 3%</td><td>31% / 6% / 3%</td><td class="why">装備 + 特性 + 支援</td></tr>
+          <tr><td>1 発の得 TP</td><td>187</td><td>187</td><td>187</td><td class="why">隔 513、ストア TP +48</td></tr>
+        </tbody>
+      </table>
+    </details>
+  </div>
+</div>
+
+<ul class="notes">
+  <li>上の条件を変えると、下の結果がすぐに変わります (「探す」ボタンはありません)。</li>
+  <li>比較の列には、値の下に基準との差を出します。比較が無いときは、基準の 1 列だけになります。</li>
+  <li>遠隔攻撃 (3 段階目) は、レンジの武器を持つセットを選ぶと ③ が「遠隔攻撃」に変わります。魔法 WS・混合 WS (4 段階目) は、② の内訳に「物理の分」「魔法の分」が出ます。</li>
+</ul>
+</body>
+</html>

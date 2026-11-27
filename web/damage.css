@@ -1,0 +1,73 @@
+/* 「ダメージ」の画面。色とヘッダーは theme.css、条件の行やパネルは builder.css のものを使う */
+.pairs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; width: 100%; }
+.pair { border: 1px solid var(--line); border-radius: 8px; padding: 6px 8px; display: grid; gap: 4px; background: var(--panel); }
+.pair.a { border-left: 4px solid var(--accent); }
+.pair.b { border-left: 4px solid var(--fixed); }
+.pair.c { border-left: 4px solid #8a5cc2; }
+.pair.empty { border-style: dashed; background: none; place-items: center; color: var(--accent); font-size: 12px; min-height: 96px; }
+.pair .field { flex-wrap: wrap; }
+.pair .who { font-size: 12px; color: var(--muted); }
+.pair .who b { color: var(--text); }
+.pair .who.warn { color: var(--bad); }
+.pair-head .nb { padding: 0 7px; white-space: nowrap; }
+.pair-head { display: flex; align-items: center; gap: 6px; font-weight: 700; font-size: 13px; }
+.pair-head button { margin-left: auto; border: 0; background: none; color: var(--muted); font-size: 12px; }
+.pair .field { justify-content: space-between; }
+.pair select { min-width: 0; flex: 1; max-width: 300px; }
+.add-pair { border: 1px dashed var(--line); background: none; border-radius: 8px; color: var(--accent); padding: 4px 12px; font-size: 12px; }
+.toggle { border: 1px solid var(--line); background: var(--panel); border-radius: 999px; padding: 1px 10px; font-size: 12px; }
+.toggle.on { background: var(--accent-bg); border-color: var(--accent); color: var(--accent); font-weight: 600; }
+.toggle small { color: var(--muted); font-weight: 400; margin-left: 4px; }
+.group { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+.group > b { font-size: 11px; color: var(--muted); font-weight: 600; margin-right: 2px; }
+.enemy-values { display: flex; flex-wrap: wrap; gap: 4px 10px; }
+
+.out { padding: 12px; display: grid; gap: 12px; }
+.sec-title { margin: 0; font-size: 14px; display: flex; align-items: baseline; gap: 8px; }
+.sec-title small { font-weight: 400; color: var(--muted); font-size: 12px; }
+.conditions .input.narrow { width: 72px; }
+.cmp { table-layout: fixed; width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.cmp th, .cmp td { padding: 4px 8px; border-top: 1px solid var(--line); text-align: right; white-space: nowrap; }
+.cmp th:first-child, .cmp td:first-child { text-align: left; color: var(--muted); font-weight: 400; font-size: 12px; white-space: normal; }
+.cmp th:first-child { width: 22%; }
+.cmp thead th { border-top: 0; font-size: 12px; color: var(--muted); font-weight: 600; }
+.cmp thead th.a { color: var(--accent); }
+.cmp thead th.b { color: var(--fixed); }
+.cmp thead th.c { color: #8a5cc2; }
+.cmp .d { display: block; font-size: 11px; font-weight: 600; }
+.cmp .big .d { font-size: 12px; }
+.cmp .d.same { color: var(--muted); font-weight: 400; }
+.cmp .big td { font-size: 18px; font-weight: 700; }
+.cmp .big td:first-child { font-size: 13px; color: var(--text); font-weight: 600; }
+.cmp .range { font-size: 12px; color: var(--muted); }
+.cmp .sub td:first-child { padding-left: 20px; }
+.cmp .up { color: var(--ok); font-weight: 600; }
+.cmp .down { color: var(--bad); font-weight: 600; }
+.cmp .cap { font-size: 10px; background: var(--fixed-bg); color: var(--fixed); border-radius: 4px; padding: 0 4px; margin-left: 4px; }
+.bar { display: flex; height: 10px; border-radius: 5px; overflow: hidden; background: var(--sunken); min-width: 160px; }
+.bar i { display: block; height: 100%; }
+.bar .auto { background: var(--accent); opacity: .55; }
+.bar .ws { background: var(--accent); }
+.bar .sc { background: var(--ok); }
+.keys { display: flex; gap: 12px; font-size: 11px; color: var(--muted); margin-top: 4px; }
+.keys i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; vertical-align: -1px; margin-right: 3px; background: var(--accent); }
+.keys .auto { opacity: .55; } .keys .sc { background: var(--ok); }
+details.steps { display: block; }
+details.steps summary { margin-bottom: 6px; cursor: pointer; font-weight: 600; font-size: 13px; }
+.steps .cmp td, .steps .cmp th { font-size: 12px; padding: 3px 8px; }
+.steps .cmp .head td { background: var(--sunken); color: var(--text); font-weight: 600; }
+.steps .why { color: var(--muted); font-size: 11px; text-align: left !important; white-space: normal !important; }
+@media (max-width: 900px) { .pairs { grid-template-columns: 1fr; } }
+body { padding: 0 0 40px; }
+.later { font-size: 10px; border: 1px dashed var(--line); border-radius: 4px; padding: 0 4px; color: var(--muted); margin-left: 4px; white-space: nowrap; }
+.nb { display: inline-block; min-width: 16px; height: 16px; line-height: 16px; text-align: center; border-radius: 8px; background: var(--accent); color: var(--on-accent); font-size: 11px; font-weight: 700; margin-right: 4px; vertical-align: 1px; }
+.pair.b .nb { background: var(--fixed); } .pair.c .nb { background: #8a5cc2; color: #fff; }
+.pair.empty button { border: 0; background: none; color: var(--accent); font: inherit; cursor: pointer; }
+.problem { margin: 0; padding: 8px 10px; border-radius: 8px; background: var(--bad-bg); color: var(--bad); font-size: 13px; }
+.note-line { margin: 4px 0 0; font-size: 12px; color: var(--muted); }
+.manual-list { display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: center; }
+.manual-list .one { display: inline-flex; gap: 4px; align-items: center; background: var(--sunken); border-radius: 999px; padding: 1px 4px 1px 10px; font-size: 12px; }
+.manual-list .one button { border: 0; background: none; color: var(--muted); cursor: pointer; }
+.buff-groups { display: flex; flex-wrap: wrap; gap: 4px 14px; width: 100%; }
+.buff-groups select { font-size: 12px; padding: 0 2px; }
+.toggle { cursor: pointer; }

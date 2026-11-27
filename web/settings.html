@@ -13,7 +13,7 @@
 <body>
 <header>
   <h1>Vanarmory</h1>
-  <nav><a href="index.html">セットを組む</a><a href="search.html">装備を探す</a><a href="settings.html" class="here">設定</a></nav>
+  <nav><a href="index.html">セットを組む</a><a href="search.html">装備を探す</a><a href="damage.html">ダメージ</a><a href="settings.html" class="here">設定</a></nav>
   <p class="meta" id="meta"></p>
 </header>
 
@@ -39,14 +39,14 @@
 </div>
 
 <div class="page" id="tab-jobs" hidden>
-  <p class="hint" style="margin:0">「セットを組む」でジョブを選ぶと、ここに入れたそのジョブの値が使われます。育成はキャラクターごとで、装備の範囲の設定を切り替えても変わりません。サポートジョブのレベルは、メインジョブのマスターレベルから決まります (49 + マスターレベル ÷ 5、最大 59)。</p>
+  <p class="hint" style="margin:0">育成はキャラクターごとに持ちます<button type="button" class="q" data-help="「セットを組む」でジョブを選ぶと、ここに入れたそのジョブの値が使われます。装備の範囲の設定を切り替えても変わりません。サポートジョブのレベルは、メインジョブのマスターレベルから決まります (49 + マスターレベル ÷ 5、最大 59)。">?</button></p>
   <div class="panel">
     <h2>種族</h2>
     <select id="race" class="input" style="margin-top:6px"></select>
     <span class="hint" style="margin-left:8px">素のステータス (HP・MP・STR〜CHR) の計算に使います</span>
   </div>
   <div class="panel">
-    <h2>共通のメリポ <span class="hint">全ジョブに効きます。項目ごとに、振った段階を入れます。初期値は最大で、合計に上限のある「その他」だけ 0 から入れます</span></h2>
+    <h2>共通のメリポ <span class="hint">全ジョブに効く</span><button type="button" class="q" data-help="項目ごとに、振った段階を入れます。初期値は最大で、合計に上限のある「その他」だけ 0 から入れます。">?</button></h2>
     <div id="shared" class="shared-groups"></div>
   </div>
   <div class="panel">
@@ -60,7 +60,7 @@
 </div>
 
 <div class="page" id="tab-capes" hidden>
-  <p class="hint" style="margin:0">持っているジョブマント (アンバスケードのマント) を登録します。アイテム 5 種 (糸・金粉・染料・水油・樹脂) につき 1 項目ずつ選び、名前を付けます。値は最大まで強化したものです。「セットを組む」で自動で選ぶときは、そのジョブに登録したマントの中から選び、それでは目標に届かないときだけ、目標に合う構成を作ります。登録はキャラクターごとです。</p>
+  <p class="hint" style="margin:0">持っているジョブマントを登録します<button type="button" class="q" data-help="アイテム 5 種 (糸・金粉・染料・水油・樹脂) につき 1 項目ずつ選び、名前を付けます。値は最大まで強化したものです。「セットを組む」で自動で選ぶときは、そのジョブに登録したマントの中から選び、それでは目標に届かないときだけ、目標に合う構成を作ります。登録はキャラクターごとです。">?</button></p>
   <div class="panel">
     <h2>マントを登録する</h2>
     <div class="cape-form" id="cape-form"></div>
@@ -72,7 +72,8 @@
 </div>
 
 <div class="page" id="tab-weights" hidden>
-  <p class="hint" style="margin:0">「セットを組む」では、まず目標を満たし、「伸ばす」に選んだステータスを最大にします。それでも同じ良さの組み合わせがいくつもあるときに、ここで決めた重みの合計 (値 × 重み) が大きいものを選びます。目標や「伸ばす」の結果を下げることはありません。「少ない部位で満たす」のときは、部位の数が同じ組み合わせの中で比べます。型は「セットを組む」の画面でも選び直せます。</p>
+  <p class="hint" style="margin:0">同じ良さの組み合わせから、どれを選ぶかを決めます<button type="button" class="q" data-help="「セットを組む」では、まず目標を満たし、「伸ばす」に選んだステータスを最大にします。それでも同じ良さの組み合わせがいくつもあるときに、ここで決めた重みの合計 (値 × 重み) が大きいものを選びます。目標や「伸ばす」の結果を下げることはありません。「少ない部位で満たす」のときは、部位の数が同じ組み合わせの中で比べます。型は「セットを組む」の画面でも選び直せます。
+被ダメージのように小さいほど良いステータスは、減る向きを良いものとして数えます。上限のあるステータス (ヘイストなど) は、上限までで数えます。">?</button></p>
   <div class="panel">
     <h2>ジョブごとの型 <span class="hint">そのジョブで探すときに、初めに使う型</span>
       <span class="right"><button type="button" class="ghost" id="weights-reset-jobs">初めの状態に戻す</button></span></h2>
@@ -82,12 +83,11 @@
     <h2>型ごとの重み <span class="hint">ステータスと重み。大きいほど優先する</span>
       <span class="right"><button type="button" class="ghost" id="weights-reset-all">すべて初めの状態に戻す</button></span></h2>
     <div class="types" id="weight-types"></div>
-    <p class="hint" style="margin:10px 0 0">被ダメージのように小さいほど良いステータスは、減る向きを良いものとして数えます。上限のあるステータス (ヘイストなど) は、上限までで数えます。</p>
   </div>
 </div>
 
 <div class="page" id="tab-manual" hidden>
-  <p class="hint" style="margin:0">ランダムで付くオーグメント (ソーティの耳装備など) は人によって値が違うので、ここに入力します。ゲーム内の表記で「STR+8 DEX+8 命中+12」のように、空白で区切って書きます。入力はキャラクターごとに保存され、その装備の性能に上乗せされます。「セットを組む」で候補のマスを押したところからも入力できます。</p>
+  <p class="hint" style="margin:0">人によって値が違うオーグメントを入力します (例: STR+8 DEX+8 命中+12)<button type="button" class="q" data-help="ランダムで付くオーグメント (ソーティの耳装備など) を、ゲーム内の表記で、空白で区切って書きます。入力はキャラクターごとに保存され、その装備の性能に上乗せされます。「セットを組む」で候補のマスを押したところからも入力できます。">?</button></p>
   <div class="panel">
     <h2>入力したオーグメント <span class="hint" id="manual-count"></span></h2>
     <div id="manual-list" class="manual-list"></div>
@@ -121,22 +121,22 @@
       <span id="owned-state"></span>
       <button type="button" class="ghost danger" id="owned-clear" hidden>読み込みを消す</button>
     </div>
-    <p class="hint">Moglist の「Vanarmory へ書き出す」で作ったファイル (Moglist のフォルダの data/vanarmory/キャラクター名.json) を選びます。収納を整頓し直しただけなら、読み込み直す必要はありません。</p>
+    <p class="hint">Moglist の「Vanarmory へ書き出す」で作ったファイルを選びます<button type="button" class="q" data-help="ファイルは、Moglist のフォルダの data/vanarmory/キャラクター名.json です。収納を整頓し直しただけなら、読み込み直す必要はありません。">?</button></p>
     <p class="owned-note" id="owned-note" hidden></p>
     <div class="fix" id="owned-fix" hidden>
       <h3>補正が要る装備 <span class="hint" id="owned-fix-count"></span></h3>
-      <p class="hint">強化の値を読めなかった装備です。そのままだと、名前に出ている値 (無ければ強化なし) で計算します。「強化の状態」から近いものを選ぶか、オーグメントをゲーム内の表記で入れてください (入れたほうを優先します)。補正はキャラクターごとに保存し、読み込み直しても残ります。</p>
+      <p class="hint">強化の値を読めなかった装備です<button type="button" class="q" data-help="そのままだと、名前に出ている値 (無ければ強化なし) で計算します。「強化の状態」から近いものを選ぶか、オーグメントをゲーム内の表記で入れてください (入れたほうを優先します)。補正はキャラクターごとに保存し、読み込み直しても残ります。">?</button></p>
       <div class="fix-row head"><span>装備</span><span>読めなかった理由</span><span>強化の状態を選ぶ</span><span>または、オーグメントを入れる</span><span></span></div>
       <div id="owned-fix-rows"></div>
     </div>
     <div id="owned-switches" hidden>
       <label class="owned-sw"><input type="checkbox" id="owned-augs"> <b>持っている装備は、実物のオーグメントで計算する</b>
-        <span class="hint">同じ装備でオーグメント違いを持っていれば、別々の候補になります。手入力のオーグメントより優先します</span></label>
+        </label><button type="button" class="q" data-help="同じ装備でオーグメント違いを持っていれば、別々の候補になります。手入力のオーグメントより優先します。">?</button>
       <label class="owned-sw"><input type="checkbox" id="owned-only"> <b>持っている装備だけを使う</b>
-        <span class="hint">入れると、下のジョブ専用装束とコンテンツの範囲は使いません。この 2 つは、装備の範囲の設定ごとに持ちます</span></label>
+        </label><button type="button" class="q" data-help="入れると、下のジョブ専用装束とコンテンツの範囲は使いません。この 2 つの入・切は、装備の範囲の設定ごとに持ちます。">?</button>
     </div>
   </div>
-  <p class="hint" style="margin:0">選んだ設定は「セットを組む」の画面でも使われます。変更はすぐ保存されます。メイン・頭・胴・両手・両脚・両足は IL119 の装備だけを扱い、武器は固定したものだけを使うので、ここでは防具とアクセサリの範囲を決めます。</p>
+  <p class="hint" style="margin:0">防具とアクセサリの、使ってよい範囲を決めます<button type="button" class="q" data-help="選んだ設定は「セットを組む」の画面でも使われます。変更はすぐ保存されます。メイン・頭・胴・両手・両脚・両足は IL119 の装備だけを扱い、武器は固定したものだけを使います。">?</button></p>
   <div class="cols">
     <div class="stack">
       <div class="panel">
@@ -170,6 +170,7 @@
 </div>
 </div>
 
+<script src="help.js"></script>
 <script src="data.js"></script>
 <script src="search.js"></script>
 <script src="parse.js"></script>

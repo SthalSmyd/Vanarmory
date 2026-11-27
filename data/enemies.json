@@ -1,0 +1,84 @@
+{
+ "source": [
+  "https://www.bg-wiki.com/ffxi/Category:Apex_Monsters (各モンスターのページの DEF・EVA と Notes 欄)"
+ ],
+ "note": "ダメージの画面の敵の一覧。検証値が wiki に載っている敵だけ。値は、レベルの幅のうちいちばん高いレベルのもの。載っていない項目 (VIT・AGI など) は入れず、画面の値をそのままにする。日本語名は確かめられていないので英語名で載せる。",
+ "enemies": [
+  {
+   "id": "apex-bats",
+   "ja": "Apex Bats Lv130 (ドーの門)",
+   "page": "https://www.bg-wiki.com/ffxi/Apex_Bats",
+   "values": {
+    "eva": 1073,
+    "def": 1173
+   }
+  },
+  {
+   "id": "apex-toad",
+   "ja": "Apex Toad Lv133 (ウォーの門)",
+   "page": "https://www.bg-wiki.com/ffxi/Apex_Toad",
+   "values": {
+    "eva": 1163,
+    "def": 1272
+   }
+  },
+  {
+   "id": "apex-bat",
+   "ja": "Apex Bat Lv136 (ラ・カザナル宮外郭)",
+   "page": "https://www.bg-wiki.com/ffxi/Apex_Bat",
+   "values": {
+    "eva": 1254,
+    "def": 1371
+   }
+  },
+  {
+   "id": "apex-lugcrawler",
+   "ja": "Apex Lugcrawler Hunter Lv139 (クロウラーの巣〔S〕)",
+   "page": "https://www.bg-wiki.com/ffxi/Apex_Lugcrawler_Hunter",
+   "values": {
+    "eva": 1344,
+    "def": 1479
+   }
+  },
+  {
+   "id": "apex-knight",
+   "ja": "Apex Knight Lugcrawler Lv140 (クロウラーの巣〔S〕)",
+   "page": "https://www.bg-wiki.com/ffxi/Apex_Knight_Lugcrawler",
+   "values": {
+    "eva": 1383,
+    "def": 1530
+   }
+  },
+  {
+   "id": "apex-drifter",
+   "ja": "Apex Idle Drifter Lv142 (プロミヴォン)",
+   "page": "https://www.bg-wiki.com/ffxi/Apex_Idle_Drifter",
+   "values": {
+    "eva": 1502,
+    "vit": 348,
+    "agi": 366,
+    "def": 1448
+   }
+  },
+  {
+   "id": "apex-cog",
+   "ja": "Apex Archaic Cog Lv145 (アルザダール海底遺跡群)",
+   "page": "https://www.bg-wiki.com/ffxi/Apex_Archaic_Cog",
+   "values": {
+    "eva": 1551,
+    "vit": 381,
+    "def": 1704
+   }
+  },
+  {
+   "id": "apex-cogs",
+   "ja": "Apex Archaic Cogs Lv147 (アルザダール海底遺跡群)",
+   "page": "https://www.bg-wiki.com/ffxi/Apex_Archaic_Cogs",
+   "values": {
+    "eva": 1628,
+    "vit": 399,
+    "def": 1791
+   }
+  }
+ ]
+}

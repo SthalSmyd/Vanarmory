@@ -525,7 +525,7 @@
         }),
         el('div', { className: 'hint' }, '合計: ', el('b', { textContent: capeText(cape.picks) })));
     }));
-    if (!list.length) $('cape-list').append(el('p', { className: 'hint', textContent: 'まだありません。上の欄から登録します。「セットを組む」で、候補や固定した背のマスを押したところからも登録できます。' }));
+    if (!list.length) $('cape-list').append(el('p', { className: 'hint', textContent: 'まだありません。上の欄から登録します。' }));
   }
 
   // ---- 同じ良さのときの重み: 役割の型と、ジョブごとの型 ----
@@ -655,7 +655,7 @@
       return el('div', { className: 'manual-row' }, el('span', { className: 'manual-name', textContent: nameOf(item), title: item.desc }), input, remove,
         item.roll ? el('span', { className: 'manual-roll', textContent: `この装備に付く幅: ${item.roll}` }) : null, note);
     }));
-    if (!ids.length) $('manual-list').append(el('p', { className: 'hint', textContent: 'まだ何も入力していません。下の欄で装備を探して追加します。' }));
+    if (!ids.length) $('manual-list').append(el('p', { className: 'hint', textContent: 'まだありません。下の欄で装備を探して足します。' }));
 
     const q = fold($('manual-find').value.trim());
     const list = $('manual-found');

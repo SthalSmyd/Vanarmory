@@ -9,6 +9,7 @@
 //     │    merit はジョブ別のメリポを最大まで振っているか
 //     ├ 種族 … race ('hume' / 'elvaan' / 'tarutaru' / 'mithra' / 'galka')。素のステータスの計算に使う
 //     ├ 共通のメリポ … merits: { 項目の名前: 段階 }
+//     ├ いつもの装備 … pins: { ジョブの番号: { 部位: 装備の id } }
 //     ├ 保存したセット … sets: [{ id, name, who: { job, sub, subLevel, food, innate }, equip: { 部位: 装備の id } }]
 //     ├ 登録したジョブマント … capes: [{ id, job, name, picks }] (picks は、アイテム 5 種ごとに選んだ項目の番号。-1 は付けない)
 //     ├ 保存した条件 … searches: [{ id, name, cond }] (cond は「セットを組む」の条件。固定する装備は含めない)
@@ -167,6 +168,8 @@
       augments: Object.assign({}, character.augments),
       sets: JSON.parse(JSON.stringify(character.sets || [])),
       capes: JSON.parse(JSON.stringify(character.capes || [])),
+      // いつもの装備 (ジョブごとに、いつも固定する装備): { ジョブの番号: { 部位: 装備の id } }
+      pins: JSON.parse(JSON.stringify(character.pins || {})),
       // 持っている装備 (Moglist から読み込んだもの)。無ければ null
       owned: character.owned && Array.isArray(character.owned.items) ? JSON.parse(JSON.stringify(character.owned)) : null,
       // 強化の値を読めなかった装備の補正 (形は owned.js)

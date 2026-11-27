@@ -44,3 +44,8 @@ nav a.here { background: rgb(255 255 255 / .12); color: var(--head-accent); font
 /* FF11用語辞典のページを開くリンクマーク */
 .wiki { display: inline-flex; vertical-align: middle; margin-left: 5px; padding: 2px; border-radius: 4px; color: var(--muted); }
 .wiki:hover { color: var(--accent); background: var(--accent-bg); }
+
+/* 「?」の印と、押すと開く説明 (help.js) */
+.q { display: inline-grid; place-items: center; width: 17px; height: 17px; padding: 0; border-radius: 50%; border: 1px solid var(--line); background: var(--panel); color: var(--muted); font-size: 11px; font-weight: 400; line-height: 1; cursor: pointer; margin-left: 4px; vertical-align: 1px; flex: none; }
+.q:hover, .q.open { border-color: var(--accent); color: var(--accent); }
+.tip { display: block; flex-basis: 100%; width: 100%; margin: 4px 0 2px; padding: 6px 10px; border-radius: 8px; background: var(--accent-bg); color: var(--text); font-size: 12px; font-weight: 400; line-height: 1.6; max-width: 720px; white-space: pre-line; }

@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vanarmory — 固定の持ち方と、枠が広がらない開き方のモック</title>
+<link rel="stylesheet" href="../web/theme.css">
+<link rel="stylesheet" href="../web/builder.css">
+<style>
+body { padding: 0 0 60px; }
+.mock-note { margin: 0; padding: 6px 12px; font-size: 12px; color: var(--muted); background: var(--sunken); border-bottom: 1px dashed var(--line); }
+h2.sec { font-size: 15px; margin: 28px 16px 2px; }
+p.note { font-size: 12px; color: var(--muted); margin: 0 16px 10px; max-width: 1050px; }
+.n { display: inline-block; min-width: 16px; height: 16px; line-height: 16px; text-align: center; border-radius: 8px; background: var(--accent); color: var(--on-accent); font-size: 11px; font-weight: 700; margin-right: 4px; vertical-align: 1px; }
+.stage { position: relative; margin: 0 16px; display: grid; grid-template-columns: 276px minmax(0, 1fr); gap: 12px; align-items: start; }
+.stage .side { position: static; max-height: none; overflow: visible; }
+.ghost { border: 1px dashed var(--line); border-radius: 10px; min-height: 330px; display: grid; place-items: center; color: var(--muted); font-size: 12px; }
+
+/* ここから下が、足す見た目 */
+/* いつもの装備 (ジョブごと): 金のピン。今回だけの固定: いままでどおりの ● */
+.cell.pinned { background: var(--fixed-bg); box-shadow: inset 0 0 0 1px var(--fixed); }
+.cell.pinned .slot { color: var(--fixed); font-weight: 700; }
+.cell.pinned .slot::before { content: "📌 "; font-size: 9px; }
+.panel h2 .acts { display: flex; gap: 8px; }
+.unfix { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; margin-top: 6px; font-size: 12px; color: var(--muted); }
+.unfix button, .load-menu button { border: 1px solid var(--line); background: var(--panel); border-radius: 999px; padding: 0 9px; font-size: 12px; cursor: pointer; }
+.legend2 { display: flex; flex-wrap: wrap; gap: 4px 10px; margin: 6px 0 0; font-size: 11px; color: var(--muted); }
+/* 枠を広げない開き方: 左の欄の右隣に、候補の上へ重ねて出す */
+.float { position: absolute; left: 288px; top: 0; width: 340px; z-index: 5; background: var(--panel); border: 1px solid var(--accent); border-radius: 10px; box-shadow: 0 8px 28px rgb(0 0 0 / .28); padding: 10px; font-size: 13px; }
+.float::before { content: ""; position: absolute; left: -7px; top: 86px; width: 12px; height: 12px; background: var(--panel); border-left: 1px solid var(--accent); border-bottom: 1px solid var(--accent); transform: rotate(45deg); }
+.float .title { font-weight: 700; display: flex; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
+.float .title button { border: 0; background: none; color: var(--muted); cursor: pointer; }
+.float input[type=text] { width: 100%; background: var(--sunken); border: 1px solid var(--line); border-radius: 6px; padding: 5px 8px; }
+.float ul { list-style: none; margin: 6px 0 0; padding: 0; max-height: 190px; overflow: hidden; }
+.float li { padding: 4px 6px; border-radius: 6px; display: flex; justify-content: space-between; gap: 8px; }
+.float li:nth-child(2) { background: var(--accent-bg); }
+.float li .sub { display: block; color: var(--muted); font-size: 11px; }
+.float li .lv { color: var(--muted); font-size: 11px; white-space: nowrap; }
+.how { display: grid; gap: 4px; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--line); font-size: 12px; }
+.how label { display: flex; gap: 6px; align-items: baseline; }
+.how small { color: var(--muted); }
+.load-menu { display: grid; gap: 4px; margin-top: 6px; padding: 6px; border: 1px solid var(--accent); border-radius: 8px; background: var(--panel); }
+.load-menu button { text-align: left; border-radius: 6px; padding: 3px 8px; }
+.load-menu button small { color: var(--muted); margin-left: 6px; }
+/* 説明文: 短い 1 行 + 「?」 */
+.q { display: inline-grid; place-items: center; width: 16px; height: 16px; border-radius: 50%; border: 1px solid var(--line); color: var(--muted); font-size: 11px; cursor: pointer; margin-left: 4px; vertical-align: 1px; background: var(--panel); }
+.q.open { border-color: var(--accent); color: var(--accent); }
+.tip { margin: 4px 0 0; padding: 6px 10px; border-radius: 8px; background: var(--accent-bg); font-size: 12px; max-width: 560px; }
+.before, .after { margin: 0 16px 6px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; font-size: 12px; max-width: 900px; background: var(--panel); }
+.before b, .after b { display: block; font-size: 11px; color: var(--muted); margin-bottom: 2px; }
+.before { color: var(--muted); }
+</style>
+</head>
+<body>
+<p class="mock-note">モック (見た目だけ。押しても動きません)。丸数字が、変えるところ</p>
+
+<h2 class="sec">① 固定の持ち方: 「いつもの装備」(ジョブごと) と「今回だけの固定」を分ける</h2>
+<p class="note"><span class="n">1</span>「いつもの装備」= そのジョブでいつも使う武器やアクセ。ピンの印が付き、<b>ジョブごとに覚える</b>。ジョブを変えると、そのジョブのいつもの装備に入れ替わり、戻せば元どおり。「すべて解除」や、セットの読み込みでは<b>消えない</b>。<span class="n">2</span>「今回だけの固定」= いままでの ● の固定。ジョブを変えても、そのジョブで装備できるものは残す (装備できないものだけ外れる)。<span class="n">3</span> まとめて外すボタン: すべて・防具・アクセ。いつもの装備は外れない。</p>
+<div class="stage">
+  <aside class="side">
+    <div class="panel">
+      <h2>固定する装備 <span class="acts"><button type="button">すべて解除</button></span></h2>
+      <div class="grid">
+        <div class="cell weapon pinned"><div class="slot">メイン</div><div class="name">アポカリプス [R15]</div></div>
+        <div class="cell weapon pinned"><div class="slot">サブ</div><div class="name">ウトゥグリップ</div></div>
+        <div class="cell weapon off"><div class="slot">レンジ</div><div class="name">未設定</div></div>
+        <div class="cell fixed"><div class="slot">矢弾</div><div class="name">コイストボダー</div></div>
+        <div class="cell fixed"><div class="slot">頭</div><div class="name">ＨＴバゴネット+3</div></div>
+        <div class="cell blank free"><div class="slot">首</div></div>
+        <div class="cell blank free"><div class="slot">耳1</div></div>
+        <div class="cell blank free"><div class="slot">耳2</div></div>
+        <div class="cell fixed"><div class="slot">胴</div><div class="name">サクパタブレスト</div></div>
+        <div class="cell blank free"><div class="slot">両手</div></div>
+        <div class="cell pinned"><div class="slot">指1</div><div class="name">ニックマドゥリング</div></div>
+        <div class="cell blank free"><div class="slot">指2</div></div>
+        <div class="cell blank free"><div class="slot">背</div></div>
+        <div class="cell blank free"><div class="slot">腰</div></div>
+        <div class="cell blank free"><div class="slot">両脚</div></div>
+        <div class="cell blank free"><div class="slot">両足</div></div>
+      </div>
+      <div class="unfix"><span class="n">3</span>外す: <button>防具</button><button>アクセ</button><button>すべて</button></div>
+      <p class="legend2"><span>📌 いつもの装備 (暗黒騎士)</span><span>● 今回だけ固定</span><span>空 = 自動で選ぶ</span></p>
+    </div>
+  </aside>
+  <div class="ghost">(候補の欄)</div>
+</div>
+
+<h2 class="sec">② 部位を押したとき: 左の欄を伸ばさず、右隣に重ねて開く</h2>
+<p class="note"><span class="n">4</span> 装備を選ぶ欄は、左の欄の中に差し込まず、押した部位の右隣に浮かせて出す。左の欄の高さは変わらないので、下の「保存したセット」が動かない。装備を選ぶか、外を押すと閉じる。<span class="n">5</span> 選ぶときに「今回だけ」か「いつも (このジョブ)」かを決める。あとから部位を押して切り替えることもできる。</p>
+<div class="stage">
+  <aside class="side">
+    <div class="panel">
+      <h2>固定する装備 <span class="acts"><button type="button">すべて解除</button></span></h2>
+      <div class="grid">
+        <div class="cell weapon pinned"><div class="slot">メイン</div><div class="name">アポカリプス [R15]</div></div>
+        <div class="cell weapon pinned"><div class="slot">サブ</div><div class="name">ウトゥグリップ</div></div>
+        <div class="cell weapon off"><div class="slot">レンジ</div><div class="name">未設定</div></div>
+        <div class="cell fixed"><div class="slot">矢弾</div><div class="name">コイストボダー</div></div>
+        <div class="cell fixed"><div class="slot">頭</div><div class="name">ＨＴバゴネット+3</div></div>
+        <div class="cell blank free sel"><div class="slot">首</div></div>
+        <div class="cell blank free"><div class="slot">耳1</div></div>
+        <div class="cell blank free"><div class="slot">耳2</div></div>
+        <div class="cell fixed"><div class="slot">胴</div><div class="name">サクパタブレスト</div></div>
+        <div class="cell blank free"><div class="slot">両手</div></div>
+        <div class="cell pinned"><div class="slot">指1</div><div class="name">ニックマドゥリング</div></div>
+        <div class="cell blank free"><div class="slot">指2</div></div>
+        <div class="cell blank free"><div class="slot">背</div></div>
+        <div class="cell blank free"><div class="slot">腰</div></div>
+        <div class="cell blank free"><div class="slot">両脚</div></div>
+        <div class="cell blank free"><div class="slot">両足</div></div>
+      </div>
+      <div class="unfix">外す: <button>防具</button><button>アクセ</button><button>すべて</button></div>
+    </div>
+    <div class="panel">
+      <h2>保存したセット <button type="button">固定中の装備を保存</button></h2>
+      <div class="saved"><div class="saved-set"><label class="saved-head"><input type="checkbox"><span class="saved-name">暗 TP</span></label><div class="saved-meta">暗黒騎士 99 / 侍 59・食事なし</div><div class="saved-gear">アポカリプス [R15] / ウトゥグリップ / コイストボダー / …</div><div class="saved-acts"><button class="small">見る</button><button class="small">読み込む</button><button class="small">名前</button><button class="small danger">削除</button></div></div></div>
+    </div>
+  </aside>
+  <div class="ghost">(候補の欄。浮いた欄は、この上に重なる)</div>
+  <div class="float">
+    <div class="title"><span><span class="n">4</span>首を選ぶ</span><button type="button">閉じる</button></div>
+    <input type="text" placeholder="名前で探す">
+    <ul>
+      <li><span>アブダルスカラー+2<span class="sub">STR+25 DEX+25 物理ダメージ上限+10%</span></span><span class="lv">IL119</span></li>
+      <li><span>ニュートンスリング<span class="sub">命中+35 ストアTP+5</span></span><span class="lv">Lv99</span></li>
+      <li><span>フォシャゴルゲット<span class="sub">潜在能力: ウェポンスキルの命中+10 / ダメージアップ+10%</span></span><span class="lv">Lv99</span></li>
+    </ul>
+    <div class="how"><div><span class="n">5</span>固定のしかた</div>
+      <label><input type="radio" name="how" checked> 今回だけ固定 <small>ジョブを変えても、装備できれば残る</small></label>
+      <label><input type="radio" name="how"> いつも固定 (暗黒騎士) <small>ジョブごとに覚える。「解除」やセットの読み込みで消えない</small></label>
+    </div>
+  </div>
+</div>
+
+<h2 class="sec">③ 保存したセット: 「見る」は右の候補の欄に出す。「読み込む」は、どこまで固定するかを選ぶ</h2>
+<p class="note"><span class="n">6</span>「見る」を押すと、右の候補の欄のいちばん上に、候補と同じ形のカードで出す (左の一覧は伸びない)。「固定中の装備のステータスを見る」も同じ。<span class="n">7</span>「読み込む」を押すと、固定する範囲を選べる。いちいち外さなくてよい。<span class="n">8</span> 目標が無くても「セットを探す」を押せば、固定した装備そのものが 1 枚のカードで出る (すべて固定していても、何も出ないことが無くなる)。</p>
+<div class="stage">
+  <aside class="side">
+    <div class="panel">
+      <h2>保存したセット <button type="button">固定中の装備を保存</button></h2>
+      <div class="saved">
+        <div class="saved-set viewing"><label class="saved-head"><input type="checkbox"><span class="saved-name">暗 TP</span></label><div class="saved-meta">暗黒騎士 99 / 侍 59・食事なし</div><div class="saved-gear">アポカリプス [R15] / ウトゥグリップ / コイストボダー / …</div><div class="saved-acts"><button class="small">閉じる</button><button class="small">読み込む</button><button class="small">名前</button><button class="small danger">削除</button></div>
+          <div class="load-menu"><span><span class="n">7</span>読み込んで…</span>
+            <button>すべて固定する<small>いままでと同じ</small></button>
+            <button>武器だけ固定する<small>メイン・サブ・レンジ・矢弾</small></button>
+            <button>武器とアクセを固定する<small>防具だけ探し直す</small></button>
+            <button>固定しない<small>ジョブ・サポ・食事だけ合わせる</small></button>
+          </div>
+        </div>
+        <div class="saved-set"><label class="saved-head"><input type="checkbox"><span class="saved-name">暗 カタストロフィ</span></label><div class="saved-meta">暗黒騎士 99 / 侍 59・食事なし</div><div class="saved-gear">アポカリプス [R15] / ウトゥグリップ / ノブキエリ / …</div><div class="saved-acts"><button class="small">見る</button><button class="small">読み込む</button><button class="small">名前</button><button class="small danger">削除</button></div></div>
+      </div>
+    </div>
+  </aside>
+  <main>
+    <div class="results-head"><h2>候補</h2></div>
+    <div class="card" style="border-color: var(--accent)">
+      <div class="card-head"><h3><span class="n">6</span>暗 TP <small style="font-weight:400;color:var(--muted);font-size:12px">保存したセット・見ているだけ</small></h3><span class="used">暗黒騎士 99 / 侍 59</span><button class="copy">閉じる</button></div>
+      <p style="margin:0;color:var(--muted);font-size:12px">(候補のカードと同じ中身: 基本ステータス、装備欄、攻撃・命中、TP、すべてのステータス)</p>
+    </div>
+  </main>
+</div>
+
+<h2 class="sec">④ 説明文: 短い 1 行 + 「?」</h2>
+<p class="note"><span class="n">9</span> 画面に出す文は 1 行までにして、くわしい説明は「?」を押すと、その場に開く。4 つの画面すべてで同じ形にする。下は、いまの文と、直したあとの例。</p>
+<div class="before"><b>いま (ダメージの画面の「セット」)</b>保存したセットか、「セットを組む」で固定中の装備から選びます。比較は 2 つまで足せます。ジョブ・サポ・食事は、選んだセットが持っているものを使います。ジョブの育成 (マスターレベル、ジョブポイント、メリポ) は「設定」の値です</div>
+<div class="after"><b>直したあと</b>セット<span class="q open">?</span>
+  <p class="tip">保存したセットか、「セットを組む」で固定中の装備から選ぶ。ジョブ・サポ・食事は、通常攻撃用のセットのものを使う。育成 (マスターレベルなど) は「設定」の値。</p></div>
+<div class="before"><b>いま (セットを組む画面の凡例)</b>● 固定 / 空 = 自動で選ぶ / 武器は固定したものだけ使う</div>
+<div class="after"><b>直したあと</b>📌 いつも　● 今回だけ　空 = 自動<span class="q">?</span></div>
+<div class="before"><b>いま (ダメージの画面の「時間あたりのダメージ」)</b>通常攻撃で TP をため、ラウンドの終わりに撃つ TP 以上なら WS 用に着替えて撃つ、を繰り返したときの平均 … WS を撃つのに 2 秒かかるものとして計算しています。リゲインや被ダメージで得る TP は入れていません。</div>
+<div class="after"><b>直したあと</b>時間あたりのダメージ<span class="q">?</span></div>
+</body>
+</html>

@@ -13,7 +13,7 @@
 <body>
 <header>
   <h1>Vanarmory</h1>
-  <nav><a href="index.html" class="here">セットを組む</a><a href="search.html">装備を探す</a><a href="settings.html">設定</a></nav>
+  <nav><a href="index.html" class="here">セットを組む</a><a href="search.html">装備を探す</a><a href="damage.html">ダメージ</a><a href="settings.html">設定</a></nav>
   <p class="meta" id="meta"></p>
 </header>
 
@@ -81,17 +81,18 @@
 <div class="work">
   <aside class="side">
     <div class="panel">
-      <h2>固定する装備 <button type="button" id="fixed-clear">すべて解除</button></h2>
+      <h2><span>固定する装備<button type="button" class="q" data-help="マスを押すと、その部位の装備を固定できます。空のマスは自動で選びます。武器は、固定したものだけを使います。
+📌 いつも: そのジョブでいつも使う装備。ジョブごとに覚え、解除やセットの読み込みでは消えません。
+● 今回だけ: ジョブを変えても、装備できれば残ります。">?</button></span> <button type="button" id="fixed-clear" title="今回だけの固定をすべて外す (いつもの装備は残る)">すべて解除</button></h2>
       <div class="grid" id="mine"></div>
-      <div class="editor" id="editor" hidden></div>
-      <button type="button" class="copy view-toggle" id="fixed-view" title="固定している装備だけの合計・攻撃や命中・TP と、装備の説明を見る">固定中の装備のステータスを見る</button>
-      <div id="fixed-stats" hidden></div>
-      <p class="legend"><span><i class="f"></i>固定</span><span><i></i>空 = 自動で選ぶ</span><span>武器は固定したものだけ使う</span></p>
+      <div class="unfix">外す: <button type="button" id="unfix-armor" title="頭・胴・両手・両脚・両足の固定を外す">防具</button><button type="button" id="unfix-acc" title="首・耳・指・背・腰の固定を外す">アクセ</button>
+        <button type="button" class="copy view-toggle" id="fixed-view">ステータスを見る</button></div>
+      <p class="legend"><span>📌 いつも</span><span>● 今回だけ</span><span>空 = 自動</span></p>
     </div>
     <div class="panel">
       <h2>保存したセット <button type="button" id="save-fixed" title="いま「固定する装備」に入れている一式を、名前を付けて保存する">固定中の装備を保存</button></h2>
       <div id="saved" class="saved"></div>
-      <p class="hint">候補の「保存」で増えます。チェックを入れると比較に並びます (候補と合わせて 3 つまで)。</p>
+      <p class="hint">候補の「保存」で増えます<button type="button" class="q" data-help="チェックを入れると、比較に並びます (候補と合わせて 3 つまで)。「見る」はステータスを右に出し、「読み込む」は固定する範囲を選んで「固定する装備」に入れます。">?</button></p>
     </div>
     <div class="panel" id="excluded-box" hidden>
       <h2><span id="excluded-title"></span> <button type="button" id="excluded-clear">すべて戻す</button></h2>
@@ -105,6 +106,7 @@
       <h2 id="results-title">候補</h2>
       <span class="hint" id="results-hint"></span>
     </div>
+    <div id="viewing"></div>
     <div id="compare" hidden></div>
     <div id="notice"></div>
     <div id="overview" hidden></div>
@@ -121,6 +123,9 @@
   </div>
 </div>
 
+<div class="editor float" id="editor" hidden></div>
+
+<script src="help.js"></script>
 <script src="data.js"></script>
 <script src="search.js"></script>
 <script src="solver.js"></script>
@@ -130,6 +135,7 @@
 <script src="owned.js"></script>
 <script src="basestats.js"></script>
 <script src="tp.js"></script>
+<script src="sets.js"></script>
 <script src="builder.js"></script>
 </body>
 </html>
