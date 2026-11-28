@@ -1557,7 +1557,8 @@
   }
 
   // 左の欄で開く、セットのステータス。目標への届き具合 (いま画面で選んでいる目標と比べる)、基本ステータス、
-  // 攻撃・命中、TP、すべてのステータス、装備ごとの説明
+  // 「見る」のカードの中身。候補のカードと同じ並び (目標への届き具合、基本ステータスと装備欄、攻撃・命中と TP、すべてのステータス)
+  let viewSlot = null; // 「見る」のカードで説明を開いているマス
   function setView(entry) {
     const { set, context, base } = entry;
     const columns = state.targets.filter((t) => t.goal != null && t.goal !== 0).map((t) => ({ stat: db.statByKey.get(t.k), goal: effectiveGoal(db.statByKey.get(t.k), t.goal) }));
@@ -1577,38 +1578,40 @@
       checks.append(el('span', { className: 'chk' + (ok ? '' : ' short') }, c.stat.k + ' ', shown, el('span', { textContent: '/ ' + showValue(c.stat, c.goal) }),
         ok ? null : el('span', { textContent: `あと ${Math.abs(Math.round((c.goal - value) * 100) / 100)}${c.stat.u || ''}` })));
     }
-    const req = { base };
-    const gear = el('div', { className: 'view-gear' });
-    const rows = [];
+    const req = { base, fixed: {} };
+    // 装備欄は候補と同じマス。押すと、その装備の説明を下に出す
+    const grid = el('div', { className: 'grid' });
     for (const slot of SLOTS) {
       const item = set.equip[slot.id];
-      if (!item) continue;
-      const row = el('details', null,
-        el('summary', null, el('span', { className: 'slot', textContent: slot.ja }), nameOf(item), window.VanaSearch.wikiLink(item)),
-        el('pre', { textContent: item.desc }),
-        item.aug ? el('div', { className: 'aug', textContent: 'オーグメント: ' + item.aug.replace(/\s+/g, ' ') }) : null,
-        item.manual ? el('div', { className: 'aug', textContent: '手入力のオーグメント: ' + item.manual }) : null,
-        item.bareOn ? el('div', { className: 'aug', textContent: '「素手:」の分を合計に入れています' }) : null);
-      rows.push(row);
-      gear.append(row);
+      const gain = item ? columns.map((c) => {
+        const v = item.m.get(c.stat.i);
+        return v ? shortName(c.stat.k) + signed(v) : '';
+      }).filter(Boolean).join(' ') : '';
+      const c = cell(slot, item, { gain, selected: viewSlot === slot.id, empty: slot.weapon ? '未設定' : '' });
+      if (item) c.addEventListener('click', () => {
+        viewSlot = viewSlot === slot.id ? null : slot.id;
+        renderFixedView();
+      });
+      grid.append(c);
     }
-    const all = el('button', { type: 'button', className: 'small', textContent: '説明をすべて開く' });
-    all.addEventListener('click', () => {
-      const open = rows.some((r) => !r.open);
-      for (const r of rows) r.open = open;
-      all.textContent = open ? '説明をすべて閉じる' : '説明をすべて開く';
-    });
+    const slot = SLOTS.find((x) => x.id === viewSlot);
+    const item = slot && set.equip[slot.id];
+    const detail = item ? el('div', { className: 'detail' }, el('div', null,
+      el('div', { className: 'title' }, `${slot.ja}: ${nameOf(item)}`, window.VanaSearch.wikiLink(item), el('span', { className: 'en', textContent: item.en })),
+      el('pre', { textContent: item.desc }),
+      item.aug ? el('div', { className: 'aug', textContent: 'オーグメント: ' + item.aug.replace(/\s+/g, ' ') }) : null,
+      item.manual ? el('div', { className: 'aug', textContent: '手入力のオーグメント: ' + item.manual }) : null,
+      item.bareOn ? el('div', { className: 'aug', textContent: '「素手:」の分を合計に入れています' }) : null)) : null;
     const bonus = set.bonuses.map((b) => `${data.sets[b.index].label} ${b.count} 部位`).join('、');
     const tp = tpBoxes(set, context);
-    return el('div', { className: 'set-view' },
+    return [
       columns.length ? checks : null,
       bonus ? el('div', { className: 'bonus', textContent: `セット効果: ${bonus} (合計に含む)` }) : null,
-      statSheet(set, context),
-      el('div', { className: 'combat' }, attackTiles(set, req, context)),
-      tp,
-      statsPanel(set, req, new Set(columns.map((c) => c.stat.i)), true),
-      el('div', { className: 'view-head' }, el('span', { textContent: `装備 (${rows.length} 部位)` }), all),
-      gear);
+      el('div', { className: 'top' }, statSheet(set, context), grid),
+      detail,
+      el('div', { className: 'combat' + (tp ? ' with-tp' : '') }, attackTiles(set, req, context), tp),
+      statsPanel(set, req, new Set(columns.map((c) => c.stat.i))),
+    ];
   }
 
   // 固定中の装備のステータス (固定する装備の枠の下に開く)
@@ -1635,14 +1638,15 @@
       meta = whoText(who);
     } else if (viewing) {
       entry = entryOf(viewing);
-      if (entry) { name = entry.label; meta = whoText(entry.who) + '・保存したセット'; }
+      if (entry) { name = entry.label; meta = whoText(entry.who); }
     }
     if (!entry) return;
+    const tag = el('span', { className: 'view-tag', textContent: viewing === 'fixed' ? '固定中' : '保存したセット' });
     const close = el('button', { type: 'button', className: 'copy', textContent: '閉じる' });
     close.addEventListener('click', () => { viewing = null; renderFixedView(); renderSaved(); });
     viewCard = el('div', { className: 'card view-card' },
-      el('div', { className: 'card-head' }, el('h3', { textContent: name }), el('span', { className: 'used', textContent: meta }), close),
-      setView(entry));
+      el('div', { className: 'card-head' }, tag, el('h3', { textContent: name }), el('span', { className: 'used', textContent: meta }), close),
+      ...setView(entry));
     $('cards').prepend(viewCard);
   }
 
