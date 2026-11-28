@@ -724,6 +724,20 @@
    "url": "https://wiki.ffo.jp/html/861.html"
   },
   {
+   "id": "ageha",
+   "group": "弱体",
+   "ja": "十一之太刀・鳳蝶",
+   "options": [
+    {
+     "label": "-25%",
+     "def": 25
+    }
+   ],
+   "slot": "down",
+   "url": "https://wiki.ffo.jp/html/20220.html",
+   "note": "両手刀の WS の追加効果 (防御力ダウン)。3 分間。アンゴン・アーマーブレイクと同じ枠"
+  },
+  {
    "id": "box-step",
    "group": "弱体",
    "ja": "ボックスステップ",
