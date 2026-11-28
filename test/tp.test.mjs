@@ -69,3 +69,9 @@ test('マーシャルアーツ: メインとサポの高いほう、ギフトは
   assert.equal(T.martialArts({ job: 1, sub: 12, subLevel: 53 }), 0);
   assert.equal(T.martialArts({ job: 2, trait: false }), 0);
 });
+
+test('格闘の得TP: 片手の隔は端数を切り捨てる (検証記事の表と合う)', () => {
+  // [武器の隔, マーシャルアーツ, ストアTP, 得TP]
+  const rows = [[116, 210, 0, 64], [126, 210, 0, 65], [79, 255, 0, 56], [81, 210, 0, 60], [138, 210, 10, 72], [96, 210, 10, 67], [96, 210, 0, 61], [90, 210, 0, 61], [79, 210, 10, 64], [121, 210, 5, 67], [81, 210, 5, 63], [121, 210, 25, 80]];
+  for (const [main, martialArts, storeTp, tp] of rows) assert.equal(T.perHit(T.melee({ kind: 'h2h', main, martialArts }).delay, storeTp), tp);
+});

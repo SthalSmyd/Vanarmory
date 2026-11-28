@@ -72,6 +72,7 @@
       out.vel += e.vel || 0;
       out.shots += e.shots || 0;
       out.eva += e.eva || 0;
+      if (e.foot) out.foot = true;
       // 敵の防御力ダウンは、枠 (slot) ごとに大きいほうだけを取り、枠どうしは足す
       if (e.def) slots.set(buff.slot || buff.id, Math.max(slots.get(buff.slot || buff.id) || 0, e.def));
     }
@@ -322,7 +323,20 @@
       hand.scale = fx.scale;
       if (fx.twice || fx.thrice) hand.multi = Object.assign({}, h.multi, { twice: fx.twice, thrice: fx.thrice });
     });
-    const round = D.round({ hands, multi: h.multi, first: fx.first });
+    // 蹴撃 (格闘だけ)。両手のあとに 1 ラウンド 1 回の判定。蹴りの D値は 素手の D値 + 蹴撃攻撃力 で、武器の D値は入らない。
+    // 猫足立ち中は、武器の D値も入り、蹴りの攻撃力が 25/256 上がる (発動率 +20% と D値 +20 は、支援の値として合計に入っている)
+    let kick = null;
+    const kickRate = h.kind.kind === 'h2h' ? Math.min(100, Math.max(0, stat(built.set.totals, '蹴撃'))) / 100 : 0;
+    if (kickRate > 0) {
+      const m = h.main;
+      const foot = !!built.buffs.foot;
+      const damage = D.bareDamage(m.skill) + stat(built.set.totals, '蹴撃攻撃力') + (foot ? m.damage - D.bareDamage(m.skill) : 0);
+      const attack = Math.floor(m.raw * (1 + m.pct + (foot ? 25 / 256 : 0)));
+      const fstr = D.fstr(h.total('STR') - foe.vit, m.rankDamage);
+      const ratio = D.ratioOf(attack, foe.def, foe.gap);
+      kick = { rate: kickRate, damage, attack, fstr, ratio, foot, hitRate: hands[0].hitRate, hit: D.hit({ base: damage + fstr, ratio, cap: m.cap, crit, critDamage: h.critDamage, taken: foe.taken }) };
+    }
+    const round = D.round({ hands, multi: h.multi, first: fx.first, kick });
     const setup = S.tpSetup('melee', built.set.equip, built.set.totals, built.context);
     const storeTp = stat(built.set.totals, 'ストアTP');
     const haste = D.hasteOf({ gear: stat(built.set.totals, 'ヘイスト'), magic: (Number(state.haste.magic) || 0) + built.buffs.mh, ability: (Number(state.haste.ability) || 0) + built.buffs.jh });
@@ -330,7 +344,7 @@
     const raw = setup.mode === 'dual' ? S.delayOf(built.set.equip.main) + S.delayOf(built.set.equip.sub) : setup.mode === 'h2h' ? 480 + S.delayOf(built.set.equip.main) : setup.total;
     return {
       h, hands, round, crit, setup, storeTp, haste, tpHit: TP.perHit(setup.delay, storeTp),
-      time: D.roundTime(setup.total, raw, haste), hits: D.roundHits(hands, h.multi), fx,
+      time: D.roundTime(setup.total, raw, haste), hits: D.roundHits(hands, h.multi, kick), fx, kick,
     };
   }
 
@@ -423,7 +437,7 @@
       const flat = { mean: damage, min: damage, max: damage, attempts: 1, parts: { first: part(1), rest: part(0), multi: part(0), sub: null } };
       return { h, ws, tp, mod, modPlus, charms, ftpPlus, ftp, attackRate: 1, defense: foe.def, crit: 0, main: Object.assign(main, { firstHitRate: 1, hitRate: 1 }), sub: null, wsd, bonus, hidden, result: flat, tpBack: TP.perHit(tpDelay, storeTp), magic: Object.assign({ base, ds, extra: damage }, magicOf) };
     }
-    const result = D.weaponSkill({ main, sub, wsc: mod, ftp, replicate: ws.rep, hits: ws.hits, wsd, bonus, hidden, multi: h.multi, firstMulti, canCrit, taken: foe.taken });
+    const result = D.weaponSkill({ main, sub, wsc: mod, ftp, replicate: ws.rep, hits: ws.hits, wsd, bonus, hidden, multi: h.multi, firstMulti, canCrit, taken: foe.taken, subInHits: h.kind.kind === 'h2h' });
     // WS で得る TP: メインの 1 段目とサブの 1 発目は通常の得 TP、そのほかの当たった分は 1 発 10 (ストアTP が掛かる)
     // 属性つきの物理 WS: 物理の分に、属性の分 (物理のダメージ × 属性の倍率に、魔攻などを掛けたもの) を足す
     let magic = null;
@@ -806,6 +820,8 @@
         { label: 'クリティカルでないとき', cls: 'sub', value: (c) => [number(hit(c).normal.mean), range(hit(c).normal)], number: (c) => hit(c).normal.mean },
         { label: 'クリティカルのとき', cls: 'sub', value: (c) => [number(hit(c).critical.mean), range(hit(c).critical)], number: (c) => hit(c).critical.mean },
         calc.some((c) => a(c).hands[1]) && { label: 'サブ (もう片方の手) の 1 発', value: (c) => (a(c).hands[1] ? [number(a(c).hands[1].hit.mean), range(a(c).hands[1].hit)] : '—'), number: (c) => (a(c).hands[1] ? a(c).hands[1].hit.mean : 0) },
+        calc.some((c) => a(c).kick) && { label: '蹴撃の 1 発', value: (c) => (a(c).kick ? [number(a(c).kick.hit.mean), range(a(c).kick.hit)] : '—'), number: (c) => (a(c).kick ? a(c).kick.hit.mean : 0) },
+        calc.some((c) => a(c).kick) && { label: '蹴撃の発動率', cls: 'sub', value: (c) => (a(c).kick ? percent(a(c).kick.rate) : '—'), number: (c) => (a(c).kick ? a(c).kick.rate : 0), unit: '%' },
         { label: '命中率', value: (c) => [percent(a(c).hands[0].hitRate), capMark(a(c).hands[0].hitRate * 100 >= a(c).h.main.hitCap)], number: (c) => a(c).hands[0].hitRate, unit: '%' },
         { label: 'クリティカル率', value: (c) => percent(a(c).crit), number: (c) => a(c).crit, unit: '%' },
         !ranged && { label: '1 ラウンドの攻撃回数', value: (c) => fixed2(a(c).round.swings), number: (c) => a(c).round.swings, unit: 'x' },
@@ -924,7 +940,7 @@
         calc.some((c) => w(c).magic) && { label: ws.kind === 'magic' ? '魔法 WS のダメージ' : '属性の分のダメージ', value: (c) => (w(c).magic ? number(w(c).magic.extra) : '—'), number: (c) => (w(c).magic ? w(c).magic.extra : 0),
           why: ws.kind === 'magic' ? `(武器の基本の値 ${calc[0].ws.magic ? calc[0].ws.magic.base : ''} + 修正項目) × ダメージ倍率 + 系統係数 + 魔法ダメージ、に魔攻 ÷ 魔防などを掛ける` : '物理の分 × 属性の倍率 + 魔法ダメージ、に魔攻 ÷ 魔防などを掛ける' },
         calc.some((c) => w(c).magic) && { label: '魔攻 / 魔法ダメージ / 系統係数', value: (c) => (w(c).magic ? `${w(c).magic.magicAttack} / ${w(c).magic.magicDamage} / ${w(c).magic.ds != null ? fixed2(w(c).magic.ds) : '—'}` : '—'), why: `敵の魔防 ${foe.mdef}、被魔法ダメージ ×${fixed2(foe.mtaken)}` + (ws.kind === 'hybrid' ? `。属性の倍率は TP で ${ws.mftp.join(' / ')}` : '') },
-        { label: '複数回攻撃を入れた攻撃回数', value: (c) => fixed2(w(c).result.attempts), why: `${ws.hits} 段。全部で 8 回まで` });
+        { label: '複数回攻撃を入れた攻撃回数', value: (c) => fixed2(w(c).result.attempts), why: `${ws.hits} 段` + (calc[0].ws.sub ? (calc[0].ws.h.kind.kind === 'h2h' ? ' (左手の 1 発を含む)' : ' + サブの 1 発') : '') + '。全部で 8 回まで' });
     }
     rows.push({ head: '通常攻撃 (通常攻撃用のセット)' },
       { label: '攻撃力', value: (c) => number(a(c).h.main.attack), number: (c) => a(c).h.main.attack, why: 'スキル + STR + 攻 (両手武器・格闘はスマイトを掛ける)' },

@@ -228,3 +228,25 @@ test('属性ゴルゲット・フォシャ: 連携属性が合う WS だけ', ()
   assert.equal(D.charmFits('アクアゴルゲット', ['Induration']), false);
   assert.equal(D.CHARM_FTP, 25 / 256);
 });
+
+test('格闘 WS: 段数に左手の 1 発が含まれる', () => {
+  const hand = { damage: 100, fstr: 10, ratio: 2, cap: 3.5, firstHitRate: 1, hitRate: 1, crit: 0, critDamage: 0 };
+  const base = { main: hand, sub: hand, wsc: 0, ftp: 1, replicate: true, hits: 4, multi: {}, canCrit: false };
+  assert.equal(D.weaponSkill(Object.assign({ subInHits: true }, base)).attempts, 4); // 格闘: 表記どおり 4 回
+  assert.equal(D.weaponSkill(base).attempts, 5); // 二刀流: 表記 + サブの 1 発
+  assert.equal(D.weaponSkill(Object.assign({}, base, { hits: 8, subInHits: true })).attempts, 8);
+  assert.equal(D.weaponSkill(Object.assign({}, base, { hits: 2, subInHits: true })).attempts, 2);
+});
+
+test('蹴撃: 1 ラウンドに 1 回の判定で、当たった分だけ増える', () => {
+  const hit = D.hit({ base: 100, ratio: 2, cap: 3.5, crit: 0 });
+  const hands = [{ hit, hitRate: 0.9 }, { hit, hitRate: 0.9 }];
+  const plain = D.round({ hands, multi: {} });
+  const kicked = D.round({ hands, multi: {}, kick: { rate: 0.5, hit, hitRate: 0.9 } });
+  assert.ok(Math.abs(kicked.swings - plain.swings - 0.5) < 1e-9);
+  assert.ok(Math.abs(kicked.damage - plain.damage - 0.5 * 0.9 * hit.mean) < 1e-6);
+  const chances = D.roundHits(hands, {}, { rate: 0.5, hitRate: 0.9 });
+  assert.ok(Math.abs(chances.reduce((s, p) => s + p, 0) - 1) < 1e-9);
+  assert.ok(Math.abs(chances.reduce((s, p, n) => s + p * n, 0) - (1.8 + 0.45)) < 1e-9);
+  assert.ok(Math.abs(chances[3] - 0.81 * 0.45) < 1e-9);
+});

@@ -209,7 +209,8 @@
   // 複数回攻撃は、手ごとに判定する (二刀流・格闘でも 1 ラウンド 8 回に収まる)
   //   hands[].scale: その手の攻撃すべてに掛かる平均の倍率 (エンピリアンウェポンのアフターマスの倍撃など)
   //   first: メインの 1 発目だけに足す、平均の倍率の増分 (レリックウェポンの 3 倍撃 13% なら 0.26)
-  function round({ hands, multi, first }) {
+  //   kick: 蹴撃 { rate: 発動率 (0〜1), hit, hitRate }。両手のあとに 1 ラウンド 1 回だけ判定し、複数回攻撃は付かない
+  function round({ hands, multi, first, kick }) {
     const each = hands.map((hand, i) => {
       const swings = 1 + meanOf(extraSwings(hand.multi || multi || {})); // hands[].multi: その手だけの複数回攻撃 (武器の「時々 2 回攻撃」を入れたもの)
       return {
@@ -217,16 +218,18 @@
         damage: swings * hand.hitRate * hand.hit.mean * (hand.scale || 1) + (i === 0 ? hand.hitRate * hand.hit.mean * (first || 0) : 0),
       };
     });
+    const rate = kick ? clamp(kick.rate || 0, 0, 1) : 0;
+    const foot = { swings: rate, hits: rate * (kick ? kick.hitRate : 0), damage: rate ? rate * kick.hitRate * kick.hit.mean : 0 };
     return {
-      hands: each,
-      swings: each.reduce((sum, h) => sum + h.swings, 0),
-      hits: each.reduce((sum, h) => sum + h.hits, 0),
-      damage: each.reduce((sum, h) => sum + h.damage, 0),
+      hands: each, kick: foot,
+      swings: each.reduce((sum, h) => sum + h.swings, 0) + foot.swings,
+      hits: each.reduce((sum, h) => sum + h.hits, 0) + foot.hits,
+      damage: each.reduce((sum, h) => sum + h.damage, 0) + foot.damage,
     };
   }
 
   // 1 ラウンドで当たる回数の確率 [0 回, 1 回, …]。手ごとに、振る回数 (複数回攻撃) と命中を掛け合わせる
-  function roundHits(hands, multi) {
+  function roundHits(hands, multi, kick) {
     let total = [1];
     for (const hand of hands) {
       const chances = extraSwings(hand.multi || multi || {});
@@ -241,6 +244,13 @@
       });
       const next = new Array(total.length + 4).fill(0);
       total.forEach((a, i) => one.forEach((b, j) => { next[i + j] += a * b; }));
+      total = next;
+    }
+    if (kick && kick.rate > 0) {
+      // 蹴撃: 出て当たれば 1 回ふえる
+      const p = clamp(kick.rate, 0, 1) * clamp(kick.hitRate, 0, 1);
+      const next = new Array(total.length + 1).fill(0);
+      total.forEach((a, i) => { next[i] += a * (1 - p); next[i + 1] += a * p; });
       total = next;
     }
     return total;
@@ -342,7 +352,9 @@
   //   firstMulti: メインの 1 回目の判定だけに使う複数回攻撃 (ミシックウェポンのアフターマスの分を入れたもの)。無ければ multi
   // 攻撃の順: メインの 1 段目 → (サブがあれば) サブの 1 発 → メインの 2 段目以降 → 複数回攻撃。全部で 8 回まで。
   // 複数回攻撃の判定は、サブが無く 2 段以上の WS はメインで 2 回、それ以外はメインで 1 回。サブがあればサブでも 1 回
-  function weaponSkill({ main, sub, wsc: mod, ftp, replicate, hits, wsd, bonus, hidden, multi, firstMulti, canCrit, taken }) {
+  //   subInHits: 格闘。WS の段数 (hits) に、もう片方の手の 1 発が含まれている (二刀流は、段数とは別に 1 発ふえる)。
+  //   FF11用語辞典「多段WS」https://wiki.ffo.jp/html/354.html: 格闘 WS は単発でも左手の攻撃が加わるので、すべて 2 段以上の表記になっている
+  function weaponSkill({ main, sub, wsc: mod, ftp, replicate, hits, wsd, bonus, hidden, multi, firstMulti, canCrit, taken, subInHits }) {
     const later = replicate ? ftp : 1;
     const all = (1 + (bonus || 0) / 100) * (1 + (hidden || 0) / 100);
     const baseOf = (hand, f, first) => Math.floor((hand.damage + hand.fstr + (mod || 0)) * f * (first ? 1 + (wsd || 0) / 100 : 1) * all);
@@ -354,7 +366,7 @@
     let room = 8 - 1;
     const subHits = sub && room > 0 ? 1 : 0;
     room -= subHits;
-    const restHits = Math.min(room, Math.max(0, (hits || 1) - 1));
+    const restHits = Math.min(room, Math.max(0, (hits || 1) - 1 - (sub && subInHits ? 1 : 0)));
     room -= restHits;
     const checks = !sub && (hits || 1) > 1 ? 2 : 1;
     const mainExtra = wsExtras(chances, checks, room, firstMulti ? extraSwings(firstMulti) : null);

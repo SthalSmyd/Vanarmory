@@ -27,9 +27,11 @@
   //   martialArts: マーシャルアーツで縮む隔 (正の値)
   function melee({ kind, main, sub, dualWield, martialArts }) {
     if (kind === 'h2h') {
-      // 格闘: 素手の隔 480 + 武器の隔 − マーシャルアーツ。左右それぞれ、その半分で計算する
+      // 格闘: 素手の隔 480 + 武器の隔 − マーシャルアーツ。左右それぞれ、その半分 (端数は切り捨て) で計算する。
+      // 切り捨ては、実測と合わせた検証記事による (http://ff11memo.sblo.jp/article/189645051.html 。
+      // カマッパンス+1 は 隔 349 → 片手 174 → 基本 59、ストアTP +10 で 64。切り捨てないと 66 になる)
       const total = Math.max(0, 480 + (main || 0) - (martialArts || 0));
-      return { mode: 'h2h', delay: total / 2, hands: 2, total };
+      return { mode: 'h2h', delay: Math.floor(total / 2), hands: 2, total };
     }
     if (sub > 0) {
       // 二刀流: (メイン + サブ) × (1 − 二刀流) を、左右それぞれ半分ずつ
