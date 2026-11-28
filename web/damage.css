@@ -169,3 +169,15 @@ table.en .none { color: var(--muted); }
 .atk .say small { display: block; color: var(--muted); font-size: 12px; }
 .atk .sep { grid-column: 1 / -1; border-top: 1px solid var(--line); margin: 2px 0; }
 @media (max-width: 800px) { .atk { grid-template-columns: minmax(0, 1fr); } }
+
+/* 敵の弱点・耐性 (斬・突・打) */
+.enemy-values .kinds { display: inline-flex; align-items: center; gap: 4px 10px; flex-wrap: wrap; border-left: 2px solid var(--line); border-right: 2px solid var(--line); padding: 0 10px; }
+.enemy-values .input.weak { border-color: var(--ok); background: var(--ok-bg); font-weight: 700; }
+.enemy-values .input.hard { border-color: var(--fixed); background: var(--fixed-bg); font-weight: 700; }
+.kind { font-size: 11px; border-radius: 4px; padding: 0 6px; margin-left: 6px; font-weight: 600; white-space: nowrap; }
+.kind.weak { background: var(--ok-bg); color: var(--ok); }
+.kind.hard { background: var(--fixed-bg); color: var(--fixed); }
+.kind-say { font-size: 12px; color: var(--muted); margin-right: 6px; }
+
+/* WS の枠: 1 段目のミスを除く */
+.sec-title .first-hit { font-size: 12px; font-weight: 400; color: var(--muted); margin-left: 12px; display: inline-flex; align-items: center; gap: 4px; cursor: pointer; }

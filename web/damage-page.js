@@ -33,6 +33,9 @@
     { id: 'def', label: '防御力', value: 1300 }, { id: 'eva', label: '回避', value: 1200 },
     { id: 'vit', label: 'VIT', value: 300 }, { id: 'agi', label: 'AGI', value: 300 },
     { id: 'taken', label: '被物理ダメージ', value: 0, unit: '%', title: '敵の、物理ダメージの増減。−50 なら半分になる' },
+    { id: 'slash', label: '斬', value: 100, unit: '%', kind: true, title: '敵の、斬のダメージへの弱点・耐性。100 が等倍、125 が弱点 (1.25 倍)、50 が半減。片手剣・両手剣・斧・鎌・刀の通常攻撃と WS に掛かる' },
+    { id: 'pierce', label: '突', value: 100, unit: '%', kind: true, title: '敵の、突のダメージへの弱点・耐性。100 が等倍。短剣・両手槍・遠隔の通常攻撃と WS に掛かる' },
+    { id: 'blunt', label: '打', value: 100, unit: '%', kind: true, title: '敵の、打のダメージへの弱点・耐性。100 が等倍。片手棍・両手棍・格闘 (蹴撃も) の通常攻撃と WS に掛かる' },
     { id: 'int', label: 'INT', value: 300, title: '魔法 WS の系統係数に使う' }, { id: 'mnd', label: 'MND', value: 300, title: '魔法 WS の系統係数に使う' },
     { id: 'mdef', label: '魔防', value: 0, title: '敵の魔法防御力。魔法 WS と、属性つきの物理 WS の属性の分に効く' },
     { id: 'mtaken', label: '被魔法ダメージ', value: 0, unit: '%', title: '敵の、魔法ダメージの増減。魔法 WS・属性の分・連携のダメージに掛かる' },
@@ -305,7 +308,9 @@
     const v = state.values;
     const n = (id) => Number(v[id]) || 0;
     const down = buffsFor(null);
-    return { def: Math.max(1, n('def') * (1 - down.def / 100)), eva: n('eva') - down.eva, down, vit: n('vit'), agi: n('agi'), taken: Math.max(0, 1 + n('taken') / 100), gap: n('gap'), int: n('int'), mnd: n('mnd'), mdef: n('mdef'), mtaken: Math.max(0, 1 + n('mtaken') / 100) };
+    return { def: Math.max(1, n('def') * (1 - down.def / 100)), eva: n('eva') - down.eva, down, vit: n('vit'), agi: n('agi'), taken: Math.max(0, 1 + n('taken') / 100), gap: n('gap'), int: n('int'), mnd: n('mnd'), mdef: n('mdef'), mtaken: Math.max(0, 1 + n('mtaken') / 100),
+      // 斬・突・打への弱点と耐性 (倍率)。欄が空 (古い保存) のときは等倍
+      kinds: Object.fromEntries(['slash', 'pierce', 'blunt'].map((k) => [k, v[k] == null || v[k] === '' ? 1 : Math.max(0, n(k) / 100)])) };
   };
 
   // 通常攻撃 (通常攻撃用のセット)
@@ -318,10 +323,12 @@
     const one = (hand) => {
       const fstr = D.fstr(h.total('STR') - foe.vit, hand.rankDamage);
       const ratio = D.ratioOf(hand.attack, foe.def, foe.gap);
+      // 敵の弱点・耐性は、その手の武器の種類で掛ける
+      const type = D.damageType(hand.kind.ja, hand.weapon.ja);
       return {
-        hand, fstr, ratio,
+        hand, fstr, ratio, type, typeScale: foe.kinds[type],
         hitRate: D.hitRate(hand.accuracy, foe.eva, hand.hitCap, foe.gap),
-        hit: D.hit({ base: hand.damage + fstr, ratio, cap: hand.cap, crit, critDamage: h.critDamage, taken: foe.taken }),
+        hit: D.hit({ base: hand.damage + fstr, ratio, cap: hand.cap, crit, critDamage: h.critDamage, taken: foe.taken * foe.kinds[type] }),
       };
     };
     const fx = built.effects;
@@ -344,7 +351,8 @@
       const attack = Math.floor((m.raw + jp.attack) * (1 + m.pct + (foot ? 25 / 256 : 0)));
       const fstr = D.fstr(h.total('STR') - foe.vit, m.rankDamage);
       const ratio = D.ratioOf(attack, foe.def, foe.gap);
-      kick = { rate: kickRate, damage, attack, fstr, ratio, foot, hitRate: D.hitRate(m.accuracy + jp.accuracy, foe.eva, m.hitCap, foe.gap), hit: D.hit({ base: damage + fstr, ratio, cap: m.cap, crit, critDamage: h.critDamage, taken: foe.taken }) };
+      const type = hands[0].type; // 蹴撃は、拳と同じ種類 (例外の武器なら、その種類)
+      kick = { rate: kickRate, damage, attack, fstr, ratio, foot, type, typeScale: foe.kinds[type], hitRate: D.hitRate(m.accuracy + jp.accuracy, foe.eva, m.hitCap, foe.gap), hit: D.hit({ base: damage + fstr, ratio, cap: m.cap, crit, critDamage: h.critDamage, taken: foe.taken * foe.kinds[type] }) };
     }
     const round = D.round({ hands, multi: h.multi, first: fx.first, kick });
     const setup = S.tpSetup('melee', built.set.equip, built.set.totals, built.context);
@@ -367,10 +375,11 @@
     const fstr = D.fstr2(h.total('STR') - foe.vit, h.main.rankDamage);
     const ratio = D.ratioOf(h.main.attack, foe.def, foe.gap, 0.025);
     const trueShot = 1 + stat(totals, 'トゥルーショット') / 100;
+    const type = D.damageType(h.main.kind.ja);
     const hand = {
-      hand: h.main, fstr, ratio,
+      hand: h.main, fstr, ratio, type, typeScale: foe.kinds[type],
       hitRate: D.hitRate(h.main.accuracy, foe.eva, h.main.hitCap, foe.gap),
-      hit: D.hit({ base: h.main.damage + fstr, ratio, cap: h.main.cap, crit, critDamage: h.critDamage, taken: foe.taken, ranged: true }),
+      hit: D.hit({ base: h.main.damage + fstr, ratio, cap: h.main.cap, crit, critDamage: h.critDamage, taken: foe.taken * foe.kinds[type], ranged: true }),
       // 倍撃は 1 射ごとに判定する (レリックの 3 倍撃 13% も、遠隔では毎回)
       scale: fx.scale * (1 + fx.first) * trueShot,
     };
@@ -449,25 +458,32 @@
       const damage = D.magicSkill(Object.assign({ base, wsc: mod, ftp, dstat: ds }, magicOf));
       const hitLike = { min: damage, max: damage, mean: damage, normal: { pdif: { min: 0, max: 0 } } };
       const part = (count) => ({ count, hitRate: 1, hit: hitLike, mean: count * damage });
-      const flat = { mean: damage, min: damage, max: damage, attempts: 1, parts: { first: part(1), rest: part(0), multi: part(0), sub: null } };
+      const flat = { mean: damage, meanHit: damage, min: damage, max: damage, attempts: 1, parts: { first: part(1), rest: part(0), multi: part(0), sub: null } };
       return { h, ws, tp, mod, modPlus, charms, ftpPlus, ftp, attackRate: 1, defense: foe.def, crit: 0, main: Object.assign(main, { firstHitRate: 1, hitRate: 1 }), sub: null, wsd, bonus, hidden, result: flat, tpBack: TP.perHit(tpDelay, storeTp), magic: Object.assign({ base, ds, extra: damage }, magicOf) };
     }
-    const result = D.weaponSkill({ main, sub, wsc: mod, ftp, replicate: ws.rep, hits: ws.hits, wsd, bonus, hidden, multi: h.multi, firstMulti, canCrit, taken: foe.taken, subInHits: h.kind.kind === 'h2h' });
+    // 敵の弱点・耐性: WS は、武器種の種類で全段に掛ける (武器ごとの例外は WS には効かない)
+    const type = D.wsDamageType(h.main.kind.ja, ws);
+    const typeScale = type ? foe.kinds[type] : 1;
+    const result = D.weaponSkill({ main, sub, wsc: mod, ftp, replicate: ws.rep, hits: ws.hits, wsd, bonus, hidden, multi: h.multi, firstMulti, canCrit, taken: foe.taken * typeScale, subInHits: h.kind.kind === 'h2h' });
     // WS で得る TP: メインの 1 段目とサブの 1 発目は通常の得 TP、そのほかの当たった分は 1 発 10 (ストアTP が掛かる)
     // 属性つきの物理 WS: 物理の分に、属性の分 (物理のダメージ × 属性の倍率に、魔攻などを掛けたもの) を足す
+    // 1 段目が当たったときだけの平均 (1 段目がミスした回を、2 段目以降が当たっていても丸ごと除く)
+    result.meanHit = result.mean - result.parts.first.mean + result.parts.first.hit.mean;
     let magic = null;
     if (ws.kind === 'hybrid' && ws.mftp) {
-      const of = (physical) => D.hybridMagic(Object.assign({ physical, mftp: D.byTp(tp, ws.mftp) }, magicOf));
+      // 属性の分には、斬・突・打の倍率を掛けない (物理の分から倍率を外して計算する)
+      const of = (physical) => D.hybridMagic(Object.assign({ physical: typeScale > 0 ? physical / typeScale : 0, mftp: D.byTp(tp, ws.mftp) }, magicOf));
       magic = Object.assign({ mftp: D.byTp(tp, ws.mftp), extra: of(result.mean), physical: result.mean }, magicOf);
       result.max += of(result.max);
       result.min += of(result.min);
+      result.meanHit += of(result.meanHit);
       result.mean += magic.extra;
     }
     const parts = result.parts;
     const small = Math.floor((10 * (100 + storeTp)) / 100);
     const others = parts.rest.count * main.hitRate + parts.multi.count * main.hitRate + (parts.sub ? (parts.sub.count - 1) * sub.hitRate : 0);
     const tpBack = TP.perHit(tpDelay, storeTp) * (main.firstHitRate + (sub ? sub.hitRate : 0)) + small * others;
-    return { h, ws, tp, mod, modPlus, charms, ftpPlus, ftp, attackRate, defense, crit, main, sub, wsd, bonus, hidden, result, tpBack, magic, kickWs, kickDamage };
+    return { h, ws, tp, mod, modPlus, charms, ftpPlus, ftp, attackRate, defense, crit, main, sub, wsd, bonus, hidden, result, tpBack, magic, kickWs, kickDamage, type, typeScale };
   }
 
   // ---- 画面 ----
@@ -572,7 +588,7 @@
       const row = el('tr', { className: 'pickable' + (line.some((x) => x.id === state.enemy) ? ' on' : '') },
         el('td', { className: 'lv', textContent: 'Lv' + e.lv }), names,
         el('td', { className: 'where' }, ...marked(uniq(line.map((x) => x.where)))),
-        el('td', { className: 'fam' }, ...marked(uniq(line.map((x) => x.family)))),
+        el('td', { className: 'fam' }, ...marked(uniq(line.map((x) => x.family))), ...kindsOf(e.values).map((k) => el('span', { className: 'kind ' + (k.value > 100 ? 'weak' : 'hard'), textContent: `${k.name} ${k.value}` }))),
         el('td', { className: 'n' }, ...number0(e.values.def, e.est.includes('def'))),
         el('td', { className: 'n' }, ...number0(e.values.eva, e.table || e.guess)));
       row.addEventListener('click', () => pickEnemy(e.id));
@@ -594,17 +610,34 @@
       : [el('span', { className: 'where', textContent: `自分で入れた値 (一覧 ${ENEMIES.filter((e) => !e.std).length} 体から選ぶ)` })]),
       el('span', { className: 'open', textContent: '変える ▾' }));
     if (!$('enemy-picker').hidden) renderPicker();
-    $('enemy-values').replaceChildren(...ENEMY_FIELDS.map((f) => {
-      const input = el('input', { className: 'input narrow', type: 'number', value: state.values[f.id], title: f.title || '' });
+    const fieldOf = (f) => {
+      const value = state.values[f.id] == null ? f.value : state.values[f.id];
+      const input = el('input', { className: 'input narrow' + (f.kind && value > 100 ? ' weak' : f.kind && value < 100 ? ' hard' : ''), type: 'number', value, title: f.title || '' });
+      if (f.kind) { input.min = 0; input.step = 12.5; }
       input.addEventListener('change', () => { state.values[f.id] = Number(input.value) || 0; state.enemy = ''; changed(); });
       return el('label', { className: 'field', title: f.title || '' }, f.label + ' ', input, f.unit ? ' ' + f.unit : null);
-    }));
+    };
+    // 斬・突・打は、ひとまとまりにして並べる
+    const cells = [];
+    for (const f of ENEMY_FIELDS) {
+      if (!f.kind) cells.push(fieldOf(f));
+      else if (cells.length && cells[cells.length - 1].className === 'kinds') cells[cells.length - 1].append(fieldOf(f));
+      else cells.push(el('span', { className: 'kinds', title: '敵の、斬・突・打への弱点と耐性。100 が等倍、125 が弱点 (1.25 倍)、50 が半減' }, fieldOf(f)));
+    }
+    $('enemy-values').replaceChildren(...cells);
     const picked = ENEMIES.find((e) => e.id === state.enemy);
     const LABEL = { def: '防御力', vit: 'VIT', agi: 'AGI' };
     const about = !picked ? '' : picked.guess ? `選んだ敵: ${picked.note}。\n` : `選んだ敵: 回避は${picked.table ? '、レベルから必要命中の表を引いた値 (必要命中 − 40)' : '検証値'}。`
       + (picked.est.length ? `${picked.est.map((k) => LABEL[k]).join('・')}は、検証値が無いので、Apex モンスターの値をレベルに当てはめた目安です。` : '防御力なども検証値です。')
       + (picked.note ? picked.note + '。' : '') + '\n';
-    $('enemy-note').replaceChildren(picked && picked.est.length ? el('span', { textContent: '目安の値あり' }) : '', help(about + '一覧から選ぶと値が入り、あとから手で直せます。\nレベル差は、レベル差の補正がある場所のときだけ入れます (新しいコンテンツの多くは補正が無いので 0)。'));
+    const kindWords = picked ? kindsOf(picked.values) : [];
+    const kindSay = kindWords.length ? `${picked.family}: ${kindWords.map((k) => `${k.name} ${k.value}%`).join('・')}` + (picked.kindNote ? ` (${picked.kindNote})` : '') : '';
+    $('enemy-note').replaceChildren(picked && picked.est.length ? el('span', { textContent: '目安の値あり' }) : '', kindSay ? el('span', { className: 'kind-say', textContent: kindSay }) : '', help(about + '斬・突・打は、種族ごとの弱点・耐性 (100 が等倍)。資料に載っていない種族は 100 です。\n' + '一覧から選ぶと値が入り、あとから手で直せます。\nレベル差は、レベル差の補正がある場所のときだけ入れます (新しいコンテンツの多くは補正が無いので 0)。'));
+  }
+
+  // 敵の値のうち、等倍でない 斬・突・打
+  function kindsOf(values) {
+    return ['slash', 'pierce', 'blunt'].filter((k) => values[k] != null && values[k] !== 100).map((k) => ({ type: k, name: D.TYPE_NAMES[k], value: values[k] }));
   }
 
   // 支援・弱体・アビリティの札。押すと入・切、入のときは段階を選べる
@@ -711,6 +744,9 @@
     return el('table', { className: 'cmp' }, el('thead', null, head), el('tbody', null, ...body));
   }
   const range = (hit) => el('span', { className: 'range', textContent: ` ${number(hit.min)} 〜 ${number(hit.max)}` });
+  // 敵の弱点・耐性の印 (等倍のときは出さない)。type: slash / pierce / blunt、scale: 倍率
+  const pct = (scale) => `${Math.round(scale * 1000) / 10}%`;
+  const kindMark = (type, scale) => (type && scale != null && scale !== 1 ? el('span', { className: 'kind ' + (scale > 1 ? 'weak' : 'hard'), textContent: `${D.TYPE_NAMES[type]} ${pct(scale)}`, title: '敵の弱点・耐性 (斬・突・打) を掛けたあとの値です' }) : null);
   const capMark = (on) => (on ? el('span', { className: 'cap', textContent: '上限' }) : null);
 
   function render() {
@@ -808,15 +844,21 @@
 
   function wsPanel(calc, ws) {
     const r = (c) => c.ws.result;
+    const only = !!state.firstHit;
+    const box = el('input', { type: 'checkbox', checked: only });
+    box.addEventListener('change', () => { state.firstHit = box.checked; changed(); });
+    const firstBox = el('label', { className: 'first-hit', title: '1 段目がミスした回を、平均から除く (2 段目以降が当たっていても数えない)' }, box, ' 1 段目のミスを除く');
+    const meanOf = (c) => (only ? r(c).meanHit : r(c).mean);
+    const firstOf = (c) => (only ? r(c).parts.first.hit.mean : r(c).parts.first.mean);
     return el('div', { className: 'panel' },
-      el('h3', { className: 'sec-title' }, `WS: ${ws.ja}`, help('WS 用のセットで、撃つときの TP (平均) に TP ボーナスを足した TP で計算します。\n平均は、外れた分も入れた 1 回あたりの値です。最小は、段数ぶんがすべて当たって複数回攻撃が出ず、乱数が最小のとき。最大は、複数回攻撃が最大まで出て、乱数が最大のとき。')),
+      el('h3', { className: 'sec-title' }, `WS: ${ws.ja}`, firstBox, help('WS 用のセットで、撃つときの TP (平均) に TP ボーナスを足した TP で計算します。\n平均は、外れた分も入れた 1 回あたりの値です。「1 段目のミスを除く」を入れると、1 段目が当たった回だけの平均になります (1 段目がミスした回は、2 段目以降が当たっていても数えません)。実測のログと比べるときに使います。「時間あたりのダメージ」は変わりません。\n最小は、段数ぶんがすべて当たって複数回攻撃が出ず、乱数が最小のとき。最大は、複数回攻撃が最大まで出て、乱数が最大のとき。')),
       table(calc, [
-        { label: '平均', cls: 'big', value: (c) => number(r(c).mean), number: (c) => r(c).mean, rate: true },
-        { label: '最小〜最大', value: (c) => el('span', { className: 'range', textContent: `${number(r(c).min)} 〜 ${number(r(c).max)}` }) },
+        { label: only ? '平均 (1 段目が当たったとき)' : '平均', cls: 'big', value: (c) => number(meanOf(c)), number: (c) => meanOf(c), rate: true },
+        { label: '最小〜最大', value: (c) => [el('span', { className: 'range', textContent: `${number(r(c).min)} 〜 ${number(r(c).max)}` }), kindMark(c.ws.type, c.ws.typeScale)] },
         { label: '命中率 (1 段目)', value: (c) => [percent(c.ws.main.firstHitRate), capMark(c.ws.main.firstHitRate * 100 >= c.ws.h.main.hitCap)], number: (c) => c.ws.main.firstHitRate, unit: '%' },
         { label: '命中率 (2 段目以降)', value: (c) => [percent(c.ws.main.hitRate), capMark(c.ws.main.hitRate * 100 >= c.ws.h.main.hitCap)], number: (c) => c.ws.main.hitRate, unit: '%' },
         ws.crit && { label: 'クリティカル率', value: (c) => percent(c.ws.crit), number: (c) => c.ws.crit, unit: '%' },
-        { label: '1 段目', cls: 'sub', value: (c) => [number(r(c).parts.first.mean), range(r(c).parts.first.hit)], number: (c) => r(c).parts.first.mean },
+        { label: '1 段目', cls: 'sub', value: (c) => [number(firstOf(c)), range(r(c).parts.first.hit)], number: (c) => firstOf(c) },
         ws.hits > 1 && { label: `2〜${ws.hits} 段目`, cls: 'sub', value: (c) => number(r(c).parts.rest.mean), number: (c) => r(c).parts.rest.mean },
         calc.some((c) => r(c).parts.sub) && { label: 'サブ (もう片方の手)', cls: 'sub', value: (c) => (r(c).parts.sub ? number(r(c).parts.sub.mean) : '—'), number: (c) => (r(c).parts.sub ? r(c).parts.sub.mean : 0) },
         { label: '複数回攻撃の分', cls: 'sub', value: (c) => number(r(c).parts.multi.mean), number: (c) => r(c).parts.multi.mean },
@@ -831,11 +873,11 @@
       el('h3', { className: 'sec-title' }, ranged ? '通常の射撃' : '通常攻撃', help('通常攻撃用のセットで計算します。' + (ranged ? '適正距離で撃つものとし、距離による飛攻・飛命の低下は入れていません。' : '1 ラウンドの平均は、外れた分と複数回攻撃を入れた値です。'))),
       table(calc, [
         { label: ranged ? '1 射の平均' : '1 ラウンドの平均', cls: 'big', value: (c) => number(a(c).round.damage), number: (c) => a(c).round.damage, rate: true },
-        { label: '1 発 (当たったとき)', value: (c) => [number(hit(c).mean), range(hit(c))], number: (c) => hit(c).mean },
+        { label: '1 発 (当たったとき)', value: (c) => [number(hit(c).mean), range(hit(c)), kindMark(a(c).hands[0].type, a(c).hands[0].typeScale)], number: (c) => hit(c).mean },
         { label: 'クリティカルでないとき', cls: 'sub', value: (c) => [number(hit(c).normal.mean), range(hit(c).normal)], number: (c) => hit(c).normal.mean },
         { label: 'クリティカルのとき', cls: 'sub', value: (c) => [number(hit(c).critical.mean), range(hit(c).critical)], number: (c) => hit(c).critical.mean },
-        calc.some((c) => a(c).hands[1]) && { label: 'サブ (もう片方の手) の 1 発', value: (c) => (a(c).hands[1] ? [number(a(c).hands[1].hit.mean), range(a(c).hands[1].hit)] : '—'), number: (c) => (a(c).hands[1] ? a(c).hands[1].hit.mean : 0) },
-        calc.some((c) => a(c).kick) && { label: '蹴撃の 1 発', value: (c) => (a(c).kick ? [number(a(c).kick.hit.mean), range(a(c).kick.hit)] : '—'), number: (c) => (a(c).kick ? a(c).kick.hit.mean : 0) },
+        calc.some((c) => a(c).hands[1]) && { label: 'サブ (もう片方の手) の 1 発', value: (c) => (a(c).hands[1] ? [number(a(c).hands[1].hit.mean), range(a(c).hands[1].hit), kindMark(a(c).hands[1].type, a(c).hands[1].typeScale)] : '—'), number: (c) => (a(c).hands[1] ? a(c).hands[1].hit.mean : 0) },
+        calc.some((c) => a(c).kick) && { label: '蹴撃の 1 発', value: (c) => (a(c).kick ? [number(a(c).kick.hit.mean), range(a(c).kick.hit), kindMark(a(c).kick.type, a(c).kick.typeScale)] : '—'), number: (c) => (a(c).kick ? a(c).kick.hit.mean : 0) },
         calc.some((c) => a(c).kick) && { label: '蹴撃の発動率', cls: 'sub', value: (c) => (a(c).kick ? percent(a(c).kick.rate) : '—'), number: (c) => (a(c).kick ? a(c).kick.rate : 0), unit: '%' },
         { label: '命中率', value: (c) => [percent(a(c).hands[0].hitRate), capMark(a(c).hands[0].hitRate * 100 >= a(c).h.main.hitCap)], number: (c) => a(c).hands[0].hitRate, unit: '%' },
         { label: 'クリティカル率', value: (c) => percent(a(c).crit), number: (c) => a(c).crit, unit: '%' },
@@ -951,6 +993,7 @@
         calc.some((c) => w(c).kickWs) && { label: '猫足立ち中の蹴り', value: (c) => (w(c).kickWs ? `D値 +${w(c).kickDamage}・攻撃力 +25/256` : '—'), why: '猫足立ち中の双竜脚・闘魂旋風脚は、蹴りの D値 (拳の D値 + 蹴撃攻撃力。猫足立ちの +20 と、ジョブポイントの +20 込み) で計算し、攻撃力が 25/256 上がる。上の D値と攻撃力に入っている' },
         { label: '修正項目', value: (c) => number(w(c).mod), number: (c) => w(c).mod, why: mods + plusMods },
         { label: 'ダメージ倍率', value: (c) => fixed2(w(c).ftp) + (ws.rep ? ' (全段)' : ''), why: `TP で変わる WS の倍率。TP 1000 / 2000 / 3000 で ${ws.ftp.join(' / ')}。間は直線でつなぐ` + plusFtp },
+        calc.some((c) => w(c).type && w(c).typeScale !== 1) && { label: '敵の弱点・耐性', value: (c) => (w(c).type ? `${D.TYPE_NAMES[w(c).type]} ${pct(w(c).typeScale)}` : '—'), why: 'WS は、武器種の種類 (斬・突・打) で全段に掛ける。武器ごとの例外は WS には効かない。属性の分には掛けない' },
         { label: 'WS のダメージ +% (1 段目だけ)', value: (c) => `+${w(c).wsd}%`, why: '装備・特性・ギフトの「ウェポンスキルのダメージ」の合計' },
         { label: `${ws.ja} のダメージ +% (全段)`, value: (c) => `+${w(c).bonus}%` + (w(c).hidden ? ` × +${w(c).hidden}%` : ''), why: `装備の「${ws.ja}:ダメージ」と、武器の隠し効果 (レリック +40%、ミシック・エンピリアン +30%)。別々に掛ける` },
         calc.some((c) => w(c).magic) && { label: ws.kind === 'magic' ? '魔法 WS のダメージ' : '属性の分のダメージ', value: (c) => (w(c).magic ? number(w(c).magic.extra) : '—'), number: (c) => (w(c).magic ? w(c).magic.extra : 0),
@@ -966,6 +1009,7 @@
       ratioCapRow((c) => a(c).h.main.cap),
       needRow((c) => a(c).h.main.attack, (c) => a(c).h.main.cap, () => foe.def),
       ...fixedRows((c) => a(c).hands[0].hand.damage, (c) => a(c).hands[0].fstr),
+      calc.some((c) => [...a(c).hands, a(c).kick].some((x) => x && x.typeScale !== 1)) && { label: '敵の弱点・耐性', value: (c) => a(c).hands.map((x, i) => `${a(c).hands.length > 1 ? (a(c).h.kind.kind === 'h2h' ? ['右 ', '左 '][i] : ['メイン ', 'サブ '][i]) : ''}${D.TYPE_NAMES[x.type]} ${pct(x.typeScale)}`).join(' / '), why: '手ごとに、武器の種類 (斬・突・打) で掛ける。被物理ダメージと同じところで掛かる。蹴撃は拳と同じ種類' },
       { label: '命中', value: (c) => number(a(c).h.main.accuracy), number: (c) => a(c).h.main.accuracy, why: `敵の回避 ${number(foe.eva)}。差 2 ごとに命中率 1%` },
       { label: 'スキル', value: (c) => `${a(c).h.kind.ja} ${number(a(c).h.main.skill)}`, why: 'ジョブの上限 + マスターレベル + 装備・メリポ' },
       { label: 'STR / DEX / AGI', value: (c) => `${number(a(c).h.total('STR'))} / ${number(a(c).h.total('DEX'))} / ${number(a(c).h.total('AGI'))}`, why: `敵の VIT ${number(foe.vit)}、AGI ${number(foe.agi)}` },

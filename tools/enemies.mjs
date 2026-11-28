@@ -35,13 +35,13 @@ export function buildEnemies(root) {
       est: Object.keys(guess).filter((key) => enemy.guess || enemy.values[key] == null), table: enemy.values.eva == null, guess: !!enemy.guess,
     };
   });
-  return oneEach(filled, data.families || {});
+  return oneEach(filled, data.families || {}, data.resists || {});
 }
 
 // 敵を 1 体 1 行にする。名前を「 / 」でつないである敵は分け、場所・コンテンツ (where) と種族 (family) を付ける。
 // same は、レベルと値がすべて同じ敵に共通の印 (画面で「同じ値の敵を 1 行にまとめる」ときに使う)
 const WHERE = { 'そのほか': '', '弱い敵 (目安)': '', 'レベルから選ぶ': 'レベルだけ', 'オデシー ジェール (難易度ごと)': 'オデシー ジェール', 'アンバスケード (エキスパート)': 'アンバスケード' };
-function oneEach(enemies, families) {
+function oneEach(enemies, families, resists) {
   // 種族は、名前に入っている言葉から引く (長い言葉を先に見る)
   const words = Object.keys(families).sort((a, b) => b.length - a.length);
   const familyOf = (name) => {
@@ -56,9 +56,17 @@ function oneEach(enemies, families) {
     const where = m ? m[2] : WHERE[enemy.group] != null ? WHERE[enemy.group] : enemy.group;
     const names = (m ? m[1] : enemy.ja).split(' / ');
     const same = [enemy.lv, JSON.stringify(Object.entries(enemy.values).sort()), enemy.est.join(), enemy.table, enemy.guess].join('|');
-    names.forEach((name, i) => out.push(Object.assign({}, enemy, {
-      id: i ? `${enemy.id}-${i}` : enemy.id, ja: name, where, family: familyOf(name), same, std: enemy.group === 'レベルから選ぶ',
-    })));
+    names.forEach((name, i) => {
+      // 斬・突・打への弱点と耐性 (%)。種族から引く。資料に無い種族は 100
+      const family = familyOf(name);
+      const found = resists[family];
+      const [slash, pierce, blunt] = found && !(found.not && name.includes(found.not)) ? found.v : [100, 100, 100];
+      out.push(Object.assign({}, enemy, {
+        id: i ? `${enemy.id}-${i}` : enemy.id, ja: name, where, family, std: enemy.group === 'レベルから選ぶ',
+        values: Object.assign({}, enemy.values, { slash, pierce, blunt }), same: [same, slash, pierce, blunt].join('|'),
+        kindNote: found && found.note ? found.note : '',
+      }));
+    });
   }
   // 同じ敵 (名前・場所・レベルが同じ) が 2 つの資料から入っているときは、検証値の多いほうを残す
   const keyOf = (row) => [row.ja, row.where, row.lv].join('|');

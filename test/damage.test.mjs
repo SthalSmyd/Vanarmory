@@ -250,3 +250,30 @@ test('蹴撃: 1 ラウンドに 1 回の判定で、当たった分だけ増え�
   assert.ok(Math.abs(chances.reduce((s, p, n) => s + p * n, 0) - (1.8 + 0.45)) < 1e-9);
   assert.ok(Math.abs(chances[3] - 0.81 * 0.45) < 1e-9);
 });
+
+test('物理ダメージの種類: 武器種で決まり、例外の武器は通常攻撃だけ、WS は武器種の種類', () => {
+  assert.equal(D.damageType('片手刀'), 'slash');
+  assert.equal(D.damageType('短剣'), 'pierce');
+  assert.equal(D.damageType('両手槍'), 'pierce');
+  assert.equal(D.damageType('射撃'), 'pierce');
+  assert.equal(D.damageType('片手棍'), 'blunt');
+  assert.equal(D.damageType('格闘'), 'blunt');
+  // 例外の武器 (通常攻撃)
+  assert.equal(D.damageType('短剣', 'カイロプテラダガー'), 'slash');
+  assert.equal(D.damageType('格闘', 'バードベーン'), 'pierce');
+  assert.equal(D.damageType('短剣', 'レヴァンテダガー'), 'pierce');
+  // WS は武器種の種類。魔法 WS と無属性の物理 WS には倍率を掛けない
+  assert.equal(D.wsDamageType('短剣', { ja: 'エヴィサレーション', kind: 'physical' }), 'pierce');
+  assert.equal(D.wsDamageType('片手剣', { ja: 'レクイエスカット', kind: 'physical' }), null);
+  assert.equal(D.wsDamageType('片手剣', { ja: 'サンギンブレード', kind: 'magic' }), null);
+});
+
+test('敵の弱点: 突 +25% の敵に、短剣の固定ダメージ 113 が上限で 472〜 (実測: ボヤーダ樹の Skimmer)', () => {
+  const cap = D.limitOf('one', D.limitTrait(13, 1, 49), 0);
+  const main = D.hit({ base: 146, ratio: 60, cap, crit: 0, critDamage: 0, taken: 1 });
+  const sub = D.hit({ base: 113, ratio: 60, cap, crit: 0, critDamage: 0, taken: 1.25 });
+  assert.equal(Math.floor(main.normal.min), 489); // 実測の最小 489、最大 513
+  assert.equal(Math.floor(main.normal.max), 513);
+  assert.ok(Math.floor(sub.normal.min) >= 472 && Math.floor(sub.normal.max) <= 497);
+  assert.equal(Math.floor(main.critical.min), 635); // 実測のクリティカルの最小 635
+});

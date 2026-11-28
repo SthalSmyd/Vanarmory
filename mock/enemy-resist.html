@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vanarmory — 敵の弱点・耐性 (斬・突・打) のモック</title>
+<link rel="stylesheet" href="../web/theme.css">
+<style>
+body { padding: 0 0 40px; margin: 0; font-family: system-ui, "Yu Gothic UI", "Meiryo", sans-serif; font-size: 14px; background: var(--bg); color: var(--text); }
+.mock-note { margin: 0; padding: 6px 12px; font-size: 12px; color: var(--muted); background: var(--sunken); border-bottom: 1px dashed var(--line); }
+.notes { margin: 14px 12px; font-size: 12px; color: var(--muted); max-width: 1000px; }
+.notes li { margin: 3px 0; }
+.wrap { margin: 12px; max-width: 1000px; display: grid; gap: 14px; }
+h2 { font-size: 13px; margin: 0 0 4px; color: var(--muted); font-weight: 600; }
+.panel { background: var(--panel); border: 1px solid var(--panel-border); border-radius: 10px; box-shadow: var(--panel-shadow); padding: 10px 12px; }
+.panel h3 { margin: 0 0 8px; font-size: 14px; }
+.input { background: var(--sunken); border: 1px solid var(--line); border-radius: 6px; padding: 4px 8px; color: var(--text); font: inherit; }
+.input.narrow { width: 58px; text-align: right; }
+.field { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
+.row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 6px; }
+.row > .label { color: var(--muted); font-size: 12px; width: 44px; }
+.pick { border: 1px solid var(--line); background: var(--panel); border-radius: 8px; padding: 4px 10px; display: flex; gap: 8px; align-items: baseline; min-width: 360px; }
+.pick .lv { font-weight: 700; color: var(--accent); }
+.pick .where { color: var(--muted); font-size: 12px; margin-right: auto; }
+.pick .open { color: var(--muted); font-size: 11px; }
+.vals { display: flex; flex-wrap: wrap; gap: 4px 10px; }
+
+/* ここから下が、今回足すもの */
+.kinds { display: inline-flex; align-items: center; gap: 4px 10px; flex-wrap: wrap; border-left: 2px solid var(--line); padding-left: 10px; }
+.kinds .input.weak { border-color: var(--ok); background: var(--ok-bg); font-weight: 700; }
+.kinds .input.hard { border-color: var(--fixed); background: var(--fixed-bg); font-weight: 700; }
+.note { font-size: 12px; color: var(--muted); }
+.tag { font-size: 11px; border-radius: 4px; padding: 0 6px; font-weight: 600; white-space: nowrap; }
+.tag.weak { background: var(--ok-bg); color: var(--ok); }
+.tag.hard { background: var(--fixed-bg); color: var(--fixed); }
+table { border-collapse: collapse; font-size: 13px; width: 100%; }
+td, th { padding: 4px 8px; border-bottom: 1px solid var(--line); text-align: left; font-variant-numeric: tabular-nums; }
+th { font-size: 12px; color: var(--muted); font-weight: 600; }
+td.n { text-align: right; }
+td .range { color: var(--muted); font-size: 12px; margin-left: 6px; }
+td.why { color: var(--muted); font-size: 12px; }
+tr.new td { background: color-mix(in srgb, var(--accent) 7%, transparent); }
+.fam { color: var(--muted); font-size: 12px; }
+</style>
+</head>
+<body>
+<p class="mock-note">モック: ダメージの画面の敵に足す「斬・突・打」の弱点・耐性。数字は見本です。色の付いた行が、今回増えるところ。</p>
+
+<div class="wrap">
+  <div>
+    <h2>1. 敵の欄 (条件のところ)</h2>
+    <div class="panel">
+      <div class="row">
+        <span class="label">敵</span>
+        <div class="pick"><span class="lv">Lv63</span><b>Skimmer</b><span class="where">ボヤーダ樹・フライ族</span><span class="open">変える ▾</span></div>
+      </div>
+      <div class="vals">
+        <label class="field">防御力 <input class="input narrow" value="285"></label>
+        <label class="field">回避 <input class="input narrow" value="250"></label>
+        <label class="field">VIT <input class="input narrow" value="60"></label>
+        <label class="field">AGI <input class="input narrow" value="70"></label>
+        <label class="field">被物理ダメージ <input class="input narrow" value="0"> %</label>
+        <span class="kinds" title="敵の、斬・突・打への弱点と耐性。100 が等倍、125 が弱点 (1.25 倍)、50 が半減">
+          <label class="field">斬 <input class="input narrow" value="100"> %</label>
+          <label class="field">突 <input class="input narrow weak" value="125"> %</label>
+          <label class="field">打 <input class="input narrow" value="100"> %</label>
+        </span>
+        <label class="field">INT <input class="input narrow" value="60"></label>
+        <label class="field">MND <input class="input narrow" value="60"></label>
+        <label class="field">魔防 <input class="input narrow" value="0"></label>
+        <label class="field">被魔法ダメージ <input class="input narrow" value="0"> %</label>
+        <label class="field">レベル差 <input class="input narrow" value="0"></label>
+      </div>
+      <p class="note" style="margin:6px 0 0">フライ族: 突に弱い (125%)。一覧から選ぶと種族の値が入り、あとから手で直せます。</p>
+    </div>
+  </div>
+
+  <div>
+    <h2>2. 敵を選ぶ一覧 (種族の列に印)</h2>
+    <div class="panel">
+      <table>
+        <tr><th>Lv</th><th>名前</th><th>場所・コンテンツ</th><th>種族</th><th>防御力</th><th>回避</th></tr>
+        <tr><td>63</td><td>Skimmer</td><td>ボヤーダ樹</td><td class="fam">フライ族 <span class="tag weak">突 125</span></td><td class="n">285</td><td class="n">250</td></tr>
+        <tr><td>130</td><td>Draugar</td><td>(見本)</td><td class="fam">スケルトン族 <span class="tag hard">斬 87.5</span> <span class="tag hard">突 50</span> <span class="tag weak">打 125</span></td><td class="n">1,356</td><td class="n">1,183</td></tr>
+        <tr><td>140</td><td>Apex Bats</td><td>王の間への道</td><td class="fam">コウモリ族（編隊）</td><td class="n">1,539</td><td class="n">1,390</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div>
+    <h2>3. 結果: 通常攻撃 (二刀流で、メインが斬・サブが突のとき)</h2>
+    <div class="panel">
+      <h3>通常攻撃</h3>
+      <table>
+        <tr><th></th><th>基準</th></tr>
+        <tr><td>1 発 (当たったとき)</td><td>539 <span class="range">489 〜 667</span></td></tr>
+        <tr><td>サブ (もう片方の手) の 1 発</td><td>521 <span class="range">473 〜 645</span> <span class="tag weak">突 125%</span></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div>
+    <h2>4. 結果: 計算の途中の値 (行を 1 つ足す)</h2>
+    <div class="panel">
+      <table>
+        <tr><th></th><th>基準</th><th></th></tr>
+        <tr><td>固定ダメージ</td><td class="n">146</td><td class="why">武器の D値 125 + SV関数 21</td></tr>
+        <tr class="new"><td>敵の弱点・耐性</td><td class="n">斬 100% / サブ 突 125%</td><td class="why">メイン (片手刀) は斬、サブ (短剣) は突。敵の値を、被物理ダメージと同じところで掛ける</td></tr>
+      </table>
+      <table style="margin-top:10px">
+        <tr><th>WS: 影縫</th><th>基準</th><th></th></tr>
+        <tr><td>ダメージ倍率</td><td class="n">1.00</td><td class="why">TP 3000</td></tr>
+        <tr class="new"><td>敵の弱点・耐性</td><td class="n">突 125%</td><td class="why">この WS は突 (武器は斬)。WS は全段、WS の種類で掛ける</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<ul class="notes">
+  <li>敵の欄に「斬・突・打」の % を 3 つ足します (被物理ダメージの隣)。100 が等倍。100 より大きいと緑、小さいと橙の枠になります。</li>
+  <li>一覧から敵を選ぶと、種族の値が自動で入ります。資料に値が無い種族は 100 のままです。手で直せます (直すと、ほかの値と同じく「手入力」の扱いになります)。</li>
+  <li>一覧の種族の列に、100 でないものだけ印を出します。</li>
+  <li>通常攻撃は、手ごとに武器の種類で掛けます (片手刀は斬、短剣は突、格闘と蹴撃は打、など。武器ごとの例外も入れます)。遠隔は矢弾の種類です。</li>
+  <li>WS は、WS ごとの種類で全段に掛けます (武器と違う種類の WS があります)。魔法 WS には掛けません。属性つきの物理 WS は、物理の分にだけ掛けます。</li>
+  <li>結果では、100 でないときだけ、値の横に「突 125%」のような印を出し、「計算の途中の値」に「敵の弱点・耐性」の行を足します。</li>
+  <li>「攻撃力の上限」の枠には関係しません (攻防関数のあとに掛かる倍率なので)。</li>
+</ul>
+</body>
+</html>

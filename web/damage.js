@@ -301,6 +301,22 @@
   //       BG-wiki https://www.bg-wiki.com/ffxi/Elemental_Gorgets (属性との対応)、https://www.bg-wiki.com/ffxi/Weapon_Skill_Damage
   // サイズミクアクスは、ソイルと同じ (https://www.bg-wiki.com/ffxi/Seismic_Axe)。
   // 魔法 WS の倍率にも足している (資料に書かれていないので、目安)
+  // 物理ダメージの種類 (斬・突・打)。敵の弱点・耐性の倍率を、どの攻撃に掛けるかを決める。
+  // 武器種ごとの種類: 突 = 短剣・両手槍・弓術・射撃・投てき、打 = 片手棍・両手棍・格闘、そのほかは斬
+  //   (FF11用語辞典 物理属性 https://wiki.ffo.jp/html/25433.html 、BG-wiki https://www.bg-wiki.com/ffxi/Damage_Type)。
+  //   格闘は、用語辞典では打と別の「格闘属性」で、敵によっては打と倍率が違う。ここでは打として数える (目安)。
+  // 武器ごとの例外 (例外属性武器 https://wiki.ffo.jp/html/3191.html 、BG-wiki 同上): 通常攻撃 (と蹴撃) だけに効き、WS は武器種の種類になる。
+  //   突剣 (片手剣で突) は名前から見分けられないので、資料に名前のあるものだけ。
+  // WS: 種類は武器種で決まる。レクイエスカットは無属性の物理ダメージなので、倍率を掛けない。魔法 WS にも掛けない
+  const DAMAGE_TYPES = { 短剣: 'pierce', 両手槍: 'pierce', 弓術: 'pierce', 射撃: 'pierce', 投てき: 'pierce', 片手棍: 'blunt', 両手棍: 'blunt', 格闘: 'blunt' };
+  const TYPE_ITEMS = { カイロプテラダガー: 'slash', バンピリッククロー: 'slash', バードベーン: 'pierce', ブールドナス: 'blunt', クルードソード: 'blunt', 骨喰: 'blunt', スワンビルボ: 'blunt', ジョワユーズ: 'pierce', デゲン: 'pierce', フルーレ: 'pierce' };
+  const TYPE_NAMES = { slash: '斬', pierce: '突', blunt: '打' };
+  const UNTYPED_WS = ['レクイエスカット'];
+  // skill: 武器種の名前、item: 武器の名前 (通常攻撃のときだけ渡す)
+  const damageType = (skill, item) => (item && TYPE_ITEMS[String(item).replace(/[+＋]\d+$/, '')]) || DAMAGE_TYPES[skill] || 'slash';
+  // WS の種類。倍率を掛けない WS (魔法 WS、無属性の物理 WS) は null
+  const wsDamageType = (skill, ws) => (!ws || ws.kind === 'magic' || UNTYPED_WS.includes(ws.ja) ? null : damageType(skill));
+
   const CHARM_FTP = 25 / 256;
   const CHARM_ACC = 10;
   const CHARMS = {
@@ -421,7 +437,7 @@
   // 連携のダメージ = 閉じた WS のダメージ × 倍率 × (1 + 連携ボーナス)。連携ボーナスは 50% まで。敵の被魔法ダメージが掛かる
   const skillchain = (damage, level, bonus, taken) => Math.min(HIT_LIMIT, damage * (SKILLCHAIN[level] || 0) * (1 + Math.min(50, Math.max(0, bonus || 0)) / 100) * (taken == null ? 1 : Math.max(0, taken)));
 
-  const api = { CHARM_FTP, CHARM_ACC, charmFits, magicBase, dstat, magicScale, magicSkill, hybridMagic, SKILLCHAIN, skillchain, HIT_LIMIT, CAPS, LIMIT_TRAITS, limitTrait, limitOf, fstr, fstr2, bareDamage, pdif, pdifRanged, capRatio, capStart, ratioOf, hitRate, critRate, critRateRanged, shotTime, hit, extraSwings, round, roundHits, cycle, hasteOf, roundTime, byTp, wsc, wsExtras, weaponSkill };
+  const api = { DAMAGE_TYPES, TYPE_NAMES, damageType, wsDamageType, CHARM_FTP, CHARM_ACC, charmFits, magicBase, dstat, magicScale, magicSkill, hybridMagic, SKILLCHAIN, skillchain, HIT_LIMIT, CAPS, LIMIT_TRAITS, limitTrait, limitOf, fstr, fstr2, bareDamage, pdif, pdifRanged, capRatio, capStart, ratioOf, hitRate, critRate, critRateRanged, shotTime, hit, extraSwings, round, roundHits, cycle, hasteOf, roundTime, byTp, wsc, wsExtras, weaponSkill };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.VanaDamage = api;
 })(typeof window !== 'undefined' ? window : globalThis);
