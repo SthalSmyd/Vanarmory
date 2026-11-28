@@ -196,3 +196,13 @@ test('魔法 WS・属性つきの物理 WS・連携', () => {
   near(D.skillchain(10000, 3, 80, 0.5), 7500); // 連携ボーナスは 50% まで
   near(D.skillchain(10000, 1, 0), 5000);
 });
+
+test('倍率がすべて上限になる攻防比', () => {
+  // 近接: その攻防比で下端が上限に届き、少し下では届かない
+  assert.equal(D.pdif(D.capRatio(3.75), 3.75).capped, true);
+  assert.equal(D.pdif(D.capRatio(3.75) - 0.01, 3.75).capped, false);
+  assert.equal(D.pdif(D.capRatio(3.75), 3.75, true).capped, true);
+  // 遠隔
+  assert.equal(D.pdifRanged(D.capRatio(3.25, true) + 1e-9, 3.25).capped, true);
+  assert.equal(D.pdifRanged(D.capRatio(3.25, true) - 0.01, 3.25).capped, false);
+});

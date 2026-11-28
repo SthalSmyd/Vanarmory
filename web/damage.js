@@ -107,6 +107,11 @@
     return { min: low, max: high, mean: (low + high) / 2, capped: low >= cap };
   }
 
+  // 倍率の幅がすべて上限に張り付く攻防比 (これ以上は攻撃力を上げても変わらない)。
+  // 近接: 下端 = 攻防比 − 0.375 が上限に届くところ。遠隔: 下端 = 攻防比 × 20/19 − 3/19。
+  // クリティカルは攻防比も上限も +1 (遠隔は上限のあとに掛ける) なので、同じ値になる
+  const capRatio = (cap, ranged) => (ranged ? (19 * cap + 3) / 20 : cap + 0.375);
+
   // レベル差の補正を引いた攻防比。敵のほうが高いときだけ、1 レベルにつき 0.05 下がる
   // (補正の無い場所が多いので、levelGap は補正のある場所のときだけ渡す)
   // 遠隔は 1 レベルにつき 0.025 (perLevel で渡す)
@@ -372,7 +377,7 @@
   // 連携のダメージ = 閉じた WS のダメージ × 倍率 × (1 + 連携ボーナス)。連携ボーナスは 50% まで。敵の被魔法ダメージが掛かる
   const skillchain = (damage, level, bonus, taken) => Math.min(HIT_LIMIT, damage * (SKILLCHAIN[level] || 0) * (1 + Math.min(50, Math.max(0, bonus || 0)) / 100) * (taken == null ? 1 : Math.max(0, taken)));
 
-  const api = { magicBase, dstat, magicScale, magicSkill, hybridMagic, SKILLCHAIN, skillchain, HIT_LIMIT, CAPS, LIMIT_TRAITS, limitTrait, limitOf, fstr, fstr2, bareDamage, pdif, pdifRanged, ratioOf, hitRate, critRate, critRateRanged, shotTime, hit, extraSwings, round, roundHits, cycle, hasteOf, roundTime, byTp, wsc, wsExtras, weaponSkill };
+  const api = { magicBase, dstat, magicScale, magicSkill, hybridMagic, SKILLCHAIN, skillchain, HIT_LIMIT, CAPS, LIMIT_TRAITS, limitTrait, limitOf, fstr, fstr2, bareDamage, pdif, pdifRanged, capRatio, ratioOf, hitRate, critRate, critRateRanged, shotTime, hit, extraSwings, round, roundHits, cycle, hasteOf, roundTime, byTp, wsc, wsExtras, weaponSkill };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.VanaDamage = api;
 })(typeof window !== 'undefined' ? window : globalThis);

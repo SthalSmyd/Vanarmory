@@ -26,12 +26,13 @@ export function buildEnemies(root) {
   return data.enemies.map((enemy) => {
     const vit = 254 + (enemy.lv - 129) * 8;
     const guess = { def: 1142 + (enemy.lv - 129) * 36, vit, agi: vit + 20 };
-    const values = Object.assign({ eva: required(enemy.lv, enemy.type) - 40 }, guess, enemy.values);
+    // 回避が載っている敵は、表を引かない (表に無い低いレベルの敵のため)
+    const values = Object.assign(enemy.values.eva == null ? { eva: required(enemy.lv, enemy.type) - 40 } : {}, guess, enemy.values);
     // est: 目安で埋めた項目、table: 回避を必要命中の表から出したか
     return {
       id: enemy.id, group: enemy.group, ja: enemy.ja, lv: enemy.lv, page: enemy.page, note: enemy.note, values,
       // guess の印のある敵は、入っている値そのものが目安
-      est: Object.keys(guess).filter((key) => enemy.guess || enemy.values[key] == null), table: enemy.values.eva == null,
+      est: Object.keys(guess).filter((key) => enemy.guess || enemy.values[key] == null), table: enemy.values.eva == null, guess: !!enemy.guess,
     };
   });
 }

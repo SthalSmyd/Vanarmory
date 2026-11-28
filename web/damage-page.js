@@ -81,7 +81,7 @@
   }
 
   // 敵の一覧を絞る、レベルの幅
-  const RANGES = [[0, 119, 'Lv119 まで'], [120, 129, 'Lv120〜129'], [130, 134, 'Lv130〜134'], [135, 139, 'Lv135〜139'], [140, 144, 'Lv140〜144'], [145, 149, 'Lv145〜149'], [150, 999, 'Lv150 以上']];
+  const RANGES = [[0, 99, 'Lv99 まで'], [100, 119, 'Lv100〜119'], [120, 129, 'Lv120〜129'], [130, 134, 'Lv130〜134'], [135, 139, 'Lv135〜139'], [140, 144, 'Lv140〜144'], [145, 149, 'Lv145〜149'], [150, 999, 'Lv150 以上']];
   const PAIR_NAMES = ['基準', '比較 1', '比較 2'];
   const PAIR_CLASSES = ['a', 'b', 'c'];
 
@@ -491,7 +491,7 @@
     }));
     const picked = ENEMIES.find((e) => e.id === state.enemy);
     const LABEL = { def: '防御力', vit: 'VIT', agi: 'AGI' };
-    const about = !picked ? '' : `選んだ敵: 回避は${picked.table ? '、レベルから必要命中の表を引いた値 (必要命中 − 40)' : '検証値'}。`
+    const about = !picked ? '' : picked.guess ? `選んだ敵: ${picked.note}。\n` : `選んだ敵: 回避は${picked.table ? '、レベルから必要命中の表を引いた値 (必要命中 − 40)' : '検証値'}。`
       + (picked.est.length ? `${picked.est.map((k) => LABEL[k]).join('・')}は、検証値が無いので、Apex モンスターの値をレベルに当てはめた目安です。` : '防御力なども検証値です。')
       + (picked.note ? picked.note + '。' : '') + '\n';
     $('enemy-note').replaceChildren(picked && picked.est.length ? el('span', { textContent: '目安の値あり' }) : '', help(about + '一覧から選ぶと値が入り、あとから手で直せます。\nレベル差は、レベル差の補正がある場所のときだけ入れます (新しいコンテンツの多くは補正が無いので 0)。'));
@@ -736,14 +736,33 @@
     const a = (c) => c.auto;
     const foe = enemy();
     const mods = ws ? Object.entries(ws.mods).map(([k, v]) => `${k} ${v}%`).join(' + ') : '';
-    const pd = (h) => `${fixed2(h.normal.pdif.min)} 〜 ${fixed2(h.normal.pdif.max)}`;
+    const ranged = state.mode === 'ranged';
+    const perLevel = ranged ? 0.025 : 0.05;
+    // 倍率の幅。上限に当たっていれば印を付ける (幅の上だけ当たっているときは「一部上限」)
+    const pd = (h, cap) => {
+      const p = h.normal.pdif;
+      const mark = p.min >= cap - 1e-9 ? capMark(true) : p.max >= cap - 1e-9 ? el('span', { className: 'cap', textContent: '一部上限' }) : null;
+      return [`${fixed2(p.min)} 〜 ${fixed2(p.max)}`, mark];
+    };
+    // 倍率がすべて上限に張り付く攻撃力と、そこまでの残り
+    const capWhy = '武器種の上限 + 特性「ダメージ上限アップ」に、物理ダメージ上限+ を掛けたもの。' + (ranged ? 'クリティカルは、上限のあとに 1.25 倍' : 'クリティカルは +1.0');
+    const needOf = (cap, defense) => Math.ceil((D.capRatio(cap, ranged) + Math.max(0, foe.gap || 0) * perLevel) * Math.max(1, defense));
+    const needRow = (attack, cap, defense) => ({
+      label: '上限に届く攻撃力',
+      value: (c) => {
+        const need = needOf(cap(c), defense(c));
+        return [number(need), attack(c) >= need ? capMark(true) : el('span', { className: 'range', textContent: ` あと ${number(need - attack(c))}` })];
+      },
+      why: `倍率の幅がすべて上限になる攻撃力。攻防比 ${ranged ? '(上限 × 19 + 3) ÷ 20' : '上限 + 0.375'} のところ。これより上げても変わらない`,
+    });
     const rows = [];
     if (ws) {
       rows.push({ head: 'WS (WS 用のセット)' },
         { label: '攻撃力', value: (c) => number(w(c).main.attack), number: (c) => w(c).main.attack, why: ws.atk ? `WS の攻撃力の補正 ×${fixed2(calc[0].ws.attackRate)} を掛けたあと` : state.mode === 'ranged' ? 'スキル + STR + 飛攻' : 'スキル + STR + 攻 (両手武器・格闘はスマイトを掛ける)' },
         { label: '攻防比', value: (c) => fixed2(w(c).main.ratio), why: `攻撃力 ÷ 敵の防御力 ${number(calc[0].ws.defense)}` + (foe.down.def ? ` (弱体で −${Math.round(foe.down.def * 100) / 100}%)` : '') + (foe.gap > 0 ? ` − レベル差 ${foe.gap} × ${state.mode === 'ranged' ? 0.025 : 0.05}` : '') },
-        { label: '倍率 (クリティカルでないとき)', value: (c) => pd(w(c).result.parts.first.hit), why: state.mode === 'ranged' ? '攻防比から決まる幅の中の乱数' : '攻防比から決まる幅。この中の乱数に、さらに 1.00〜1.05 を掛ける' },
-        { label: '倍率の上限', value: (c) => fixed2(w(c).h.main.cap), why: '武器種の上限 + 特性「ダメージ上限アップ」に、物理ダメージ上限+ を掛けたもの。' + (state.mode === 'ranged' ? 'クリティカルは、上限のあとに 1.25 倍' : 'クリティカルは +1.0') },
+        { label: '倍率 (クリティカルでないとき)', value: (c) => pd(w(c).result.parts.first.hit, w(c).h.main.cap), why: state.mode === 'ranged' ? '攻防比から決まる幅の中の乱数' : '攻防比から決まる幅。この中の乱数に、さらに 1.00〜1.05 を掛ける' },
+        { label: '倍率の上限', value: (c) => fixed2(w(c).h.main.cap), why: capWhy },
+        needRow((c) => w(c).main.attack, (c) => w(c).h.main.cap, (c) => w(c).defense),
         { label: '武器のＤ', value: (c) => number(w(c).main.damage), why: state.mode === 'ranged' ? '弓や銃のＤ + 矢弾のＤ' : '格闘は、スキルから決まる素手のＤを足したもの' },
         { label: 'STR の補正', value: (c) => fixed2(w(c).main.fstr), why: `自分の STR − 敵の VIT ${number(foe.vit)} から。上限は、近接が 8 + Ｄ÷9、遠隔がその 2 倍` },
         { label: 'ステータス修正', value: (c) => number(w(c).mod), number: (c) => w(c).mod, why: mods },
@@ -758,7 +777,9 @@
     rows.push({ head: '通常攻撃 (通常攻撃用のセット)' },
       { label: '攻撃力', value: (c) => number(a(c).h.main.attack), number: (c) => a(c).h.main.attack, why: 'スキル + STR + 攻 (両手武器・格闘はスマイトを掛ける)' },
       { label: '攻防比', value: (c) => fixed2(a(c).hands[0].ratio), why: `攻撃力 ÷ 敵の防御力 ${number(foe.def)}` },
-      { label: '倍率 (クリティカルでないとき)', value: (c) => pd(a(c).hands[0].hit), why: '' },
+      { label: '倍率 (クリティカルでないとき)', value: (c) => pd(a(c).hands[0].hit, a(c).h.main.cap), why: ranged ? '攻防比から決まる幅の中の乱数' : '攻防比から決まる幅。この中の乱数に、さらに 1.00〜1.05 を掛ける' },
+      { label: '倍率の上限', value: (c) => fixed2(a(c).h.main.cap), why: capWhy },
+      needRow((c) => a(c).h.main.attack, (c) => a(c).h.main.cap, () => foe.def),
       { label: '命中', value: (c) => number(a(c).h.main.accuracy), number: (c) => a(c).h.main.accuracy, why: `敵の回避 ${number(foe.eva)}。差 2 ごとに命中率 1%` },
       { label: 'スキル', value: (c) => `${a(c).h.kind.ja} ${number(a(c).h.main.skill)}`, why: 'ジョブの上限 + マスターレベル + 装備・メリポ' },
       { label: 'STR / DEX / AGI', value: (c) => `${number(a(c).h.total('STR'))} / ${number(a(c).h.total('DEX'))} / ${number(a(c).h.total('AGI'))}`, why: `敵の VIT ${number(foe.vit)}、AGI ${number(foe.agi)}` },

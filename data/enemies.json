@@ -5,6 +5,7 @@
   "https://www.bg-wiki.com/ffxi/Category:Apex_Monsters と各モンスター・各ボスのページ (防御力・回避の検証値。レベルに幅のある敵は、いちばん高いレベルの値)",
   "https://www.ffxiah.com/forum/topic/58150/arebati-stats/ (オデシー ジェールの Arebati の実測と、難易度ごとの伸び方)",
   "https://www.ffxiah.com/forum/topic/48251/reisenjima-t4s/13/ (ギアスフェットの NM の回避の実測)",
+  "https://www.bg-wiki.com/ffxi/Defense (敵の防御力の式) と https://horizonffxi.wiki/Attribute (敵の VIT・AGI の式。Studio Gobli の資料の翻訳): 弱い敵の目安",
   "https://wiki.ffo.jp/html/38599.html (ソーティの敵のレベル)、https://www.bg-wiki.com/ffxi/Category:Odyssey (シェオルの階ごとのレベル)"
  ],
  "note": "ダメージの画面の敵の一覧。values は、資料に値が載っている項目だけ (回避は、検証値か、必要命中からの換算)。載っていない項目は tools/enemies.mjs が埋める: 回避は、レベルと型 (type) から必要命中の表を引いて 40 を引く。防御力・VIT・AGI は、Apex モンスターの検証値をレベルで直線に当てはめた目安 (防御力 = 1142 + (Lv − 129) × 36、VIT = 254 + (Lv − 129) × 8、AGI = VIT + 20)。日本語名が確かめられていない敵は英語名。",
@@ -3201,6 +3202,38 @@
    "page": "https://vanafratello.com/level-accuracy",
    "note": "",
    "values": {}
+  },
+  {
+   "id": "e245",
+   "group": "弱い敵 (目安)",
+   "ja": "弱い敵",
+   "lv": 1,
+   "type": "war",
+   "page": "https://www.bg-wiki.com/ffxi/Defense",
+   "note": "実測の値が見つからないので、式から出した目安 (内部ジョブ戦士、防御ランク C、VIT・AGI の種族ランク C と仮定)。防御力 = レベルごとの基本の値 + 8 + VIT ÷ 2 (BG-wiki)、VIT・AGI は Studio Gobli の式 (HorizonXI Wiki の翻訳)、回避 = 戦士の回避スキルの上限 + AGI ÷ 2 (プレイヤーの式を当てはめたもの)",
+   "values": {
+    "def": 16,
+    "eva": 9,
+    "vit": 7,
+    "agi": 8
+   },
+   "guess": true
+  },
+  {
+   "id": "e246",
+   "group": "弱い敵 (目安)",
+   "ja": "弱い敵",
+   "lv": 75,
+   "type": "war",
+   "page": "https://www.bg-wiki.com/ffxi/Defense",
+   "note": "実測の値が見つからないので、式から出した目安 (内部ジョブ戦士、防御ランク C、VIT・AGI の種族ランク C と仮定)。防御力 = レベルごとの基本の値 + 8 + VIT ÷ 2 (BG-wiki)、VIT・AGI は Studio Gobli の式 (HorizonXI Wiki の翻訳)、回避 = 戦士の回避スキルの上限 + AGI ÷ 2 (プレイヤーの式を当てはめたもの)",
+   "values": {
+    "def": 308,
+    "eva": 267,
+    "vit": 77,
+    "agi": 84
+   },
+   "guess": true
   }
  ]
 }
