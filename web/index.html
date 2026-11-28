@@ -86,13 +86,15 @@
 ● 今回だけ: ジョブを変えても、装備できれば残ります。">?</button></span> <button type="button" id="fixed-clear" title="今回だけの固定をすべて外す (いつもの装備は残る)">すべて解除</button></h2>
       <div class="grid" id="mine"></div>
       <div class="unfix">外す: <button type="button" id="unfix-armor" title="頭・胴・両手・両脚・両足の固定を外す">防具</button><button type="button" id="unfix-acc" title="首・耳・指・背・腰の固定を外す">アクセ</button>
-        <button type="button" class="copy view-toggle" id="fixed-view">ステータスを見る</button></div>
+        <button type="button" class="copy view-toggle" id="fixed-view">ステータスを見る</button>
+        <button type="button" class="copy view-toggle" id="save-fixed" title="いま「固定する装備」に入れている一式を、新しいセットとして保存するか、いまあるセットに上書きする">セットに保存</button></div>
+      <div id="fixed-save"></div>
       <p class="legend"><span>📌 いつも</span><span>● 今回だけ</span><span>空 = 自動</span></p>
     </div>
     <div class="panel">
-      <h2>保存したセット <button type="button" id="save-fixed" title="いま「固定する装備」に入れている一式を、名前を付けて保存する">固定中の装備を保存</button></h2>
+      <h2>保存したセット</h2>
       <div id="saved" class="saved"></div>
-      <p class="hint">候補の「保存」で増えます<button type="button" class="q" data-help="チェックを入れると、比較に並びます (候補と合わせて 3 つまで)。「見る」はステータスを右に出し、「読み込む」は固定する範囲を選んで「固定する装備」に入れます。">?</button></p>
+      <p class="hint">「固定する装備」の「セットに保存」と、候補の「保存」で増えます (どちらも、いまあるセットに上書きできます)<button type="button" class="q" data-help="チェックを入れると、比較に並びます (候補と合わせて 3 つまで)。「見る」はステータスを右に出し、「読み込む」は固定する範囲を選んで「固定する装備」に入れます。">?</button></p>
     </div>
     <div class="panel" id="excluded-box" hidden>
       <h2><span id="excluded-title"></span> <button type="button" id="excluded-clear">すべて戻す</button></h2>

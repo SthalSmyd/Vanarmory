@@ -163,8 +163,19 @@ table.ov { border-collapse: collapse; font-size: 13px; font-variant-numeric: tab
 .card-head .used { color: var(--muted); font-size: 12px; margin-right: auto; }
 .card-head .used b { color: var(--accent); }
 .bonus { font-size: 12px; color: var(--muted); }
-.save-box { display: flex; align-items: center; gap: 8px; padding: 8px 10px; background: var(--accent-bg); border-radius: 8px; font-size: 13px; }
-.save-box input { flex: 1; max-width: 300px; background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 3px 8px; }
+.save-box { display: grid; gap: 8px; padding: 8px 10px; background: var(--accent-bg); border-radius: 8px; font-size: 13px; min-width: 0; }
+.save-box input { flex: 1; min-width: 0; max-width: 300px; background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 3px 8px; }
+.save-new { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.save-new > span, .save-title { font-size: 12px; color: var(--muted); font-weight: 600; white-space: nowrap; }
+.save-over { display: grid; gap: 3px; border-top: 1px solid var(--line); padding-top: 6px; max-height: 220px; overflow: auto; }
+.save-row { display: flex; align-items: center; gap: 6px; min-width: 0; }
+.save-row .save-name { font-weight: 600; overflow-wrap: anywhere; }
+.save-row .save-who { color: var(--muted); font-size: 11px; margin-right: auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.save-row .save-origin { font-size: 10px; background: var(--ok-bg); color: var(--ok); border-radius: 4px; padding: 0 5px; white-space: nowrap; }
+.save-row button, .save-end button { border: 1px solid var(--line); background: var(--panel); border-radius: 6px; padding: 1px 8px; font-size: 12px; cursor: pointer; white-space: nowrap; }
+.save-sep { font-size: 11px; color: var(--muted); margin-top: 4px; }
+.save-end { display: flex; justify-content: flex-end; }
+#fixed-save:not(:empty) { margin-top: 6px; }
 
 /* 目標の達成: 届いていれば 1 行の札。届かないものだけ棒で不足を見せる */
 .checks { display: flex; flex-wrap: wrap; gap: 4px 6px; font-variant-numeric: tabular-nums; }

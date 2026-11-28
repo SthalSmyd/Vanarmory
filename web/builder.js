@@ -123,6 +123,7 @@
   let compareMode = 'diff'; // 'diff' = 違うところだけ、'all' = すべて
   let viewing = null; // 左の欄でステータスを開いているもの。'fixed' は固定中の装備、's…' は保存したセット
   let saving = null; // 名前を入れて保存しようとしている候補の番号
+  let savingFixed = false; // 「固定する装備」の枠で、保存の欄を開いているか
   const COMPARE_MAX = 3;
   let activePreset = ''; // 最後に読み込んだ (か保存した) 条件の id
   const manualOpen = new Set(); // 「手で足す」の欄を開いている目標
@@ -912,6 +913,7 @@
     renderSide();
     renderFixedView();
     renderSaved();
+    renderFixedSave();
   }
 
   // ---- 計算 ----
@@ -1431,7 +1433,64 @@
   function saveSet(name, who, equipItems) {
     const equip = {};
     for (const [slot, item] of Object.entries(equipItems)) if (item) equip[slot] = item.id;
-    savedSets().push({ id: 's' + P.newId(), name, who: JSON.parse(JSON.stringify(who)), equip });
+    const id = 's' + P.newId();
+    savedSets().push({ id, name, who: JSON.parse(JSON.stringify(who)), equip });
+    return id;
+  }
+  // いまあるセットの中身を入れ替える (名前と id はそのまま)
+  function overwriteSet(saved, who, equipItems) {
+    const equip = {};
+    for (const [slot, item] of Object.entries(equipItems)) if (item) equip[slot] = item.id;
+    saved.who = JSON.parse(JSON.stringify(who));
+    saved.equip = equip;
+  }
+
+  // 保存の欄。固定中の装備と、候補のカードで同じものを使う。
+  // 上に名前を入れて新しく保存、下にいまあるセットが並び、押すとそのセットに上書きする。
+  // 同じジョブのセットを先に並べ、読み込んでいたセットはいちばん上に「読み込み元」と出す。
+  // done(id, 文) は、保存し終わったときに呼ぶ。cancel は「やめる」を押したとき
+  function saveBoxFor({ who, equip, done, cancel }) {
+    const jobName = (id) => (data.jobs.find((j) => j.id === id) || {}).ja || '';
+    const nameInput = el('input', { type: 'text', value: `${jobName(who.job)} ${savedSets().length + 1}`, spellcheck: false });
+    const create = el('button', { type: 'button', className: 'primary small-primary', textContent: '保存' });
+    const doSave = () => {
+      const name = nameInput.value.trim();
+      if (!name) return;
+      const same = savedSets().find((x) => x.name === name);
+      if (same && !confirm(`「${name}」という名前のセットが、すでにあります。同じ名前で、もう 1 つ保存しますか？ (上書きするときは、下の一覧から選びます)`)) return;
+      done(saveSet(name, who, equip), `「${name}」を保存しました。`);
+    };
+    create.addEventListener('click', doSave);
+    nameInput.addEventListener('keydown', (e) => {
+      if (!e.isComposing && e.key === 'Enter') doSave();
+    });
+    const origin = state.loadedSet;
+    const rank = (x) => (x.id === origin ? 0 : x.who.job === who.job ? 1 : 2);
+    const list = savedSets().map((x, i) => [x, i]).sort((a, b) => rank(a[0]) - rank(b[0]) || a[1] - b[1]).map(([x]) => x);
+    const rows = [];
+    let other = false;
+    for (const saved of list) {
+      if (!other && saved.who.job !== who.job && saved.id !== origin && rows.length) {
+        other = true;
+        rows.push(el('div', { className: 'save-sep', textContent: 'ほかのジョブ' }));
+      }
+      const button = el('button', { type: 'button', className: 'small', textContent: '上書き' });
+      button.addEventListener('click', () => {
+        if (!confirm(`保存したセット「${saved.name}」を、この装備で上書きします。元の中身には戻せません。`)) return;
+        overwriteSet(saved, who, equip);
+        done(saved.id, `「${saved.name}」を上書きしました。`);
+      });
+      rows.push(el('div', { className: 'save-row' },
+        el('span', { className: 'save-name', textContent: saved.name }),
+        saved.id === origin ? el('span', { className: 'save-origin', textContent: '読み込み元' }) : null,
+        el('span', { className: 'save-who', textContent: whoText(saved.who) }), button));
+    }
+    const stop = el('button', { type: 'button', className: 'small', textContent: 'やめる' });
+    stop.addEventListener('click', cancel);
+    return el('div', { className: 'save-box' },
+      el('div', { className: 'save-new' }, el('span', { textContent: '新しく保存' }), nameInput, create),
+      rows.length ? el('div', { className: 'save-over' }, el('div', { className: 'save-title', textContent: '上書きする' }), ...rows) : null,
+      el('div', { className: 'save-end' }, stop));
   }
 
   function toggleCompare(key) {
@@ -1666,13 +1725,35 @@
         dropPins();
         const fixed = {};
         for (const [slot, id] of Object.entries(saved.equip)) if ((!slots || slots.includes(slot)) && getItem(id)) fixed[slot] = id;
-        Object.assign(state, { job: saved.who.job, sub: saved.who.sub, subLevel: saved.who.subLevel, food: saved.who.food, innate: Object.assign({}, saved.who.innate), fixed });
+        Object.assign(state, { job: saved.who.job, sub: saved.who.sub, subLevel: saved.who.subLevel, food: saved.who.food, innate: Object.assign({}, saved.who.innate), fixed, loadedSet: saved.id });
         applyPins();
         editing = null;
         loading = null;
         changed();
       });
       return button;
+    }));
+  }
+
+  // 「固定する装備」の枠の、保存の欄
+  function renderFixedSave() {
+    const box = $('fixed-save');
+    box.replaceChildren();
+    $('save-fixed').classList.toggle('on', savingFixed);
+    if (!savingFixed) return;
+    const equip = {};
+    for (const [slot, id] of Object.entries(state.fixed)) equip[slot] = getItem(id);
+    if (!state.job || !Object.values(equip).some(Boolean)) {
+      savingFixed = false;
+      $('save-fixed').classList.remove('on');
+      $('status').textContent = 'ジョブを選び、「固定する装備」に装備を入れてから保存してください。';
+      return;
+    }
+    box.append(saveBoxFor({
+      who: currentWho(), equip,
+      // 保存したセットを、次の上書きの「読み込み元」にする
+      done: (id, text) => { savingFixed = false; state.loadedSet = id; changed(); renderFixedSave(); $('status').textContent = text; },
+      cancel: () => { savingFixed = false; renderFixedSave(); },
     }));
   }
 
@@ -1816,22 +1897,11 @@
         renderResults();
         document.querySelector('.save-box input')?.focus();
       });
-      const nameInput = el('input', { type: 'text', value: `${data.jobs.find((j) => j.id === lastResult.who.job).ja} ${savedSets().length + 1}`, spellcheck: false });
-      const confirmSave = el('button', { type: 'button', className: 'primary small-primary', textContent: 'このセットを保存' });
-      const doSave = () => {
-        const name = nameInput.value.trim();
-        if (!name) return;
-        saveSet(name, lastResult.who, set.equip);
-        saving = null;
-        changed();
-        $('status').textContent = `「${name}」を保存しました。`;
-        renderResults();
-      };
-      confirmSave.addEventListener('click', doSave);
-      nameInput.addEventListener('keydown', (e) => {
-        if (!e.isComposing && e.key === 'Enter') doSave();
-      });
-      const saveBox = el('div', { className: 'save-box' }, el('span', { textContent: '名前' }), nameInput, confirmSave);
+      const saveBox = saving === index ? saveBoxFor({
+        who: lastResult.who, equip: set.equip,
+        done: (id, text) => { saving = null; changed(); $('status').textContent = text; renderResults(); },
+        cancel: () => { saving = null; renderResults(); },
+      }) : null;
 
       // 目標の達成: 届いていれば 1 行の札。届かないものだけ、棒で不足を見せる
       const checks = el('div', { className: 'checks' });
@@ -2060,17 +2130,9 @@
       changed();
     });
     $('save-fixed').addEventListener('click', () => {
-      const equip = {};
-      for (const [slot, id] of Object.entries(state.fixed)) equip[slot] = getItem(id);
-      if (!state.job || !Object.values(equip).some(Boolean)) {
-        $('status').textContent = 'ジョブを選び、「固定する装備」に装備を入れてから保存してください。';
-        return;
-      }
-      const name = (prompt('セットの名前', `${data.jobs.find((j) => j.id === state.job).ja} ${savedSets().length + 1}`) || '').trim();
-      if (!name) return;
-      saveSet(name, currentWho(), equip);
-      changed();
-      $('status').textContent = `「${name}」を保存しました。`;
+      savingFixed = !savingFixed;
+      renderFixedSave();
+      document.querySelector('#fixed-save input')?.focus();
     });
     $('share').addEventListener('click', () => {
       const url = location.href.split('#')[0] + '#' + encodeURIComponent(JSON.stringify(state));
