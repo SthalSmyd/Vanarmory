@@ -1062,7 +1062,7 @@
         renderFixedView();
         renderSaved();
         $('status').textContent = '目標が無いので、固定中の装備をそのまま出しました。';
-        $('viewing').scrollIntoView({ block: 'nearest' });
+        if (viewCard) viewCard.scrollIntoView({ block: 'nearest' });
         return;
       }
       $('status').textContent = problem;
@@ -1612,7 +1612,9 @@
   }
 
   // 固定中の装備のステータス (固定する装備の枠の下に開く)
-  // 「見る」: 固定中の装備や保存したセットを、右の候補の欄のいちばん上に、カードで出す
+  // 「見る」: 固定中の装備や保存したセットを、右の候補の並びの先頭に、候補と同じ大きさのカードで出す
+  // (候補を押し下げて隠さないように、候補の隣に並べる)
+  let viewCard = null;
   function renderFixedView() {
     const equip = fixedEquip();
     const any = Object.keys(equip).length > 0 && !!state.job;
@@ -1620,8 +1622,8 @@
     if (viewing === 'fixed' && !any) viewing = null;
     $('fixed-view').classList.toggle('on', viewing === 'fixed');
     $('fixed-view').textContent = viewing === 'fixed' ? 'ステータスを閉じる' : 'ステータスを見る';
-    const box = $('viewing');
-    box.replaceChildren();
+    if (viewCard) viewCard.remove();
+    viewCard = null;
     let entry = null;
     let name = '';
     let meta = '';
@@ -1638,9 +1640,10 @@
     if (!entry) return;
     const close = el('button', { type: 'button', className: 'copy', textContent: '閉じる' });
     close.addEventListener('click', () => { viewing = null; renderFixedView(); renderSaved(); });
-    box.append(el('div', { className: 'card view-card' },
+    viewCard = el('div', { className: 'card view-card' },
       el('div', { className: 'card-head' }, el('h3', { textContent: name }), el('span', { className: 'used', textContent: meta }), close),
-      setView(entry)));
+      setView(entry));
+    $('cards').prepend(viewCard);
   }
 
   // 保存したセットの「読み込む」: どこまで固定するかを選ぶ。ジョブ・サポ・食事は、どれを選んでも合わせる。
@@ -1719,6 +1722,7 @@
     const { req, result, context } = lastResult;
     const cards = $('cards');
     cards.replaceChildren();
+    if (viewCard) cards.append(viewCard);
     $('notice').replaceChildren();
     $('overview').replaceChildren();
     $('overview').hidden = true;

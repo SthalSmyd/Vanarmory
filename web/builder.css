@@ -337,6 +337,5 @@ table.cmp { border-collapse: collapse; font-size: 13px; font-variant-numeric: ta
 .load-menu button:hover { border-color: var(--accent); }
 .load-menu button small { color: var(--muted); margin-left: 6px; }
 /* 「見る」のカード: 右の候補の欄のいちばん上 */
-#viewing { margin-bottom: 10px; }
 .view-card { border-color: var(--accent); }
 .view-card .set-view { margin-top: 0; padding-top: 0; border-top: 0; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); align-items: start; gap: 12px; font-size: 13px; }
