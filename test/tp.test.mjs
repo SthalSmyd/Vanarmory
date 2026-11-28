@@ -25,7 +25,7 @@ test('ストアTP を掛けて切り捨てる', () => {
 test('二刀流と格闘は、1 発ぶんの隔が半分になる', () => {
   assert.deepEqual(T.melee({ kind: 'one', main: 200, sub: 0 }), { mode: 'single', delay: 200, hands: 1, total: 200 });
   const dual = T.melee({ kind: 'one', main: 200, sub: 180, dualWield: 25 });
-  assert.equal(dual.delay, 142.5);
+  assert.equal(dual.delay, 142); // 142.5 の端数は切り捨て
   assert.equal(dual.hands, 2);
   assert.equal(T.melee({ kind: 'one', main: 200, sub: 200, dualWield: 95 }).delay, 40); // 80% で止まる
   const h2h = T.melee({ kind: 'h2h', main: 96, martialArts: 200 });

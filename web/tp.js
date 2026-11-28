@@ -34,10 +34,12 @@
       return { mode: 'h2h', delay: Math.floor(total / 2), hands: 2, total };
     }
     if (sub > 0) {
-      // 二刀流: (メイン + サブ) × (1 − 二刀流) を、左右それぞれ半分ずつ
+      // 二刀流: (メイン + サブ) × (1 − 二刀流) を、左右それぞれ半分ずつ (端数は切り捨て)。
+      // 切り捨ては FF11用語辞典「得TP」の式の注記による (https://wiki.ffo.jp/html/8311.html 「【】内の計算は小数点以下切り捨て」)。
+      // 切り捨てるかどうかで結果が変わる実測の例は、見つかっていない
       const rate = Math.min(80, Math.max(0, dualWield || 0));
       const total = (((main || 0) + sub) * (100 - rate)) / 100;
-      return { mode: 'dual', delay: total / 2, hands: 2, total, dualWield: rate };
+      return { mode: 'dual', delay: Math.floor(total / 2), hands: 2, total, dualWield: rate };
     }
     return { mode: 'single', delay: main || 0, hands: 1, total: main || 0 };
   }
