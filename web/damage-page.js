@@ -54,13 +54,13 @@
 
   // 選んだものの効果をまとめる。who を渡すと、そのジョブ・サポで使えるアビリティも入れる
   function buffsFor(who) {
-    const out = { flat: new Map(), atk: 0, ratk: 0, mh: 0, jh: 0, vel: 0, shots: 0, def: 0, eva: 0, names: [] };
+    const out = { flat: new Map(), atk: 0, ratk: 0, mh: 0, jh: 0, vel: 0, shots: 0, def: 0, eva: 0, ws: 0, wsAll: 0, names: [] };
     const slots = new Map();
     for (const buff of BUFFS) {
       if (!(buff.id in state.buffs)) continue;
       let e;
       if (buff.group === 'アビリティ') {
-        e = !who ? null : who.job === buff.job ? buff.options[0] : who.sub === buff.job ? buff.sub : null;
+        e = !who ? null : who.job === buff.job ? optionOf(buff) : who.sub === buff.job ? buff.sub : null;
       } else e = optionOf(buff);
       if (!e) continue;
       out.names.push(buff.ja);
@@ -68,6 +68,18 @@
         const stat = db.statByKey.get(key);
         if (stat) out.flat.set(stat.i, (out.flat.get(stat.i) || 0) + value);
       }
+      // ジョブポイントの項目で増える分 (メインジョブで、ジョブポイントを使い切っているとき)
+      if (e.jp && who && who.job === buff.job) {
+        const c = S.contextFor(who);
+        if (c.gifts !== false && c.jp >= P.MAX_JP) {
+          for (const [key, value] of Object.entries(e.jp)) {
+            const stat = db.statByKey.get(key);
+            if (stat) out.flat.set(stat.i, (out.flat.get(stat.i) || 0) + value);
+          }
+        }
+      }
+      out.ws += e.ws || 0; // 近接の物理 WS の全段に、別枠で掛かるダメージ + % (正正堂堂)
+      out.wsAll += e.wsAll || 0; // 物理 WS (遠隔も) の全段に、別枠で掛かるダメージ + % (飛竜のステータスアップ)
       out.atk += e.atk || 0;
       out.ratk += (e.atk || 0) + (e.ratk || 0);
       out.mh += e.mh || 0;
@@ -464,7 +476,12 @@
     // 敵の弱点・耐性: WS は、武器種の種類で全段に掛ける (武器ごとの例外は WS には効かない)
     const type = D.wsDamageType(h.main.kind.ja, ws);
     const typeScale = type ? foe.kinds[type] : 1;
-    const result = D.weaponSkill({ main, sub, wsc: mod, ftp, replicate: ws.rep, hits: ws.hits, wsd, bonus, hidden, multi: h.multi, firstMulti, canCrit, taken: foe.taken * typeScale, subInHits: h.kind.kind === 'h2h' });
+    // 正正堂堂 (侍のメリットポイント): 近接の WS の全段に、ほかの WS ダメージ + とは別に掛かる
+    // 特性「WSダメージアップ」(竜騎士) と飛竜の分も、同じ枠に足す (こちらは遠隔 WS にも掛ける)
+    const c = built.context;
+    const traitWs = c.traits ? D.wsTrait(c.job, c.sub, c.subLevel) : 0;
+    const front = (h.ranged ? 0 : built.buffs.ws || 0) + traitWs + (built.buffs.wsAll || 0);
+    const result = D.weaponSkill({ main, sub, wsc: mod, ftp, replicate: ws.rep, hits: ws.hits, wsd, bonus, hidden, multi: h.multi, firstMulti, canCrit, taken: foe.taken * typeScale * (1 + front / 100), subInHits: h.kind.kind === 'h2h' });
     // WS で得る TP: メインの 1 段目とサブの 1 発目は通常の得 TP、そのほかの当たった分は 1 発 10 (ストアTP が掛かる)
     // 属性つきの物理 WS: 物理の分に、属性の分 (物理のダメージ × 属性の倍率に、魔攻などを掛けたもの) を足す
     // 1 段目が当たったときだけの平均 (1 段目がミスした回を、2 段目以降が当たっていても丸ごと除く)
@@ -483,7 +500,7 @@
     const small = Math.floor((10 * (100 + storeTp)) / 100);
     const others = parts.rest.count * main.hitRate + parts.multi.count * main.hitRate + (parts.sub ? (parts.sub.count - 1) * sub.hitRate : 0);
     const tpBack = TP.perHit(tpDelay, storeTp) * (main.firstHitRate + (sub ? sub.hitRate : 0)) + small * others;
-    return { h, ws, tp, mod, modPlus, charms, ftpPlus, ftp, attackRate, defense, crit, main, sub, wsd, bonus, hidden, result, tpBack, magic, kickWs, kickDamage, type, typeScale };
+    return { h, ws, tp, mod, modPlus, charms, ftpPlus, ftp, attackRate, defense, crit, main, sub, wsd, bonus, hidden, result, tpBack, magic, kickWs, kickDamage, type, typeScale, front, traitWs };
   }
 
   // ---- 画面 ----
@@ -685,7 +702,7 @@
       ...[...sum.flat].map(([i, v]) => `${data.stats[i].k} +${pct(v)}`),
       sum.atk && `攻 +${pct(sum.atk)}%`, sum.ratk !== sum.atk && sum.ratk && `飛攻 +${pct(sum.ratk)}%`,
       sum.mh && `魔法のヘイスト ${pct(Math.min(43.75, sum.mh + (Number(state.haste.magic) || 0)))}%`, sum.jh && `アビリティのヘイスト ${pct(Math.min(25, sum.jh + (Number(state.haste.ability) || 0)))}%`,
-      sum.def && `敵の防御力 −${pct(sum.def)}%`, sum.eva && `敵の回避 −${sum.eva}`, sum.vel && `狙う時間 −${sum.vel}%`, sum.shots && `発数 +${sum.shots}`,
+      sum.def && `敵の防御力 −${pct(sum.def)}%`, sum.eva && `敵の回避 −${sum.eva}`, sum.ws && `近接 WS のダメージ +${pct(sum.ws)}% (全段・別枠)`, sum.wsAll && `WS のダメージ +${pct(sum.wsAll)}% (全段・別枠)`, sum.vel && `狙う時間 −${sum.vel}%`, sum.shots && `発数 +${sum.shots}`,
     ].filter(Boolean);
     $('buff-sum').textContent = parts.length ? '効果の合計: ' + parts.join('、') : '';
     $('abilities').replaceChildren(...(usable.length ? [el('div', { className: 'group' }, ...usable.flatMap(([b, e]) => chip(b, e)))] : [el('span', { className: 'field', textContent: who ? 'このジョブ・サポで選べるアビリティはありません' : '' })]));
@@ -994,6 +1011,7 @@
         { label: '修正項目', value: (c) => number(w(c).mod), number: (c) => w(c).mod, why: mods + plusMods },
         { label: 'ダメージ倍率', value: (c) => fixed2(w(c).ftp) + (ws.rep ? ' (全段)' : ''), why: `TP で変わる WS の倍率。TP 1000 / 2000 / 3000 で ${ws.ftp.join(' / ')}。間は直線でつなぐ` + plusFtp },
         calc.some((c) => w(c).type && w(c).typeScale !== 1) && { label: '敵の弱点・耐性', value: (c) => (w(c).type ? `${D.TYPE_NAMES[w(c).type]} ${pct(w(c).typeScale)}` : '—'), why: 'WS は、武器種の種類 (斬・突・打) で全段に掛ける。武器ごとの例外は WS には効かない。属性の分には掛けない' },
+        calc.some((c) => w(c).front) && { label: 'WS のダメージ +% (全段・別枠)', value: (c) => (w(c).front ? `+${w(c).front}%` : '—'), why: '特性「WSダメージアップ」(竜騎士)' + (calc.some((c) => w(c).traitWs) ? ` +${calc[0].ws.traitWs}%` : '') + '、飛竜のステータスアップ、正正堂堂 (侍。正面から撃つ近接 WS だけ) を足したもの。全段に、装備の「ウェポンスキルのダメージ」とは別に掛ける' },
         { label: 'WS のダメージ +% (1 段目だけ)', value: (c) => `+${w(c).wsd}%`, why: '装備・特性・ギフトの「ウェポンスキルのダメージ」の合計' },
         { label: `${ws.ja} のダメージ +% (全段)`, value: (c) => `+${w(c).bonus}%` + (w(c).hidden ? ` × +${w(c).hidden}%` : ''), why: `装備の「${ws.ja}:ダメージ」と、武器の隠し効果 (レリック +40%、ミシック・エンピリアン +30%)。別々に掛ける` },
         calc.some((c) => w(c).magic) && { label: ws.kind === 'magic' ? '魔法 WS のダメージ' : '属性の分のダメージ', value: (c) => (w(c).magic ? number(w(c).magic.extra) : '—'), number: (c) => (w(c).magic ? w(c).magic.extra : 0),
@@ -1028,14 +1046,14 @@
     $('meta').textContent = `装備 ${data.items.length} 件 / データ ${data.generated}`;
     load();
     store = P.load(localStorage, null);
-    window.VanaAugment.apply(db, P.character(store).augments);
+    window.VanaAugment.apply(db, P.character(store).augments, P.character(store).unity);
     $('chara').replaceChildren(...store.chars.map((c) => el('option', { value: c.id, textContent: c.name })));
     $('chara').value = store.activeChar;
     $('chara').addEventListener('change', () => {
       store.activeChar = $('chara').value;
       P.save(localStorage, store);
       S.ownedReset();
-      window.VanaAugment.apply(db, P.character(store).augments);
+      window.VanaAugment.apply(db, P.character(store).augments, P.character(store).unity);
       changed();
     });
     $('ws').addEventListener('change', () => { state.ws = Number($('ws').value); changed(); });

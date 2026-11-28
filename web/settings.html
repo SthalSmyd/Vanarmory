@@ -46,6 +46,11 @@
     <span class="hint" style="margin-left:8px">素のステータス (HP・MP・STR〜CHR) の計算に使います</span>
   </div>
   <div class="panel">
+    <h2>ユニティランクで変わる値</h2>
+    <select id="unity" class="input" style="margin-top:6px"><option value="max">最大 (ランク 1 位)</option><option value="mid">中間</option><option value="min">最小</option></select>
+    <span class="hint" style="margin-left:8px">装備の「ユニティランク:STR+10～20」のような値を、幅のどこで数えるか (最大なら +20、中間なら +15、最小なら +10)</span>
+  </div>
+  <div class="panel">
     <h2>共通のメリポ <span class="hint">全ジョブに効く</span><button type="button" class="q" data-help="項目ごとに、振った段階を入れます。初期値は最大で、合計に上限のある「その他」だけ 0 から入れます。">?</button></h2>
     <div id="shared" class="shared-groups"></div>
   </div>

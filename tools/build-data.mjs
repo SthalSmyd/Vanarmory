@@ -259,6 +259,8 @@ function build() {
       yomi: readingOf(item.ja),
       page: pageOf(item.ja),
       rp: augment ? augment.rank : 0,
+      // 上限より下のランクの状態 (持っている実物に合わせるためのもの)。候補には出さず、取り込みと固定のときだけ使う
+      ...(augment && augment.low ? { low: 1 } : {}),
       // 撃つ武器と矢弾の組: 1 弓と矢、2 クロスボウとボルト、3 銃と弾、4 大砲と砲弾 (0 はそれ以外)
       shot: shotOf(item),
       // 同じ名前の装備を見分ける印 (強化前・強化後)

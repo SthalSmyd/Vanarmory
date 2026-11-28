@@ -31,8 +31,9 @@ test('行頭から始まった条件は、次の条件が出るまで後ろの�
 
 test('ユニティランクは幅の中間を、条件なしの値として数える', () => {
   const s = parseDescription('ユニティランク:攻+10～15\nユニティランク:敵対心-3～-7');
-  assert.deepEqual(find(s, '攻'), { key: '攻', value: 12, unit: '' });
+  assert.deepEqual(find(s, '攻'), { key: '攻', value: 12, unit: '', unity: [10, 15] });
   assert.equal(find(s, '敵対心').value, -5);
+  assert.deepEqual(find(s, '敵対心').unity, [-3, -7]); // 幅の両端 (最小・最大を選ぶときに使う)
 });
 
 test('潜在能力は条件なしの値に混ざらない', () => {

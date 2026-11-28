@@ -897,7 +897,10 @@
       "STR": 14,
       "命中": 10
      },
-     "jh": 10
+     "jh": 10,
+     "jp": {
+      "STR": 20
+     }
     }
    ],
    "sub": {
@@ -908,7 +911,53 @@
     "jh": 10
    },
    "url": "https://wiki.ffo.jp/html/3250.html",
-   "note": "両手武器のときだけ"
+   "note": "両手武器のときだけ。メインの侍がジョブポイントを使い切っていれば、項目「八双効果アップ」の STR +20 も入る (https://wiki.ffo.jp/html/4235.html)"
+  },
+  {
+   "id": "overwhelm",
+   "group": "アビリティ",
+   "ja": "正正堂堂 (正面から)",
+   "job": 12,
+   "options": [
+    {
+     "label": "",
+     "ws": 19
+    }
+   ],
+   "sub": null,
+   "url": "https://wiki.ffo.jp/html/3311.html",
+   "note": "侍のメリットポイント (圧倒)。5 段階で +19%。敵の正面から撃つ近接 WS の全段に、装備の「ウェポンスキルのダメージ」とは別に掛ける (BG-wiki https://www.bg-wiki.com/ffxi/Weapon_Skill_Damage の分類による)。遠隔 WS と魔法 WS には掛けない"
+  },
+  {
+   "id": "wyvern",
+   "group": "アビリティ",
+   "ja": "飛竜 (ステータスアップ)",
+   "job": 14,
+   "options": [
+    {
+     "label": "5 回 (+10%)",
+     "wsAll": 10
+    },
+    {
+     "label": "4 回 (+8%)",
+     "wsAll": 8
+    },
+    {
+     "label": "3 回 (+6%)",
+     "wsAll": 6
+    },
+    {
+     "label": "2 回 (+4%)",
+     "wsAll": 4
+    },
+    {
+     "label": "1 回 (+2%)",
+     "wsAll": 2
+    }
+   ],
+   "sub": null,
+   "url": "https://wiki.ffo.jp/html/1888.html",
+   "note": "飛竜を呼び出しているあいだ、飛竜のステータスアップ 1 回につき、マスターの WS のダメージ +2% (5 回で +10%)。特性「WSダメージアップ」と同じ枠で足す (合わせて最大 +31%。https://wiki.ffo.jp/html/37765.html)。全段に掛かり、装備の「ウェポンスキルのダメージ」とは別に掛ける"
   },
   {
    "id": "impetus",

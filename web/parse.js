@@ -10,7 +10,7 @@
   //   unit  … "%" か ""
   //
   // 条件の扱い:
-  //   ユニティランク … ランクで変わる幅の中間の値を、条件なしの値として数える
+  //   ユニティランク … ランクで変わる幅の中間の値を、条件なしの値として数える (幅の両端を unity に入れて返す)
   //   潜在能力 など   … 「潜在能力:命中」のように別の名前になり、条件なしの値には足されない
 
   const BASE = /^(防|D|隔)(\d+)$/;
@@ -58,7 +58,11 @@
           // 「+10~15」は中間 (端数は切り捨て) を採る
           const magnitude = m[4] === undefined ? Number(m[3]) : Math.floor((Number(m[3]) + Number(m[4])) / 2);
           const key = scope === UNITY ? m[1] : prefix + m[1];
-          out.push({ key, value: m[2] === '-' ? -magnitude : magnitude, unit: m[5] });
+          const sign = m[2] === '-' ? -1 : 1;
+          const one = { key, value: sign * magnitude, unit: m[5] };
+          // ユニティランクで変わる値は、幅の両端も持たせる (画面で 最小・中間・最大 を選べるように)
+          if (scope === UNITY && m[4] !== undefined) one.unity = [sign * Number(m[3]), sign * Number(m[4])];
+          out.push(one);
         } else if (!token.includes('/') && (m = token.match(OPEN_ENDED))) {
           out.push({ key: prefix + m[1], value: null, unit: '' });
         } else {

@@ -437,6 +437,7 @@
     }
     renderShared();
     $('race').value = chara().race;
+    $('unity').value = chara().unity || 'mid';
   }
 
   // ---- タブ ----
@@ -774,6 +775,10 @@
     for (const [id, race] of Object.entries(data.base.races)) $('race').append(el('option', { value: id, textContent: race.ja }));
     $('race').addEventListener('change', () => {
       chara().race = $('race').value;
+      changed();
+    });
+    $('unity').addEventListener('change', () => {
+      chara().unity = $('unity').value;
       changed();
     });
     for (const button of document.querySelectorAll('.tab')) {

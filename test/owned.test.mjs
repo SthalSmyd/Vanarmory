@@ -126,3 +126,30 @@ test('強化の値を読めなかった装備は、補正の一覧に出る。�
   assert.equal(fixed.byId.get('own:30:03').m.get(0), 21); // 値を読めている装備には、補正を使わない
   assert.equal(fixed.needs.length, 3);
 });
+
+test('ユニティランクで変わる値: 最小・中間・最大を選べる (手入力のオーグメントとも重なる)', () => {
+  const db = prepare({
+    stats: [{ k: 'STR', n: 1, num: 1, neg: 0, u: '' }, { k: '敵対心', n: 1, num: 1, neg: 0, u: '' }],
+    derived: [],
+    items: [
+      { id: 1, ja: '刀', en: 'K', lv: 99, il: 119, su: 0, slots: 1, jobs: 2, skill: 10, desc: 'Ｄ244 隔437\nユニティランク:STR+10～20', aug: '', rank: '', s: [0, 15] },
+      { id: 2, ja: '指', en: 'R', lv: 99, il: 0, su: 0, slots: 1 << 13, jobs: 2, skill: 0, desc: '命中+10\nユニティランク:敵対心-1～-5', aug: '', rank: '', s: [1, -3] },
+      { id: 3, ja: '胴', en: 'B', lv: 99, il: 119, su: 0, slots: 1 << 5, jobs: 2, skill: 0, desc: 'STR+5', aug: '', rank: '', s: [0, 5] },
+    ],
+  });
+  const [blade, ring, body] = db.data.items;
+  const str = (item) => item.m.get(0);
+  A.apply(db, {}, 'max');
+  assert.equal(str(blade), 20);
+  assert.equal(ring.m.get(1), -5);
+  assert.equal(str(body), 5);
+  A.apply(db, {}, 'min');
+  assert.equal(str(blade), 10);
+  assert.equal(ring.m.get(1), -1);
+  A.apply(db, { 1: 'STR+3' }, 'max');
+  assert.equal(str(blade), 23);
+  A.apply(db, {}, 'mid');
+  assert.equal(str(blade), 15);
+  A.apply(db, {});
+  assert.equal(str(blade), 15);
+});

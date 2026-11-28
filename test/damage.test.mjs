@@ -277,3 +277,11 @@ test('敵の弱点: 突 +25% の敵に、短剣の固定ダメージ 113 が上�
   assert.ok(Math.floor(sub.normal.min) >= 472 && Math.floor(sub.normal.max) <= 497);
   assert.equal(Math.floor(main.critical.min), 635); // 実測のクリティカルの最小 635
 });
+
+test('特性「WSダメージアップ」: 竜騎士だけ。メインは +21%、サポはサポのレベルで覚えている段階まで', () => {
+  assert.equal(D.wsTrait(14, 12, 49), 21);
+  assert.equal(D.wsTrait(12, 14, 49), 7);
+  assert.equal(D.wsTrait(12, 14, 55), 10);
+  assert.equal(D.wsTrait(12, 14, 44), 0);
+  assert.equal(D.wsTrait(12, 8, 49), 0);
+});

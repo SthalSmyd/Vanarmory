@@ -1387,7 +1387,7 @@
       const text = input.value.trim();
       if (text) P.character(store).augments[key] = text;
       else delete P.character(store).augments[key];
-      window.VanaAugment.apply(db, P.character(store).augments);
+      window.VanaAugment.apply(db, P.character(store).augments, P.character(store).unity);
       ownedReset();
       changed();
     });
@@ -1959,7 +1959,7 @@
     load();
     store = P.load(localStorage, legacy);
     P.save(localStorage, store);
-    window.VanaAugment.apply(db, P.character(store).augments);
+    window.VanaAugment.apply(db, P.character(store).augments, P.character(store).unity);
     initMenu();
 
     $('job').addEventListener('change', () => {
@@ -1991,7 +1991,7 @@
       store.activeChar = $('chara').value;
       activePreset = ''; // 保存した条件は、キャラクターごと
       // キャラクターごとに、手入力のオーグメントと、持っている装備が違う
-      window.VanaAugment.apply(db, P.character(store).augments);
+      window.VanaAugment.apply(db, P.character(store).augments, P.character(store).unity);
       ownedReset();
       applyPins();
       compare = compare.filter((k) => k.startsWith('c'));

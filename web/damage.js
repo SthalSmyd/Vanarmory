@@ -317,6 +317,16 @@
   // WS の種類。倍率を掛けない WS (魔法 WS、無属性の物理 WS) は null
   const wsDamageType = (skill, ws) => (!ws || ws.kind === 'magic' || UNTYPED_WS.includes(ws.ja) ? null : damageType(skill));
 
+  // ジョブ特性「WSダメージアップ」(竜騎士だけ)。[覚えるレベル, %]。物理 WS の全段に、装備の「ウェポンスキルのダメージ」とは別に掛かる。
+  // サポートジョブでも、サポのレベルで覚えている段階まで効く (Lv49 で +7%、Lv55 で +10%)。
+  // 飛竜のステータスアップの分 (1 回 +2%、最大 +10%) は同じ枠で足す (支援の欄で入れる)。
+  // 出典: FF11用語辞典 https://wiki.ffo.jp/html/37765.html 、https://wiki.ffo.jp/html/1888.html 、BG-wiki https://www.bg-wiki.com/ffxi/Weapon_Skill_Damage
+  const WS_TRAITS = { 14: [[45, 7], [55, 10], [65, 13], [75, 16], [85, 19], [95, 21]] };
+  function wsTrait(job, sub, subLevel) {
+    const of = (id, level) => (WS_TRAITS[id] || []).reduce((value, [at, v]) => (at <= level ? v : value), 0);
+    return Math.max(of(job, 99), sub ? of(sub, subLevel || 0) : 0);
+  }
+
   const CHARM_FTP = 25 / 256;
   const CHARM_ACC = 10;
   const CHARMS = {
@@ -437,7 +447,7 @@
   // 連携のダメージ = 閉じた WS のダメージ × 倍率 × (1 + 連携ボーナス)。連携ボーナスは 50% まで。敵の被魔法ダメージが掛かる
   const skillchain = (damage, level, bonus, taken) => Math.min(HIT_LIMIT, damage * (SKILLCHAIN[level] || 0) * (1 + Math.min(50, Math.max(0, bonus || 0)) / 100) * (taken == null ? 1 : Math.max(0, taken)));
 
-  const api = { DAMAGE_TYPES, TYPE_NAMES, damageType, wsDamageType, CHARM_FTP, CHARM_ACC, charmFits, magicBase, dstat, magicScale, magicSkill, hybridMagic, SKILLCHAIN, skillchain, HIT_LIMIT, CAPS, LIMIT_TRAITS, limitTrait, limitOf, fstr, fstr2, bareDamage, pdif, pdifRanged, capRatio, capStart, ratioOf, hitRate, critRate, critRateRanged, shotTime, hit, extraSwings, round, roundHits, cycle, hasteOf, roundTime, byTp, wsc, wsExtras, weaponSkill };
+  const api = { WS_TRAITS, wsTrait, DAMAGE_TYPES, TYPE_NAMES, damageType, wsDamageType, CHARM_FTP, CHARM_ACC, charmFits, magicBase, dstat, magicScale, magicSkill, hybridMagic, SKILLCHAIN, skillchain, HIT_LIMIT, CAPS, LIMIT_TRAITS, limitTrait, limitOf, fstr, fstr2, bareDamage, pdif, pdifRanged, capRatio, capStart, ratioOf, hitRate, critRate, critRateRanged, shotTime, hit, extraSwings, round, roundHits, cycle, hasteOf, roundTime, byTp, wsc, wsExtras, weaponSkill };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.VanaDamage = api;
 })(typeof window !== 'undefined' ? window : globalThis);

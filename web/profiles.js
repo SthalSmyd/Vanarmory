@@ -156,7 +156,7 @@
   // 最初の装備の範囲の設定を 1 つ持ったキャラクター
   function createCharacter(name) {
     const first = create('メイン');
-    return { id: newId(), name, race: 'hume', jobs: {}, merits: {}, augments: {}, sets: [], capes: [], owned: null, ownedFix: {}, searches: [], weights: defaultWeights(), active: first.id, list: [first] };
+    return { id: newId(), name, race: 'hume', unity: 'mid', jobs: {}, merits: {}, augments: {}, sets: [], capes: [], owned: null, ownedFix: {}, searches: [], weights: defaultWeights(), active: first.id, list: [first] };
   }
 
   function normalizeCharacter(character) {
@@ -165,6 +165,8 @@
       id: character.id || newId(),
       name: character.name || 'キャラクター',
       race: character.race || 'hume',
+      // ユニティランクで変わる装備の値の数え方: 'min' (最小) / 'mid' (中間) / 'max' (最大)
+      unity: character.unity === 'min' || character.unity === 'max' ? character.unity : 'mid',
       augments: Object.assign({}, character.augments),
       sets: JSON.parse(JSON.stringify(character.sets || [])),
       capes: JSON.parse(JSON.stringify(character.capes || [])),
@@ -264,6 +266,8 @@
     if (item.fam) return item.rp === profile.odyssey[item.fam] && (item.rp > 0 || !item.rank);
     // ランクを選べない強化 (デュナミス〔D〕の首装備・免罪装備 など) は、設定で「使う」なら上限まで強化した状態だけ、
     // 「使わない」なら強化していない状態だけを使う (もう片方は、固定するときにだけ選べる)
+    // 上限より下のランクの状態は、候補に出さない (持っている装備の取り込みと、固定のときだけ使う)
+    if (item.low) return false;
     if (ALWAYS_BOOSTED.has(item.plain)) return false;
     if (item.plain && profile.boosts[item.plain] !== undefined) {
       if (profile.boosts[item.plain]) return false;

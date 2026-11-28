@@ -3088,7 +3088,7 @@
     "https://www.bg-wiki.com/ffxi/Category:JSE_Necks",
     "各首装備のページ (FF11用語辞典)"
    ],
-   "note": "朧 (Oboro) でのランク強化。品質ごとに上限のランクが決まっていて (無印 15、+1 は 20、+2 は 25)、その最大の値。途中のランクの値は出典に無い。",
+   "note": "朧 (Oboro) でのランク強化。品質ごとに上限のランクが決まっている (無印 15、+1 は 20、+2 は 25)。値は、FF11用語辞典の各首装備のページの表 (ランク 15・20・25。品質によらず、同じランクなら同じ値) による。ランク 5・10 の値は出典に無い。low の付いたものは、上限より下のランクの状態で、候補には出さない (持っている実物に合わせるためのもの)",
    "items": {
     "戦士の数珠": {
      "ids": [
@@ -3109,6 +3109,13 @@
      ],
      "variants": [
       {
+       "label": "R15",
+       "rank": 15,
+       "path": "",
+       "text": "HP+50 STR+10 DEX+10 ダブルアタック+5%",
+       "low": true
+      },
+      {
        "label": "R20",
        "rank": 20,
        "path": "",
@@ -3121,6 +3128,20 @@
       25419
      ],
      "variants": [
+      {
+       "label": "R15",
+       "rank": 15,
+       "path": "",
+       "text": "HP+50 STR+10 DEX+10 ダブルアタック+5%",
+       "low": true
+      },
+      {
+       "label": "R20",
+       "rank": 20,
+       "path": "",
+       "text": "HP+75 STR+12 DEX+12 ダブルアタック+6%",
+       "low": true
+      },
       {
        "label": "R25",
        "rank": 25,
@@ -3148,6 +3169,13 @@
      ],
      "variants": [
       {
+       "label": "R15",
+       "rank": 15,
+       "path": "",
+       "text": "DEX+10 MND+10 蹴撃+15 物理ダメージ上限+6%",
+       "low": true
+      },
+      {
        "label": "R20",
        "rank": 20,
        "path": "",
@@ -3160,6 +3188,20 @@
       25425
      ],
      "variants": [
+      {
+       "label": "R15",
+       "rank": 15,
+       "path": "",
+       "text": "DEX+10 MND+10 蹴撃+15 物理ダメージ上限+6%",
+       "low": true
+      },
+      {
+       "label": "R20",
+       "rank": 20,
+       "path": "",
+       "text": "DEX+12 MND+12 蹴撃+20 物理ダメージ上限+8%",
+       "low": true
+      },
       {
        "label": "R25",
        "rank": 25,
@@ -3187,6 +3229,13 @@
      ],
      "variants": [
       {
+       "label": "R15",
+       "rank": 15,
+       "path": "",
+       "text": "INT+10 MND+10 敵対心-15 ファストキャスト+6%",
+       "low": true
+      },
+      {
        "label": "R20",
        "rank": 20,
        "path": "",
@@ -3199,6 +3248,20 @@
       25431
      ],
      "variants": [
+      {
+       "label": "R15",
+       "rank": 15,
+       "path": "",
+       "text": "INT+10 MND+10 敵対心-15 ファストキャスト+6%",
+       "low": true
+      },
+      {
+       "label": "R20",
+       "rank": 20,
+       "path": "",
+       "text": "INT+12 MND+12 敵対心-20 ファストキャスト+8%",
+       "low": true
+      },
       {
        "label": "R25",
        "rank": 25,
@@ -3226,6 +3289,13 @@
      ],
      "variants": [
       {
+       "label": "R15",
+       "rank": 15,
+       "path": "",
+       "text": "INT+10 MND+10 マジックバースト+6 マジックバースト命中+15",
+       "low": true
+      },
+      {
        "label": "R20",
        "rank": 20,
        "path": "",
@@ -3238,6 +3308,20 @@
       25437
      ],
      "variants": [
+      {
+       "label": "R15",
+       "rank": 15,
+       "path": "",
+       "text": "INT+10 MND+10 マジックバースト+6 マジックバースト命中+15",
+       "low": true
+      },
+      {
+       "label": "R20",
+       "rank": 20,
+       "path": "",
+       "text": "INT+12 MND+12 マジックバースト+8 マジックバースト命中+20",
+       "low": true
+      },
       {
        "label": "R25",
        "rank": 25,
@@ -3265,6 +3349,13 @@
      ],
      "variants": [
       {
+       "label": "R15",
+       "rank": 15,
+       "path": "",
+       "text": "INT+10 MND+10 強化魔法効果時間+15% 弱体魔法効果時間+15%",
+       "low": true
+      },
+      {
        "label": "R20",
        "rank": 20,
        "path": "",
@@ -3277,6 +3368,20 @@
       25443
      ],
      "variants": [
+      {
+       "label": "R15",
+       "rank": 15,
+       "path": "",
+       "text": "INT+10 MND+10 強化魔法効果時間+15% 弱体魔法効果時間+15%",
+       "low": true
+      },
+      {
+       "label": "R20",
+       "rank": 20,
+       "path": "",
+       "text": "INT+12 MND+12 強化魔法効果時間+20% 弱体魔法効果時間+20%",
+       "low": true
+      },
       {
        "label": "R25",
        "rank": 25,
@@ -3304,6 +3409,13 @@
      ],
      "variants": [
       {
+       "label": "R15",
+       "rank": 15,
+       "path": "",
+       "text": "DEX+10 AGI+10 回避+15 トリプルアタック+2%",
+       "low": true
+      },
+      {
        "label": "R20",
        "rank": 20,
        "path": "",
@@ -3316,6 +3428,20 @@
       25449
      ],
      "variants": [
+      {
+       "label": "R15",
+       "rank": 15,
+       "path": "",
+       "text": "DEX+10 AGI+10 回避+15 トリプルアタック+2%",
+       "low": true
+      },
+      {
+       "label": "R20",
+       "rank": 20,
+       "path": "",
+       "text": "DEX+12 AGI+12 回避+20 トリプルアタック+3%",
+       "low": true
+      },
       {
        "label": "R25",
        "rank": 25,
@@ -3343,6 +3469,13 @@
      ],
      "variants": [
       {
+       "label": "R15",
+       "rank": 15,
+       "path": "",
+       "text": "HP+30 VIT+10 MND+10 被ダメージ-5%",
+       "low": true
+      },
+      {
        "label": "R20",
        "rank": 20,
        "path": "",
@@ -3355,6 +3488,20 @@
       25455
      ],
      "variants": [
+      {
+       "label": "R15",
+       "rank": 15,
+       "path": "",
+       "text": "HP+30 VIT+10 MND+10 被ダメージ-5%",
+       "low": true
+      },
+      {
+       "label": "R20",
+       "rank": 20,
+       "path": "",
+       "text": "HP+45 VIT+12 MND+12 被ダメージ-6%",
+       "low": true
+      },
       {
        "label": "R25",
        "rank": 25,
@@ -3382,6 +3529,13 @@
      ],
      "variants": [
       {
+       "label": "R15",
+       "rank": 15,
+       "path": "",
+       "text": "STR+15 ストアTP+5 物理ダメージ上限+6%",
+       "low": true
+      },
+      {
        "label": "R20",
        "rank": 20,
        "path": "",
@@ -3394,6 +3548,20 @@
       25461
      ],
      "variants": [
+      {
+       "label": "R15",
+       "rank": 15,
+       "path": "",
+       "text": "STR+15 ストアTP+5 物理ダメージ上限+6%",
+       "low": true
+      },
+      {
+       "label": "R20",
+       "rank": 20,
+       "path": "",
+       "text": "STR+20 ストアTP+6 物理ダメージ上限+8%",
+       "low": true
+      },
       {
        "label": "R25",
        "rank": 25,
@@ -3421,6 +3589,13 @@
      ],
      "variants": [
       {
+       "label": "R15",
+       "rank": 15,
+       "path": "",
+       "text": "STR+10 DEX+10 物理ダメージ上限+6% ペット:ダブルアタック+15%",
+       "low": true
+      },
+      {
        "label": "R20",
        "rank": 20,
        "path": "",
@@ -3433,6 +3608,20 @@
       25467
      ],
      "variants": [
+      {
+       "label": "R15",
+       "rank": 15,
+       "path": "",
+       "text": "STR+10 DEX+10 物理ダメージ上限+6% ペット:ダブルアタック+15%",
+       "low": true
+      },
+      {
+       "label": "R20",
+       "rank": 20,
+       "path": "",
+       "text": "STR+12 DEX+12 物理ダメージ上限+8% ペット:ダブルアタック+20%",
+       "low": true
+      },
       {
        "label": "R25",
        "rank": 25,
@@ -3460,6 +3649,13 @@
      ],
      "variants": [
       {
+       "label": "R15",
+       "rank": 15,
+       "path": "",
+       "text": "DEX+15 CHR+15 ストアTP+5 物理ダメージ上限+6%",
+       "low": true
+      },
+      {
        "label": "R20",
        "rank": 20,
        "path": "",
@@ -3472,6 +3668,20 @@
       25473
      ],
      "variants": [
+      {
+       "label": "R15",
+       "rank": 15,
+       "path": "",
+       "text": "DEX+15 CHR+15 ストアTP+5 物理ダメージ上限+6%",
+       "low": true
+      },
+      {
+       "label": "R20",
+       "rank": 20,
+       "path": "",
+       "text": "DEX+20 CHR+20 ストアTP+6 物理ダメージ上限+8%",
+       "low": true
+      },
       {
        "label": "R25",
        "rank": 25,
@@ -3499,6 +3709,13 @@
      ],
      "variants": [
       {
+       "label": "R15",
+       "rank": 15,
+       "path": "",
+       "text": "AGI+15 ストアTP+5 物理ダメージ上限+6%",
+       "low": true
+      },
+      {
        "label": "R20",
        "rank": 20,
        "path": "",
@@ -3511,6 +3728,20 @@
       25479
      ],
      "variants": [
+      {
+       "label": "R15",
+       "rank": 15,
+       "path": "",
+       "text": "AGI+15 ストアTP+5 物理ダメージ上限+6%",
+       "low": true
+      },
+      {
+       "label": "R20",
+       "rank": 20,
+       "path": "",
+       "text": "AGI+20 ストアTP+6 物理ダメージ上限+8%",
+       "low": true
+      },
       {
        "label": "R25",
        "rank": 25,
@@ -3538,6 +3769,13 @@
      ],
      "variants": [
       {
+       "label": "R15",
+       "rank": 15,
+       "path": "",
+       "text": "STR+15 ストアTP+5 物理ダメージ上限+6%",
+       "low": true
+      },
+      {
        "label": "R20",
        "rank": 20,
        "path": "",
@@ -3550,6 +3788,20 @@
       25485
      ],
      "variants": [
+      {
+       "label": "R15",
+       "rank": 15,
+       "path": "",
+       "text": "STR+15 ストアTP+5 物理ダメージ上限+6%",
+       "low": true
+      },
+      {
+       "label": "R20",
+       "rank": 20,
+       "path": "",
+       "text": "STR+20 ストアTP+6 物理ダメージ上限+8%",
+       "low": true
+      },
       {
        "label": "R25",
        "rank": 25,
@@ -3577,6 +3829,13 @@
      ],
      "variants": [
       {
+       "label": "R15",
+       "rank": 15,
+       "path": "",
+       "text": "DEX+10 AGI+10 打剣+15 物理ダメージ上限+6%",
+       "low": true
+      },
+      {
        "label": "R20",
        "rank": 20,
        "path": "",
@@ -3589,6 +3848,20 @@
       25491
      ],
      "variants": [
+      {
+       "label": "R15",
+       "rank": 15,
+       "path": "",
+       "text": "DEX+10 AGI+10 打剣+15 物理ダメージ上限+6%",
+       "low": true
+      },
+      {
+       "label": "R20",
+       "rank": 20,
+       "path": "",
+       "text": "DEX+12 AGI+12 打剣+20 物理ダメージ上限+8%",
+       "low": true
+      },
       {
        "label": "R25",
        "rank": 25,
@@ -3616,6 +3889,13 @@
      ],
      "variants": [
       {
+       "label": "R15",
+       "rank": 15,
+       "path": "",
+       "text": "STR+10 VIT+10 物理ダメージ上限+6% 飛竜:被ダメージ-15%",
+       "low": true
+      },
+      {
        "label": "R20",
        "rank": 20,
        "path": "",
@@ -3628,6 +3908,20 @@
       25497
      ],
      "variants": [
+      {
+       "label": "R15",
+       "rank": 15,
+       "path": "",
+       "text": "STR+10 VIT+10 物理ダメージ上限+6% 飛竜:被ダメージ-15%",
+       "low": true
+      },
+      {
+       "label": "R20",
+       "rank": 20,
+       "path": "",
+       "text": "STR+12 VIT+12 物理ダメージ上限+8% 飛竜:被ダメージ-20%",
+       "low": true
+      },
       {
        "label": "R25",
        "rank": 25,
@@ -3655,6 +3949,13 @@
      ],
      "variants": [
       {
+       "label": "R15",
+       "rank": 15,
+       "path": "",
+       "text": "MP+30 召喚獣:ALL BP+15 契約の履行ダメージ+6",
+       "low": true
+      },
+      {
        "label": "R20",
        "rank": 20,
        "path": "",
@@ -3667,6 +3968,20 @@
       25503
      ],
      "variants": [
+      {
+       "label": "R15",
+       "rank": 15,
+       "path": "",
+       "text": "MP+30 召喚獣:ALL BP+15 契約の履行ダメージ+6",
+       "low": true
+      },
+      {
+       "label": "R20",
+       "rank": 20,
+       "path": "",
+       "text": "MP+40 召喚獣:ALL BP+20 契約の履行ダメージ+8",
+       "low": true
+      },
       {
        "label": "R25",
        "rank": 25,
@@ -3694,6 +4009,13 @@
      ],
      "variants": [
       {
+       "label": "R15",
+       "rank": 15,
+       "path": "",
+       "text": "STR+15 DEX+15 ストアTP+5 クリティカルヒット+3%",
+       "low": true
+      },
+      {
        "label": "R20",
        "rank": 20,
        "path": "",
@@ -3706,6 +4028,20 @@
       25509
      ],
      "variants": [
+      {
+       "label": "R15",
+       "rank": 15,
+       "path": "",
+       "text": "STR+15 DEX+15 ストアTP+5 クリティカルヒット+3%",
+       "low": true
+      },
+      {
+       "label": "R20",
+       "rank": 20,
+       "path": "",
+       "text": "STR+20 DEX+20 ストアTP+6 クリティカルヒット+4%",
+       "low": true
+      },
       {
        "label": "R25",
        "rank": 25,
@@ -3733,6 +4069,13 @@
      ],
      "variants": [
       {
+       "label": "R15",
+       "rank": 15,
+       "path": "",
+       "text": "STR+10 AGI+10 魔法ダメージ+15 魔攻+5",
+       "low": true
+      },
+      {
        "label": "R20",
        "rank": 20,
        "path": "",
@@ -3745,6 +4088,20 @@
       25515
      ],
      "variants": [
+      {
+       "label": "R15",
+       "rank": 15,
+       "path": "",
+       "text": "STR+10 AGI+10 魔法ダメージ+15 魔攻+5",
+       "low": true
+      },
+      {
+       "label": "R20",
+       "rank": 20,
+       "path": "",
+       "text": "STR+12 AGI+12 魔法ダメージ+20 魔攻+6",
+       "low": true
+      },
       {
        "label": "R25",
        "rank": 25,
@@ -3772,6 +4129,13 @@
      ],
      "variants": [
       {
+       "label": "R15",
+       "rank": 15,
+       "path": "",
+       "text": "DEX+10 AGI+10 物理ダメージ上限+6% オートマトン:魔攻+15",
+       "low": true
+      },
+      {
        "label": "R20",
        "rank": 20,
        "path": "",
@@ -3784,6 +4148,20 @@
       25521
      ],
      "variants": [
+      {
+       "label": "R15",
+       "rank": 15,
+       "path": "",
+       "text": "DEX+10 AGI+10 物理ダメージ上限+6% オートマトン:魔攻+15",
+       "low": true
+      },
+      {
+       "label": "R20",
+       "rank": 20,
+       "path": "",
+       "text": "DEX+12 AGI+12 物理ダメージ上限+8% オートマトン:魔攻+20",
+       "low": true
+      },
       {
        "label": "R25",
        "rank": 25,
@@ -3811,6 +4189,13 @@
      ],
      "variants": [
       {
+       "label": "R15",
+       "rank": 15,
+       "path": "",
+       "text": "DEX+15 CHR+15 ストアTP+5 物理ダメージ上限+6%",
+       "low": true
+      },
+      {
        "label": "R20",
        "rank": 20,
        "path": "",
@@ -3823,6 +4208,20 @@
       25527
      ],
      "variants": [
+      {
+       "label": "R15",
+       "rank": 15,
+       "path": "",
+       "text": "DEX+15 CHR+15 ストアTP+5 物理ダメージ上限+6%",
+       "low": true
+      },
+      {
+       "label": "R20",
+       "rank": 20,
+       "path": "",
+       "text": "DEX+20 CHR+20 ストアTP+6 物理ダメージ上限+8%",
+       "low": true
+      },
       {
        "label": "R25",
        "rank": 25,
@@ -3850,6 +4249,13 @@
      ],
      "variants": [
       {
+       "label": "R15",
+       "rank": 15,
+       "path": "",
+       "text": "INT+10 MND+10 魔法ダメージ+15 計略魔法効果時間+6%",
+       "low": true
+      },
+      {
        "label": "R20",
        "rank": 20,
        "path": "",
@@ -3862,6 +4268,20 @@
       25533
      ],
      "variants": [
+      {
+       "label": "R15",
+       "rank": 15,
+       "path": "",
+       "text": "INT+10 MND+10 魔法ダメージ+15 計略魔法効果時間+6%",
+       "low": true
+      },
+      {
+       "label": "R20",
+       "rank": 20,
+       "path": "",
+       "text": "INT+12 MND+12 魔法ダメージ+20 計略魔法効果時間+8%",
+       "low": true
+      },
       {
        "label": "R25",
        "rank": 25,
@@ -3889,6 +4309,13 @@
      ],
      "variants": [
       {
+       "label": "R15",
+       "rank": 15,
+       "path": "",
+       "text": "MP+30 羅盤効果時間+15% 羅盤:被ダメージ吸収率+6%",
+       "low": true
+      },
+      {
        "label": "R20",
        "rank": 20,
        "path": "",
@@ -3901,6 +4328,20 @@
       25539
      ],
      "variants": [
+      {
+       "label": "R15",
+       "rank": 15,
+       "path": "",
+       "text": "MP+30 羅盤効果時間+15% 羅盤:被ダメージ吸収率+6%",
+       "low": true
+      },
+      {
+       "label": "R20",
+       "rank": 20,
+       "path": "",
+       "text": "MP+40 羅盤効果時間+20% 羅盤:被ダメージ吸収率+8%",
+       "low": true
+      },
       {
        "label": "R25",
        "rank": 25,
@@ -3928,6 +4369,13 @@
      ],
      "variants": [
       {
+       "label": "R15",
+       "rank": 15,
+       "path": "",
+       "text": "HP+30 STR+10 MND+10 被ダメージ-5%",
+       "low": true
+      },
+      {
        "label": "R20",
        "rank": 20,
        "path": "",
@@ -3940,6 +4388,20 @@
       25545
      ],
      "variants": [
+      {
+       "label": "R15",
+       "rank": 15,
+       "path": "",
+       "text": "HP+30 STR+10 MND+10 被ダメージ-5%",
+       "low": true
+      },
+      {
+       "label": "R20",
+       "rank": 20,
+       "path": "",
+       "text": "HP+45 STR+12 MND+12 被ダメージ-6%",
+       "low": true
+      },
       {
        "label": "R25",
        "rank": 25,
