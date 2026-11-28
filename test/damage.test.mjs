@@ -109,8 +109,9 @@ test('WS: 複数回攻撃の判定の回数と、8 回までの制限', () => {
 });
 
 test('倍率の上限: 武器種 + 特性に、物理ダメージ上限+ を掛ける', () => {
-  assert.equal(D.limitTrait(8, 12, 59), 0.5); // 暗黒騎士
-  assert.equal(D.limitTrait(12, 8, 59), 0.3); // 侍 / 暗 59: サポの 3 段階目のほうが高い
+  assert.equal(D.limitTrait(8, 12, 59), 128 / 256); // 暗黒騎士
+  assert.equal(D.limitTrait(12, 8, 59), 77 / 256); // 侍 / 暗 59: サポの 3 段階目のほうが高い
+  assert.equal(D.limitTrait(1, 0, 0), 51 / 256); // 戦士: 2 段階
   assert.equal(D.limitTrait(3, 0, 0), 0);
   near(D.limitOf('scythe', 0.5, 20), 5.4);
   near(D.limitOf('one', 0, 0), 3.25);
@@ -205,4 +206,13 @@ test('倍率がすべて上限になる攻防比', () => {
   // 遠隔
   assert.equal(D.pdifRanged(D.capRatio(3.25, true) + 1e-9, 3.25).capped, true);
   assert.equal(D.pdifRanged(D.capRatio(3.25, true) - 0.01, 3.25).capped, false);
+});
+
+test('攻防関数が上限に当たり始める攻防比', () => {
+  // 近接: その攻防比で、上の端がちょうど上限。少し下では届かない
+  near(D.pdif(D.capStart(3.75), 3.75).max, 3.75);
+  assert.ok(D.pdif(D.capStart(3.75) - 0.01, 3.75).max < 3.75);
+  // 遠隔: 上の端は攻防比そのもの
+  near(D.pdifRanged(D.capStart(3.5, true), 3.5).max, 3.5);
+  assert.ok(D.pdifRanged(D.capStart(3.5, true) - 0.01, 3.5).max < 3.5);
 });

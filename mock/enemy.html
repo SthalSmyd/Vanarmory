@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vanarmory — 敵を選ぶ欄のモック</title>
+<link rel="stylesheet" href="../web/theme.css">
+<style>
+body { padding: 0 0 40px; margin: 0; font-family: system-ui, "Yu Gothic UI", "Meiryo", sans-serif; font-size: 14px; background: var(--bg); color: var(--text); }
+button { font: inherit; color: inherit; cursor: pointer; }
+.mock-note { margin: 0; padding: 6px 12px; font-size: 12px; color: var(--muted); background: var(--sunken); border-bottom: 1px dashed var(--line); }
+.notes { margin: 14px 12px; font-size: 12px; color: var(--muted); max-width: 1000px; }
+.notes li { margin: 3px 0; }
+.wrap { margin: 12px; max-width: 1100px; }
+
+/* ここから下が、この欄の見た目 */
+.enemy-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.enemy-row .label { color: var(--muted); font-size: 12px; width: 60px; }
+.pick { border: 1px solid var(--line); background: var(--panel); border-radius: 8px; padding: 5px 10px; display: flex; gap: 8px; align-items: baseline; min-width: 380px; text-align: left; }
+.pick .lv { font-weight: 700; color: var(--accent); }
+.pick .where { color: var(--muted); font-size: 12px; margin-right: auto; }
+.pick .open { color: var(--muted); font-size: 11px; }
+.vals { color: var(--muted); font-size: 12px; }
+
+.picker { margin-top: 8px; border: 1px solid var(--panel-border); background: var(--panel); border-radius: 10px; box-shadow: 0 6px 24px rgb(24 33 58 / .18); padding: 10px; display: grid; gap: 8px; }
+.bar { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.bar input[type=search] { flex: 1 1 240px; border: 1px solid var(--line); border-radius: 6px; padding: 5px 8px; background: var(--sunken); color: var(--text); }
+.bar select { border: 1px solid var(--line); border-radius: 6px; padding: 4px 6px; background: var(--sunken); color: var(--text); }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+.seg button { border: 0; background: var(--sunken); color: var(--text); padding: 4px 10px; font-size: 12px; }
+.seg button.on { background: var(--accent); color: var(--on-accent); font-weight: 600; }
+.bar label { font-size: 12px; color: var(--muted); display: inline-flex; gap: 4px; align-items: center; }
+.count { font-size: 12px; color: var(--muted); margin-left: auto; }
+
+.list { max-height: 460px; overflow: auto; border: 1px solid var(--line); border-radius: 8px; }
+table.en { width: 100%; border-collapse: collapse; font-size: 13px; font-variant-numeric: tabular-nums; }
+table.en th { position: sticky; top: 0; background: var(--sunken); text-align: left; font-size: 11px; color: var(--muted); font-weight: 600; padding: 4px 8px; z-index: 1; }
+table.en td { padding: 4px 8px; border-top: 1px solid var(--line); vertical-align: top; }
+table.en th.n, table.en td.n { text-align: right; white-space: nowrap; }
+table.en tr.erow { cursor: pointer; }
+table.en tr.erow:hover td { background: var(--accent-bg); }
+table.en tr.erow.on td { background: var(--fixed-bg); }
+table.en td.lv { font-weight: 700; color: var(--accent); white-space: nowrap; width: 52px; }
+table.en td.name b { font-weight: 600; }
+table.en td.name .more { display: block; color: var(--muted); font-size: 12px; }
+table.en td.where, table.en td.fam { color: var(--muted); font-size: 12px; white-space: nowrap; }
+table.en .est { font-size: 10px; border: 1px dashed var(--line); border-radius: 4px; padding: 0 4px; color: var(--muted); margin-left: 4px; }
+table.en tr.head td { background: var(--sunken); font-weight: 700; font-size: 12px; position: sticky; top: 23px; }
+table.en tr.head td span { font-weight: 400; color: var(--muted); margin-left: 6px; }
+mark { background: var(--mark); color: inherit; border-radius: 2px; }
+</style>
+</head>
+<body>
+<p class="mock-note">モック: ダメージの画面の「敵」を選ぶ欄。動きは見本です (値は、いまのデータをそのまま読んでいます。種族は名前から仮に付けたもの)。</p>
+
+<div class="wrap">
+  <div class="enemy-row">
+    <span class="label">敵</span>
+    <button type="button" class="pick" id="pick"></button>
+    <span class="vals" id="vals"></span>
+  </div>
+
+  <div class="picker" id="picker">
+    <div class="bar">
+      <input type="search" id="find" placeholder="敵の名前・場所・種族で探す (ランペール、コウモリ、sortie など)" autocomplete="off">
+      <select id="range"></select>
+      <span class="count" id="count"></span>
+    </div>
+    <div class="bar">
+      <span class="seg" id="view">
+        <button type="button" data-v="lv" class="on">レベル順</button>
+        <button type="button" data-v="name">名前順</button>
+        <button type="button" data-v="fam">種族ごと</button>
+        <button type="button" data-v="where">場所・コンテンツごと</button>
+      </span>
+      <label><input type="checkbox" id="merge"> 同じ値の敵を 1 行にまとめる</label>
+      <label><input type="checkbox" id="hide-std" checked> 「標準の敵」(レベルだけ) を隠す</label>
+    </div>
+    <div class="list"><table class="en"><thead><tr><th>Lv</th><th>名前</th><th>場所・コンテンツ</th><th>種族</th><th class="n">防御力</th><th class="n">回避</th></tr></thead><tbody id="rows"></tbody></table></div>
+  </div>
+</div>
+
+<ul class="notes">
+  <li>いまの「レベルの幅 + 名前で探す + 一覧」の 3 つを、この 1 つの欄に置き換えます。敵のボタンを押すと開き、行を押すと選んで閉じます。</li>
+  <li><b>敵は 1 体 1 行で、名前をそのまま出します。</b>「ほか N 体」とは出しません。「同じ値の敵を 1 行にまとめる」を入れたときだけ、同じ値の敵を 1 行に並べます (名前はすべて出します)。</li>
+  <li>並べ方は 4 つ: レベル順、名前順、種族ごと、場所・コンテンツごと。「ごと」のときは見出しで区切ります。</li>
+  <li>探す欄は、名前・場所・コンテンツ・種族のどれにも合います。合ったところに色が付きます。</li>
+  <li>防御力や回避が目安の敵は、数字の横に「目安」と出ます。</li>
+  <li>種族は、いまのデータに入っていません。本番では、敵ごとに種族を調べて入れます (このモックでは、英語名から仮に付けています。付いていない敵は「—」)。</li>
+</ul>
+
+<script src="../web/data.js"></script>
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  // 種族: モック用に、英語名の言葉から仮に付ける
+  const FAMILY = [[/Bats?\b/, 'コウモリ族'], [/Crab/, 'クラブ族'], [/Leech/, 'リーチ族'], [/Raptor/, 'ラプトル族'], [/Eft|Matamata/, 'リザード・アダマンタス族'], [/Chapuli/, 'チャプリ族'], [/Mandragora/, 'マンドラゴラ族'], [/Worm/, 'ワーム族'], [/Scorpion/, 'スコーピオン族'], [/Beetle/, 'ビートル族'], [/Colibri/, 'コリブリ族'], [/Imp\b/, 'インプ族'], [/Wivre/, 'ウィヴル族'], [/Rarab/, 'ラビット族'], [/Elemental/, 'エレメンタル族'], [/Spartoi|Draugar|Corse|Lemures|Naraka|Bhoot|Hati/, 'アンデッド'], [/Velkk/, 'ヴェルク族'], [/crawler|Eruca/i, 'クロウラー族'], [/Toad/, 'トード族'], [/Jagil/, 'プギル族'], [/Umbril/, 'アンブリル族'], [/Cog/, 'ギア族'], [/Drifter/, 'エンプティ']];
+  const familyOf = (name) => (FAMILY.find(([re]) => re.test(name)) || [, '—'])[1];
+  const rows = [];
+  for (const e of window.VANARMORY_DATA.enemies) {
+    e.names.forEach((full, i) => {
+      const m = full.match(/^(.*) \(((?:[^()]|\([^()]*\))*)\)$/);
+      let name = m ? m[1] : full;
+      let where = m && !/目安|[将馬兵]|BLM|THF|DRK|ground|シーフ型/.test(m[2]) ? m[2] : '';
+      if (!where) { name = full; const c = full.match(/^(ソーティ|オデシー|オーメン|ダイバージェンス|アンバスケード|ギアスフェット|ジェール) (.*)$/); if (c) { where = c[1]; name = c[2]; } }
+      if (e.group === 'レベルから選ぶ') where = 'レベルだけ';
+      rows.push({ id: e.id + '-' + i, key: e.id, lv: e.lv, name, where: where || '—', fam: familyOf(name), def: e.values.def, eva: e.values.eva, estDef: e.est.includes('def'), estEva: e.table || e.guess, std: e.group === 'レベルから選ぶ' });
+    });
+  }
+  const RANGES = [['', 'すべてのレベル'], ['0-99', 'Lv99 まで'], ['119-129', 'Lv119〜129'], ['130-134', 'Lv130〜134'], ['135-139', 'Lv135〜139'], ['140-144', 'Lv140〜144'], ['145-999', 'Lv145 以上']];
+  $('range').innerHTML = RANGES.map(([v, t]) => `<option value="${v}">${t}</option>`).join('');
+  const plain = (t) => t.normalize('NFKC').toLowerCase().replace(/[ぁ-ゖ]/g, (c) => String.fromCharCode(c.charCodeAt(0) + 96));
+  const esc = (t) => t.replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+  let view = 'lv';
+  let picked = rows.find((r) => /Hati/.test(r.name)) || rows[0];
+  const mark = (text, words) => {
+    let html = esc(text);
+    for (const w of words) { const i = plain(text).indexOf(w); if (i >= 0 && plain(text).length === text.length) html = esc(text.slice(0, i)) + '<mark>' + esc(text.slice(i, i + w.length)) + '</mark>' + esc(text.slice(i + w.length)); }
+    return html;
+  };
+  const num = (v, est) => v.toLocaleString() + (est ? '<span class="est">目安</span>' : '');
+  function render() {
+    $('pick').innerHTML = `<span class="lv">Lv${picked.lv}</span><b>${esc(picked.name)}</b><span class="where">${esc(picked.where)}・${esc(picked.fam)}</span><span class="open">変える ▾</span>`;
+    $('vals').textContent = `防御力 ${picked.def.toLocaleString()}・回避 ${picked.eva.toLocaleString()}`;
+    const words = plain($('find').value).split(/\s+/).filter(Boolean);
+    const [lo, hi] = $('range').value ? $('range').value.split('-').map(Number) : [0, 999];
+    let shown = rows.filter((r) => r.lv >= lo && r.lv <= hi && (!$('hide-std').checked || !r.std) && words.every((w) => plain(`${r.name} ${r.where} ${r.fam} lv${r.lv}`).includes(w)));
+    const cmp = { lv: (a, b) => a.lv - b.lv || a.name.localeCompare(b.name, 'ja'), name: (a, b) => a.name.localeCompare(b.name, 'ja') || a.lv - b.lv, fam: (a, b) => a.fam.localeCompare(b.fam, 'ja') || a.lv - b.lv, where: (a, b) => a.where.localeCompare(b.where, 'ja') || a.lv - b.lv }[view];
+    shown.sort(cmp);
+    $('count').textContent = `${shown.length} 体`;
+    // まとめる: 同じ値 (元のデータで 1 件) の敵を 1 行に
+    let lines = shown.map((r) => [r]);
+    if ($('merge').checked) { const by = new Map(); for (const r of shown) { const k = r.key + (view === 'fam' ? r.fam : view === 'where' ? r.where : ''); if (!by.has(k)) by.set(k, []); by.get(k).push(r); } lines = [...by.values()]; }
+    const out = [];
+    let last = null;
+    for (const line of lines) {
+      const r = line[0];
+      const head = view === 'fam' ? r.fam : view === 'where' ? r.where : null;
+      if (head != null && head !== last) { out.push(`<tr class="head"><td colspan="6">${esc(head)}<span>${lines.filter((l) => (view === 'fam' ? l[0].fam : l[0].where) === head).reduce((n, l) => n + l.length, 0)} 体</span></td></tr>`); last = head; }
+      const names = line.map((x) => `<b>${mark(x.name, words)}</b>`).join('<span class="more" style="display:inline"> / </span>');
+      const wheres = [...new Set(line.map((x) => x.where))].join(' / ');
+      const fams = [...new Set(line.map((x) => x.fam))].join(' / ');
+      out.push(`<tr class="erow${line.includes(picked) ? ' on' : ''}" data-id="${r.id}"><td class="lv">Lv${r.lv}</td><td class="name">${names}</td><td class="where">${mark(wheres, words)}</td><td class="fam">${mark(fams, words)}</td><td class="n">${num(r.def, r.estDef)}</td><td class="n">${num(r.eva, r.estEva)}</td></tr>`);
+    }
+    $('rows').innerHTML = out.join('') || '<tr><td colspan="6" style="color:var(--muted)">合う敵がありません。</td></tr>';
+  }
+  $('find').addEventListener('input', render);
+  $('range').addEventListener('change', render);
+  $('merge').addEventListener('change', render);
+  $('hide-std').addEventListener('change', render);
+  $('view').addEventListener('click', (e) => { const b = e.target.closest('button'); if (!b) return; view = b.dataset.v; for (const x of $('view').children) x.classList.toggle('on', x === b); render(); });
+  $('rows').addEventListener('click', (e) => { const tr = e.target.closest('tr.erow'); if (!tr) return; picked = rows.find((r) => r.id === tr.dataset.id); render(); });
+  $('pick').addEventListener('click', () => { $('picker').hidden = !$('picker').hidden; });
+  render();
+})();
+</script>
+</body>
+</html>

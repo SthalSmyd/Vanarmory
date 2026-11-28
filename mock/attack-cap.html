@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vanarmory — 攻撃力の上限のモック</title>
+<link rel="stylesheet" href="../web/theme.css">
+<style>
+body { padding: 0 0 40px; margin: 0; font-family: system-ui, "Yu Gothic UI", "Meiryo", sans-serif; font-size: 14px; background: var(--bg); color: var(--text); }
+.mock-note { margin: 0; padding: 6px 12px; font-size: 12px; color: var(--muted); background: var(--sunken); border-bottom: 1px dashed var(--line); }
+.notes { margin: 14px 12px; font-size: 12px; color: var(--muted); max-width: 1000px; }
+.notes li { margin: 3px 0; }
+.wrap { margin: 12px; max-width: 1000px; display: grid; gap: 14px; }
+h2 { font-size: 13px; margin: 0 0 2px; color: var(--muted); font-weight: 600; }
+
+/* ここから下が、この枠の見た目 */
+.panel { background: var(--panel); border: 1px solid var(--panel-border); border-radius: 10px; box-shadow: var(--panel-shadow); padding: 10px 12px; }
+.panel h3 { margin: 0 0 8px; font-size: 14px; }
+.panel h3 small { font-weight: 400; color: var(--muted); font-size: 12px; margin-left: 8px; }
+.atk { display: grid; grid-template-columns: 150px minmax(0, 1fr) 250px; gap: 6px 12px; align-items: center; }
+.atk .what { font-size: 12px; color: var(--muted); }
+.atk .what b { display: block; color: var(--text); font-size: 13px; }
+.atk .set { font-size: 10px; font-weight: 700; border-radius: 8px; padding: 0 7px; color: #fff; margin-right: 4px; }
+.atk .set.a { background: var(--accent); color: var(--on-accent); }
+.atk .set.b { background: var(--fixed); }
+.gauge { position: relative; height: 46px; }
+.gauge .lab.low { top: 31px; }
+.gauge .track { position: absolute; left: 0; right: 0; top: 14px; height: 10px; border-radius: 5px; background: var(--sunken); overflow: hidden; }
+.gauge .zone { position: absolute; top: 0; bottom: 0; }
+.gauge .zone.part { background: color-mix(in srgb, var(--fixed) 28%, transparent); }
+.gauge .zone.full { background: color-mix(in srgb, var(--ok) 26%, transparent); }
+.gauge .fill { position: absolute; left: 0; top: 14px; height: 10px; border-radius: 5px; background: var(--accent); }
+.gauge .fill.part { background: var(--fixed); }
+.gauge .fill.full { background: var(--ok); }
+.gauge .tick { position: absolute; top: 9px; height: 20px; width: 0; border-left: 2px solid var(--text); }
+.gauge .tick.soft { border-left: 1px dashed var(--muted); }
+.gauge .lab { position: absolute; top: -3px; font-size: 10px; color: var(--muted); transform: translateX(-50%); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.gauge .lab b { color: var(--text); }
+.say { font-variant-numeric: tabular-nums; font-size: 13px; }
+.say .now { font-weight: 700; font-size: 16px; }
+.say .tag { font-size: 11px; border-radius: 4px; padding: 0 6px; margin-left: 6px; font-weight: 600; white-space: nowrap; }
+.say .tag.no { background: var(--accent-bg); color: var(--accent); }
+.say .tag.part { background: var(--fixed-bg); color: var(--fixed); }
+.say .tag.full { background: var(--ok-bg); color: var(--ok); }
+.say small { display: block; color: var(--muted); font-size: 12px; }
+.sep { grid-column: 1 / -1; border-top: 1px solid var(--line); margin: 2px 0; }
+</style>
+</head>
+<body>
+<p class="mock-note">モック: ダメージの画面の結果に足す「攻撃力の上限」の枠。数字は見本です。</p>
+
+<div class="wrap">
+  <div>
+    <h2>例 1: まだ届いていない / 一部だけ上限</h2>
+    <div class="panel">
+      <h3>攻撃力の上限<small>敵の防御力 584 (弱体込み)。どこまで攻撃力を上げると、ダメージが伸びなくなるか</small></h3>
+      <div class="atk">
+        <div class="what"><b>WS</b><span class="set a">基準</span>攻防関数の上限 4.50</div>
+        <div class="gauge">
+          <div class="track"><div class="zone part" style="left:73.5%;width:13.4%"></div><div class="zone full" style="left:86.9%;right:0"></div></div>
+          <div class="fill part" style="width:76.9%"></div>
+          <div class="tick soft" style="left:73.5%"></div><div class="lab low" style="left:73.5%">当たり始め <b>2,409</b></div>
+          <div class="tick" style="left:86.9%"></div><div class="lab" style="left:86.9%">すべて上限 <b>2,848</b></div>
+        </div>
+        <div class="say"><span class="now">2,522</span> / 2,848<span class="tag part">一部上限</span><small>あと 326 で、すべて上限</small></div>
+
+        <div class="what"><b>WS</b><span class="set b">比較 1</span>攻防関数の上限 4.50</div>
+        <div class="gauge">
+          <div class="track"><div class="zone part" style="left:73.5%;width:13.4%"></div><div class="zone full" style="left:86.9%;right:0"></div></div>
+          <div class="fill" style="width:64.1%"></div>
+          <div class="tick soft" style="left:73.5%"></div><div class="lab low" style="left:73.5%">当たり始め <b>2,409</b></div>
+          <div class="tick" style="left:86.9%"></div><div class="lab" style="left:86.9%">すべて上限 <b>2,848</b></div>
+        </div>
+        <div class="say"><span class="now">2,101</span> / 2,848<span class="tag no">上限の手前</span><small>あと 308 で当たり始め、あと 747 で、すべて上限</small></div>
+
+        <div class="sep"></div>
+
+        <div class="what"><b>通常攻撃</b><span class="set a">基準</span>攻防関数の上限 4.50</div>
+        <div class="gauge">
+          <div class="track"><div class="zone part" style="left:73.5%;width:13.4%"></div><div class="zone full" style="left:86.9%;right:0"></div></div>
+          <div class="fill part" style="width:76.9%"></div>
+          <div class="tick soft" style="left:73.5%"></div><div class="lab low" style="left:73.5%">当たり始め <b>2,409</b></div>
+          <div class="tick" style="left:86.9%"></div><div class="lab" style="left:86.9%">すべて上限 <b>2,848</b></div>
+        </div>
+        <div class="say"><span class="now">2,522</span> / 2,848<span class="tag part">一部上限</span><small>あと 326 で、すべて上限</small></div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <h2>例 2: 上限を超えている (攻撃力が余っている)</h2>
+    <div class="panel">
+      <h3>攻撃力の上限<small>敵の防御力 584 (弱体込み)。どこまで攻撃力を上げると、ダメージが伸びなくなるか</small></h3>
+      <div class="atk">
+        <div class="what"><b>WS</b><span class="set a">基準</span>攻防関数の上限 4.50</div>
+        <div class="gauge">
+          <div class="track"><div class="zone part" style="left:73.5%;width:13.4%"></div><div class="zone full" style="left:86.9%;right:0"></div></div>
+          <div class="fill full" style="width:95.2%"></div>
+          <div class="tick soft" style="left:73.5%"></div><div class="lab low" style="left:73.5%">当たり始め <b>2,409</b></div>
+          <div class="tick" style="left:86.9%"></div><div class="lab" style="left:86.9%">すべて上限 <b>2,848</b></div>
+        </div>
+        <div class="say"><span class="now">3,120</span> / 2,848<span class="tag full">上限</span><small>272 余っている (攻撃力を 8.7% 下げても同じ)</small></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ul class="notes">
+  <li>結果の表のすぐ下に、この枠を 1 つ足します。WS と通常攻撃の行が、セット (基準・比較) ごとに並びます。</li>
+  <li><b>すべて上限</b>: 攻防関数の幅がすべて上限になる攻撃力。これより上げても、ダメージは変わりません (攻防比が「攻防関数の上限 + 0.375」のところ)。</li>
+  <li><b>当たり始め</b>: 攻防関数の幅の上の端が、上限に当たり始める攻撃力 (攻防比が「上限 − 0.375」のところ)。ここから「すべて上限」までは、上げても伸びが鈍くなります。</li>
+  <li>右の文で、あといくつ要るか、または、いくつ余っているかを言います。余っているときは「何 % 下げても同じ」も出します (攻撃力を命中や STR に振り替える目安)。</li>
+  <li>敵の防御力は、弱体 (ディアやフレイルなど) を入れたあとの値で計算します。WS で防御力を下げる・無視するものは、WS の行だけその値を使います。</li>
+  <li>「計算の途中の値」の表の「攻防比の上限」「上限に届く攻撃力」は、そのまま残します。</li>
+</ul>
+</body>
+</html>

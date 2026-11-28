@@ -51,24 +51,28 @@
   // 倍率の上限 (クリティカルでないとき)。クリティカルは +1.0
   const CAPS = { one: 3.25, h2h: 3.5, gkt: 3.5, two: 3.75, scythe: 4.0, bow: 3.25, gun: 3.5 }; // bow は弓術と投てき、gun は射撃
 
-  // ジョブ特性「ダメージ上限アップ」で上がる、倍率の上限。[覚えるレベル, 累積の値]。
-  // 出典: FF11用語辞典 https://wiki.ffo.jp/html/37531.html 、BG-wiki https://www.bg-wiki.com/ffxi/Damage_Limit%2B (両者一致)
+  // ジョブ特性「ダメージ上限アップ」で上がる、攻防関数の上限。[覚えるレベル, 段階]。
+  // 段階ごとの値は 256 分率 (26/256, 51/256, 77/256, 102/256, 128/256。およそ 0.1 刻み)。
+  // 出典: BG-wiki https://www.bg-wiki.com/ffxi/Damage_Limit%2B (256 分率の値)、FF11用語辞典 https://wiki.ffo.jp/html/37531.html (習得レベルは両者一致)
+  const LIMIT_STEPS = [0, 26 / 256, 51 / 256, 77 / 256, 102 / 256, 128 / 256];
   const LIMIT_TRAITS = {
-    8: [[20, 0.1], [40, 0.2], [55, 0.3], [70, 0.4], [80, 0.5]], // 暗黒騎士
-    2: [[30, 0.1], [60, 0.2], [90, 0.3]], 11: [[30, 0.1], [60, 0.2], [90, 0.3]], 14: [[30, 0.1], [60, 0.2], [90, 0.3]], // モンク・狩人・竜騎士
-    1: [[40, 0.1], [80, 0.2]], 12: [[40, 0.1], [80, 0.2]], // 戦士・侍
-    9: [[45, 0.1], [90, 0.2]], 18: [[45, 0.1], [90, 0.2]], 19: [[45, 0.1], [90, 0.2]], // 獣使い・からくり士・踊り子
-    6: [[50, 0.1]], 13: [[50, 0.1]], 5: [[60, 0.1]], // シーフ・忍者・赤魔道士
+    8: [[20, 1], [40, 2], [55, 3], [70, 4], [80, 5]], // 暗黒騎士
+    2: [[30, 1], [60, 2], [90, 3]], 11: [[30, 1], [60, 2], [90, 3]], 14: [[30, 1], [60, 2], [90, 3]], // モンク・狩人・竜騎士
+    1: [[40, 1], [80, 2]], 12: [[40, 1], [80, 2]], // 戦士・侍
+    9: [[45, 1], [90, 2]], 18: [[45, 1], [90, 2]], 19: [[45, 1], [90, 2]], // 獣使い・からくり士・踊り子
+    6: [[50, 1]], 13: [[50, 1]], 5: [[60, 1]], // シーフ・忍者・赤魔道士
   };
   // メインジョブ (Lv99) とサポートジョブ (サポのレベルで覚えている段階まで) の、高いほう。
   // サポートジョブでも効くことは、有志の報告による (https://leaguemili.com/blog-entry-2482.html)
   function limitTrait(job, sub, subLevel) {
     const of = (id, level) => (LIMIT_TRAITS[id] || []).reduce((value, [at, v]) => (at <= level ? v : value), 0);
-    return Math.max(of(job, 99), sub ? of(sub, subLevel || 0) : 0);
+    return LIMIT_STEPS[Math.max(of(job, 99), sub ? of(sub, subLevel || 0) : 0)];
   }
-  // 倍率の上限 (クリティカルでないとき) = (武器種の上限 + 特性) × (1 + 物理ダメージ上限+ の %)。
-  // % は、装備・プライムウェポンのアフターマス・冷静と情熱のアリアを足したもの (FF11用語辞典 https://wiki.ffo.jp/html/37520.html)。
-  // クリティカルの +1.0 は、この掛け算のあとに足す (順序を書いた資料は無く、海外の計算ツールの扱いに合わせている)
+  // 攻防関数の上限 (クリティカルでないとき) = (武器種の上限 + 特性) × (1 + 物理ダメージ上限+ の %)。
+  // 「ジョブ特性の加算後の数値に対して装備分が掛けられる」(FF11用語辞典 https://wiki.ffo.jp/html/37520.html)。
+  // % は、装備・プライムウェポンのアフターマス・冷静と情熱のアリアを足したもの (同じ枠に足す。同じ記事)。
+  // クリティカルの +1.0 は、この掛け算のあとに足す。+1.0 にも % を掛ける式は実測と合わない、という検証がある
+  // (https://ffxilogdialy.hatenablog.com/entry/2020/07/25/153000 、https://www.ffxiah.com/forum/topic/56649/physical-damage-limit/ も同じ扱い)
   const limitOf = (kind, trait, percent) => (CAPS[kind] + (trait || 0)) * (1 + (percent || 0) / 100);
 
   // 攻防比 → 倍率の幅と平均。
@@ -107,10 +111,14 @@
     return { min: low, max: high, mean: (low + high) / 2, capped: low >= cap };
   }
 
-  // 倍率の幅がすべて上限に張り付く攻防比 (これ以上は攻撃力を上げても変わらない)。
+  // 攻防関数の幅がすべて上限に張り付く攻防比 (これ以上は攻撃力を上げても変わらない)。
+  // BG-wiki の「effective ratio cap」(片手 3.625、両手 4.125 など。https://www.bg-wiki.com/ffxi/PDIF)。
+  // FF11用語辞典の表の「攻防比上限」は、攻防関数上限 + 0.5 (https://wiki.ffo.jp/html/227.html)。0.5 の根拠は見つかっていない
   // 近接: 下端 = 攻防比 − 0.375 が上限に届くところ。遠隔: 下端 = 攻防比 × 20/19 − 3/19。
   // クリティカルは攻防比も上限も +1 (遠隔は上限のあとに掛ける) なので、同じ値になる
   const capRatio = (cap, ranged) => (ranged ? (19 * cap + 3) / 20 : cap + 0.375);
+  // 攻防関数の幅の上の端が、上限に当たり始める攻防比。近接: 上の端 = 攻防比 + 0.375。遠隔: 上の端 = 攻防比
+  const capStart = (cap, ranged) => (ranged ? cap : cap - 0.375);
 
   // レベル差の補正を引いた攻防比。敵のほうが高いときだけ、1 レベルにつき 0.05 下がる
   // (補正の無い場所が多いので、levelGap は補正のある場所のときだけ渡す)
@@ -377,7 +385,7 @@
   // 連携のダメージ = 閉じた WS のダメージ × 倍率 × (1 + 連携ボーナス)。連携ボーナスは 50% まで。敵の被魔法ダメージが掛かる
   const skillchain = (damage, level, bonus, taken) => Math.min(HIT_LIMIT, damage * (SKILLCHAIN[level] || 0) * (1 + Math.min(50, Math.max(0, bonus || 0)) / 100) * (taken == null ? 1 : Math.max(0, taken)));
 
-  const api = { magicBase, dstat, magicScale, magicSkill, hybridMagic, SKILLCHAIN, skillchain, HIT_LIMIT, CAPS, LIMIT_TRAITS, limitTrait, limitOf, fstr, fstr2, bareDamage, pdif, pdifRanged, capRatio, ratioOf, hitRate, critRate, critRateRanged, shotTime, hit, extraSwings, round, roundHits, cycle, hasteOf, roundTime, byTp, wsc, wsExtras, weaponSkill };
+  const api = { magicBase, dstat, magicScale, magicSkill, hybridMagic, SKILLCHAIN, skillchain, HIT_LIMIT, CAPS, LIMIT_TRAITS, limitTrait, limitOf, fstr, fstr2, bareDamage, pdif, pdifRanged, capRatio, capStart, ratioOf, hitRate, critRate, critRateRanged, shotTime, hit, extraSwings, round, roundHits, cycle, hasteOf, roundTime, byTp, wsc, wsExtras, weaponSkill };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.VanaDamage = api;
 })(typeof window !== 'undefined' ? window : globalThis);

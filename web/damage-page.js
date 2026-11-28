@@ -97,6 +97,7 @@
     buffs: {}, // 選んだ支援・弱体・アビリティ: { id: 選んだ段階の番号 }
     levels: { 歌: 2, ロール: 0, 風水: 1 }, // 歌・ロール・風水は、段階をまとめて選ぶ (LEVELS の番号)
     range: '', // 敵の一覧を絞るレベルの幅
+    enemyView: 'lv', enemyMerge: false, enemyStd: false, // 敵を選ぶ欄の見方: 並べ方、同じ値をまとめるか、「標準の敵」も出すか
   });
   let state = initial();
   function load() {
@@ -473,17 +474,91 @@
     return `${job ? job.ja : '?'} 99` + (sub ? ` / ${sub.ja} ${who.subLevel}` : '') + (who.food ? `・${who.food}` : '・食事なし');
   }
 
-  function renderEnemy() {
-    const select = $('enemy');
+  // ---- 敵を選ぶ欄 ----
+  // 探す言葉は、ひらがなをカタカナに、全角の英数字を半角にそろえて比べる。空白で区切ると、すべてを含むもの
+  const plain = (text) => text.normalize('NFKC').toLowerCase().replace(/[ぁ-ゖ]/g, (c) => String.fromCharCode(c.charCodeAt(0) + 96));
+  let enemyFind = '';
+  const findWords = () => plain(enemyFind).split(/\s+/).filter(Boolean);
+  const enemyMatches = () => {
     const [low, high] = state.range ? state.range.split('-').map(Number) : [0, 999];
-    const shown = ENEMIES.filter((e) => e.lv >= low && e.lv <= high).sort((a, b) => a.lv - b.lv);
-    // コンテンツごとにまとめて並べる
-    const groups = [...new Set(shown.map((e) => e.group))];
-    select.replaceChildren(el('option', { value: '', textContent: `自分で入れる${shown.length ? ` (一覧 ${shown.length} 件)` : ''}` }),
-      ...groups.map((g) => el('optgroup', { label: g }, ...shown.filter((e) => e.group === g).map((e) => el('option', { value: e.id, textContent: `Lv${e.lv} ${e.ja}` })))));
-    $('enemy-range').replaceChildren(el('option', { value: '', textContent: 'すべてのレベル' }), ...RANGES.filter(([a, b]) => ENEMIES.some((e) => e.lv >= a && e.lv <= b)).map(([a, b, label]) => el('option', { value: `${a}-${b}`, textContent: label })));
+    const words = findWords();
+    return ENEMIES.filter((e) => e.lv >= low && e.lv <= high && (state.enemyStd || !e.std || e.id === state.enemy)
+      && words.every((w) => plain(`${e.ja} ${e.where} ${e.group} ${e.family} lv${e.lv}`).includes(w)));
+  };
+  // 探す言葉に合ったところに色を付ける
+  function marked(text) {
+    const flat = plain(text);
+    if (flat.length !== text.length) return [text];
+    const hit = findWords().map((w) => [flat.indexOf(w), w.length]).filter(([i]) => i >= 0).sort((a, b) => a[0] - b[0])[0];
+    return hit ? [text.slice(0, hit[0]), el('mark', { textContent: text.slice(hit[0], hit[0] + hit[1]) }), text.slice(hit[0] + hit[1])] : [text];
+  }
+  function pickEnemy(id) {
+    state.enemy = id;
+    const found = ENEMIES.find((e) => e.id === state.enemy);
+    if (found) Object.assign(state.values, found.values);
+    $('enemy-picker').hidden = true;
+    changed();
+  }
+  function renderPicker() {
+    const view = state.enemyView === 'where' ? 'where' : 'lv';
+    for (const b of $('enemy-view').children) b.classList.toggle('on', b.dataset.view === view);
+    $('enemy-merge').checked = !!state.enemyMerge;
+    $('enemy-std').checked = !!state.enemyStd;
     $('enemy-range').value = state.range || '';
-    select.value = ENEMIES.some((e) => e.id === state.enemy) ? state.enemy : '';
+    const shown = enemyMatches();
+    // 場所・コンテンツごと: 場所の中でいちばん低いレベルの順に、場所を並べる
+    const first = new Map();
+    for (const e of shown) first.set(e.where, Math.min(first.has(e.where) ? first.get(e.where) : 999, e.lv));
+    shown.sort(view === 'where' ? (a, b) => first.get(a.where) - first.get(b.where) || a.where.localeCompare(b.where, 'ja') || a.lv - b.lv : (a, b) => a.lv - b.lv);
+    $('enemy-count').textContent = `${shown.length} 体`;
+    // まとめる: レベルと値がすべて同じ敵を 1 行に (場所・コンテンツごとのときは、同じ場所の中だけ)
+    let lines = shown.map((e) => [e]);
+    if (state.enemyMerge) {
+      const by = new Map();
+      for (const e of shown) {
+        const key = e.std ? e.id : e.same + (view === 'where' ? '|' + e.where : '');
+        if (!by.has(key)) by.set(key, []);
+        by.get(key).push(e);
+      }
+      lines = [...by.values()];
+    }
+    const number0 = (v, est) => [v.toLocaleString(), est ? el('span', { className: 'est', textContent: '目安' }) : null];
+    const out = [];
+    let last = null;
+    for (const line of lines) {
+      const e = line[0];
+      if (view === 'where' && e.where !== last) {
+        last = e.where;
+        out.push(el('tr', { className: 'place' }, el('td', { colSpan: 6 }, e.where || 'そのほか', el('span', { textContent: `${shown.filter((x) => x.where === e.where).length} 体` }))));
+      }
+      const names = el('td', { className: 'name' });
+      line.forEach((x, i) => names.append(i ? el('span', { className: 'sep', textContent: ' / ' }) : '', el('b', null, ...marked(x.ja))));
+      const uniq = (list) => [...new Set(list.filter(Boolean))].join(' / ');
+      const row = el('tr', { className: 'pickable' + (line.some((x) => x.id === state.enemy) ? ' on' : '') },
+        el('td', { className: 'lv', textContent: 'Lv' + e.lv }), names,
+        el('td', { className: 'where' }, ...marked(uniq(line.map((x) => x.where)))),
+        el('td', { className: 'fam' }, ...marked(uniq(line.map((x) => x.family)))),
+        el('td', { className: 'n' }, ...number0(e.values.def, e.est.includes('def'))),
+        el('td', { className: 'n' }, ...number0(e.values.eva, e.table || e.guess)));
+      row.addEventListener('click', () => pickEnemy(e.id));
+      out.push(row);
+    }
+    if (!out.length) out.push(el('tr', null, el('td', { colSpan: 6, className: 'none', textContent: '合う敵がありません。' })));
+    $('enemy-rows').replaceChildren(...out);
+  }
+  function placePicker() {
+    const box = $('enemy-pick').getBoundingClientRect();
+    const panel = $('enemy-picker');
+    panel.style.top = `${box.bottom + window.scrollY + 4}px`;
+    panel.style.left = `${Math.max(8, Math.min(box.left + window.scrollX, window.scrollX + document.documentElement.clientWidth - panel.offsetWidth - 8))}px`;
+  }
+  function renderEnemy() {
+    const current = ENEMIES.find((e) => e.id === state.enemy);
+    $('enemy-pick').replaceChildren(...(current
+      ? [el('span', { className: 'lv', textContent: 'Lv' + current.lv }), el('b', { textContent: current.ja }), el('span', { className: 'where', textContent: [current.where, current.family].filter(Boolean).join('・') })]
+      : [el('span', { className: 'where', textContent: `自分で入れた値 (一覧 ${ENEMIES.filter((e) => !e.std).length} 体から選ぶ)` })]),
+      el('span', { className: 'open', textContent: '変える ▾' }));
+    if (!$('enemy-picker').hidden) renderPicker();
     $('enemy-values').replaceChildren(...ENEMY_FIELDS.map((f) => {
       const input = el('input', { className: 'input narrow', type: 'number', value: state.values[f.id], title: f.title || '' });
       input.addEventListener('change', () => { state.values[f.id] = Number(input.value) || 0; state.enemy = ''; changed(); });
@@ -666,6 +741,7 @@
       });
       if (ws) out.push(timePanel(calc, ws), wsPanel(calc, ws));
       out.push(autoPanel(calc));
+      out.push(attackPanel(calc, ws));
       out.push(stepsPanel(calc, ws));
     }
     // 枠の幅の目安: 項目名 + 組の数ぶんの列
@@ -731,6 +807,60 @@
       ]));
   }
 
+  // 攻撃力の上限: 攻撃力をどこまで上げると、ダメージが伸びなくなるか。
+  //   当たり始め = 攻防関数の幅の上の端が上限に当たる攻撃力、すべて上限 = 幅がすべて上限になる攻撃力
+  function attackPanel(calc, ws) {
+    const foe = enemy();
+    const ranged = state.mode === 'ranged';
+    const perLevel = ranged ? 0.025 : 0.05;
+    const gap = Math.max(0, foe.gap || 0) * perLevel;
+    const lines = [];
+    const add = (what, index, attack, cap, defense) => {
+      const def = Math.max(1, defense);
+      lines.push({ what, index, attack, cap, def, start: Math.ceil((D.capStart(cap, ranged) + gap) * def), full: Math.ceil((D.capRatio(cap, ranged) + gap) * def) });
+    };
+    if (ws && ws.kind !== 'magic') calc.forEach((c, i) => add('WS', i, c.ws.main.attack, c.ws.h.main.cap, c.ws.defense));
+    calc.forEach((c, i) => add(ranged ? '通常の射撃' : '通常攻撃', i, c.auto.h.main.attack, c.auto.h.main.cap, foe.def));
+    if (!lines.length) return null;
+    // 棒の長さは、枠の中でそろえる (いちばん大きい値が右端の少し手前)
+    const top = Math.max(...lines.map((l) => Math.max(l.full, l.attack))) * 1.1;
+    const at = (v) => `${Math.min(100, (v / top) * 100)}%`;
+    const body = el('div', { className: 'atk' });
+    let last = null;
+    for (const l of lines) {
+      if (last && last !== l.what) body.append(el('div', { className: 'sep' }));
+      last = l.what;
+      const state3 = l.attack >= l.full ? 'full' : l.attack >= l.start ? 'part' : 'no';
+      const zonePart = el('div', { className: 'zone part' });
+      zonePart.style.left = at(l.start); zonePart.style.width = `calc(${at(l.full)} - ${at(l.start)})`;
+      const zoneFull = el('div', { className: 'zone full' });
+      zoneFull.style.left = at(l.full); zoneFull.style.right = '0';
+      const fill = el('div', { className: 'fill ' + state3 });
+      fill.style.width = at(l.attack);
+      const tick = (cls, v, text) => {
+        const line = el('div', { className: 'tick ' + cls });
+        line.style.left = at(v);
+        const label = el('div', { className: 'lab ' + cls }, text + ' ', el('b', { textContent: number(v) }));
+        label.style.left = at(v);
+        return [line, label];
+      };
+      const say = el('div', { className: 'say' }, el('span', { className: 'now', textContent: number(l.attack) }), ` / ${number(l.full)}`,
+        el('span', { className: 'tag ' + state3, textContent: state3 === 'full' ? '上限' : state3 === 'part' ? '一部上限' : '上限の手前' }),
+        el('small', { textContent: state3 === 'full'
+          ? (l.attack > l.full ? `${number(l.attack - l.full)} 余っている (攻撃力を ${Math.floor((1 - l.full / l.attack) * 1000) / 10}% 下げても同じ)` : 'ちょうど上限')
+          : state3 === 'part' ? `あと ${number(l.full - l.attack)} で、すべて上限`
+          : `あと ${number(l.start - l.attack)} で当たり始め、あと ${number(l.full - l.attack)} で、すべて上限` }));
+      body.append(
+        el('div', { className: 'what' }, el('b', { textContent: l.what }), calc.length > 1 ? el('span', { className: 'set ' + PAIR_CLASSES[l.index], textContent: PAIR_NAMES[l.index] }) : null,
+          `攻防関数の上限 ${fixed2(l.cap)}・敵の防御力 ${number(l.def)}`),
+        el('div', { className: 'gauge' }, el('div', { className: 'track' }, zonePart, zoneFull), fill, ...tick('soft', l.start, '当たり始め'), ...tick('hard', l.full, 'すべて上限')),
+        say);
+    }
+    return el('div', { className: 'panel attack-cap' },
+      el('h3', null, '攻撃力の上限', help('攻撃力をどこまで上げると、ダメージが伸びなくなるかを見る枠です。\n「すべて上限」は、攻防関数 (固定ダメージに掛かる倍率) の幅がすべて上限になる攻撃力で、これより上げてもダメージは変わりません。\n「当たり始め」は、幅の上の端が上限に当たり始める攻撃力で、ここから先は、上げても伸びが鈍ります。\n敵の防御力は、弱体を入れたあとの値です。WS が防御力を下げる・無視するときは、WS の行だけその値を使います。')),
+      body);
+  }
+
   function stepsPanel(calc, ws) {
     const w = (c) => c.ws;
     const a = (c) => c.auto;
@@ -738,48 +868,62 @@
     const mods = ws ? Object.entries(ws.mods).map(([k, v]) => `${k} ${v}%`).join(' + ') : '';
     const ranged = state.mode === 'ranged';
     const perLevel = ranged ? 0.025 : 0.05;
-    // 倍率の幅。上限に当たっていれば印を付ける (幅の上だけ当たっているときは「一部上限」)
+    // 攻防関数の幅。上限に当たっていれば印を付ける (幅の上だけ当たっているときは「一部上限」)
     const pd = (h, cap) => {
       const p = h.normal.pdif;
       const mark = p.min >= cap - 1e-9 ? capMark(true) : p.max >= cap - 1e-9 ? el('span', { className: 'cap', textContent: '一部上限' }) : null;
-      return [`${fixed2(p.min)} 〜 ${fixed2(p.max)}`, mark];
+      return [mark, `${fixed2(p.min)} 〜 ${fixed2(p.max)}`]; // 印は数字の左。数字の右端を、ほかの行とそろえる
     };
-    // 倍率がすべて上限に張り付く攻撃力と、そこまでの残り
+    // 攻防関数がすべて上限に張り付く攻撃力と、そこまでの残り
     const capWhy = '武器種の上限 + 特性「ダメージ上限アップ」に、物理ダメージ上限+ を掛けたもの。' + (ranged ? 'クリティカルは、上限のあとに 1.25 倍' : 'クリティカルは +1.0');
     const needOf = (cap, defense) => Math.ceil((D.capRatio(cap, ranged) + Math.max(0, foe.gap || 0) * perLevel) * Math.max(1, defense));
+    // 攻防比の上限: これより上は、攻防関数の幅がすべて上限になって変わらない
+    const ratioCell = (ratio, cap) => [ratio >= D.capRatio(cap, ranged) ? capMark(true) : null, fixed2(ratio)];
+    const ratioCapRow = (cap) => ({
+      label: '攻防比の上限', value: (c) => fixed2(D.capRatio(cap(c), ranged)),
+      why: `これより上は、攻防関数の幅がすべて上限になり、ダメージが変わらない。攻防関数の上限 ${ranged ? '× 19 ÷ 20 + 0.15' : '+ 0.375'} (BG-wiki の値。用語辞典の表は「攻防関数上限 + 0.5」)`,
+    });
     const needRow = (attack, cap, defense) => ({
       label: '上限に届く攻撃力',
       value: (c) => {
         const need = needOf(cap(c), defense(c));
-        return [number(need), attack(c) >= need ? capMark(true) : el('span', { className: 'range', textContent: ` あと ${number(need - attack(c))}` })];
+        return [attack(c) >= need ? capMark(true) : el('span', { className: 'range before', textContent: `あと ${number(need - attack(c))}` }), number(need)];
       },
-      why: `倍率の幅がすべて上限になる攻撃力。攻防比 ${ranged ? '(上限 × 19 + 3) ÷ 20' : '上限 + 0.375'} のところ。これより上げても変わらない`,
+      why: '攻防比が、攻防比の上限に届く攻撃力。これより上げても変わらない',
     });
+    // 用語辞典の言葉でそろえる: 固定ダメージ = 武器の D値 + SV関数
+    const fixedRows = (damage, sv, forWs) => [
+      { label: '武器の D値', value: (c) => number(damage(c)), why: ranged ? '弓や銃の D値 + 矢弾の D値' : '格闘は、スキルから決まる素手の D値を足したもの' },
+      { label: 'SV関数', value: (c) => fixed2(sv(c)), why: `自分の STR − 敵の VIT ${number(foe.vit)} から決まる値。上限は、近接が 8 + D値 ÷ 9、遠隔がその 2 倍` },
+      { label: '固定ダメージ', value: (c) => fixed2(damage(c) + sv(c)), why: '武器の D値 + SV関数。これに攻防関数を掛ける' + (forWs ? ' (WS は、修正項目を足してダメージ倍率を掛けてから)' : '') },
+    ];
     const rows = [];
     if (ws) {
       rows.push({ head: 'WS (WS 用のセット)' },
         { label: '攻撃力', value: (c) => number(w(c).main.attack), number: (c) => w(c).main.attack, why: ws.atk ? `WS の攻撃力の補正 ×${fixed2(calc[0].ws.attackRate)} を掛けたあと` : state.mode === 'ranged' ? 'スキル + STR + 飛攻' : 'スキル + STR + 攻 (両手武器・格闘はスマイトを掛ける)' },
-        { label: '攻防比', value: (c) => fixed2(w(c).main.ratio), why: `攻撃力 ÷ 敵の防御力 ${number(calc[0].ws.defense)}` + (foe.down.def ? ` (弱体で −${Math.round(foe.down.def * 100) / 100}%)` : '') + (foe.gap > 0 ? ` − レベル差 ${foe.gap} × ${state.mode === 'ranged' ? 0.025 : 0.05}` : '') },
-        { label: '倍率 (クリティカルでないとき)', value: (c) => pd(w(c).result.parts.first.hit, w(c).h.main.cap), why: state.mode === 'ranged' ? '攻防比から決まる幅の中の乱数' : '攻防比から決まる幅。この中の乱数に、さらに 1.00〜1.05 を掛ける' },
-        { label: '倍率の上限', value: (c) => fixed2(w(c).h.main.cap), why: capWhy },
+        { label: '攻防比', value: (c) => ratioCell(w(c).main.ratio, w(c).h.main.cap), why: `攻撃力 ÷ 敵の防御力 ${number(calc[0].ws.defense)}` + (foe.down.def ? ` (弱体で −${Math.round(foe.down.def * 100) / 100}%)` : '') + (foe.gap > 0 ? ` − レベル差 ${foe.gap} × ${state.mode === 'ranged' ? 0.025 : 0.05}` : '') },
+        { label: '攻防関数 (クリティカルでないとき)', value: (c) => pd(w(c).result.parts.first.hit, w(c).h.main.cap), why: state.mode === 'ranged' ? '固定ダメージに掛かる倍率。攻防比から決まる幅の中の乱数' : '固定ダメージに掛かる倍率。攻防比から決まる幅の中の乱数で、さらに 1.00〜1.05 を掛ける' },
+        { label: '攻防関数の上限', value: (c) => fixed2(w(c).h.main.cap), why: capWhy },
+        ratioCapRow((c) => w(c).h.main.cap),
         needRow((c) => w(c).main.attack, (c) => w(c).h.main.cap, (c) => w(c).defense),
-        { label: '武器のＤ', value: (c) => number(w(c).main.damage), why: state.mode === 'ranged' ? '弓や銃のＤ + 矢弾のＤ' : '格闘は、スキルから決まる素手のＤを足したもの' },
-        { label: 'STR の補正', value: (c) => fixed2(w(c).main.fstr), why: `自分の STR − 敵の VIT ${number(foe.vit)} から。上限は、近接が 8 + Ｄ÷9、遠隔がその 2 倍` },
-        { label: 'ステータス修正', value: (c) => number(w(c).mod), number: (c) => w(c).mod, why: mods },
-        { label: 'TP による倍率', value: (c) => fixed2(w(c).ftp) + (ws.rep ? ' (全段)' : ''), why: `TP 1000 / 2000 / 3000 で ${ws.ftp.join(' / ')}。間は直線でつなぐ` },
+        ...fixedRows((c) => w(c).main.damage, (c) => w(c).main.fstr, true),
+        { label: '修正項目', value: (c) => number(w(c).mod), number: (c) => w(c).mod, why: mods },
+        { label: 'ダメージ倍率', value: (c) => fixed2(w(c).ftp) + (ws.rep ? ' (全段)' : ''), why: `TP で変わる WS の倍率。TP 1000 / 2000 / 3000 で ${ws.ftp.join(' / ')}。間は直線でつなぐ` },
         { label: 'WS のダメージ +% (1 段目だけ)', value: (c) => `+${w(c).wsd}%`, why: '装備・特性・ギフトの「ウェポンスキルのダメージ」の合計' },
         { label: `${ws.ja} のダメージ +% (全段)`, value: (c) => `+${w(c).bonus}%` + (w(c).hidden ? ` × +${w(c).hidden}%` : ''), why: `装備の「${ws.ja}:ダメージ」と、武器の隠し効果 (レリック +40%、ミシック・エンピリアン +30%)。別々に掛ける` },
         calc.some((c) => w(c).magic) && { label: ws.kind === 'magic' ? '魔法 WS のダメージ' : '属性の分のダメージ', value: (c) => (w(c).magic ? number(w(c).magic.extra) : '—'), number: (c) => (w(c).magic ? w(c).magic.extra : 0),
-          why: ws.kind === 'magic' ? `(武器の基本の値 ${calc[0].ws.magic ? calc[0].ws.magic.base : ''} + ステータス修正) × TP による倍率 + 系統係数 + 魔法ダメージ、に魔攻 ÷ 魔防などを掛ける` : '物理の分 × 属性の倍率 + 魔法ダメージ、に魔攻 ÷ 魔防などを掛ける' },
+          why: ws.kind === 'magic' ? `(武器の基本の値 ${calc[0].ws.magic ? calc[0].ws.magic.base : ''} + 修正項目) × ダメージ倍率 + 系統係数 + 魔法ダメージ、に魔攻 ÷ 魔防などを掛ける` : '物理の分 × 属性の倍率 + 魔法ダメージ、に魔攻 ÷ 魔防などを掛ける' },
         calc.some((c) => w(c).magic) && { label: '魔攻 / 魔法ダメージ / 系統係数', value: (c) => (w(c).magic ? `${w(c).magic.magicAttack} / ${w(c).magic.magicDamage} / ${w(c).magic.ds != null ? fixed2(w(c).magic.ds) : '—'}` : '—'), why: `敵の魔防 ${foe.mdef}、被魔法ダメージ ×${fixed2(foe.mtaken)}` + (ws.kind === 'hybrid' ? `。属性の倍率は TP で ${ws.mftp.join(' / ')}` : '') },
         { label: '複数回攻撃を入れた攻撃回数', value: (c) => fixed2(w(c).result.attempts), why: `${ws.hits} 段。全部で 8 回まで` });
     }
     rows.push({ head: '通常攻撃 (通常攻撃用のセット)' },
       { label: '攻撃力', value: (c) => number(a(c).h.main.attack), number: (c) => a(c).h.main.attack, why: 'スキル + STR + 攻 (両手武器・格闘はスマイトを掛ける)' },
-      { label: '攻防比', value: (c) => fixed2(a(c).hands[0].ratio), why: `攻撃力 ÷ 敵の防御力 ${number(foe.def)}` },
-      { label: '倍率 (クリティカルでないとき)', value: (c) => pd(a(c).hands[0].hit, a(c).h.main.cap), why: ranged ? '攻防比から決まる幅の中の乱数' : '攻防比から決まる幅。この中の乱数に、さらに 1.00〜1.05 を掛ける' },
-      { label: '倍率の上限', value: (c) => fixed2(a(c).h.main.cap), why: capWhy },
+      { label: '攻防比', value: (c) => ratioCell(a(c).hands[0].ratio, a(c).h.main.cap), why: `攻撃力 ÷ 敵の防御力 ${number(foe.def)}` },
+      { label: '攻防関数 (クリティカルでないとき)', value: (c) => pd(a(c).hands[0].hit, a(c).h.main.cap), why: ranged ? '固定ダメージに掛かる倍率。攻防比から決まる幅の中の乱数' : '固定ダメージに掛かる倍率。攻防比から決まる幅の中の乱数で、さらに 1.00〜1.05 を掛ける' },
+      { label: '攻防関数の上限', value: (c) => fixed2(a(c).h.main.cap), why: capWhy },
+      ratioCapRow((c) => a(c).h.main.cap),
       needRow((c) => a(c).h.main.attack, (c) => a(c).h.main.cap, () => foe.def),
+      ...fixedRows((c) => a(c).hands[0].hand.damage, (c) => a(c).hands[0].fstr),
       { label: '命中', value: (c) => number(a(c).h.main.accuracy), number: (c) => a(c).h.main.accuracy, why: `敵の回避 ${number(foe.eva)}。差 2 ごとに命中率 1%` },
       { label: 'スキル', value: (c) => `${a(c).h.kind.ja} ${number(a(c).h.main.skill)}`, why: 'ジョブの上限 + マスターレベル + 装備・メリポ' },
       { label: 'STR / DEX / AGI', value: (c) => `${number(a(c).h.total('STR'))} / ${number(a(c).h.total('DEX'))} / ${number(a(c).h.total('AGI'))}`, why: `敵の VIT ${number(foe.vit)}、AGI ${number(foe.agi)}` },
@@ -814,13 +958,41 @@
     $('mode').addEventListener('change', () => { state.mode = $('mode').value; changed(); });
     $('aftermath').addEventListener('change', () => { state.aftermath = Number($('aftermath').value); changed(); });
     $('tp').addEventListener('change', () => { state.tp = Math.min(3000, Math.max(1000, Number($('tp').value) || 1000)); changed(); });
-    $('enemy-range').addEventListener('change', () => { state.range = $('enemy-range').value; changed(); });
-    $('enemy').addEventListener('change', () => {
-      state.enemy = $('enemy').value;
-      const found = ENEMIES.find((e) => e.id === state.enemy);
-      if (found) Object.assign(state.values, found.values);
-      changed();
+    $('enemy-range').replaceChildren(el('option', { value: '', textContent: 'すべてのレベル' }), ...RANGES.filter(([a, b]) => ENEMIES.some((e) => e.lv >= a && e.lv <= b)).map(([a, b, label]) => el('option', { value: `${a}-${b}`, textContent: label })));
+    // 一覧の見方を変えたときは、保存して一覧だけ描き直す (計算はやり直さない)
+    const keep = () => { try { localStorage.setItem(STORAGE, JSON.stringify(state)); } catch { /* 保存できなくても動く */ } renderPicker(); };
+    $('enemy-range').addEventListener('change', () => { state.range = $('enemy-range').value; keep(); });
+    $('enemy-merge').addEventListener('change', () => { state.enemyMerge = $('enemy-merge').checked; keep(); });
+    $('enemy-std').addEventListener('change', () => { state.enemyStd = $('enemy-std').checked; keep(); });
+    $('enemy-view').addEventListener('click', (e) => {
+      const button = e.target.closest('button');
+      if (!button) return;
+      state.enemyView = button.dataset.view;
+      keep();
     });
+    $('enemy-find').addEventListener('input', () => { enemyFind = $('enemy-find').value; renderPicker(); });
+    // Enter で、いちばん上の敵を選ぶ
+    $('enemy-find').addEventListener('keydown', (e) => {
+      if (e.isComposing || e.key !== 'Enter') return;
+      const first = $('enemy-rows').querySelector('tr.pickable');
+      if (first) first.click();
+    });
+    $('enemy-pick').addEventListener('click', () => {
+      const panel = $('enemy-picker');
+      panel.hidden = !panel.hidden;
+      if (panel.hidden) return;
+      renderPicker();
+      placePicker();
+      $('enemy-find').focus();
+      const on = $('enemy-rows').querySelector('tr.on');
+      if (on) on.scrollIntoView({ block: 'nearest' });
+    });
+    // 欄の外を押すか、Esc で閉じる
+    document.addEventListener('mousedown', (e) => {
+      if (!$('enemy-picker').hidden && !e.target.closest('#enemy-picker, #enemy-pick')) $('enemy-picker').hidden = true;
+    });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') $('enemy-picker').hidden = true; });
+    window.addEventListener('resize', () => { if (!$('enemy-picker').hidden) placePicker(); });
     document.body.append(el('datalist', { id: 'stat-names' }, ...data.stats.filter((s) => s.num && s.n > 20 && !/[:(]/.test(s.k)).map((s) => el('option', { value: s.k }))));
     render();
   }

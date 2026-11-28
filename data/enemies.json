@@ -1217,7 +1217,7 @@
   {
    "id": "e83",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Archaic Cog (Alzadaal Undersea Ruins)",
+   "ja": "Apex Archaic Cog (アルザダール海底遺跡群)",
    "lv": 145,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Archaic_Cog",
@@ -1231,7 +1231,7 @@
   {
    "id": "e84",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Archaic Cogs (Alzadaal Undersea Ruins)",
+   "ja": "Apex Archaic Cogs (アルザダール海底遺跡群)",
    "lv": 147,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Archaic_Cogs",
@@ -1245,7 +1245,7 @@
   {
    "id": "e85",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Bat (Outer Ra'Kaznar)",
+   "ja": "Apex Bat (ラ・カザナル宮外郭)",
    "lv": 136,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Bat",
@@ -1258,7 +1258,7 @@
   {
    "id": "e86",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Bat (Ra'Kaznar Inner Court)",
+   "ja": "Apex Bat (ラ・カザナル宮内郭)",
    "lv": 139,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Bat",
@@ -1271,7 +1271,7 @@
   {
    "id": "e87",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Bats (Dho Gates)",
+   "ja": "Apex Bats (ドーの門)",
    "lv": 130,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Bats",
@@ -1284,7 +1284,7 @@
   {
    "id": "e88",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Bats (Ra'Kaznar Inner Court)",
+   "ja": "Apex Bats (ラ・カザナル宮内郭)",
    "lv": 139,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Bats",
@@ -1297,7 +1297,7 @@
   {
    "id": "e89",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Bhoot (Ra'Kaznar Inner Court)",
+   "ja": "Apex Bhoot (ラ・カザナル宮内郭)",
    "lv": 139,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Bhoot",
@@ -1310,7 +1310,7 @@
   {
    "id": "e90",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Blazer Elytra (Crawler's Nest (S))",
+   "ja": "Apex Blazer Elytra (クロウラーの巣〔S〕)",
    "lv": 136,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Blazer_Elytra",
@@ -1323,7 +1323,7 @@
   {
    "id": "e91",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Chapuli (Sih Gates)",
+   "ja": "Apex Chapuli (シィの門)",
    "lv": 127,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Chapuli",
@@ -1336,7 +1336,7 @@
   {
    "id": "e92",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Crab (Dho Gates)",
+   "ja": "Apex Crab (ドーの門)",
    "lv": 130,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Crab",
@@ -1349,7 +1349,7 @@
   {
    "id": "e93",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Craklaw (Dho Gates)",
+   "ja": "Apex Craklaw (ドーの門)",
    "lv": 130,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Craklaw",
@@ -1362,7 +1362,7 @@
   {
    "id": "e94",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Cyhiraeth (Ra'Kaznar Inner Court)",
+   "ja": "Apex Cyhiraeth (ラ・カザナル宮内郭)",
    "lv": 139,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Cyhiraeth",
@@ -1375,7 +1375,7 @@
   {
    "id": "e95",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Doom Scorpion (Crawler's Nest (S))",
+   "ja": "Apex Doom Scorpion (クロウラーの巣〔S〕)",
    "lv": 138,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Doom_Scorpion",
@@ -1388,7 +1388,7 @@
   {
    "id": "e96",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Dragonfly (Crawler's Nest (S))",
+   "ja": "Apex Dragonfly (クロウラーの巣〔S〕)",
    "lv": 135,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Dragonfly",
@@ -1401,7 +1401,7 @@
   {
    "id": "e97",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Draugar (Ra'Kaznar Inner Court)",
+   "ja": "Apex Draugar (ラ・カザナル宮内郭)",
    "lv": 139,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Draugar",
@@ -1414,7 +1414,7 @@
   {
    "id": "e98",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Eft (Moh Gates)",
+   "ja": "Apex Eft (モーの門)",
    "lv": 127,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Eft",
@@ -1427,7 +1427,7 @@
   {
    "id": "e99",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Eruca (Moh Gates)",
+   "ja": "Apex Eruca (モーの門)",
    "lv": 127,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Eruca",
@@ -1440,7 +1440,7 @@
   {
    "id": "e100",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Fire Elemental (Crawler's Nest (S))",
+   "ja": "Apex Fire Elemental (クロウラーの巣〔S〕)",
    "lv": 133,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Fire_Elemental",
@@ -1453,7 +1453,7 @@
   {
    "id": "e101",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Helm Elytra (Crawler's Nest (S))",
+   "ja": "Apex Helm Elytra (クロウラーの巣〔S〕)",
    "lv": 138,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Helm_Elytra",
@@ -1466,7 +1466,7 @@
   {
    "id": "e102",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Hornfly (Crawler's Nest (S))",
+   "ja": "Apex Hornfly (クロウラーの巣〔S〕)",
    "lv": 133,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Hornfly",
@@ -1479,7 +1479,7 @@
   {
    "id": "e103",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Idle Drifter (Promyvion - Mea)",
+   "ja": "Apex Idle Drifter (プロミヴォン-メア)",
    "lv": 142,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Idle_Drifter",
@@ -1494,7 +1494,7 @@
   {
    "id": "e104",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Ironclad (Outer Ra'Kaznar)",
+   "ja": "Apex Ironclad (ラ・カザナル宮外郭)",
    "lv": 136,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Ironclad",
@@ -1507,7 +1507,7 @@
   {
    "id": "e105",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Jagil (Sih Gates)",
+   "ja": "Apex Jagil (シィの門)",
    "lv": 133,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Jagil",
@@ -1520,7 +1520,7 @@
   {
    "id": "e106",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Jagil (Dho Gates)",
+   "ja": "Apex Jagil (ドーの門)",
    "lv": 130,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Jagil",
@@ -1533,7 +1533,7 @@
   {
    "id": "e107",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Knight Lugcrawler (Crawler's Nest (S))",
+   "ja": "Apex Knight Lugcrawler (クロウラーの巣〔S〕)",
    "lv": 140,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Knight_Lugcrawler",
@@ -1546,7 +1546,7 @@
   {
    "id": "e108",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Leech (Sih Gates)",
+   "ja": "Apex Leech (シィの門)",
    "lv": 127,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Leech",
@@ -1559,7 +1559,7 @@
   {
    "id": "e109",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Livid Rager (Promyvion - Mea)",
+   "ja": "Apex Livid Rager (プロミヴォン-メア)",
    "lv": 142,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Livid_Rager",
@@ -1572,7 +1572,7 @@
   {
    "id": "e110",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Lugcrawler (Crawler's Nest (S))",
+   "ja": "Apex Lugcrawler (クロウラーの巣〔S〕)",
    "lv": 131,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Lugcrawler",
@@ -1585,7 +1585,7 @@
   {
    "id": "e111",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Lugcrawler Hunter (Crawler's Nest (S))",
+   "ja": "Apex Lugcrawler Hunter (クロウラーの巣〔S〕)",
    "lv": 139,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Lugcrawler_Hunter",
@@ -1598,7 +1598,7 @@
   {
    "id": "e112",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Mandragora (Sih Gates)",
+   "ja": "Apex Mandragora (シィの門)",
    "lv": 127,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Mandragora",
@@ -1611,7 +1611,7 @@
   {
    "id": "e113",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Matamata (Moh Gates)",
+   "ja": "Apex Matamata (モーの門)",
    "lv": 127,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Matamata",
@@ -1624,7 +1624,7 @@
   {
    "id": "e114",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Mycelar (Crawler's Nest (S))",
+   "ja": "Apex Mycelar (クロウラーの巣〔S〕)",
    "lv": 138,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Mycelar",
@@ -1637,7 +1637,7 @@
   {
    "id": "e115",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Nest Elytra (Crawler's Nest (S))",
+   "ja": "Apex Nest Elytra (クロウラーの巣〔S〕)",
    "lv": 134,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Nest_Elytra",
@@ -1650,7 +1650,7 @@
   {
    "id": "e116",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Poxhound (Ra'Kaznar Inner Court)",
+   "ja": "Apex Poxhound (ラ・カザナル宮内郭)",
    "lv": 139,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Poxhound",
@@ -1663,7 +1663,7 @@
   {
    "id": "e117",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Raptor (Moh Gates)",
+   "ja": "Apex Raptor (モーの門)",
    "lv": 127,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Raptor",
@@ -1676,7 +1676,7 @@
   {
    "id": "e118",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Rumble Lugcrawler (Crawler's Nest (S))",
+   "ja": "Apex Rumble Lugcrawler (クロウラーの巣〔S〕)",
    "lv": 138,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Rumble_Lugcrawler",
@@ -1689,7 +1689,7 @@
   {
    "id": "e119",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Soldier Lugcrawler (Crawler's Nest (S))",
+   "ja": "Apex Soldier Lugcrawler (クロウラーの巣〔S〕)",
    "lv": 136,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Soldier_Lugcrawler",
@@ -1702,7 +1702,7 @@
   {
    "id": "e120",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Toad (Woh Gates)",
+   "ja": "Apex Toad (ウォーの門)",
    "lv": 133,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Toad",
@@ -1715,7 +1715,7 @@
   {
    "id": "e121",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Twitherym (Outer Ra'Kaznar)",
+   "ja": "Apex Twitherym (ラ・カザナル宮外郭)",
    "lv": 136,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Twitherym",
@@ -1728,7 +1728,7 @@
   {
    "id": "e122",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Umbril (Ra'Kaznar Inner Court)",
+   "ja": "Apex Umbril (ラ・カザナル宮内郭)",
    "lv": 139,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Umbril",
@@ -1741,7 +1741,7 @@
   {
    "id": "e123",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Vodoriga (Ra'Kaznar Inner Court)",
+   "ja": "Apex Vodoriga (ラ・カザナル宮内郭)",
    "lv": 139,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Vodoriga",
@@ -1754,7 +1754,7 @@
   {
    "id": "e124",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Water Elemental (Crawler's Nest (S))",
+   "ja": "Apex Water Elemental (クロウラーの巣〔S〕)",
    "lv": 133,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Water_Elemental",
@@ -1767,7 +1767,7 @@
   {
    "id": "e125",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Woeful Lamenter (Promyvion - Mea)",
+   "ja": "Apex Woeful Lamenter (プロミヴォン-メア)",
    "lv": 142,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Woeful_Lamenter",
@@ -1780,7 +1780,7 @@
   {
    "id": "e126",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Worker Lugcrawler (Crawler's Nest (S))",
+   "ja": "Apex Worker Lugcrawler (クロウラーの巣〔S〕)",
    "lv": 134,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Apex_Worker_Lugcrawler",
@@ -1818,7 +1818,7 @@
   {
    "id": "e129",
    "group": "Apex・Locus モンスター",
-   "ja": "Disheveled Naraka (Ra'Kaznar Inner Court)",
+   "ja": "Disheveled Naraka (ラ・カザナル宮内郭)",
    "lv": 139,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Disheveled_Naraka",
@@ -1831,7 +1831,7 @@
   {
    "id": "e130",
    "group": "Apex・Locus モンスター",
-   "ja": "Enigmatic Vampyr (Ra'Kaznar Inner Court)",
+   "ja": "Enigmatic Vampyr (ラ・カザナル宮内郭)",
    "lv": 139,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Enigmatic_Vampyr",
@@ -1868,7 +1868,7 @@
   {
    "id": "e133",
    "group": "Apex・Locus モンスター",
-   "ja": "Inimical Corse (Ra'Kaznar Inner Court)",
+   "ja": "Inimical Corse (ラ・カザナル宮内郭)",
    "lv": 139,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Inimical_Corse",
@@ -1894,7 +1894,7 @@
   {
    "id": "e135",
    "group": "Apex・Locus モンスター",
-   "ja": "Locus Bight Rarab (Bibiki Bay)",
+   "ja": "Locus Bight Rarab (ビビキー湾)",
    "lv": 137,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Locus_Bight_Rarab",
@@ -1907,7 +1907,7 @@
   {
    "id": "e136",
    "group": "Apex・Locus モンスター",
-   "ja": "Locus Camelopard (Bibiki Bay)",
+   "ja": "Locus Camelopard (ビビキー湾)",
    "lv": 137,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Locus_Camelopard",
@@ -1920,7 +1920,7 @@
   {
    "id": "e137",
    "group": "Apex・Locus モンスター",
-   "ja": "Locus Colibri (Bhaflau Thickets)",
+   "ja": "Locus Colibri (バフラウ段丘)",
    "lv": 135,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Locus_Colibri",
@@ -1933,7 +1933,7 @@
   {
    "id": "e138",
    "group": "Apex・Locus モンスター",
-   "ja": "Locus Fiddler Crab (Bibiki Bay)",
+   "ja": "Locus Fiddler Crab (ビビキー湾)",
    "lv": 139,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Locus_Fiddler_Crab",
@@ -1946,7 +1946,7 @@
   {
    "id": "e139",
    "group": "Apex・Locus モンスター",
-   "ja": "Locus Ghost Crab",
+   "ja": "Locus Ghost Crab (ビビキー湾)",
    "lv": 139,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Locus_Ghost_Crab",
@@ -1959,7 +1959,7 @@
   {
    "id": "e140",
    "group": "Apex・Locus モンスター",
-   "ja": "Locus Hypnos Eft (Bibiki Bay)",
+   "ja": "Locus Hypnos Eft (ビビキー湾)",
    "lv": 137,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Locus_Hypnos_Eft",
@@ -1972,19 +1972,19 @@
   {
    "id": "e141",
    "group": "Apex・Locus モンスター",
-   "ja": "Locus Imp (Caedarva Mire)",
+   "ja": "Locus Imp (カダーバの浮沼)",
    "lv": 136,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Locus_Imp",
-   "note": "eva approximate (~)",
+   "note": "回避はおおよその値",
    "values": {
-    "eva": 11711231
+    "eva": 1231
    }
   },
   {
    "id": "e142",
    "group": "Apex・Locus モンスター",
-   "ja": "Locus Wivre",
+   "ja": "Locus Wivre (バフラウ段丘)",
    "lv": 137,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Locus_Wivre",
@@ -2022,7 +2022,7 @@
   {
    "id": "e145",
    "group": "Apex・Locus モンスター",
-   "ja": "Powercrazed Dvergr (Ra'Kaznar Inner Court)",
+   "ja": "Powercrazed Dvergr (ラ・カザナル宮内郭)",
    "lv": 139,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Powercrazed_Dvergr",
@@ -2071,7 +2071,7 @@
   {
    "id": "e149",
    "group": "Apex・Locus モンスター",
-   "ja": "Velkk Abyssal (Woh Gates)",
+   "ja": "Velkk Abyssal (ウォーの門)",
    "lv": 133,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Velkk_Abyssal",
@@ -2084,7 +2084,7 @@
   {
    "id": "e150",
    "group": "Apex・Locus モンスター",
-   "ja": "Velkk Junglemancer (Woh Gates)",
+   "ja": "Velkk Junglemancer (ウォーの門)",
    "lv": 133,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Velkk_Junglemancer",
@@ -2097,7 +2097,7 @@
   {
    "id": "e151",
    "group": "Apex・Locus モンスター",
-   "ja": "Velkk Mindmelter (Woh Gates)",
+   "ja": "Velkk Mindmelter (ウォーの門)",
    "lv": 133,
    "type": "war",
    "page": "https://www.bg-wiki.com/ffxi/Velkk_Mindmelter",
@@ -2147,7 +2147,7 @@
   {
    "id": "e155",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Leech (Sih Gates)",
+   "ja": "Apex Leech (シィの門)",
    "lv": 125,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2160,7 +2160,7 @@
   {
    "id": "e156",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Leech (Sih Gates)",
+   "ja": "Apex Leech (シィの門)",
    "lv": 126,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2173,7 +2173,7 @@
   {
    "id": "e157",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Chapuli (Sih Gates)",
+   "ja": "Apex Chapuli (シィの門)",
    "lv": 125,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2186,7 +2186,7 @@
   {
    "id": "e158",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Chapuli (Sih Gates)",
+   "ja": "Apex Chapuli (シィの門)",
    "lv": 126,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2199,7 +2199,7 @@
   {
    "id": "e159",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Mandragora (Sih Gates)",
+   "ja": "Apex Mandragora (シィの門)",
    "lv": 125,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2212,7 +2212,7 @@
   {
    "id": "e160",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Mandragora (Sih Gates)",
+   "ja": "Apex Mandragora (シィの門)",
    "lv": 126,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2225,7 +2225,7 @@
   {
    "id": "e161",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Jagil (Sih Gates)",
+   "ja": "Apex Jagil (シィの門)",
    "lv": 125,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2238,7 +2238,7 @@
   {
    "id": "e162",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Jagil (Sih Gates)",
+   "ja": "Apex Jagil (シィの門)",
    "lv": 126,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2251,7 +2251,7 @@
   {
    "id": "e163",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Jagil (Sih Gates)",
+   "ja": "Apex Jagil (シィの門)",
    "lv": 127,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2264,7 +2264,7 @@
   {
    "id": "e164",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Matamata (Moh Gates)",
+   "ja": "Apex Matamata (モーの門)",
    "lv": 125,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2277,7 +2277,7 @@
   {
    "id": "e165",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Matamata (Moh Gates)",
+   "ja": "Apex Matamata (モーの門)",
    "lv": 126,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2290,7 +2290,7 @@
   {
    "id": "e166",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Raptor (Moh Gates)",
+   "ja": "Apex Raptor (モーの門)",
    "lv": 125,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2303,7 +2303,7 @@
   {
    "id": "e167",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Raptor (Moh Gates)",
+   "ja": "Apex Raptor (モーの門)",
    "lv": 126,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2316,7 +2316,7 @@
   {
    "id": "e168",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Eft (Moh Gates)",
+   "ja": "Apex Eft (モーの門)",
    "lv": 125,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2329,7 +2329,7 @@
   {
    "id": "e169",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Eft (Moh Gates)",
+   "ja": "Apex Eft (モーの門)",
    "lv": 126,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2342,7 +2342,7 @@
   {
    "id": "e170",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Eruca (Moh Gates)",
+   "ja": "Apex Eruca (モーの門)",
    "lv": 125,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2355,7 +2355,7 @@
   {
    "id": "e171",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Eruca (Moh Gates)",
+   "ja": "Apex Eruca (モーの門)",
    "lv": 126,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2368,7 +2368,7 @@
   {
    "id": "e172",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Jagil (Dho Gates)",
+   "ja": "Apex Jagil (ドーの門)",
    "lv": 128,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2381,7 +2381,7 @@
   {
    "id": "e173",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Jagil (Dho Gates)",
+   "ja": "Apex Jagil (ドーの門)",
    "lv": 129,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2394,7 +2394,7 @@
   {
    "id": "e174",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Bats (Dho Gates)",
+   "ja": "Apex Bats (ドーの門)",
    "lv": 128,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2407,7 +2407,7 @@
   {
    "id": "e175",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Bats (Dho Gates)",
+   "ja": "Apex Bats (ドーの門)",
    "lv": 129,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2420,7 +2420,7 @@
   {
    "id": "e176",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Craklaw (Dho Gates)",
+   "ja": "Apex Craklaw (ドーの門)",
    "lv": 128,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2433,7 +2433,7 @@
   {
    "id": "e177",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Craklaw (Dho Gates)",
+   "ja": "Apex Craklaw (ドーの門)",
    "lv": 129,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2446,7 +2446,7 @@
   {
    "id": "e178",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Crab (Dho Gates)",
+   "ja": "Apex Crab (ドーの門)",
    "lv": 128,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2459,7 +2459,7 @@
   {
    "id": "e179",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Crab (Dho Gates)",
+   "ja": "Apex Crab (ドーの門)",
    "lv": 129,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2472,7 +2472,7 @@
   {
    "id": "e180",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Jagil (Woh Gates)",
+   "ja": "Apex Jagil (ウォーの門)",
    "lv": 131,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2485,7 +2485,7 @@
   {
    "id": "e181",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Jagil (Woh Gates)",
+   "ja": "Apex Jagil (ウォーの門)",
    "lv": 132,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2498,7 +2498,7 @@
   {
    "id": "e182",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Toad (Woh Gates)",
+   "ja": "Apex Toad (ウォーの門)",
    "lv": 131,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2511,7 +2511,7 @@
   {
    "id": "e183",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Toad (Woh Gates)",
+   "ja": "Apex Toad (ウォーの門)",
    "lv": 132,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2524,7 +2524,7 @@
   {
    "id": "e184",
    "group": "Apex・Locus モンスター",
-   "ja": "Velkk Tearlicker (Woh Gates)",
+   "ja": "Velkk Tearlicker (ウォーの門)",
    "lv": 131,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2537,7 +2537,7 @@
   {
    "id": "e185",
    "group": "Apex・Locus モンスター",
-   "ja": "Velkk Tearlicker (Woh Gates)",
+   "ja": "Velkk Tearlicker (ウォーの門)",
    "lv": 132,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2550,7 +2550,7 @@
   {
    "id": "e186",
    "group": "Apex・Locus モンスター",
-   "ja": "Velkk Abyssal (Woh Gates)",
+   "ja": "Velkk Abyssal (ウォーの門)",
    "lv": 131,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2563,7 +2563,7 @@
   {
    "id": "e187",
    "group": "Apex・Locus モンスター",
-   "ja": "Velkk Abyssal (Woh Gates)",
+   "ja": "Velkk Abyssal (ウォーの門)",
    "lv": 132,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2576,7 +2576,7 @@
   {
    "id": "e188",
    "group": "Apex・Locus モンスター",
-   "ja": "Velkk Junglemancer (Woh Gates)",
+   "ja": "Velkk Junglemancer (ウォーの門)",
    "lv": 131,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2589,7 +2589,7 @@
   {
    "id": "e189",
    "group": "Apex・Locus モンスター",
-   "ja": "Velkk Junglemancer (Woh Gates)",
+   "ja": "Velkk Junglemancer (ウォーの門)",
    "lv": 132,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2602,7 +2602,7 @@
   {
    "id": "e190",
    "group": "Apex・Locus モンスター",
-   "ja": "Velkk Mindmelter (Woh Gates)",
+   "ja": "Velkk Mindmelter (ウォーの門)",
    "lv": 131,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2615,7 +2615,7 @@
   {
    "id": "e191",
    "group": "Apex・Locus モンスター",
-   "ja": "Velkk Mindmelter (Woh Gates)",
+   "ja": "Velkk Mindmelter (ウォーの門)",
    "lv": 132,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2628,7 +2628,7 @@
   {
    "id": "e192",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Twitherym (Outer Ra'Kaznar)",
+   "ja": "Apex Twitherym (ラ・カザナル宮外郭)",
    "lv": 134,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2641,7 +2641,7 @@
   {
    "id": "e193",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Twitherym (Outer Ra'Kaznar)",
+   "ja": "Apex Twitherym (ラ・カザナル宮外郭)",
    "lv": 135,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2654,7 +2654,7 @@
   {
    "id": "e194",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Bat (Outer Ra'Kaznar)",
+   "ja": "Apex Bat (ラ・カザナル宮外郭)",
    "lv": 134,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2667,7 +2667,7 @@
   {
    "id": "e195",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Bat (Outer Ra'Kaznar)",
+   "ja": "Apex Bat (ラ・カザナル宮外郭)",
    "lv": 135,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2680,7 +2680,7 @@
   {
    "id": "e196",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Ironclad (Outer Ra'Kaznar)",
+   "ja": "Apex Ironclad (ラ・カザナル宮外郭)",
    "lv": 134,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2693,7 +2693,7 @@
   {
    "id": "e197",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Ironclad (Outer Ra'Kaznar)",
+   "ja": "Apex Ironclad (ラ・カザナル宮外郭)",
    "lv": 135,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2706,7 +2706,7 @@
   {
    "id": "e198",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Cyhiraeth / Apex Draugar (BLM) / Powercrazed Dvergr (Ra'Kaznar Inner Court)",
+   "ja": "Apex Cyhiraeth / Apex Draugar (BLM) / Powercrazed Dvergr (ラ・カザナル宮内郭)",
    "lv": 137,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2718,7 +2718,7 @@
   {
    "id": "e199",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Cyhiraeth / Apex Draugar (BLM) / Powercrazed Dvergr (Ra'Kaznar Inner Court)",
+   "ja": "Apex Cyhiraeth / Apex Draugar (BLM) / Powercrazed Dvergr (ラ・カザナル宮内郭)",
    "lv": 138,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2730,7 +2730,7 @@
   {
    "id": "e200",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Cyhiraeth / Apex Draugar (BLM) / Powercrazed Dvergr (Ra'Kaznar Inner Court)",
+   "ja": "Apex Cyhiraeth / Apex Draugar (BLM) / Powercrazed Dvergr (ラ・カザナル宮内郭)",
    "lv": 139,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2742,7 +2742,7 @@
   {
    "id": "e201",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Bats / Apex Umbril / Apex Vodoriga (ground) / Apex Poxhound / Apex Bhoot / Apex Draugar (DRK) / Enigmatic Vampyr / Disheveled Naraka / Inimical Corse (Ra'Kaznar Inner Court)",
+   "ja": "Apex Bats / Apex Umbril / Apex Vodoriga (ground) / Apex Poxhound / Apex Bhoot / Apex Draugar (DRK) / Enigmatic Vampyr / Disheveled Naraka / Inimical Corse (ラ・カザナル宮内郭)",
    "lv": 137,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2754,7 +2754,7 @@
   {
    "id": "e202",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Bats / Apex Umbril / Apex Vodoriga (ground) / Apex Poxhound / Apex Bhoot / Apex Draugar (DRK) / Enigmatic Vampyr / Disheveled Naraka / Inimical Corse (Ra'Kaznar Inner Court)",
+   "ja": "Apex Bats / Apex Umbril / Apex Vodoriga (ground) / Apex Poxhound / Apex Bhoot / Apex Draugar (DRK) / Enigmatic Vampyr / Disheveled Naraka / Inimical Corse (ラ・カザナル宮内郭)",
    "lv": 138,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2766,7 +2766,7 @@
   {
    "id": "e203",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Bats / Apex Umbril / Apex Vodoriga (ground) / Apex Poxhound / Apex Bhoot / Apex Draugar (DRK) / Enigmatic Vampyr / Disheveled Naraka / Inimical Corse (Ra'Kaznar Inner Court)",
+   "ja": "Apex Bats / Apex Umbril / Apex Vodoriga (ground) / Apex Poxhound / Apex Bhoot / Apex Draugar (DRK) / Enigmatic Vampyr / Disheveled Naraka / Inimical Corse (ラ・カザナル宮内郭)",
    "lv": 139,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2778,7 +2778,7 @@
   {
    "id": "e204",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Draugar (THF) (Ra'Kaznar Inner Court)",
+   "ja": "Apex Draugar (THF) (ラ・カザナル宮内郭)",
    "lv": 137,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2790,7 +2790,7 @@
   {
    "id": "e205",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Draugar (THF) (Ra'Kaznar Inner Court)",
+   "ja": "Apex Draugar (THF) (ラ・カザナル宮内郭)",
    "lv": 138,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2802,7 +2802,7 @@
   {
    "id": "e206",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Draugar (THF) (Ra'Kaznar Inner Court)",
+   "ja": "Apex Draugar (THF) (ラ・カザナル宮内郭)",
    "lv": 139,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2814,7 +2814,7 @@
   {
    "id": "e207",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Idle Drifter (Promyvion)",
+   "ja": "Apex Idle Drifter (プロミヴォン)",
    "lv": 139,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2826,7 +2826,7 @@
   {
    "id": "e208",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Idle Drifter (Promyvion)",
+   "ja": "Apex Idle Drifter (プロミヴォン)",
    "lv": 140,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2838,7 +2838,7 @@
   {
    "id": "e209",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Idle Drifter (Promyvion)",
+   "ja": "Apex Idle Drifter (プロミヴォン)",
    "lv": 141,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2850,7 +2850,7 @@
   {
    "id": "e210",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Archaic Cog (Alzadaal Undersea Ruins)",
+   "ja": "Apex Archaic Cog (アルザダール海底遺跡群)",
    "lv": 143,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2862,7 +2862,7 @@
   {
    "id": "e211",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Archaic Cog (Alzadaal Undersea Ruins)",
+   "ja": "Apex Archaic Cog (アルザダール海底遺跡群)",
    "lv": 144,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2874,7 +2874,7 @@
   {
    "id": "e212",
    "group": "Apex・Locus モンスター",
-   "ja": "Apex Archaic Cogs (Alzadaal Undersea Ruins)",
+   "ja": "Apex Archaic Cogs (アルザダール海底遺跡群)",
    "lv": 146,
    "type": "war",
    "page": "https://www.ffxiah.com/forum/topic/47586/apex-camps/4/",
@@ -2885,6 +2885,106 @@
   },
   {
    "id": "e213",
+   "group": "Apex・Locus モンスター",
+   "ja": "Locus Tomb Worm (龍王ランペールの墓)",
+   "lv": 133,
+   "type": "whm",
+   "page": "https://www.bg-wiki.com/ffxi/Locus_Tomb_Worm",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e214",
+   "group": "Apex・Locus モンスター",
+   "ja": "Locus Dire Bat (龍王ランペールの墓)",
+   "lv": 135,
+   "type": "war",
+   "page": "https://www.bg-wiki.com/ffxi/Locus_Dire_Bat",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e215",
+   "group": "Apex・Locus モンスター",
+   "ja": "Locus Armet Beetle (龍王ランペールの墓)",
+   "lv": 135,
+   "type": "war",
+   "page": "https://www.bg-wiki.com/ffxi/Locus_Armet_Beetle",
+   "note": "レベルは資料で 1 ずれがある (エリアのページは 134〜136)",
+   "values": {}
+  },
+  {
+   "id": "e216",
+   "group": "Apex・Locus モンスター",
+   "ja": "Locus Cutlass Scorpion (龍王ランペールの墓)",
+   "lv": 137,
+   "type": "war",
+   "page": "https://www.bg-wiki.com/bg/Apex",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e217",
+   "group": "Apex・Locus モンスター",
+   "ja": "Locus Thousand Eyes (龍王ランペールの墓)",
+   "lv": 137,
+   "type": "war",
+   "page": "https://www.bg-wiki.com/bg/Apex",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e218",
+   "group": "Apex・Locus モンスター",
+   "ja": "Locus Hati (龍王ランペールの墓)",
+   "lv": 137,
+   "type": "war",
+   "page": "https://www.bg-wiki.com/bg/Apex",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e219",
+   "group": "Apex・Locus モンスター",
+   "ja": "Locus Spartoi Sorcerer (龍王ランペールの墓)",
+   "lv": 137,
+   "type": "war",
+   "page": "https://www.bg-wiki.com/bg/Apex",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e220",
+   "group": "Apex・Locus モンスター",
+   "ja": "Locus Spartoi Warrior (龍王ランペールの墓)",
+   "lv": 137,
+   "type": "war",
+   "page": "https://www.bg-wiki.com/bg/Apex",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e221",
+   "group": "Apex・Locus モンスター",
+   "ja": "Locus Lemures (龍王ランペールの墓)",
+   "lv": 138,
+   "type": "war",
+   "page": "https://www.bg-wiki.com/bg/Apex",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e222",
+   "group": "Apex・Locus モンスター",
+   "ja": "Locus Lugcrawler (クロウラーの巣〔S〕)",
+   "lv": 131,
+   "type": "war",
+   "page": "https://www.bg-wiki.com/bg/Apex",
+   "note": "",
+   "values": {}
+  },
+  {
+   "id": "e223",
    "group": "レベルから選ぶ",
    "ja": "標準の敵",
    "lv": 119,
@@ -2894,7 +2994,7 @@
    "values": {}
   },
   {
-   "id": "e214",
+   "id": "e224",
    "group": "レベルから選ぶ",
    "ja": "標準の敵",
    "lv": 120,
@@ -2904,7 +3004,7 @@
    "values": {}
   },
   {
-   "id": "e215",
+   "id": "e225",
    "group": "レベルから選ぶ",
    "ja": "標準の敵",
    "lv": 121,
@@ -2914,7 +3014,7 @@
    "values": {}
   },
   {
-   "id": "e216",
+   "id": "e226",
    "group": "レベルから選ぶ",
    "ja": "標準の敵",
    "lv": 122,
@@ -2924,7 +3024,7 @@
    "values": {}
   },
   {
-   "id": "e217",
+   "id": "e227",
    "group": "レベルから選ぶ",
    "ja": "標準の敵",
    "lv": 123,
@@ -2934,7 +3034,7 @@
    "values": {}
   },
   {
-   "id": "e218",
+   "id": "e228",
    "group": "レベルから選ぶ",
    "ja": "標準の敵",
    "lv": 124,
@@ -2944,7 +3044,7 @@
    "values": {}
   },
   {
-   "id": "e219",
+   "id": "e229",
    "group": "レベルから選ぶ",
    "ja": "標準の敵",
    "lv": 125,
@@ -2954,7 +3054,7 @@
    "values": {}
   },
   {
-   "id": "e220",
+   "id": "e230",
    "group": "レベルから選ぶ",
    "ja": "標準の敵",
    "lv": 126,
@@ -2964,7 +3064,7 @@
    "values": {}
   },
   {
-   "id": "e221",
+   "id": "e231",
    "group": "レベルから選ぶ",
    "ja": "標準の敵",
    "lv": 127,
@@ -2974,7 +3074,7 @@
    "values": {}
   },
   {
-   "id": "e222",
+   "id": "e232",
    "group": "レベルから選ぶ",
    "ja": "標準の敵",
    "lv": 128,
@@ -2984,7 +3084,7 @@
    "values": {}
   },
   {
-   "id": "e223",
+   "id": "e233",
    "group": "レベルから選ぶ",
    "ja": "標準の敵",
    "lv": 129,
@@ -2994,7 +3094,7 @@
    "values": {}
   },
   {
-   "id": "e224",
+   "id": "e234",
    "group": "レベルから選ぶ",
    "ja": "標準の敵",
    "lv": 130,
@@ -3004,7 +3104,7 @@
    "values": {}
   },
   {
-   "id": "e225",
+   "id": "e235",
    "group": "レベルから選ぶ",
    "ja": "標準の敵",
    "lv": 131,
@@ -3014,7 +3114,7 @@
    "values": {}
   },
   {
-   "id": "e226",
+   "id": "e236",
    "group": "レベルから選ぶ",
    "ja": "標準の敵",
    "lv": 132,
@@ -3024,7 +3124,7 @@
    "values": {}
   },
   {
-   "id": "e227",
+   "id": "e237",
    "group": "レベルから選ぶ",
    "ja": "標準の敵",
    "lv": 133,
@@ -3034,7 +3134,7 @@
    "values": {}
   },
   {
-   "id": "e228",
+   "id": "e238",
    "group": "レベルから選ぶ",
    "ja": "標準の敵",
    "lv": 134,
@@ -3044,7 +3144,7 @@
    "values": {}
   },
   {
-   "id": "e229",
+   "id": "e239",
    "group": "レベルから選ぶ",
    "ja": "標準の敵",
    "lv": 135,
@@ -3054,7 +3154,7 @@
    "values": {}
   },
   {
-   "id": "e230",
+   "id": "e240",
    "group": "レベルから選ぶ",
    "ja": "標準の敵",
    "lv": 136,
@@ -3064,7 +3164,7 @@
    "values": {}
   },
   {
-   "id": "e231",
+   "id": "e241",
    "group": "レベルから選ぶ",
    "ja": "標準の敵",
    "lv": 137,
@@ -3074,7 +3174,7 @@
    "values": {}
   },
   {
-   "id": "e232",
+   "id": "e242",
    "group": "レベルから選ぶ",
    "ja": "標準の敵",
    "lv": 138,
@@ -3084,7 +3184,7 @@
    "values": {}
   },
   {
-   "id": "e233",
+   "id": "e243",
    "group": "レベルから選ぶ",
    "ja": "標準の敵",
    "lv": 139,
@@ -3094,7 +3194,7 @@
    "values": {}
   },
   {
-   "id": "e234",
+   "id": "e244",
    "group": "レベルから選ぶ",
    "ja": "標準の敵",
    "lv": 140,
@@ -3104,7 +3204,7 @@
    "values": {}
   },
   {
-   "id": "e235",
+   "id": "e245",
    "group": "レベルから選ぶ",
    "ja": "標準の敵",
    "lv": 141,
@@ -3114,7 +3214,7 @@
    "values": {}
   },
   {
-   "id": "e236",
+   "id": "e246",
    "group": "レベルから選ぶ",
    "ja": "標準の敵",
    "lv": 142,
@@ -3124,7 +3224,7 @@
    "values": {}
   },
   {
-   "id": "e237",
+   "id": "e247",
    "group": "レベルから選ぶ",
    "ja": "標準の敵",
    "lv": 143,
@@ -3134,7 +3234,7 @@
    "values": {}
   },
   {
-   "id": "e238",
+   "id": "e248",
    "group": "レベルから選ぶ",
    "ja": "標準の敵",
    "lv": 144,
@@ -3144,7 +3244,7 @@
    "values": {}
   },
   {
-   "id": "e239",
+   "id": "e249",
    "group": "レベルから選ぶ",
    "ja": "標準の敵",
    "lv": 145,
@@ -3154,7 +3254,7 @@
    "values": {}
   },
   {
-   "id": "e240",
+   "id": "e250",
    "group": "レベルから選ぶ",
    "ja": "標準の敵",
    "lv": 146,
@@ -3164,7 +3264,7 @@
    "values": {}
   },
   {
-   "id": "e241",
+   "id": "e251",
    "group": "レベルから選ぶ",
    "ja": "標準の敵",
    "lv": 147,
@@ -3174,7 +3274,7 @@
    "values": {}
   },
   {
-   "id": "e242",
+   "id": "e252",
    "group": "レベルから選ぶ",
    "ja": "標準の敵",
    "lv": 148,
@@ -3184,7 +3284,7 @@
    "values": {}
   },
   {
-   "id": "e243",
+   "id": "e253",
    "group": "レベルから選ぶ",
    "ja": "標準の敵",
    "lv": 149,
@@ -3194,7 +3294,7 @@
    "values": {}
   },
   {
-   "id": "e244",
+   "id": "e254",
    "group": "レベルから選ぶ",
    "ja": "標準の敵",
    "lv": 150,
@@ -3204,7 +3304,7 @@
    "values": {}
   },
   {
-   "id": "e245",
+   "id": "e255",
    "group": "弱い敵 (目安)",
    "ja": "弱い敵",
    "lv": 1,
@@ -3220,7 +3320,7 @@
    "guess": true
   },
   {
-   "id": "e246",
+   "id": "e256",
    "group": "弱い敵 (目安)",
    "ja": "弱い敵",
    "lv": 75,
@@ -3235,5 +3335,96 @@
    },
    "guess": true
   }
- ]
+ ],
+ "families_note": "種族 (FF11用語辞典での呼び名)。敵の名前に入っている言葉から引く。用語辞典の種族の記事と NM の記事、無いものは BG-wiki の Family から。種族不明のものは入れていない",
+ "families": {
+  "Bat": "コウモリ族",
+  "Dire Bat": "コウモリ族",
+  "Bats": "コウモリ族（編隊）",
+  "Bhoot": "ゴースト族",
+  "Lemures": "ゴースト族",
+  "Chapuli": "チャプリ族",
+  "Crab": "クラブ族",
+  "Fiddler Crab": "クラブ族",
+  "Ghost Crab": "クラブ族",
+  "Craklaw": "クラックロー族",
+  "Cyhiraeth": "カヒライス族",
+  "Doom Scorpion": "サソリ族",
+  "Cutlass Scorpion": "サソリ族",
+  "Dragonfly": "フライ族",
+  "Hornfly": "フライ族",
+  "Draugar": "スケルトン族",
+  "Spartoi Sorcerer": "スケルトン族",
+  "Spartoi Warrior": "スケルトン族",
+  "Eft": "エフト族",
+  "Hypnos Eft": "エフト族",
+  "Eruca": "クロウラー族",
+  "Fire Elemental": "エレメンタル族",
+  "Water Elemental": "エレメンタル族",
+  "Helm Elytra": "甲虫族",
+  "Nest Elytra": "甲虫族",
+  "Blazer Elytra": "甲虫族",
+  "Armet Beetle": "甲虫族",
+  "Idle Drifter": "ワンダラー族",
+  "Livid Rager": "シーザー族",
+  "Woeful Lamenter": "ウィーパー族",
+  "Ironclad": "鉄巨人族",
+  "Jagil": "プギル族",
+  "Lugcrawler": "クロウラー族",
+  "Knight Lugcrawler": "クロウラー族",
+  "Rumble Lugcrawler": "クロウラー族",
+  "Soldier Lugcrawler": "クロウラー族",
+  "Worker Lugcrawler": "クロウラー族",
+  "Lugcrawler Hunter": "サソリ族",
+  "Leech": "リーチ族",
+  "Mandragora": "マンドラゴラ族",
+  "Matamata": "マタマタ族",
+  "Mycelar": "キノコ族",
+  "Poxhound": "屍犬族",
+  "Hati": "屍犬族",
+  "Raptor": "ラプトル族",
+  "Toad": "トード族",
+  "Twitherym": "トウィザリム族",
+  "Umbril": "アンブリル族",
+  "Vodoriga": "ガーゴイル族",
+  "Velkk": "ヴェルク族",
+  "Disheveled Naraka": "ナラカ族",
+  "Enigmatic Vampyr": "ヴァンピール族",
+  "Inimical Corse": "コース族",
+  "Powercrazed Dvergr": "ドゥエルグ族",
+  "Bight Rarab": "ウサギ族",
+  "Camelopard": "ダルメル族",
+  "Colibri": "コリブリ族",
+  "Imp": "インプ族",
+  "Thousand Eyes": "ヘクトアイズ族",
+  "Tomb Worm": "ワーム族",
+  "Wivre": "ウィヴル族",
+  "Archaic Cog": "ギア族",
+  "Archaic Cogs": "ギア族",
+  "Arebati": "セフエジ族",
+  "Xevioso": "バズテヴィア族",
+  "Ghatjot": "プロビッド族",
+  "Leshonn": "マスイル族",
+  "Skomora": "デフィアント族",
+  "Dhartok": "プロビッド族",
+  "Gartell": "マスイル族",
+  "Triboulex": "デフィアント族",
+  "Esurient Botulus": "フラン族",
+  "Albumen": "マンドラゴラ族",
+  "Onychophora": "サンドウォーム族",
+  "Schah": "カトゥラエ族",
+  "Teles": "セイレーン族",
+  "Vinipata": "ナラカ族",
+  "Warder of Courage": "アーン族",
+  "Erinys": "アンフィプテレ族",
+  "Bashmu": "ハイドラ族",
+  "Kurmajara": "アダマンタス族",
+  "Lotanu": "ウィルム族",
+  "Urmahlullu": "ベヒーモス族",
+  "Centurio XX-I": "アンティカ族",
+  "Kin": "カトゥラエ族",
+  "Gin": "カトゥラエ族",
+  "Kei": "カトゥラエ族",
+  "Fu": "カトゥラエ族"
+ }
 }

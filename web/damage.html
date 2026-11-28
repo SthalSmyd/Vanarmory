@@ -49,8 +49,7 @@
   <div class="row">
     <span class="label">敵</span>
     <div class="body start">
-      <select id="enemy-range" title="敵の一覧を、レベルの幅で絞る"></select>
-      <select id="enemy"></select>
+      <button type="button" class="enemy-pick" id="enemy-pick" title="敵を一覧から選ぶ"></button>
       <div class="enemy-values" id="enemy-values"></div>
       <span class="field" id="enemy-note"></span>
     </div>
@@ -86,6 +85,23 @@
 
 <div class="out" id="out"></div>
 
+<!-- 敵を選ぶ欄 (敵のボタンを押すと、その下に浮かぶ) -->
+<div class="enemy-picker" id="enemy-picker" hidden>
+  <div class="tools">
+    <input class="input" id="enemy-find" type="search" autocomplete="off" placeholder="名前・場所・コンテンツ・種族で探す (ランペール、ソーティ など)">
+    <select id="enemy-range" title="レベルの幅で絞る"></select>
+    <span class="count" id="enemy-count"></span>
+  </div>
+  <div class="tools">
+    <span class="seg" id="enemy-view">
+      <button type="button" data-view="lv">レベル順</button>
+      <button type="button" data-view="where">場所・コンテンツごと</button>
+    </span>
+    <label><input type="checkbox" id="enemy-merge"> 同じ値の敵を 1 行にまとめる</label>
+    <label><input type="checkbox" id="enemy-std"> 「標準の敵」(レベルだけ) も出す</label>
+  </div>
+  <div class="list"><table class="en"><thead><tr><th>Lv</th><th>名前</th><th>場所・コンテンツ</th><th>種族</th><th class="n">防御力</th><th class="n">回避</th></tr></thead><tbody id="enemy-rows"></tbody></table></div>
+</div>
 <script src="help.js"></script>
 <script src="data.js"></script>
 <script src="search.js"></script>
