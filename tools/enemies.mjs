@@ -30,7 +30,8 @@ export function buildEnemies(root) {
     // est: 目安で埋めた項目、table: 回避を必要命中の表から出したか
     return {
       id: enemy.id, group: enemy.group, ja: enemy.ja, lv: enemy.lv, page: enemy.page, note: enemy.note, values,
-      est: Object.keys(guess).filter((key) => enemy.values[key] == null), table: enemy.values.eva == null,
+      // guess の印のある敵は、入っている値そのものが目安
+      est: Object.keys(guess).filter((key) => enemy.guess || enemy.values[key] == null), table: enemy.values.eva == null,
     };
   });
 }
