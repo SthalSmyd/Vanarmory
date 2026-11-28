@@ -210,6 +210,15 @@
     return { set, context: S.contextFor(person), who: person, name: source.name, effects, buffs };
   }
 
+  // モンクのジョブポイントの項目 (使い切っているときだけ数える)。
+  //   蹴撃効果アップ: 蹴撃の攻 +2・命中 +1 × 20 段階。猫足立ち効果アップ: 猫足立ち中の蹴りの D値 +1 × 20 段階 (双竜脚・闘魂旋風脚にも効く)
+  // 出典: FF11用語辞典 https://wiki.ffo.jp/html/3265.html https://wiki.ffo.jp/html/15342.html 、BG-wiki https://www.bg-wiki.com/ffxi/Monk
+  const kickPoints = (built) => {
+    const c = built.context;
+    const full = c.job === 2 && c.gifts !== false && c.jp >= P.MAX_JP;
+    return { attack: full ? 40 : 0, accuracy: full ? 20 : 0, foot: full && built.buffs.foot ? 20 : 0 };
+  };
+
   // ---- 手ごとの値 ----
   const stat = (totals, key) => S.totalOf(totals, key);
   const kindOf = (item) => item && data.combat.skills.find((k) => k.id === item.skill);
@@ -330,11 +339,12 @@
     if (kickRate > 0) {
       const m = h.main;
       const foot = !!built.buffs.foot;
-      const damage = D.bareDamage(m.skill) + stat(built.set.totals, '蹴撃攻撃力') + (foot ? m.damage - D.bareDamage(m.skill) : 0);
-      const attack = Math.floor(m.raw * (1 + m.pct + (foot ? 25 / 256 : 0)));
+      const jp = kickPoints(built);
+      const damage = D.bareDamage(m.skill) + stat(built.set.totals, '蹴撃攻撃力') + jp.foot + (foot ? m.damage - D.bareDamage(m.skill) : 0);
+      const attack = Math.floor((m.raw + jp.attack) * (1 + m.pct + (foot ? 25 / 256 : 0)));
       const fstr = D.fstr(h.total('STR') - foe.vit, m.rankDamage);
       const ratio = D.ratioOf(attack, foe.def, foe.gap);
-      kick = { rate: kickRate, damage, attack, fstr, ratio, foot, hitRate: hands[0].hitRate, hit: D.hit({ base: damage + fstr, ratio, cap: m.cap, crit, critDamage: h.critDamage, taken: foe.taken }) };
+      kick = { rate: kickRate, damage, attack, fstr, ratio, foot, hitRate: D.hitRate(m.accuracy + jp.accuracy, foe.eva, m.hitCap, foe.gap), hit: D.hit({ base: damage + fstr, ratio, cap: m.cap, crit, critDamage: h.critDamage, taken: foe.taken }) };
     }
     const round = D.round({ hands, multi: h.multi, first: fx.first, kick });
     const setup = S.tpSetup('melee', built.set.equip, built.set.totals, built.context);
@@ -405,11 +415,16 @@
     const natural = h.ranged ? D.critRateRanged(h.total('AGI') - foe.agi, h.crit) : D.critRate(h.total('DEX') - foe.agi, h.crit);
     const crit = canCrit ? Math.min(1, natural + D.byTp(tp, ws.crit) / 100) : 0;
     const wsAccuracy = stat(totals, 'ウェポンスキルの命中') + (ws.acc ? D.byTp(tp, ws.acc) : 0) + charms.length * D.CHARM_ACC;
+    // 猫足立ち中の蹴りの WS (双竜脚・闘魂旋風脚) は、蹴りの D値で計算する: 拳の D値に、蹴撃攻撃力 (猫足立ちの +20 込み) を足し、
+    // 攻撃力が 25/256 上がる。出典: BG-wiki https://www.bg-wiki.com/ffxi/Footwork 、FF11用語辞典 https://wiki.ffo.jp/html/2423.html https://wiki.ffo.jp/html/20199.html
+    const kickWs = !!built.buffs.foot && h.kind.kind === 'h2h' && (ws.ja === '双竜脚' || ws.ja === '闘魂旋風脚');
+    const kickDamage = kickWs ? stat(totals, '蹴撃攻撃力') + kickPoints(built).foot : 0;
+    const kickAttack = kickWs ? 25 / 256 : 0;
     const one = (hand) => ({
-      damage: hand.damage, fstr: (h.ranged ? D.fstr2 : D.fstr)(h.total('STR') - foe.vit, hand.rankDamage), ranged: h.ranged,
+      damage: hand.damage + kickDamage, fstr: (h.ranged ? D.fstr2 : D.fstr)(h.total('STR') - foe.vit, hand.rankDamage), ranged: h.ranged,
       // WS の攻撃力の補正も、ほかの % と足してから掛ける
-      attack: Math.floor(hand.raw * (hand.pct + attackRate)),
-      ratio: D.ratioOf(Math.floor(hand.raw * (hand.pct + attackRate)), defense, foe.gap, h.ranged ? 0.025 : 0.05), cap: hand.cap,
+      attack: Math.floor(hand.raw * (hand.pct + attackRate + kickAttack)),
+      ratio: D.ratioOf(Math.floor(hand.raw * (hand.pct + attackRate + kickAttack)), defense, foe.gap, h.ranged ? 0.025 : 0.05), cap: hand.cap,
       // 近接の WS は 1 段目の命中 +100。遠隔の WS には無い
       firstHitRate: D.hitRate(hand.accuracy + wsAccuracy + (h.ranged ? 0 : 100), foe.eva, hand.hitCap, foe.gap),
       hitRate: D.hitRate(hand.accuracy + wsAccuracy, foe.eva, hand.hitCap, foe.gap),
@@ -452,7 +467,7 @@
     const small = Math.floor((10 * (100 + storeTp)) / 100);
     const others = parts.rest.count * main.hitRate + parts.multi.count * main.hitRate + (parts.sub ? (parts.sub.count - 1) * sub.hitRate : 0);
     const tpBack = TP.perHit(tpDelay, storeTp) * (main.firstHitRate + (sub ? sub.hitRate : 0)) + small * others;
-    return { h, ws, tp, mod, modPlus, charms, ftpPlus, ftp, attackRate, defense, crit, main, sub, wsd, bonus, hidden, result, tpBack, magic };
+    return { h, ws, tp, mod, modPlus, charms, ftpPlus, ftp, attackRate, defense, crit, main, sub, wsd, bonus, hidden, result, tpBack, magic, kickWs, kickDamage };
   }
 
   // ---- 画面 ----
@@ -933,6 +948,7 @@
         ratioCapRow((c) => w(c).h.main.cap),
         needRow((c) => w(c).main.attack, (c) => w(c).h.main.cap, (c) => w(c).defense),
         ...fixedRows((c) => w(c).main.damage, (c) => w(c).main.fstr, true),
+        calc.some((c) => w(c).kickWs) && { label: '猫足立ち中の蹴り', value: (c) => (w(c).kickWs ? `D値 +${w(c).kickDamage}・攻撃力 +25/256` : '—'), why: '猫足立ち中の双竜脚・闘魂旋風脚は、蹴りの D値 (拳の D値 + 蹴撃攻撃力。猫足立ちの +20 と、ジョブポイントの +20 込み) で計算し、攻撃力が 25/256 上がる。上の D値と攻撃力に入っている' },
         { label: '修正項目', value: (c) => number(w(c).mod), number: (c) => w(c).mod, why: mods + plusMods },
         { label: 'ダメージ倍率', value: (c) => fixed2(w(c).ftp) + (ws.rep ? ' (全段)' : ''), why: `TP で変わる WS の倍率。TP 1000 / 2000 / 3000 で ${ws.ftp.join(' / ')}。間は直線でつなぐ` + plusFtp },
         { label: 'WS のダメージ +% (1 段目だけ)', value: (c) => `+${w(c).wsd}%`, why: '装備・特性・ギフトの「ウェポンスキルのダメージ」の合計' },
