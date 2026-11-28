@@ -284,6 +284,30 @@
     return t >= 2000 ? b + ((t - 2000) * (c - b)) / 1000 : a + ((t - 1000) * (b - a)) / 1000;
   }
 
+  // 属性ゴルゲット・属性ベルト・フォシャの潜在能力「ウェポンスキルの命中/ダメージアップ」。
+  // 連携属性の合う WS で、1 個につき ダメージ倍率 +25/256 (1 段目だけ。倍率が全段に掛かる WS は全段)、WS の命中 +10 (全段)。
+  // フォシャは、連携属性を持つ WS なら何でも合う。sc は WS の連携属性 (英語の名前の並び)。
+  // 出典: FF11用語辞典 https://wiki.ffo.jp/html/809.html https://wiki.ffo.jp/html/32703.html 、
+  //       BG-wiki https://www.bg-wiki.com/ffxi/Elemental_Gorgets (属性との対応)、https://www.bg-wiki.com/ffxi/Weapon_Skill_Damage
+  // サイズミクアクスは、ソイルと同じ (https://www.bg-wiki.com/ffxi/Seismic_Axe)。
+  // 魔法 WS の倍率にも足している (資料に書かれていないので、目安)
+  const CHARM_FTP = 25 / 256;
+  const CHARM_ACC = 10;
+  const CHARMS = {
+    フレイム: ['Liquefaction', 'Fusion'], スノー: ['Induration', 'Distortion'], ブリーズ: ['Detonation', 'Fragmentation'],
+    ソイル: ['Scission', 'Gravitation'], サンダー: ['Impaction', 'Fragmentation'], アクア: ['Reverberation', 'Distortion'],
+    ライト: ['Transfixion', 'Fusion', 'Light'], シャドウ: ['Compression', 'Gravitation', 'Darkness'],
+    サイズミク: ['Scission', 'Gravitation'],
+  };
+  // name の装備の潜在能力が、連携属性 sc の WS で発動するか
+  function charmFits(name, sc) {
+    const list = sc || [];
+    if (!list.length) return false;
+    if (/^フォシャ/.test(name)) return true;
+    const key = Object.keys(CHARMS).find((k) => name.startsWith(k));
+    return !!key && CHARMS[key].some((p) => list.includes(p));
+  }
+
   // ステータス修正。stats: { STR: 値, … }、mods: { STR: 50, MND: 50 } (%)。足してから 1 回だけ切り捨てる
   const wsc = (stats, mods) => Math.floor(Object.entries(mods || {}).reduce((sum, [key, percent]) => sum + ((stats[key] || 0) * percent) / 100, 0));
 
@@ -385,7 +409,7 @@
   // 連携のダメージ = 閉じた WS のダメージ × 倍率 × (1 + 連携ボーナス)。連携ボーナスは 50% まで。敵の被魔法ダメージが掛かる
   const skillchain = (damage, level, bonus, taken) => Math.min(HIT_LIMIT, damage * (SKILLCHAIN[level] || 0) * (1 + Math.min(50, Math.max(0, bonus || 0)) / 100) * (taken == null ? 1 : Math.max(0, taken)));
 
-  const api = { magicBase, dstat, magicScale, magicSkill, hybridMagic, SKILLCHAIN, skillchain, HIT_LIMIT, CAPS, LIMIT_TRAITS, limitTrait, limitOf, fstr, fstr2, bareDamage, pdif, pdifRanged, capRatio, capStart, ratioOf, hitRate, critRate, critRateRanged, shotTime, hit, extraSwings, round, roundHits, cycle, hasteOf, roundTime, byTp, wsc, wsExtras, weaponSkill };
+  const api = { CHARM_FTP, CHARM_ACC, charmFits, magicBase, dstat, magicScale, magicSkill, hybridMagic, SKILLCHAIN, skillchain, HIT_LIMIT, CAPS, LIMIT_TRAITS, limitTrait, limitOf, fstr, fstr2, bareDamage, pdif, pdifRanged, capRatio, capStart, ratioOf, hitRate, critRate, critRateRanged, shotTime, hit, extraSwings, round, roundHits, cycle, hasteOf, roundTime, byTp, wsc, wsExtras, weaponSkill };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.VanaDamage = api;
 })(typeof window !== 'undefined' ? window : globalThis);

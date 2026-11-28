@@ -377,14 +377,20 @@
     const totals = built.set.totals;
     const tp = Math.min(3000, Math.max(1000, atTp || Number(state.tp) || 1000) + stat(totals, 'TPボーナス'));
     const stats = Object.fromEntries(window.VanaSets.SHEET_KEYS.map((key) => [key, h.total(key)]));
-    const mod = D.wsc(stats, ws.mods);
-    const ftp = D.byTp(tp, ws.ftp);
+    // 装備の「ウェポンスキル○○補正+N%」は、修正項目にそのステータスの N% を足す (ウトゥグリップなど)
+    const modPlus = {};
+    for (const key of Object.keys(stats)) { const v = stat(totals, `ウェポンスキル${key}補正`); if (v) modPlus[key] = v; }
+    const mod = D.wsc(stats, Object.fromEntries(Object.keys(Object.assign({}, ws.mods, modPlus)).map((key) => [key, (ws.mods[key] || 0) + (modPlus[key] || 0)])));
+    // フォシャ・属性ゴルゲット / ベルトの潜在能力。WS の連携属性が合うものだけ数える
+    const charms = Object.values(built.set.equip).filter((item) => item && /潜在能力:\n?ウェポンスキルの命中/.test(item.desc || '') && D.charmFits(item.ja, ws.sc)).map((item) => item.ja);
+    const ftpPlus = charms.length * D.CHARM_FTP;
+    const ftp = D.byTp(tp, ws.ftp) + ftpPlus;
     const attackRate = ws.atk ? D.byTp(tp, ws.atk) : 1;
     const defense = foe.def * (1 - (ws.def ? D.byTp(tp, ws.def) : 0) / 100);
     const canCrit = !!ws.crit;
     const natural = h.ranged ? D.critRateRanged(h.total('AGI') - foe.agi, h.crit) : D.critRate(h.total('DEX') - foe.agi, h.crit);
     const crit = canCrit ? Math.min(1, natural + D.byTp(tp, ws.crit) / 100) : 0;
-    const wsAccuracy = stat(totals, 'ウェポンスキルの命中') + (ws.acc ? D.byTp(tp, ws.acc) : 0);
+    const wsAccuracy = stat(totals, 'ウェポンスキルの命中') + (ws.acc ? D.byTp(tp, ws.acc) : 0) + charms.length * D.CHARM_ACC;
     const one = (hand) => ({
       damage: hand.damage, fstr: (h.ranged ? D.fstr2 : D.fstr)(h.total('STR') - foe.vit, hand.rankDamage), ranged: h.ranged,
       // WS の攻撃力の補正も、ほかの % と足してから掛ける
@@ -415,7 +421,7 @@
       const hitLike = { min: damage, max: damage, mean: damage, normal: { pdif: { min: 0, max: 0 } } };
       const part = (count) => ({ count, hitRate: 1, hit: hitLike, mean: count * damage });
       const flat = { mean: damage, min: damage, max: damage, attempts: 1, parts: { first: part(1), rest: part(0), multi: part(0), sub: null } };
-      return { h, ws, tp, mod, ftp, attackRate: 1, defense: foe.def, crit: 0, main: Object.assign(main, { firstHitRate: 1, hitRate: 1 }), sub: null, wsd, bonus, hidden, result: flat, tpBack: TP.perHit(tpDelay, storeTp), magic: Object.assign({ base, ds, extra: damage }, magicOf) };
+      return { h, ws, tp, mod, modPlus, charms, ftpPlus, ftp, attackRate: 1, defense: foe.def, crit: 0, main: Object.assign(main, { firstHitRate: 1, hitRate: 1 }), sub: null, wsd, bonus, hidden, result: flat, tpBack: TP.perHit(tpDelay, storeTp), magic: Object.assign({ base, ds, extra: damage }, magicOf) };
     }
     const result = D.weaponSkill({ main, sub, wsc: mod, ftp, replicate: ws.rep, hits: ws.hits, wsd, bonus, hidden, multi: h.multi, firstMulti, canCrit, taken: foe.taken });
     // WS で得る TP: メインの 1 段目とサブの 1 発目は通常の得 TP、そのほかの当たった分は 1 発 10 (ストアTP が掛かる)
@@ -432,7 +438,7 @@
     const small = Math.floor((10 * (100 + storeTp)) / 100);
     const others = parts.rest.count * main.hitRate + parts.multi.count * main.hitRate + (parts.sub ? (parts.sub.count - 1) * sub.hitRate : 0);
     const tpBack = TP.perHit(tpDelay, storeTp) * (main.firstHitRate + (sub ? sub.hitRate : 0)) + small * others;
-    return { h, ws, tp, mod, ftp, attackRate, defense, crit, main, sub, wsd, bonus, hidden, result, tpBack, magic };
+    return { h, ws, tp, mod, modPlus, charms, ftpPlus, ftp, attackRate, defense, crit, main, sub, wsd, bonus, hidden, result, tpBack, magic };
   }
 
   // ---- 画面 ----
@@ -866,6 +872,10 @@
     const a = (c) => c.auto;
     const foe = enemy();
     const mods = ws ? Object.entries(ws.mods).map(([k, v]) => `${k} ${v}%`).join(' + ') : '';
+    // セットごとに違う足し分 (ウトゥグリップなどの補正、フォシャなどの潜在能力) を、理由の文に足す
+    const perSet = (text) => { const list = calc.map((c) => (c.ws ? text(c.ws) : '')); return list.some(Boolean) ? (list.every((t) => t === list[0]) ? list[0] : list.map((t, i) => (t ? `[${i + 1}] ${t}` : '')).filter(Boolean).join(' ')) : ''; };
+    const plusMods = perSet((x) => Object.entries(x.modPlus).map(([k, v]) => `${k} ${v}%`).join(' + ')).replace(/^(.+)$/, '。装備の「ウェポンスキル○○補正」で + $1');
+    const plusFtp = perSet((x) => (x.charms.length ? `${x.charms.join('・')} で +${fixed2(x.ftpPlus)}、WS の命中 +${x.charms.length * D.CHARM_ACC}` : '')).replace(/^(.+)$/, '。連携属性が合うので $1');
     const ranged = state.mode === 'ranged';
     const perLevel = ranged ? 0.025 : 0.05;
     // 攻防関数の幅。上限に当たっていれば印を付ける (幅の上だけ当たっているときは「一部上限」)
@@ -907,8 +917,8 @@
         ratioCapRow((c) => w(c).h.main.cap),
         needRow((c) => w(c).main.attack, (c) => w(c).h.main.cap, (c) => w(c).defense),
         ...fixedRows((c) => w(c).main.damage, (c) => w(c).main.fstr, true),
-        { label: '修正項目', value: (c) => number(w(c).mod), number: (c) => w(c).mod, why: mods },
-        { label: 'ダメージ倍率', value: (c) => fixed2(w(c).ftp) + (ws.rep ? ' (全段)' : ''), why: `TP で変わる WS の倍率。TP 1000 / 2000 / 3000 で ${ws.ftp.join(' / ')}。間は直線でつなぐ` },
+        { label: '修正項目', value: (c) => number(w(c).mod), number: (c) => w(c).mod, why: mods + plusMods },
+        { label: 'ダメージ倍率', value: (c) => fixed2(w(c).ftp) + (ws.rep ? ' (全段)' : ''), why: `TP で変わる WS の倍率。TP 1000 / 2000 / 3000 で ${ws.ftp.join(' / ')}。間は直線でつなぐ` + plusFtp },
         { label: 'WS のダメージ +% (1 段目だけ)', value: (c) => `+${w(c).wsd}%`, why: '装備・特性・ギフトの「ウェポンスキルのダメージ」の合計' },
         { label: `${ws.ja} のダメージ +% (全段)`, value: (c) => `+${w(c).bonus}%` + (w(c).hidden ? ` × +${w(c).hidden}%` : ''), why: `装備の「${ws.ja}:ダメージ」と、武器の隠し効果 (レリック +40%、ミシック・エンピリアン +30%)。別々に掛ける` },
         calc.some((c) => w(c).magic) && { label: ws.kind === 'magic' ? '魔法 WS のダメージ' : '属性の分のダメージ', value: (c) => (w(c).magic ? number(w(c).magic.extra) : '—'), number: (c) => (w(c).magic ? w(c).magic.extra : 0),

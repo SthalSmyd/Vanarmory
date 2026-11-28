@@ -216,3 +216,15 @@ test('攻防関数が上限に当たり始める攻防比', () => {
   near(D.pdifRanged(D.capStart(3.5, true), 3.5).max, 3.5);
   assert.ok(D.pdifRanged(D.capStart(3.5, true) - 0.01, 3.5).max < 3.5);
 });
+
+test('属性ゴルゲット・フォシャ: 連携属性が合う WS だけ', () => {
+  assert.equal(D.charmFits('フォシャゴルゲット', ['Scission']), true);
+  assert.equal(D.charmFits('フォシャベルト', []), false); // 連携属性の無い WS
+  assert.equal(D.charmFits('フレイムゴルゲット', ['Fusion', 'Impaction']), true);
+  assert.equal(D.charmFits('フレイムベルト', ['Light']), false); // 光・闇は、ライト・シャドウだけ
+  assert.equal(D.charmFits('ライトゴルゲット', ['Light', 'Fragmentation']), true);
+  assert.equal(D.charmFits('ソイルベルト', ['Fragmentation', 'Scission']), true);
+  assert.equal(D.charmFits('サイズミクアクス', ['Gravitation']), true);
+  assert.equal(D.charmFits('アクアゴルゲット', ['Induration']), false);
+  assert.equal(D.CHARM_FTP, 25 / 256);
+});
